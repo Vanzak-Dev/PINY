@@ -1,0 +1,229 @@
+import express from 'express';
+import multer from 'multer';
+import path from 'node:path';
+import { mkdir } from 'node:fs/promises';
+import { changePassword, createSession, parseCookies, readSession, verifyCredentials } from './lib/auth.js';
+import { ensureCatalog, normalizeProduct, normalizeReview, readProducts, readReviews, saveProducts, saveReviews } from './lib/store.js';
+
+const port = Number(process.env.PORT || 8000);
+const uploadDirectory = process.env.UPLOAD_DIR || path.resolve('uploads');
+await mkdir(uploadDirectory, { recursive: true });
+await ensureCatalog();
+
+const mediaStorage = multer.diskStorage({
+  destination: uploadDirectory,
+  filename: (_request, file, callback) => {
+    const extension = path.extname(file.originalname).toLowerCase().replace(/[^.a-z0-9]/g, '');
+    callback(null, `${Date.now()}-${Math.random().toString(36).slice(2)}${extension}`);
+  },
+});
+
+const upload = multer({
+  storage: mediaStorage,
+  limits: { fileSize: 8 * 1024 * 1024 },
+  fileFilter: (_request, file, callback) => callback(null, file.mimetype.startsWith('image/')),
+});
+
+const reviewUpload = multer({
+  storage: mediaStorage,
+  limits: { fileSize: 100 * 1024 * 1024 },
+  fileFilter: (_request, file, callback) => callback(null, file.mimetype.startsWith('video/') || file.mimetype.startsWith('image/')),
+});
+
+const app = express();
+app.disable('x-powered-by');
+app.use(express.json({ limit: '1mb' }));
+app.use('/api/uploads', express.static(uploadDirectory));
+
+function sessionCookie(token) {
+  return `admin_session=${encodeURIComponent(token)}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=28800`;
+}
+
+async function authenticate(request, response, next) {
+  const session = await readSession(parseCookies(request.headers.cookie).admin_session);
+  if (!session) return response.status(401).json({ error: 'Sessão expirada. Entre novamente.' });
+  request.admin = session;
+  next();
+}
+
+async function authorizeCatalog(request, response, next) {
+  if (request.admin.mustChangePassword) return response.status(403).json({ error: 'Troque a senha temporária antes de acessar o catálogo.' });
+  next();
+}
+
+function bodyWithUploads(request, current = {}) {
+  const files = request.files || {};
+  return {
+    ...request.body,
+    image: files.imageFile?.[0] ? `/api/uploads/${files.imageFile[0].filename}` : request.body.image || current.image,
+    backgroundImage: files.backgroundFile?.[0] ? `/api/uploads/${files.backgroundFile[0].filename}` : request.body.backgroundImage || current.backgroundImage,
+    featureLeftImage: files.featureLeftImageFile?.[0] ? `/api/uploads/${files.featureLeftImageFile[0].filename}` : request.body.featureLeftImage || current.featureLeftImage,
+    featureRightImage: files.featureRightImageFile?.[0] ? `/api/uploads/${files.featureRightImageFile[0].filename}` : request.body.featureRightImage || current.featureRightImage,
+    featureProductImage: files.featureProductImageFile?.[0] ? `/api/uploads/${files.featureProductImageFile[0].filename}` : request.body.featureProductImage || current.featureProductImage,
+  };
+}
+
+function validateProduct(product) {
+  if (!product.name) return 'Informe o nome do produto.';
+  if (!product.slug) return 'Informe um slug válido.';
+  if (product.price < 0) return 'O preço não pode ser negativo.';
+  if (!product.image) return 'Envie uma imagem principal.';
+  return '';
+}
+
+function hasConflict(products, product, ignoredId) {
+  return products.some((item) => item.id !== ignoredId && (item.slug === product.slug || (product.sku && item.sku === product.sku)));
+}
+
+function uniqueProductValue(products, baseValue, key) {
+  let value = baseValue;
+  let suffix = 2;
+  while (products.some((product) => product[key] === value)) value = `${baseValue}-${suffix++}`;
+  return value;
+}
+
+app.get('/api/health', (_request, response) => response.json({ status: 'ok' }));
+
+app.get('/api/products', async (request, response) => {
+  const products = await readProducts();
+  const featuredOnly = request.query.featured === 'true';
+  response.json(products.filter((product) => product.status === 'active' && (!featuredOnly || product.featured)));
+});
+
+app.get('/api/reviews', async (_request, response) => {
+  response.json((await readReviews()).filter((review) => review.active));
+});
+
+app.post('/api/auth/login', async (request, response) => {
+  const auth = await verifyCredentials(String(request.body.username || ''), String(request.body.password || ''));
+  if (!auth) return response.status(401).json({ error: 'Usuário ou senha inválidos.' });
+  const token = await createSession();
+  response.setHeader('Set-Cookie', sessionCookie(token));
+  response.json({ username: auth.username, mustChangePassword: auth.mustChangePassword });
+});
+
+app.get('/api/auth/session', authenticate, (request, response) => response.json(request.admin));
+app.post('/api/auth/logout', (_request, response) => {
+  response.setHeader('Set-Cookie', 'admin_session=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0');
+  response.status(204).end();
+});
+
+app.put('/api/auth/password', authenticate, async (request, response) => {
+  try {
+    const changed = await changePassword(String(request.body.currentPassword || ''), String(request.body.newPassword || ''));
+    if (!changed) return response.status(400).json({ error: 'A senha temporária está incorreta.' });
+    const token = await createSession();
+    response.setHeader('Set-Cookie', sessionCookie(token));
+    response.json({ username: request.admin.username, mustChangePassword: false });
+  } catch (error) {
+    response.status(400).json({ error: error.message });
+  }
+});
+
+app.use('/api/admin', authenticate, authorizeCatalog);
+app.get('/api/admin/products', async (_request, response) => response.json(await readProducts()));
+app.get('/api/admin/reviews', async (_request, response) => response.json(await readReviews()));
+
+const reviewMediaUpload = reviewUpload.single('mediaFile');
+app.post('/api/admin/reviews', reviewMediaUpload, async (request, response) => {
+  const media = request.file ? `/api/uploads/${request.file.filename}` : request.body.media;
+  const review = normalizeReview({
+    ...request.body,
+    media,
+    mediaType: request.file?.mimetype.startsWith('image/') ? 'image' : request.body.mediaType || 'video',
+  });
+  if (!review.productId) return response.status(400).json({ error: 'Selecione um produto.' });
+  if (!review.media) return response.status(400).json({ error: 'Envie um vídeo ou uma imagem.' });
+  const reviews = await readReviews();
+  reviews.push(review);
+  await saveReviews(reviews);
+  response.status(201).json(review);
+});
+
+app.put('/api/admin/reviews/:id', reviewMediaUpload, async (request, response) => {
+  const reviews = await readReviews();
+  const index = reviews.findIndex((review) => review.id === request.params.id);
+  if (index < 0) return response.status(404).json({ error: 'Review não encontrado.' });
+  const media = request.file ? `/api/uploads/${request.file.filename}` : request.body.media || reviews[index].media;
+  const review = normalizeReview({
+    ...request.body,
+    media,
+    mediaType: request.file?.mimetype.startsWith('image/') ? 'image' : request.file ? 'video' : reviews[index].mediaType,
+  }, reviews[index]);
+  if (!review.productId) return response.status(400).json({ error: 'Selecione um produto.' });
+  reviews[index] = review;
+  await saveReviews(reviews);
+  response.json(review);
+});
+
+app.delete('/api/admin/reviews/:id', async (request, response) => {
+  const reviews = await readReviews();
+  const nextReviews = reviews.filter((review) => review.id !== request.params.id);
+  if (nextReviews.length === reviews.length) return response.status(404).json({ error: 'Review não encontrado.' });
+  await saveReviews(nextReviews);
+  response.status(204).end();
+});
+
+const productUpload = upload.fields([
+  { name: 'imageFile', maxCount: 1 },
+  { name: 'backgroundFile', maxCount: 1 },
+  { name: 'featureLeftImageFile', maxCount: 1 },
+  { name: 'featureRightImageFile', maxCount: 1 },
+  { name: 'featureProductImageFile', maxCount: 1 },
+]);
+app.post('/api/admin/products', productUpload, async (request, response) => {
+  const products = await readProducts();
+  const product = normalizeProduct(bodyWithUploads(request));
+  const error = validateProduct(product);
+  if (error) return response.status(400).json({ error });
+  if (hasConflict(products, product)) return response.status(409).json({ error: 'Já existe um produto com este slug ou SKU.' });
+  products.push(product);
+  await saveProducts(products);
+  response.status(201).json(product);
+});
+
+app.post('/api/admin/products/:id/duplicate', async (request, response) => {
+  const products = await readProducts();
+  const source = products.find((product) => product.id === request.params.id);
+  if (!source) return response.status(404).json({ error: 'Produto não encontrado.' });
+
+  const duplicate = normalizeProduct({
+    ...source,
+    name: `${source.name} (cópia)`,
+    slug: uniqueProductValue(products, `${source.slug}-copia`, 'slug'),
+    sku: source.sku ? uniqueProductValue(products, `${source.sku}-COPY`, 'sku') : '',
+    status: 'draft',
+  });
+  products.push(duplicate);
+  await saveProducts(products);
+  response.status(201).json(duplicate);
+});
+
+app.put('/api/admin/products/:id', productUpload, async (request, response) => {
+  const products = await readProducts();
+  const index = products.findIndex((product) => product.id === request.params.id);
+  if (index < 0) return response.status(404).json({ error: 'Produto não encontrado.' });
+  const product = normalizeProduct(bodyWithUploads(request, products[index]), products[index]);
+  const error = validateProduct(product);
+  if (error) return response.status(400).json({ error });
+  if (hasConflict(products, product, product.id)) return response.status(409).json({ error: 'Já existe um produto com este slug ou SKU.' });
+  products[index] = product;
+  await saveProducts(products);
+  response.json(product);
+});
+
+app.delete('/api/admin/products/:id', async (request, response) => {
+  const products = await readProducts();
+  const nextProducts = products.filter((product) => product.id !== request.params.id);
+  if (nextProducts.length === products.length) return response.status(404).json({ error: 'Produto não encontrado.' });
+  await saveProducts(nextProducts);
+  response.status(204).end();
+});
+
+app.use((error, _request, response, _next) => {
+  if (error instanceof multer.MulterError) return response.status(400).json({ error: 'A imagem deve ter no máximo 8 MB.' });
+  console.error(error);
+  response.status(500).json({ error: 'Erro interno do catálogo.' });
+});
+
+app.listen(port, '0.0.0.0', () => console.log(`Catalog API listening on ${port}`));

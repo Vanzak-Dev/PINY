@@ -1,0 +1,105 @@
+.carousel-arrow {
+  position: absolute;
+  top: calc(50% - 1.979167vw);
+  z-index: 30;
+  width: 5.104167vw;
+  height: auto;
+  aspect-ratio: 98 / 76;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  transition: transform 180ms ease;
+}
+
+.carousel-arrow--previous {
+  left: 7.8125vw;
+}
+
+.carousel-arrow--next {
+  right: 7.8125vw;
+  transform: scaleX(-1);
+}
+
+.carousel-arrow svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-arrow__front {
+  transform-origin: center;
+  transition: transform 180ms ease;
+}
+
+@media (min-width: 768px) {
+  .carousel-arrow:hover .carousel-arrow__front {
+    transform: translate(0.104167vw, 0.15625vw);
+  }
+
+  .carousel-arrow:active .carousel-arrow__front {
+    transform: translate(0.15625vw, 0.208333vw);
+  }
+}
+
+.carousel-arrow:focus-visible {
+  outline: 0.208333vw solid #1c8c44;
+  outline-offset: 0.260417vw;
+  border-radius: 0.833333vw;
+}
+
+.carousel-arrow__hit-area {
+  position: absolute;
+  inset: -0.416667vw;
+}
+
+.carousel-arrow__mobile-icon {
+  display: none !important;
+}
+
+@media (max-width: 767px) {
+  .carousel-arrow {
+    top: 32vw;
+    width: 8.05925vw;
+    height: 6.25vw;
+    aspect-ratio: auto;
+  }
+
+  .carousel-arrow--previous {
+    left: 20px;
+  }
+
+  .carousel-arrow--next {
+    right: 20px;
+  }
+
+  .carousel-arrow__desktop-icon {
+    display: none !important;
+  }
+
+  .carousel-arrow__mobile-icon {
+    display: block !important;
+    transform: scaleX(-1);
+  }
+
+  .carousel-arrow__hit-area {
+    inset: -2vw;
+  }
+
+  .carousel-arrow:active .carousel-arrow__front {
+    transform: translate(1px, 1px);
+  }
+
+  .carousel-arrow:focus-visible {
+    outline-width: 0.5vw;
+    outline-offset: 0.625vw;
+    border-radius: 1.31575vw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel-arrow,
+  .carousel-arrow__front {
+    transition: none;
+  }
+}
