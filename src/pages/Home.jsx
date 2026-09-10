@@ -1,12 +1,9 @@
 import { useState } from "react";
-import SplitMediaHero from "../sections/home/SplitMediaHero";
+import Hero from "../sections/home/Hero";
 import ProductCarouselSection from "../sections/product/ProductCarouselSection";
 import PineappleFeatureSection from "../sections/brand/PineappleFeatureSection";
 import UgcReviewsSection from "../sections/ugc/UgcReviewsSection";
 import { useProducts } from "../hooks/useProducts";
-import heroLeft from "../assets/images/hero-left.png";
-import heroRight from "../assets/images/hero-right.png";
-import heroOverlay from "../assets/images/piny-overlay.png";
 
 export default function Home() {
   const [addedProduct, setAddedProduct] = useState(null);
@@ -14,14 +11,7 @@ export default function Home() {
 
   return (
     <main>
-      <SplitMediaHero
-        leftMedia={{ type: "image", src: heroLeft }}
-        rightMedia={{ type: "image", src: heroRight }}
-        overlayImage={heroOverlay}
-        leftAlt="Máscara facial PINY"
-        rightAlt="Textura e embalagem da máscara PINY"
-        overlayAlt="PINY"
-      />
+      <Hero />
       <ProductCarouselSection
         products={products}
         initialIndex={2}
