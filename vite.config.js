@@ -7,7 +7,7 @@ export default defineConfig({
     host: true,
     allowedHosts: true,
     proxy: {
-      "/api": "http://api:8000",
+      "/api": process.env.API_PROXY_TARGET || "http://localhost:8000",
     },
   },
 });
