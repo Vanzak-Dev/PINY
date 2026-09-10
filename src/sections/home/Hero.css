@@ -1,0 +1,192 @@
+.hero {
+  position: relative;
+  width: 100%;
+  /* Altura real da tela (100vh/100dvh) em vez de uma proporcao fixa - assim
+     preenche a tela inteira em qualquer aparelho, independente da proporcao. */
+  height: 100vh;
+  height: 100dvh;
+  background-color: #c1f3b6;
+  overflow: hidden;
+}
+
+.hero__media {
+  position: absolute;
+  inset: 0;
+  display: flex;
+}
+
+.hero__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* No mobile o Figma usa so' o video esquerdo, em largura cheia. */
+.hero__video--right {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .hero__video {
+    width: 50%;
+  }
+
+  .hero__video--right {
+    display: block;
+  }
+}
+
+/* O glow radial e' um detalhe so' do layout desktop no Figma. */
+.hero__glow {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .hero__glow {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 61.04%;
+    aspect-ratio: 1 / 1;
+    transform: translate(-50%, -50%);
+    opacity: 0.2;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 70%);
+  }
+}
+
+.hero__leaf {
+  position: absolute;
+}
+
+.hero__leaf img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hero__leaf--1 {
+  left: 69.12%;
+  top: 34.17%;
+  width: 9.12%;
+  aspect-ratio: 69.493 / 73.425;
+  transform: rotate(169.73deg) scaleY(-1);
+}
+
+.hero__leaf--2 {
+  left: 25.32%;
+  top: 59.53%;
+  width: 9.12%;
+  aspect-ratio: 69.493 / 73.425;
+  transform: rotate(10.27deg);
+}
+
+.hero__leaf--3 {
+  left: 0.78%;
+  top: 40.61%;
+  width: 18.69%;
+  aspect-ratio: 142.419 / 150.476;
+  transform: rotate(10.27deg);
+}
+
+.hero__leaf--4 {
+  left: 97.71%;
+  top: 47.49%;
+  width: 22.31%;
+  aspect-ratio: 169.978 / 184.808;
+  transform: rotate(180deg) scaleY(-1);
+}
+
+@media (min-width: 768px) {
+  .hero__leaf--1 {
+    left: 54.9%;
+    top: 32.23%;
+    width: 3.62%;
+  }
+
+  .hero__leaf--2 {
+    left: 39.95%;
+    top: 62.8%;
+    width: 3.62%;
+  }
+
+  .hero__leaf--3 {
+    left: 29.58%;
+    top: 40%;
+    width: 7.42%;
+  }
+
+  .hero__leaf--4 {
+    left: 60.42%;
+    top: 48.29%;
+    width: 8.85%;
+  }
+}
+
+.hero__logo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 74.73%;
+  transform: translate(-50%, -50%);
+}
+
+@media (min-width: 768px) {
+  .hero__logo {
+    top: 40.93%;
+    width: 29.65%;
+    transform: translateX(-50%);
+  }
+}
+
+.hero__logo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Header vem com opacity 0 no design original (estado oculto por design).
+   Mantido fiel ao arquivo original - remova a opacidade se o header devia aparecer. */
+.hero__header {
+  position: absolute;
+  inset: 0;
+  height: 11.19%;
+  opacity: 0;
+}
+
+.hero__nav {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  white-space: nowrap;
+}
+
+.hero__nav-link {
+  margin: 0;
+  color: #1c8c44;
+  font-family: "neulis-neue", sans-serif;
+  font-weight: 500;
+  font-size: 32px;
+  letter-spacing: -1.6px;
+}
+
+.hero__actions {
+  position: absolute;
+  right: 4.17%;
+  top: 3.7%;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.hero__actions img {
+  display: block;
+  width: 28px;
+  height: 28px;
+}
