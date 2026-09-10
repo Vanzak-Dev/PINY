@@ -10,6 +10,7 @@ services:
     environment:
       - __VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS
       - CHOKIDAR_USEPOLLING=true
+      - API_PROXY_TARGET=http://api:8000
     command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
     depends_on:
       api:
