@@ -7,6 +7,7 @@ import { useProducts } from "../hooks/useProducts";
 
 export default function Home() {
   const [addedProduct, setAddedProduct] = useState(null);
+  const [featuredProductId, setFeaturedProductId] = useState(null);
   const { products, error } = useProducts();
 
   return (
@@ -17,8 +18,13 @@ export default function Home() {
         initialIndex={2}
         onAdd={setAddedProduct}
       />
-      <PineappleFeatureSection products={products} />
-      <UgcReviewsSection products={products} onAdd={setAddedProduct} />
+      <PineappleFeatureSection products={products} selectedProductId={featuredProductId} />
+      <UgcReviewsSection
+        products={products}
+        onAdd={setAddedProduct}
+        selectedProductId={featuredProductId}
+        onSelectProduct={setFeaturedProductId}
+      />
       <p role="status" aria-live="polite" hidden={!error}>{error}</p>
       <p role="status" aria-live="polite" hidden={!addedProduct}>
         {addedProduct ? `${addedProduct.name} adicionada ao carrinho.` : ""}

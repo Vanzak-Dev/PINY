@@ -12,8 +12,22 @@ const sharedProductPresentation = {
 };
 
 export const featuredProducts = [
-  { ...sharedProductPresentation, id: 'argila-preta-1', name: 'Argila Preta' },
-  { ...sharedProductPresentation, id: 'argila-rosa', name: 'Argila Rosa' },
+  {
+    ...sharedProductPresentation,
+    id: 'argila-preta-1',
+    name: 'Argila Preta',
+    featurePrice: 89.9,
+    featureBackgroundCenter: '#CFCFCF',
+    featureBackgroundEdge: '#4A4A4A',
+  },
+  {
+    ...sharedProductPresentation,
+    id: 'argila-rosa',
+    name: 'Argila Rosa',
+    featurePrice: 89.9,
+    featureBackgroundCenter: '#FFE1EC',
+    featureBackgroundEdge: '#FF8FB8',
+  },
   {
     ...sharedProductPresentation,
     id: 'argila-branca',
@@ -27,6 +41,13 @@ export const featuredProducts = [
     featureRightImage: '/catalog-assets/pineapple-scatter-right.webp',
     featureProductImage: whiteClayMask,
   },
-  { ...sharedProductPresentation, id: 'argila-verde', name: 'Argila Verde' },
+  {
+    ...sharedProductPresentation,
+    id: 'argila-verde',
+    name: 'Argila Verde',
+    featurePrice: 89.9,
+    featureBackgroundCenter: '#E3FFC2',
+    featureBackgroundEdge: '#7BD957',
+  },
   { ...sharedProductPresentation, id: 'argila-preta-2', name: 'Argila Preta' },
 ];

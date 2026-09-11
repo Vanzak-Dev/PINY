@@ -1,7 +1,7 @@
 .pineapple-product-info {
   position: absolute;
-  top: 7.8125vw;
-  left: calc(23.958333vw - 40px);
+  top: calc(7.8125vw + 30px);
+  left: 16.319444vw;
   width: 18.229167vw;
   height: 18.75vw;
   color: #1c8c44;
@@ -56,6 +56,10 @@
   width: 6.011458vw;
 }
 
+.pineapple-product-info__glyph.is-y {
+  width: 4.970625vw;
+}
+
 .pineapple-product-info__variant {
   margin-top: 1.25vw !important;
   font-family: "Neulis Cursive", cursive;
@@ -82,4 +86,100 @@
   font-weight: 400;
   line-height: normal;
   text-wrap: balance;
+}
+
+@media (max-width: 767px) {
+  .pineapple-product-info {
+    top: 12.213740vw;
+    left: 5.089059vw;
+    right: 5.089059vw;
+    width: auto;
+    height: auto;
+    text-align: center;
+  }
+
+  .pineapple-product-info__tagline {
+    justify-content: center;
+    gap: 1.017812vw;
+    font-family: "Neulis Neue", "neulis-neue", sans-serif;
+    font-size: 3.053435vw;
+    text-transform: uppercase;
+  }
+
+  .pineapple-product-info__tagline > span {
+    width: 3.053435vw;
+    height: .254453vw;
+  }
+
+  .pineapple-product-info__wordmark {
+    height: auto;
+    margin-top: 3.053435vw;
+    align-items: flex-end;
+    justify-content: center;
+    gap: .521374vw;
+  }
+
+  .pineapple-product-info__glyph {
+    height: auto;
+  }
+
+  .pineapple-product-info__glyph.is-p {
+    width: 11.174169vw;
+    height: 15.642494vw;
+  }
+
+  .pineapple-product-info__glyph.is-i {
+    width: 4.966921vw;
+    height: 15.611704vw;
+  }
+
+  .pineapple-product-info__glyph.is-n {
+    width: 14.686005vw;
+    height: 15.611959vw;
+  }
+
+  .pineapple-product-info__glyph.is-y {
+    width: 12.144784vw;
+    height: 15.490840vw;
+  }
+
+  .pineapple-product-info__variant {
+    margin-top: 3.053435vw !important;
+    font-family: "Neulis Neue", "neulis-neue", sans-serif;
+    font-size: 8.142494vw;
+    text-align: center;
+  }
+
+  .pineapple-product-info__divider {
+    margin-top: 3.053435vw;
+    margin-bottom: 0;
+    height: .254453vw;
+  }
+
+  .pineapple-product-info__description {
+    width: calc(100% + 3px);
+    margin-top: 3.053435vw !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    font-family: "Neulis Neue", "neulis-neue", sans-serif;
+    font-size: 4.071247vw;
+    font-weight: 400;
+    text-align: center;
+  }
+
+  .pineapple-product-info__description::before,
+  .pineapple-product-info__description::after {
+    content: "";
+    display: block;
+    width: 3.5px;
+    height: 1.3em;
+  }
+
+  .pineapple-product-info__description::before {
+    float: left;
+  }
+
+  .pineapple-product-info__description::after {
+    float: right;
+  }
 }

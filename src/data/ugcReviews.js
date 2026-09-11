@@ -4,7 +4,7 @@ import reviewThree from '../assets/images/ugc/review-3.webp';
 import reviewFour from '../assets/images/ugc/review-4.webp';
 import reviewFive from '../assets/images/ugc/review-5.webp';
 
-const staticMedia = [reviewOne, reviewTwo, reviewThree, reviewFour, reviewFive];
+const staticMedia = [reviewOne, reviewTwo, reviewThree, reviewFour, reviewFive, reviewOne];
 
 export function buildStaticReviews(products = []) {
   return staticMedia.map((media, index) => ({
