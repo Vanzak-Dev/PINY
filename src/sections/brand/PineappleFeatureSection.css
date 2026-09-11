@@ -1,9 +1,61 @@
 .pineapple-feature {
   position: relative;
+  z-index: 0;
   width: 100%;
   height: calc(35.46875vw + 70px);
   overflow: hidden;
   background: #fff;
+}
+
+@media (min-width: 1400px) {
+  .pineapple-feature {
+    height: calc(35.46875vw + 70px + (100vw - 1400px) * 0.056);
+  }
+}
+
+@media (max-width: 1399px) {
+  .pineapple-feature {
+    height: calc(35.46875vw + 45px);
+  }
+}
+
+.pineapple-feature__panel {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.pineapple-feature__panel.is-incoming {
+  z-index: 2;
+  clip-path: inset(0 0 0 100%);
+  transition: clip-path .9s cubic-bezier(.16, .56, .3, .98);
+}
+
+.pineapple-feature__panel.is-incoming.is-entered {
+  clip-path: inset(0 0 0 0%);
+}
+
+/* The desktop/mobile background is an arched shape, not a full rectangle,
+   so its top corners don't cover the panel's own bounds. The outgoing
+   panel's scatter images intentionally bleed into those corners when it's
+   the only panel on screen, but while a new panel is incoming they'd
+   otherwise keep peeking through that gap after the swap finishes. Cut
+   them away in sync with the incoming panel's own right-to-left sweep,
+   instead of popping out instantly: the right-side scatter gets covered
+   early (the sweep reaches it first) and the left-side one stays until
+   the very end (the sweep only reaches it last). */
+.pineapple-feature__panel:not(.is-incoming) .pineapple-feature__scatter--right {
+  clip-path: inset(0 0 0 0%);
+  transition: clip-path .35s ease-out;
+}
+
+.pineapple-feature__panel:not(.is-incoming) .pineapple-feature__scatter--left {
+  clip-path: inset(0 0 0 0%);
+  transition: clip-path .35s ease-out .55s;
+}
+
+.pineapple-feature.is-transitioning .pineapple-feature__panel:not(.is-incoming) .pineapple-feature__scatter {
+  clip-path: inset(0 0 0 100%);
 }
 
 .pineapple-feature__background {
@@ -12,6 +64,14 @@
   inset: 0;
   width: 100%;
   height: 100%;
+}
+
+.pineapple-feature__background--mobile {
+  display: none;
+}
+
+.pineapple-feature__scatter-mobile {
+  display: none;
 }
 
 .pineapple-feature__scatter {
@@ -52,7 +112,7 @@
   border-radius: 999px;
   color: #1c8c44;
   font-size: 1.5625vw;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1;
   text-transform: uppercase;
   transform: translate(-50%, -12px);
@@ -64,7 +124,7 @@
   left: 50%;
   width: calc(32.291667vw - 25px);
   height: calc(27.083333vw - 25px);
-  transform: translateX(-56%);
+  transform: translateX(calc(-56% + 20px));
 }
 
 .pineapple-feature__product {
@@ -73,7 +133,7 @@
   height: 100%;
   max-width: none;
   object-fit: contain;
-  transform: rotate(15deg);
+  transform: rotate(5deg);
 }
 
 .pineapple-feature__price {
@@ -99,8 +159,8 @@
 
 .pineapple-feature__price::before {
   position: absolute;
-  width: 95.1132%;
-  height: 92.0167%;
+  width: 90.2264%;
+  height: 84.0334%;
   border: .260417vw solid #fff;
   border-radius: 50%;
   content: "";
@@ -124,4 +184,80 @@
   font-style: normal;
   font-weight: 400;
   line-height: 55%;
+}
+
+@media (max-width: 1399px) {
+  .pineapple-feature__price {
+    bottom: 10px;
+  }
+}
+
+@media (max-width: 767px) {
+  .pineapple-feature {
+    height: 166.719430vw;
+  }
+
+  .pineapple-feature__background--desktop {
+    display: none;
+  }
+
+  .pineapple-feature__background--mobile {
+    display: block;
+    height: 173.79135vw;
+  }
+
+  .pineapple-feature__scatter {
+    display: none;
+  }
+
+  .pineapple-feature__scatter-mobile {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    top: 57.251908vw;
+    left: 50%;
+    width: 112.826972vw;
+    aspect-ratio: 963 / 711;
+    max-width: none;
+    transform: translateX(calc(-50% - 15px));
+  }
+
+  .pineapple-feature__label {
+    display: none;
+  }
+
+  .pineapple-feature__product-lockup {
+    top: 64.376590vw;
+    left: 50%;
+    width: 46.310433vw;
+    height: 46.310433vw;
+    transform: translateX(-50%);
+  }
+
+  .pineapple-feature__product {
+    transform: translateX(-15px) translateY(14px) rotate(2deg);
+  }
+
+  .pineapple-feature__price {
+    right: -10px;
+    width: 38.483461vw;
+    aspect-ratio: 151.231 / 75.616;
+    bottom: -6px;
+    font-size: 12.313995vw;
+  }
+
+  .pineapple-feature__price::before {
+    width: 95.113%;
+    height: 92.014%;
+    border-width: .563105vw;
+  }
+
+  .pineapple-feature__currency {
+    margin-right: .662722vw;
+  }
+
+  .pineapple-feature__price small {
+    margin-top: -1.325445vw;
+    font-size: 6.156997vw;
+  }
 }

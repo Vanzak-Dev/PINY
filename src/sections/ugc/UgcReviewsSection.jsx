@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import CarouselArrowButton from '../../components/ui/CarouselArrowButton';
 import { useUgcReviews } from '../../hooks/useUgcReviews';
 import UgcProductPanel from './UgcProductPanel';
@@ -10,15 +10,16 @@ import selectorGreen from '../../assets/images/ugc/selector-green.webp';
 import selectorBlack from '../../assets/images/ugc/selector-black.webp';
 import './UgcReviewsSection.css';
 
-const selectors = [selectorWhite, selectorPink, selectorGreen, selectorBlack];
+const selectors = [
+  { image: selectorWhite, match: 'Branca' },
+  { image: selectorPink, match: 'Rosa' },
+  { image: selectorGreen, match: 'Verde' },
+  { image: selectorBlack, match: 'Preta' },
+];
 const transitionDuration = 800;
 
-function relativePosition(index, activeIndex, length) {
-  let relative = index - activeIndex;
-  const middle = Math.floor(length / 2);
-  if (relative > middle) relative -= length;
-  if (relative < -middle) relative += length;
-  return relative;
+function normalizeIndex(index, length) {
+  return ((index % length) + length) % length;
 }
 
 function mediaElement(review) {
@@ -28,69 +29,99 @@ function mediaElement(review) {
   return <img src={review.media} alt={review.title || 'Review da comunidade PINY'} />;
 }
 
-export default function UgcReviewsSection({ products, onAdd }) {
+export default function UgcReviewsSection({ products, onAdd, selectedProductId, onSelectProduct }) {
   const reviews = useUgcReviews(products);
-  const [activeIndex, setActiveIndex] = useState(Math.min(2, reviews.length - 1));
+  const reviewCount = reviews.length;
+  const selectorProducts = selectors.map((selector) => (
+    products.find((item) => item.name?.includes(selector.match))
+  ));
+  const activeFeaturedProduct = products.find((item) => item.id === selectedProductId)
+    || products.find((item) => item.featureEnabled);
+
+  const [activePosition, setActivePosition] = useState(() => reviewCount + Math.max(Math.min(2, reviewCount - 1), 0));
   const [isMoving, setIsMoving] = useState(false);
-  const [repositioningIds, setRepositioningIds] = useState([]);
+  const [transitionEnabled, setTransitionEnabled] = useState(true);
   const movementTimer = useRef(null);
-  const repositionFrame = useRef(null);
+
+  const loopedReviews = useMemo(
+    () => (reviewCount ? [...reviews, ...reviews, ...reviews] : []),
+    [reviews, reviewCount],
+  );
 
   useEffect(() => {
-    setActiveIndex((current) => Math.min(current, Math.max(reviews.length - 1, 0)));
-  }, [reviews.length]);
+    if (!reviewCount) return undefined;
+    setTransitionEnabled(false);
+    setActivePosition(reviewCount + Math.max(Math.min(2, reviewCount - 1), 0));
+    const frame = window.requestAnimationFrame(() => setTransitionEnabled(true));
+    return () => window.cancelAnimationFrame(frame);
+  }, [reviewCount]);
 
-  useEffect(() => () => {
-    window.clearTimeout(movementTimer.current);
-    window.cancelAnimationFrame(repositionFrame.current);
-  }, []);
+  useEffect(() => () => window.clearTimeout(movementTimer.current), []);
+
+  useEffect(() => {
+    if (!isMoving || !reviewCount) return undefined;
+
+    movementTimer.current = window.setTimeout(() => {
+      if (activePosition < reviewCount || activePosition >= reviewCount * 2) {
+        setTransitionEnabled(false);
+        setActivePosition(reviewCount + normalizeIndex(activePosition, reviewCount));
+        window.requestAnimationFrame(() => window.requestAnimationFrame(() => setTransitionEnabled(true)));
+      }
+      setIsMoving(false);
+    }, transitionDuration);
+
+    return () => window.clearTimeout(movementTimer.current);
+  }, [activePosition, isMoving, reviewCount]);
+
+  if (!reviewCount) return null;
+
+  const activeIndex = normalizeIndex(activePosition, reviewCount);
 
   const move = (step) => {
-    if (isMoving || reviews.length < 2) return;
-
-    const nextIndex = (activeIndex + step + reviews.length) % reviews.length;
-    const wrapping = reviews
-      .filter((review, index) => Math.abs(
-        relativePosition(index, nextIndex, reviews.length) - relativePosition(index, activeIndex, reviews.length),
-      ) > 1)
-      .map((review) => review.id);
-
+    if (isMoving) return;
     setIsMoving(true);
-    setRepositioningIds(wrapping);
-    setActiveIndex(nextIndex);
-
-    repositionFrame.current = window.requestAnimationFrame(() => {
-      repositionFrame.current = window.requestAnimationFrame(() => setRepositioningIds([]));
-    });
-    movementTimer.current = window.setTimeout(() => setIsMoving(false), transitionDuration);
+    setActivePosition((current) => current + step);
   };
 
   return (
-    <section className={`ugc-reviews${isMoving ? ' is-moving' : ''}`} aria-label="Reviews da comunidade PINY">
+    <section className="ugc-reviews" aria-label="Reviews da comunidade PINY">
       <UgcBackgroundPattern />
-      <div className="ugc-reviews__selectors" aria-hidden="true">
-        {selectors.map((selector, index) => (
-          <span className={`ugc-reviews__selector${index === 0 ? ' is-highlighted' : ''}`} key={selector}>
-            <img src={selector} alt="" />
-          </span>
-        ))}
+      <div className="ugc-reviews__selectors">
+        {selectors.map((selector, index) => {
+          const selectorProduct = selectorProducts[index];
+          const isHighlighted = Boolean(selectorProduct) && selectorProduct.id === activeFeaturedProduct?.id;
+          return (
+            <button
+              type="button"
+              className={`ugc-reviews__selector${isHighlighted ? ' is-highlighted' : ''}`}
+              key={selector.match}
+              disabled={!selectorProduct}
+              aria-label={selectorProduct ? `Ver ${selectorProduct.name} em destaque` : undefined}
+              aria-pressed={isHighlighted}
+              onClick={() => selectorProduct && onSelectProduct?.(selectorProduct.id)}
+            >
+              <img src={selector.image} alt="" />
+            </button>
+          );
+        })}
       </div>
 
       <PinyLoversLogo />
 
       <div className="ugc-reviews__carousel">
         <div className="ugc-reviews__stage">
-          {reviews.map((review, index) => {
-            const relative = relativePosition(index, activeIndex, reviews.length);
+          {loopedReviews.map((review, position) => {
+            const relative = position - activePosition;
             const distance = Math.abs(relative);
-            if (distance > 2) return null;
-            const product = products.find((item) => item.id === review.productId) || products[index % products.length];
+            const isFar = distance > 2;
+            const product = products.find((item) => item.id === review.productId) || products[position % products.length];
             return (
               <article
-                className={`ugc-review-card${relative === 0 ? ' is-active' : ''}${repositioningIds.includes(review.id) ? ' is-repositioning' : ''}`}
-                data-relative={relative}
+                className={`ugc-review-card${relative === 0 ? ' is-active' : ''}${isFar ? ' is-far' : ''}${transitionEnabled ? '' : ' is-repositioning'}`}
+                data-relative={distance <= 2 ? relative : undefined}
+                aria-hidden={isFar}
                 style={{ '--ugc-relative': relative }}
-                key={review.id}
+                key={`${review.id}-${position}`}
               >
                 <div className="ugc-review-card__media">{mediaElement(review)}</div>
                 <UgcProductPanel product={product} onAdd={onAdd} isActive={relative === 0} />
@@ -101,7 +132,7 @@ export default function UgcReviewsSection({ products, onAdd }) {
         <CarouselArrowButton direction="previous" label="Ver review anterior" onClick={() => move(-1)} />
         <CarouselArrowButton direction="next" label="Ver próximo review" onClick={() => move(1)} />
       </div>
-      <p className="ugc-reviews__position" aria-live="polite">Review {activeIndex + 1} de {reviews.length}</p>
+      <p className="ugc-reviews__position" aria-live="polite">Review {activeIndex + 1} de {reviewCount}</p>
     </section>
   );
 }

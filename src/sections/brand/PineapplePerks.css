@@ -1,0 +1,129 @@
+.pineapple-perks {
+  position: absolute;
+  top: calc(9.375vw + 30px);
+  right: 14.0625vw;
+  display: flex;
+  width: 13.5vw;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.666667vw;
+}
+
+.pineapple-perks__grid {
+  display: grid;
+  width: 13.5vw;
+  grid-template-columns: repeat(2, 6vw);
+  column-gap: 1.5vw;
+  row-gap: 1.5vw;
+}
+
+.pineapple-perks__item {
+  display: flex;
+  width: 6vw;
+  flex-direction: column;
+  align-items: center;
+  gap: .520833vw;
+}
+
+.pineapple-perks__item:nth-child(4) {
+  width: 7.5vw;
+}
+
+.pineapple-perks__icon-wrap {
+  display: flex;
+  position: relative;
+  width: 5vw;
+  height: 5vw;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #1c8c44;
+}
+
+.pineapple-perks__icon-wrap::before {
+  content: "";
+  position: absolute;
+  inset: .338542vw;
+  border: .15625vw solid #fff;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.pineapple-perks__icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.pineapple-perks__label {
+  align-self: stretch;
+  margin: 0;
+  color: #1c8c44;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-size: .833333vw;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 110%;
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  .pineapple-perks {
+    top: 131.615775vw;
+    right: auto;
+    bottom: auto;
+    left: 0;
+    width: 100%;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 0 5.089059vw;
+    gap: 0;
+  }
+
+  .pineapple-perks__grid {
+    display: contents;
+  }
+
+  .pineapple-perks__item {
+    width: 19.847328vw;
+    gap: 1.526718vw;
+  }
+
+  .pineapple-perks__item:nth-child(1) {
+    order: 2;
+  }
+
+  .pineapple-perks__item:nth-child(2) {
+    order: 4;
+  }
+
+  .pineapple-perks__item:nth-child(3) {
+    order: 1;
+  }
+
+  .pineapple-perks__item:nth-child(4) {
+    order: 3;
+    width: 16.5vw;
+  }
+
+  .pineapple-perks__icon-wrap {
+    width: 15.267176vw;
+    height: 15.267176vw;
+  }
+
+  .pineapple-perks__icon-wrap::before {
+    inset: 1.033868vw;
+    border-width: .477099vw;
+  }
+
+  .pineapple-perks__label {
+    font-size: 2.544529vw;
+  }
+}
+
+@media (max-width: 399px) {
+  .pineapple-perks {
+    top: calc(131.615775vw - 8px);
+  }
+}
