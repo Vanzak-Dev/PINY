@@ -54,6 +54,7 @@ export default function ProductCategoriesSection({ products, onAdd }) {
     pages.flatMap((page, pageIndex) => page.map((product, index) => ({
       product,
       key: `${pageIndex}-${index}-${product.id}`,
+      isPageStart: index === 0,
     })))
   ), [pages]);
 
@@ -84,14 +85,24 @@ export default function ProductCategoriesSection({ products, onAdd }) {
     const track = trackRef.current;
     if (!track) return;
     window.clearTimeout(isProgrammaticScroll.current);
-    isProgrammaticScroll.current = window.setTimeout(() => { isProgrammaticScroll.current = null; }, 600);
+    // CSS scroll-snap fights a JS-driven smooth scrollTo (Chrome/Safari can
+    // resolve the snap instantly, skipping the animation), so snapping is
+    // suspended for the duration of the animated scroll and restored after.
+    track.classList.add('is-settling');
+    isProgrammaticScroll.current = window.setTimeout(() => {
+      isProgrammaticScroll.current = null;
+      track.classList.remove('is-settling');
+    }, 600);
     track.scrollTo({ left: page * track.clientWidth, behavior: 'smooth' });
     setActivePage(page);
   };
 
   const handlePointerDown = (event) => {
     const track = trackRef.current;
-    if (!track || event.pointerType === 'touch') return;
+    if (!track) return;
+    window.clearTimeout(isProgrammaticScroll.current);
+    isProgrammaticScroll.current = null;
+    track.classList.add('is-settling');
     dragRef.current = { startX: event.clientX, startScrollLeft: track.scrollLeft, moved: false };
     track.setPointerCapture(event.pointerId);
   };
@@ -116,6 +127,8 @@ export default function ProductCategoriesSection({ products, onAdd }) {
         ? Math.min(pageCount - 1, Math.max(0, Math.round(track.scrollLeft / pageWidth)))
         : currentPage;
       goToPage(page);
+    } else {
+      track.classList.remove('is-settling');
     }
     try { track.releasePointerCapture(event.pointerId); } catch { /* pointer already released */ }
   };
@@ -161,8 +174,11 @@ export default function ProductCategoriesSection({ products, onAdd }) {
         onPointerLeave={endDrag}
         onPointerCancel={endDrag}
       >
-        {trackItems.map(({ product, key }) => (
-          <div className="product-categories__card" key={key}>
+        {trackItems.map(({ product, key, isPageStart }) => (
+          <div
+            className={`product-categories__card${isPageStart ? ' is-page-start' : ''}`}
+            key={key}
+          >
             <ProductCard product={product} onAdd={onAdd} />
           </div>
         ))}
