@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import AdminPage from "./pages/AdminPage";
+import AnnouncementBar from "./components/global/AnnouncementBar";
 import Home from "./pages/Home";
+import ProductPage from "./pages/ProductPage";
 
 export default function App() {
   const [pathname, setPathname] = useState(window.location.pathname);
@@ -15,5 +17,16 @@ export default function App() {
     };
   }, []);
 
-  return pathname.startsWith("/admin") ? <AdminPage /> : <Home />;
+  if (pathname.startsWith("/admin")) return <AdminPage />;
+
+  const page = pathname.startsWith("/produtos/")
+    ? <ProductPage productIdentifier={decodeURIComponent(pathname.split("/produtos/")[1])} />
+    : <Home />;
+
+  return (
+    <>
+      <AnnouncementBar />
+      {page}
+    </>
+  );
 }

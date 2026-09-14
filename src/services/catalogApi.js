@@ -6,7 +6,12 @@ async function request(path, options = {}) {
 }
 
 export const catalogApi = {
+  getSettings: () => request('/api/settings'),
+  getAdminSettings: () => request('/api/admin/settings'),
+  updateSettings: (settings) => request('/api/admin/settings', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(settings) }),
+  listProducts: ({ featuredOnly = false } = {}) => request(`/api/products${featuredOnly ? '?featured=true' : ''}`),
   listFeatured: () => request('/api/products?featured=true'),
+  getProduct: (identifier) => request(`/api/products/${encodeURIComponent(identifier)}`),
   listAdmin: () => request('/api/admin/products'),
   listReviews: () => request('/api/reviews'),
   listReviewsAdmin: () => request('/api/admin/reviews'),

@@ -1,0 +1,30 @@
+.product-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--badge-color, #1c8c44);
+  color: var(--badge-text, var(--badge-color, #1c8c44));
+  font-family: "neulis-neue", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.product-badge--outline {
+  background: transparent;
+}
+
+.product-badge--solid {
+  background: var(--badge-color, #1c8c44);
+  font-weight: 700;
+}
+
+@media (max-width: 767px) {
+  .product-badge {
+    padding: clamp(5px, 1.6vw, 7px) clamp(9px, 2.8vw, 12px);
+    font-size: clamp(10px, 3vw, 13px);
+  }
+}

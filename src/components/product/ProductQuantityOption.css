@@ -1,0 +1,191 @@
+.quantity-option {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.quantity-option__box {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border: 4px dashed #85e86f;
+  border-radius: 16px;
+  background: #e8fce0;
+  box-shadow: 4px 4px 0 #85e86f;
+  color: #1c8c44;
+  cursor: pointer;
+  font-family: "neulis-neue", sans-serif;
+  transition: transform 150ms ease;
+}
+
+.quantity-option__box:active {
+  transform: translate(1px, 1px);
+}
+
+.quantity-option__box--selected {
+  border-color: #1c8c44;
+  border-style: solid;
+  background: #85e86f;
+  box-shadow: 4px 4px 0 #1c8c44;
+  color: #fff;
+}
+
+.quantity-option__icons {
+  position: relative;
+  display: block;
+  width: 96px;
+  height: 52px;
+  transform: translateY(6px);
+}
+
+.quantity-option__icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  display: block;
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  transform: translate(-50%, -50%);
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.quantity-option__icons--2 .quantity-option__icon:first-child {
+  left: calc(50% - 17px);
+  width: 40px;
+  height: 40px;
+  transform: translate(-50%, -50%) rotate(-15deg);
+}
+
+.quantity-option__icons--2 .quantity-option__icon:nth-child(2) {
+  left: calc(50% + 7px);
+  z-index: 2;
+  transform: translate(-50%, -50%) rotate(7.5deg);
+}
+
+.quantity-option__icons--3 .quantity-option__icon:first-child,
+.quantity-option__icons--3 .quantity-option__icon:nth-child(2) {
+  width: 40px;
+  height: 40px;
+}
+
+.quantity-option__icons--3 .quantity-option__icon:first-child {
+  left: calc(50% - 23px);
+  transform: translate(-50%, -50%) rotate(-15deg);
+}
+
+.quantity-option__icons--3 .quantity-option__icon:nth-child(2) {
+  left: calc(50% + 24px);
+  transform: translate(-50%, -50%) rotate(15deg);
+}
+
+.quantity-option__icons--3 .quantity-option__icon:nth-child(3) {
+  left: calc(50% + 1px);
+  z-index: 2;
+}
+
+.quantity-option__label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  line-height: 1;
+}
+
+.quantity-option__label strong {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.quantity-option__label span {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.quantity-option__tag {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #85e86f;
+  color: #1c8c44;
+  font-family: "neulis-neue", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.quantity-option__tag--selected {
+  background: #1c8c44;
+  color: #fff;
+}
+
+@media (max-width: 640px) {
+  .quantity-option__box {
+    gap: clamp(7px, 2.4vw, 10px);
+    padding: clamp(7px, 2.4vw, 10px) clamp(4px, 1.8vw, 8px);
+    border-width: clamp(2px, .75vw, 3px);
+    border-radius: clamp(10px, 3.25vw, 14px);
+    box-shadow: clamp(2px, .75vw, 3px) clamp(2px, .75vw, 3px) 0 #85e86f;
+  }
+
+  .quantity-option__box--selected {
+    box-shadow: clamp(2px, .75vw, 3px) clamp(2px, .75vw, 3px) 0 #1c8c44;
+  }
+
+  .quantity-option__icons {
+    width: clamp(52px, 17vw, 72px);
+    height: clamp(32px, 10vw, 42px);
+    transform: translateY(4px);
+  }
+
+  .quantity-option__icon {
+    width: clamp(32px, 10vw, 42px);
+    height: clamp(32px, 10vw, 42px);
+  }
+
+  .quantity-option__icons--2 .quantity-option__icon:first-child,
+  .quantity-option__icons--3 .quantity-option__icon:first-child,
+  .quantity-option__icons--3 .quantity-option__icon:nth-child(2) {
+    width: clamp(24px, 7.5vw, 31px);
+    height: clamp(24px, 7.5vw, 31px);
+  }
+
+  .quantity-option__icons--2 .quantity-option__icon:first-child {
+    left: calc(50% - 12px);
+  }
+
+  .quantity-option__icons--2 .quantity-option__icon:nth-child(2) {
+    left: calc(50% + 5px);
+  }
+
+  .quantity-option__icons--3 .quantity-option__icon:first-child {
+    left: calc(50% - 17px);
+  }
+
+  .quantity-option__icons--3 .quantity-option__icon:nth-child(2) {
+    left: calc(50% + 18px);
+  }
+
+  .quantity-option__label strong {
+    font-size: clamp(15px, 4.5vw, 19px);
+  }
+
+  .quantity-option__label span {
+    font-size: clamp(11px, 3.4vw, 14px);
+  }
+
+  .quantity-option__tag {
+    top: clamp(-11px, -2.5vw, -8px);
+    padding: clamp(4px, 1.25vw, 6px) clamp(6px, 2vw, 9px);
+    font-size: clamp(9px, 2.7vw, 12px);
+  }
+}

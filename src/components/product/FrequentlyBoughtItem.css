@@ -1,0 +1,118 @@
+.fbt-item {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border-radius: 24px;
+  background: #e8fce0;
+  scroll-snap-align: start;
+}
+
+.fbt-item__info {
+  display: flex;
+  min-width: 0;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 8px;
+  font-family: "neulis-neue", sans-serif;
+}
+
+.fbt-item__name {
+  margin: 0;
+  overflow: hidden;
+  color: #000b06;
+  font-size: 24px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fbt-item__prices {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.fbt-item__prices span {
+  color: #000b06;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.fbt-item__prices del {
+  color: rgba(0, 11, 6, 0.5);
+  font-size: 18px;
+  font-weight: 300;
+}
+
+.fbt-item__add {
+  width: 98px;
+  height: 76px;
+  flex: 0 0 auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.fbt-item__add svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.fbt-item__add .add-to-cart-icon__front {
+  transform-origin: center;
+  transition: transform 180ms ease;
+}
+
+@media (min-width: 768px) {
+  .fbt-item__add:hover .add-to-cart-icon__front {
+    transform: translate(1px, 1.5px);
+  }
+}
+
+@media (max-width: 767px) {
+  .fbt-item {
+    width: clamp(224px, 66vw, 284px);
+    padding: 8px;
+    gap: clamp(8px, 2.5vw, 12px);
+    border-radius: clamp(16px, 5vw, 22px);
+  }
+
+  .fbt-item__info {
+    gap: clamp(4px, 1.5vw, 7px);
+  }
+
+  .fbt-item__name {
+    overflow: visible;
+    font-size: clamp(14px, 4vw, 18px);
+    line-height: 1;
+    text-overflow: clip;
+    white-space: nowrap;
+  }
+
+  .fbt-item__prices {
+    gap: 4px;
+  }
+
+  .fbt-item__prices span {
+    font-size: clamp(14px, 4vw, 18px);
+  }
+
+  .fbt-item__prices del {
+    display: none;
+  }
+
+  .fbt-item__add {
+    width: clamp(44px, 12.5vw, 56px);
+    height: clamp(36px, 10.5vw, 46px);
+  }
+
+  .fbt-item .product-icon-badge {
+    width: clamp(52px, 16vw, 68px);
+    height: clamp(52px, 16vw, 68px);
+  }
+}

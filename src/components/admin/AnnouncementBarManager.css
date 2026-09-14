@@ -1,0 +1,127 @@
+.admin-announcement {
+  margin: 24px 4vw 0;
+  overflow: hidden;
+}
+
+.admin-announcement__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px;
+  border-bottom: 1px solid var(--admin-line);
+}
+
+.admin-announcement__heading h2,
+.admin-announcement__preview p {
+  margin: 0;
+}
+
+.admin-announcement__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+}
+
+.admin-announcement__form {
+  display: grid;
+  grid-template-columns: minmax(260px, 2fr) repeat(3, minmax(170px, 1fr)) auto;
+  align-items: end;
+  gap: 16px;
+  padding: 22px;
+}
+
+.admin-announcement__form label {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 7px;
+  color: var(--admin-ink);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.admin-announcement__form small {
+  color: #5d6b62;
+  font-weight: 500;
+}
+
+.admin-announcement__form input,
+.admin-announcement__form textarea {
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--admin-line);
+  border-radius: 9px;
+  color: var(--admin-ink);
+  background: #fff;
+}
+
+.admin-announcement__form textarea {
+  resize: vertical;
+}
+
+.admin-announcement__color-field,
+.admin-announcement__speed-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.admin-announcement__color-field input[type="color"] {
+  width: 44px;
+  height: 40px;
+  flex: 0 0 auto;
+  padding: 3px;
+}
+
+.admin-announcement__color-field input:not([type="color"]) {
+  width: 100%;
+}
+
+.admin-announcement__speed-field input[type="range"] {
+  width: 100%;
+  padding: 0;
+}
+
+.admin-announcement__speed-field input[type="number"] {
+  width: 70px;
+}
+
+.admin-announcement__preview {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 22px 22px;
+  font-weight: 700;
+}
+
+.admin-announcement__preview .announcement-bar {
+  border-radius: 8px;
+}
+
+@media (max-width: 1100px) {
+  .admin-announcement__form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .admin-announcement__messages {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .admin-announcement__heading,
+  .admin-announcement__form {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-announcement__heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .admin-announcement__messages {
+    grid-column: auto;
+  }
+}

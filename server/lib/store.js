@@ -5,7 +5,21 @@ import { randomUUID } from 'node:crypto';
 const dataDirectory = process.env.DATA_DIR || path.resolve('data');
 const catalogPath = path.join(dataDirectory, 'products.json');
 const reviewsPath = path.join(dataDirectory, 'reviews.json');
+const settingsPath = path.join(dataDirectory, 'site-settings.json');
 const seedPath = path.resolve('seeds/products.json');
+
+const defaultSiteSettings = {
+  announcementBar: {
+    enabled: true,
+    messages: [
+      'Frete grátis acima de R$199',
+      'Aproveite 10% OFF na sua primeira compra',
+    ],
+    backgroundColor: '#fff547',
+    textColor: '#1c8c44',
+    speed: 24,
+  },
+};
 
 async function writeJson(filePath, value) {
   const temporaryPath = `${filePath}.tmp`;
@@ -21,6 +35,54 @@ export async function ensureCatalog() {
     const seed = JSON.parse(await readFile(seedPath, 'utf8'));
     await writeJson(catalogPath, seed);
   }
+}
+
+export async function ensureSiteSettings() {
+  await mkdir(dataDirectory, { recursive: true });
+  try {
+    await readFile(settingsPath, 'utf8');
+  } catch {
+    await writeJson(settingsPath, defaultSiteSettings);
+  }
+}
+
+export async function readSiteSettings() {
+  await ensureSiteSettings();
+  const stored = JSON.parse(await readFile(settingsPath, 'utf8'));
+  return normalizeSiteSettings(stored, defaultSiteSettings);
+}
+
+export async function saveSiteSettings(settings) {
+  const normalized = normalizeSiteSettings(settings, defaultSiteSettings);
+  await writeJson(settingsPath, normalized);
+  return normalized;
+}
+
+export function normalizeSiteSettings(input = {}, current = defaultSiteSettings) {
+  const source = input.announcementBar || {};
+  const previous = current.announcementBar || defaultSiteSettings.announcementBar;
+  const enabled = source.enabled === true || source.enabled === 'true'
+    ? true
+    : source.enabled === false || source.enabled === 'false'
+      ? false
+      : previous.enabled;
+  const messagesInput = Array.isArray(source.messages)
+    ? source.messages
+    : typeof source.messages === 'string'
+      ? source.messages.split(/\r?\n/)
+      : previous.messages;
+  const messages = messagesInput.map((message) => String(message).trim()).filter(Boolean).slice(0, 12);
+  const speedValue = Number(source.speed);
+
+  return {
+    announcementBar: {
+      enabled,
+      messages: messages.length ? messages : defaultSiteSettings.announcementBar.messages,
+      backgroundColor: String(source.backgroundColor || previous.backgroundColor || '#fff547').trim(),
+      textColor: String(source.textColor || previous.textColor || '#1c8c44').trim(),
+      speed: Number.isFinite(speedValue) ? Math.min(120, Math.max(8, speedValue)) : previous.speed,
+    },
+  };
 }
 
 export async function readProducts() {
@@ -70,6 +132,16 @@ export function normalizeProduct(input, current = {}) {
   const now = new Date().toISOString();
   const number = (value, fallback = 0) => Number.isFinite(Number(value)) ? Number(value) : fallback;
   const boolean = (value, fallback = false) => value === true || value === 'true' ? true : value === false || value === 'false' ? false : fallback;
+  const array = (value, fallback = []) => {
+    if (Array.isArray(value)) return value;
+    if (typeof value !== 'string' || !value.trim()) return fallback;
+    try {
+      const parsed = JSON.parse(value);
+      return Array.isArray(parsed) ? parsed : fallback;
+    } catch {
+      return fallback;
+    }
+  };
   const slug = String(input.slug || input.name || current.slug || '')
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
     .replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
@@ -84,6 +156,22 @@ export function normalizeProduct(input, current = {}) {
     category: String(input.category ?? current.category ?? '').trim(),
     shortDescription: String(input.shortDescription ?? current.shortDescription ?? '').trim(),
     description: String(input.description ?? current.description ?? '').trim(),
+    reviewCount: String(input.reviewCount ?? current.reviewCount ?? '').trim(),
+    badges: array(input.badges, current.badges ?? [])
+      .map((badge) => ({
+        label: String(badge?.label || '').trim(),
+        tone: badge?.tone === 'solid' ? 'solid' : 'outline',
+        color: String(badge?.color || '#1c8c44').trim(),
+      }))
+      .filter((badge) => badge.label),
+    quantityOptions: array(input.quantityOptions, current.quantityOptions ?? [])
+      .map((option) => ({
+        quantity: Math.max(1, Math.round(number(option?.quantity, 1))),
+        price: Math.max(0, number(option?.price, 0)),
+        discountLabel: String(option?.discountLabel || '').trim(),
+      }))
+      .filter((option) => option.price > 0),
+    crossSellIds: [...new Set(array(input.crossSellIds, current.crossSellIds ?? []).map(String).filter(Boolean))],
     price: number(input.price, current.price ?? 0),
     oldPrice: input.oldPrice === '' ? null : number(input.oldPrice, current.oldPrice ?? 0) || null,
     costPrice: input.costPrice === '' ? null : number(input.costPrice, current.costPrice ?? 0) || null,

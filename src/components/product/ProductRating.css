@@ -1,0 +1,30 @@
+.product-rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.product-rating__stars {
+  display: block;
+  width: 109px;
+  height: 25px;
+}
+
+.product-rating__count {
+  color: #121212;
+  font-family: "neulis-neue", sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+  .product-rating__stars {
+    width: clamp(82px, 24vw, 104px);
+    height: clamp(19px, 5.6vw, 24px);
+  }
+
+  .product-rating__count {
+    font-size: clamp(12px, 3.5vw, 15px);
+  }
+}
