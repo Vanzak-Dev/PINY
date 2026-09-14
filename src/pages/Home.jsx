@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Hero from "../sections/home/Hero";
+import ProductCategoriesSection from "../sections/product/ProductCategoriesSection";
 import ProductCarouselSection from "../sections/product/ProductCarouselSection";
 import PineappleFeatureSection from "../sections/brand/PineappleFeatureSection";
 import UgcReviewsSection from "../sections/ugc/UgcReviewsSection";
@@ -25,6 +26,7 @@ export default function Home() {
         selectedProductId={featuredProductId}
         onSelectProduct={setFeaturedProductId}
       />
+      <ProductCategoriesSection products={products} onAdd={setAddedProduct} />
       <p role="status" aria-live="polite" hidden={!error}>{error}</p>
       <p role="status" aria-live="polite" hidden={!addedProduct}>
         {addedProduct ? `${addedProduct.name} adicionada ao carrinho.` : ""}
