@@ -1,0 +1,21 @@
+.product-icon-badge {
+  display: flex;
+  width: var(--badge-size, 96px);
+  height: var(--badge-size, 96px);
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #ffe908 50%, #efbe11 100%);
+}
+
+.product-icon-badge img {
+  display: block;
+  width: 82%;
+  height: 82%;
+  object-fit: contain;
+  transform: rotate(15deg);
+  user-select: none;
+  -webkit-user-drag: none;
+}

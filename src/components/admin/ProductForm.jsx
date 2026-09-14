@@ -1,7 +1,26 @@
 import { useEffect, useState } from 'react';
+import ProductCardPreview from './ProductCardPreview';
+
+function useObjectUrl(file) {
+  const [url, setUrl] = useState('');
+
+  useEffect(() => {
+    if (!file) {
+      setUrl('');
+      return undefined;
+    }
+
+    const objectUrl = URL.createObjectURL(file);
+    setUrl(objectUrl);
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [file]);
+
+  return url;
+}
 
 const emptyProduct = {
   name: '', slug: '', sku: '', status: 'active', featured: true, category: '', shortDescription: '', description: '',
+  reviewCount: '', badges: [], quantityOptions: [{ quantity: 1, price: '', discountLabel: '' }], crossSellIds: [],
   price: '', oldPrice: '', costPrice: '', stock: 0, trackStock: true, tags: '', image: '', backgroundImage: '',
   backgroundColor: '#b8efad', imageRestRotation: 0, imageActiveRotation: 15,
   featureEnabled: false, featureLabel: '', featurePrice: '', featureBackgroundCenter: '#F3FD5A', featureBackgroundEdge: '#FFD72F',
@@ -9,7 +28,7 @@ const emptyProduct = {
   dimensions: { length: '', width: '', height: '' }, seoTitle: '', seoDescription: '',
 };
 
-export default function ProductForm({ product, onSave, onCancel }) {
+export default function ProductForm({ product, products = [], onSave, onCancel }) {
   const [values, setValues] = useState(emptyProduct);
   const [imageFile, setImageFile] = useState(null);
   const [backgroundFile, setBackgroundFile] = useState(null);
@@ -18,20 +37,48 @@ export default function ProductForm({ product, onSave, onCancel }) {
   const [featureProductImageFile, setFeatureProductImageFile] = useState(null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
+  const imagePreview = useObjectUrl(imageFile);
+  const backgroundPreview = useObjectUrl(backgroundFile);
 
   useEffect(() => {
-    setValues(product ? { ...emptyProduct, ...product, tags: product.tags?.join(', ') || '', dimensions: { ...emptyProduct.dimensions, ...product.dimensions } } : emptyProduct);
+    setValues(product ? {
+      ...emptyProduct,
+      ...product,
+      tags: product.tags?.join(', ') || '',
+      badges: product.badges || [],
+      quantityOptions: product.quantityOptions?.length
+        ? product.quantityOptions
+        : [{ quantity: 1, price: product.price ?? '', discountLabel: '' }],
+      crossSellIds: product.crossSellIds || [],
+      dimensions: { ...emptyProduct.dimensions, ...product.dimensions },
+    } : emptyProduct);
     setImageFile(null); setBackgroundFile(null); setFeatureLeftImageFile(null); setFeatureRightImageFile(null); setFeatureProductImageFile(null); setError('');
   }, [product]);
 
   const change = (key, value) => setValues((current) => ({ ...current, [key]: value }));
   const changeDimension = (key, value) => setValues((current) => ({ ...current, dimensions: { ...current.dimensions, [key]: value } }));
+  const changeCollectionItem = (key, index, field, value) => setValues((current) => ({
+    ...current,
+    [key]: current[key].map((item, itemIndex) => itemIndex === index ? { ...item, [field]: value } : item),
+  }));
+  const addCollectionItem = (key, item) => setValues((current) => ({ ...current, [key]: [...current[key], item] }));
+  const removeCollectionItem = (key, index) => setValues((current) => ({
+    ...current,
+    [key]: current[key].filter((_, itemIndex) => itemIndex !== index),
+  }));
+  const toggleCrossSell = (id) => setValues((current) => ({
+    ...current,
+    crossSellIds: current.crossSellIds.includes(id)
+      ? current.crossSellIds.filter((productId) => productId !== id)
+      : [...current.crossSellIds, id],
+  }));
 
   const submit = async (event) => {
     event.preventDefault(); setSaving(true); setError('');
     const data = new FormData();
     Object.entries(values).forEach(([key, value]) => {
       if (key === 'dimensions') Object.entries(value).forEach(([dimension, amount]) => data.append(dimension, amount));
+      else if (Array.isArray(value)) data.append(key, JSON.stringify(value));
       else data.append(key, value);
     });
     if (imageFile) data.append('imageFile', imageFile);
@@ -47,6 +94,7 @@ export default function ProductForm({ product, onSave, onCancel }) {
   return (
     <form className="admin-form" onSubmit={submit}>
       <div className="admin-form__heading"><div><p className="admin-eyebrow">{product ? 'Editar produto' : 'Novo produto'}</p><h2>{values.name || 'Produto sem nome'}</h2></div><button type="button" className="admin-button" onClick={onCancel}>Fechar</button></div>
+      <ProductCardPreview values={values} products={products} imagePreview={imagePreview} backgroundPreview={backgroundPreview} />
       <section className="admin-form__section"><h3>Informações principais</h3><div className="admin-grid admin-grid--2">
         <label>Nome<input value={values.name} onChange={(e) => change('name', e.target.value)} required /></label>
         <label>SKU<input value={values.sku} onChange={(e) => change('sku', e.target.value)} /></label>
@@ -62,6 +110,50 @@ export default function ProductForm({ product, onSave, onCancel }) {
         <label>Estoque<input type="number" min="0" value={values.stock} onChange={(e) => change('stock', e.target.value)} /></label>
         <label className="admin-check"><input type="checkbox" checked={values.trackStock} onChange={(e) => change('trackStock', e.target.checked)} /> Controlar estoque</label>
       </div></section>
+      <section className="admin-form__section">
+        <div className="admin-form__section-heading">
+          <div><h3>Página do produto</h3><small>Selos, opções de compra e produtos relacionados exibidos na página individual.</small></div>
+        </div>
+        <label>Quantidade de avaliações<input value={values.reviewCount} onChange={(e) => change('reviewCount', e.target.value)} placeholder="Ex.: 2k+" /></label>
+
+        <div className="admin-repeater">
+          <div className="admin-repeater__heading"><strong>Selos</strong><button type="button" className="admin-button" onClick={() => addCollectionItem('badges', { label: '', tone: 'outline', color: '#1c8c44' })}>Adicionar selo</button></div>
+          {values.badges.length === 0 && <small>Nenhum selo cadastrado.</small>}
+          {values.badges.map((badge, index) => (
+            <div className="admin-repeater__row admin-repeater__row--badge" key={`badge-${index}`}>
+              <label>Texto<input value={badge.label} onChange={(e) => changeCollectionItem('badges', index, 'label', e.target.value)} placeholder="Antimanchas" /></label>
+              <label>Estilo<select value={badge.tone} onChange={(e) => changeCollectionItem('badges', index, 'tone', e.target.value)}><option value="outline">Contorno</option><option value="solid">Preenchido</option></select></label>
+              <label>Cor<input type="color" value={badge.color || '#1c8c44'} onChange={(e) => changeCollectionItem('badges', index, 'color', e.target.value)} /></label>
+              <button type="button" className="admin-repeater__remove" onClick={() => removeCollectionItem('badges', index)} aria-label={`Remover selo ${index + 1}`}>×</button>
+            </div>
+          ))}
+        </div>
+
+        <div className="admin-repeater">
+          <div className="admin-repeater__heading"><strong>Opções de quantidade</strong><button type="button" className="admin-button" onClick={() => addCollectionItem('quantityOptions', { quantity: 1, price: values.price || '', discountLabel: '' })}>Adicionar opção</button></div>
+          {values.quantityOptions.map((option, index) => (
+            <div className="admin-repeater__row admin-repeater__row--quantity" key={`quantity-${index}`}>
+              <label>Quantidade<input type="number" min="1" value={option.quantity} onChange={(e) => changeCollectionItem('quantityOptions', index, 'quantity', e.target.value)} /></label>
+              <label>Preço total<input type="number" min="0" step="0.01" value={option.price} onChange={(e) => changeCollectionItem('quantityOptions', index, 'price', e.target.value)} /></label>
+              <label>Desconto<input value={option.discountLabel || ''} onChange={(e) => changeCollectionItem('quantityOptions', index, 'discountLabel', e.target.value)} placeholder="15% off" /></label>
+              <button type="button" className="admin-repeater__remove" onClick={() => removeCollectionItem('quantityOptions', index)} aria-label={`Remover opção ${index + 1}`}>×</button>
+            </div>
+          ))}
+        </div>
+
+        <fieldset className="admin-related-products">
+          <legend>Frequentemente comprados juntos</legend>
+          <div className="admin-related-products__options">
+            {products.filter((item) => item.id !== product?.id).map((item) => (
+              <label className="admin-check" key={item.id}>
+                <input type="checkbox" checked={values.crossSellIds.includes(item.id)} onChange={() => toggleCrossSell(item.id)} />
+                {item.name}
+              </label>
+            ))}
+          </div>
+          {products.filter((item) => item.id !== product?.id).length === 0 && <small>Cadastre outro produto para criar recomendações.</small>}
+        </fieldset>
+      </section>
       <section className="admin-form__section"><h3>Imagens e apresentação</h3><div className="admin-grid admin-grid--2">
         <label>URL da imagem principal<input type="text" value={values.image} onChange={(e) => change('image', e.target.value)} placeholder="https://… ou /catalog-assets/…" /></label>
         <label>URL do fundo animado<input type="text" value={values.backgroundImage} onChange={(e) => change('backgroundImage', e.target.value)} placeholder="https://… ou /catalog-assets/…" /></label>

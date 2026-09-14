@@ -16,6 +16,7 @@ export default function ProductList({ products, selectedId, onEdit, onCreate, on
               <em className={`admin-status admin-status--${product.status}`}>{product.status === 'active' ? 'Ativo' : 'Rascunho'}</em>
             </button>
             <div className="admin-product-row__actions">
+              {product.status === 'active' && <a className="admin-product-row__preview" href={`/produtos/${product.slug || product.id}`} target="_blank" rel="noreferrer">Ver</a>}
               <button className="admin-product-row__duplicate" onClick={() => onDuplicate(product)} aria-label={`Duplicar ${product.name}`}>Duplicar</button>
               <button className="admin-product-row__delete" onClick={() => onDelete(product)} aria-label={`Excluir ${product.name}`}>×</button>
             </div>

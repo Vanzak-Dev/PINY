@@ -9,6 +9,14 @@ const sharedProductPresentation = {
   imageActiveRotation: 15,
   oldPrice: 'R$ 129,00',
   price: 'R$ 89,00',
+  reviewCount: '2k+',
+  description: 'Cuidado diário para uma pele mais saudável e uniforme.',
+  badges: [{ label: 'Antimanchas', tone: 'outline', color: '#1c8c3c' }],
+  quantityOptions: [
+    { quantity: 3, price: 99.9, discountLabel: '15% off' },
+    { quantity: 2, price: 99.9, discountLabel: '10% off' },
+    { quantity: 1, price: 99.9 },
+  ],
 };
 
 export const featuredProducts = [
@@ -40,6 +48,11 @@ export const featuredProducts = [
     featureLeftImage: '/catalog-assets/pineapple-scatter-left.webp',
     featureRightImage: '/catalog-assets/pineapple-scatter-right.webp',
     featureProductImage: whiteClayMask,
+    description: '+200 mil vendidas! A clássica com ácido salicílico e glicólico que trata acne e clareia manchas.',
+    badges: [
+      { label: 'Antimanchas', tone: 'outline', color: '#1c8c3c' },
+      { label: 'Best-Seller', tone: 'solid', color: '#1c8c44' },
+    ],
   },
   {
     ...sharedProductPresentation,

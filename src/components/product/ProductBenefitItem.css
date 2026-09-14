@@ -1,0 +1,76 @@
+.product-benefit-item {
+  display: flex;
+  width: 100%;
+  max-width: 365px;
+  min-width: 0;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.product-benefit-item__icon {
+  display: flex;
+  width: 150px;
+  height: 150px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #1c8c44;
+}
+
+.product-benefit-item__icon-inner {
+  display: flex;
+  width: 134px;
+  height: 134px;
+  align-items: center;
+  justify-content: center;
+  border: 5px solid #fff;
+  border-radius: 50%;
+  background: #1c8c44;
+}
+
+.product-benefit-item__icon img {
+  display: block;
+  width: 94px;
+  height: 94px;
+}
+
+.product-benefit-item__label {
+  margin: 0;
+  color: #000b06;
+  font-family: "neulis-neue", sans-serif;
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 1;
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  .product-benefit-item {
+    width: 100%;
+    max-width: 100%;
+    gap: 12px;
+  }
+
+  .product-benefit-item__icon {
+    width: 88px;
+    height: 88px;
+  }
+
+  .product-benefit-item__icon-inner {
+    width: 78px;
+    height: 78px;
+    border-width: 3px;
+  }
+
+  .product-benefit-item__icon img {
+    width: 54px;
+    height: 54px;
+  }
+
+  .product-benefit-item__label {
+    font-size: 16px;
+  }
+}

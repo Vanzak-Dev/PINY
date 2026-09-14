@@ -3,12 +3,13 @@ import multer from 'multer';
 import path from 'node:path';
 import { mkdir } from 'node:fs/promises';
 import { changePassword, createSession, parseCookies, readSession, verifyCredentials } from './lib/auth.js';
-import { ensureCatalog, normalizeProduct, normalizeReview, readProducts, readReviews, saveProducts, saveReviews } from './lib/store.js';
+import { ensureCatalog, ensureSiteSettings, normalizeProduct, normalizeReview, readProducts, readReviews, readSiteSettings, saveProducts, saveReviews, saveSiteSettings } from './lib/store.js';
 
 const port = Number(process.env.PORT || 8000);
 const uploadDirectory = process.env.UPLOAD_DIR || path.resolve('uploads');
 await mkdir(uploadDirectory, { recursive: true });
 await ensureCatalog();
+await ensureSiteSettings();
 
 const mediaStorage = multer.diskStorage({
   destination: uploadDirectory,
@@ -83,11 +84,22 @@ function uniqueProductValue(products, baseValue, key) {
 }
 
 app.get('/api/health', (_request, response) => response.json({ status: 'ok' }));
+app.get('/api/settings', async (_request, response) => response.json(await readSiteSettings()));
 
 app.get('/api/products', async (request, response) => {
   const products = await readProducts();
   const featuredOnly = request.query.featured === 'true';
   response.json(products.filter((product) => product.status === 'active' && (!featuredOnly || product.featured)));
+});
+
+app.get('/api/products/:identifier', async (request, response) => {
+  const products = await readProducts();
+  const product = products.find((item) => (
+    item.status === 'active'
+    && (item.slug === request.params.identifier || item.id === request.params.identifier)
+  ));
+  if (!product) return response.status(404).json({ error: 'Produto não encontrado.' });
+  response.json(product);
 });
 
 app.get('/api/reviews', async (_request, response) => {
@@ -123,6 +135,8 @@ app.put('/api/auth/password', authenticate, async (request, response) => {
 app.use('/api/admin', authenticate, authorizeCatalog);
 app.get('/api/admin/products', async (_request, response) => response.json(await readProducts()));
 app.get('/api/admin/reviews', async (_request, response) => response.json(await readReviews()));
+app.get('/api/admin/settings', async (_request, response) => response.json(await readSiteSettings()));
+app.put('/api/admin/settings', async (request, response) => response.json(await saveSiteSettings(request.body)));
 
 const reviewMediaUpload = reviewUpload.single('mediaFile');
 app.post('/api/admin/reviews', reviewMediaUpload, async (request, response) => {
@@ -174,6 +188,7 @@ const productUpload = upload.fields([
 app.post('/api/admin/products', productUpload, async (request, response) => {
   const products = await readProducts();
   const product = normalizeProduct(bodyWithUploads(request));
+  product.crossSellIds = product.crossSellIds.filter((id) => id !== product.id && products.some((item) => item.id === id));
   const error = validateProduct(product);
   if (error) return response.status(400).json({ error });
   if (hasConflict(products, product)) return response.status(409).json({ error: 'Já existe um produto com este slug ou SKU.' });
@@ -204,6 +219,7 @@ app.put('/api/admin/products/:id', productUpload, async (request, response) => {
   const index = products.findIndex((product) => product.id === request.params.id);
   if (index < 0) return response.status(404).json({ error: 'Produto não encontrado.' });
   const product = normalizeProduct(bodyWithUploads(request, products[index]), products[index]);
+  product.crossSellIds = product.crossSellIds.filter((id) => id !== product.id && products.some((item) => item.id === id));
   const error = validateProduct(product);
   if (error) return response.status(400).json({ error });
   if (hasConflict(products, product, product.id)) return response.status(409).json({ error: 'Já existe um produto com este slug ou SKU.' });
