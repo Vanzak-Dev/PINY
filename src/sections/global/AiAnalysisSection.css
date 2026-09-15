@@ -1,0 +1,443 @@
+.ai-analysis {
+  --ai-analysis-gutter: 20px;
+  position: relative;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+  background: #fef8dd;
+  /* O espaco reservado embaixo (60vw) e' exatamente o quanto o pote rosa
+     (blob d) se estende para alem do fim do card - ver
+     .ai-analysis__decor--mobile - garantindo que ele fique colado no canto
+     inferior da secao, igual a referencia. Calculado a partir do fim do
+     card (e nao do topo da secao), entao continua correto mesmo se o
+     cabecalho/card mudar de altura. */
+  padding: 32px var(--ai-analysis-gutter) 60vw;
+  /* Teto pedido explicitamente: nunca maior que a proporcao do frame
+     mobile do Figma (393x680px), mesmo se o conteudo natural for maior. */
+  max-height: 168vw;
+  border-radius: 0 0 16px 16px;
+}
+
+.ai-analysis__decor {
+  z-index: 0;
+  pointer-events: none;
+}
+
+.ai-analysis__decor--mobile {
+  /* Ancorado ao fim do card (fim de .ai-analysis__inner), igual ao Figma
+     mobile: os potes ficam relativos ao card, nao ao topo da secao - assim
+     a posicao deles nao depende da altura exata do titulo/card acima. */
+  position: absolute;
+  top: 100%;
+  left: calc(-1 * var(--ai-analysis-gutter));
+  width: calc(100% + 2 * var(--ai-analysis-gutter));
+  height: 0;
+  /* Sendo o ultimo filho de .ai-analysis__inner, sem isso ficaria por
+     cima do card na ordem de pintura (mesmo nivel de stacking, ordem no
+     DOM decide) em vez de atras dele. */
+  z-index: -1;
+}
+
+.ai-analysis__decor--desktop {
+  display: none;
+}
+
+.ai-analysis__blob {
+  /* Caixa nao rotacionada do tamanho do bounding box do Figma (ja inclui a
+     folga da rotacao); serve so para posicionar e centralizar o miolo. */
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ai-analysis__blob-inner {
+  /* Miolo no tamanho pre-rotacao; a rotacao dele e' o que reproduz o
+     bounding box do pai (ver calculo: inner * (|cos|+|sin|) = outer). */
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.ai-analysis__blob-inner img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Potes no mobile: posicao vertical relativa ao fim do card (pode ser
+   negativa - o pote "d" comeca um pouco antes do card acabar, espiando
+   por tras dele, igual ao Figma). Posicao horizontal continua relativa a
+   largura total do frame (393px), por isso o decor quebra o padding da
+   secao (ver .ai-analysis__decor--mobile). */
+.ai-analysis__decor--mobile .ai-analysis__blob--a {
+  left: 68vw;
+  top: 2.476vw;
+  width: 49.762vw;
+  height: 49.762vw;
+}
+
+.ai-analysis__decor--mobile .ai-analysis__blob--a .ai-analysis__blob-inner {
+  width: 40.631vw;
+  height: 40.631vw;
+  transform: rotate(15deg);
+  filter: blur(2.5px);
+}
+
+.ai-analysis__decor--mobile .ai-analysis__blob--b {
+  left: 14.303vw;
+  top: 6vw;
+  width: 48.073vw;
+  height: 48.073vw;
+}
+
+.ai-analysis__decor--mobile .ai-analysis__blob--b .ai-analysis__blob-inner {
+  width: 42.844vw;
+  height: 42.844vw;
+  transform: rotate(-7.5deg);
+  filter: blur(2.5px);
+}
+
+.ai-analysis__decor--mobile .ai-analysis__blob--c {
+  left: 38.196vw;
+  top: 5.374vw;
+  width: 57.406vw;
+  height: 57.406vw;
+}
+
+.ai-analysis__decor--mobile .ai-analysis__blob--c .ai-analysis__blob-inner {
+  width: 49.995vw;
+  height: 49.995vw;
+  transform: rotate(-9.3deg);
+  filter: blur(1.5px);
+}
+
+.ai-analysis__decor--mobile .ai-analysis__blob--d {
+  left: -20vw;
+  top: -7.888vw;
+  width: 67.888vw;
+  height: 67.888vw;
+}
+
+.ai-analysis__decor--mobile .ai-analysis__blob--d .ai-analysis__blob-inner {
+  width: 55.425vw;
+  height: 55.425vw;
+  transform: rotate(15deg);
+  filter: blur(1.5px);
+}
+
+.ai-analysis__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+.ai-analysis__heading {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.ai-analysis__title {
+  margin: 0;
+  color: #1c8c44;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 32px;
+  line-height: 1;
+}
+
+.ai-analysis__subtitle {
+  margin: 0;
+  color: #000b06;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.3;
+}
+
+.ai-analysis__card {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #f9f9f9;
+}
+
+.ai-analysis__card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px;
+  background: var(--ai-analysis-accent, #FFBD35);
+}
+
+.ai-analysis__brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.ai-analysis__logo {
+  display: block;
+  height: 15px;
+  width: auto;
+  flex-shrink: 0;
+  filter: brightness(0) invert(1);
+}
+
+.ai-analysis__brand-label {
+  color: #fff;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ai-analysis__step-tag {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #fff;
+  border-radius: 999px;
+  padding: 6px 8px;
+  color: #fff;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.ai-analysis__card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+}
+
+.ai-analysis__message {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+}
+
+.ai-analysis__avatar {
+  flex-shrink: 0;
+  width: 45px;
+  height: 45px;
+  border-radius: 999px;
+  background: #fff547;
+}
+
+.ai-analysis__bubble {
+  margin: 0;
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 16px 16px 16px 24px;
+  border-radius: 0 32px 32px 32px;
+  background: #d2d0cc;
+  color: #000b06;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.ai-analysis__emphasis {
+  font-weight: 500;
+}
+
+.ai-analysis__card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 16px;
+  border-top: 1px solid #d2d0cc;
+}
+
+.ai-analysis__action {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--ai-analysis-accent, #FFBD35);
+  border-radius: 999px;
+  padding: 6px 8px;
+  background: transparent;
+  color: var(--ai-analysis-accent, #FFBD35);
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .ai-analysis {
+    --ai-analysis-gutter: clamp(24px, 10.416667vw, 200px);
+    padding: clamp(80px, 6.666667vw, 128px) var(--ai-analysis-gutter) clamp(48px, 3.333333vw, 64px);
+    gap: 48px;
+    max-height: none;
+    border-radius: 0;
+  }
+
+  .ai-analysis__decor--mobile {
+    display: none;
+  }
+
+  .ai-analysis__decor--desktop {
+    display: block;
+    position: absolute;
+    inset: 0;
+  }
+
+  .ai-analysis__decor--desktop .ai-analysis__blob--a {
+    left: 85vw;
+    top: -5vw;
+    width: 27.315vw;
+    height: 27.315vw;
+  }
+
+  .ai-analysis__decor--desktop .ai-analysis__blob--a .ai-analysis__blob-inner {
+    width: 22.303vw;
+    height: 22.303vw;
+    transform: rotate(15deg);
+    filter: blur(2.5px);
+  }
+
+  .ai-analysis__decor--desktop .ai-analysis__blob--b {
+    /* Espelho do item 1 (canto superior esquerdo): mesmo top, left
+       invertido (100 - 85 - largura) para sangrar pela esquerda na mesma
+       proporcao que o item 1 sangra pela direita. */
+    left: -12.153vw;
+    top: -5vw;
+    width: 27.153vw;
+    height: 27.153vw;
+  }
+
+  .ai-analysis__decor--desktop .ai-analysis__blob--b .ai-analysis__blob-inner {
+    width: 22.354vw;
+    height: 22.354vw;
+    transform: rotate(-14.19deg);
+    filter: blur(2.5px);
+  }
+
+  .ai-analysis__decor--desktop .ai-analysis__blob--c {
+    left: 79.688vw;
+    top: 22.208vw;
+    width: 30.154vw;
+    height: 30.154vw;
+  }
+
+  .ai-analysis__decor--desktop .ai-analysis__blob--c .ai-analysis__blob-inner {
+    width: 24.621vw;
+    height: 24.621vw;
+    transform: rotate(-15deg);
+    filter: blur(1.5px);
+  }
+
+  .ai-analysis__decor--desktop .ai-analysis__blob--d {
+    /* Espelho do item 3 (canto inferior direito): mesmo top, left
+       invertido (100 - 79.688 - largura) para sangrar pela esquerda na
+       mesma proporcao que o item 3 sangra pela direita. */
+    left: -15.105vw;
+    top: 22.208vw;
+    width: 35.417vw;
+    height: 35.417vw;
+  }
+
+  .ai-analysis__decor--desktop .ai-analysis__blob--d .ai-analysis__blob-inner {
+    width: 28.917vw;
+    height: 28.917vw;
+    transform: rotate(15deg);
+    filter: blur(1.5px);
+  }
+
+  .ai-analysis__inner {
+    gap: 48px;
+  }
+
+  .ai-analysis__heading {
+    gap: 32px;
+  }
+
+  .ai-analysis__title {
+    font-size: clamp(40px, 3.333333vw, 64px);
+    line-height: 0.75;
+  }
+
+  .ai-analysis__title-break {
+    display: none;
+  }
+
+  .ai-analysis__subtitle {
+    font-size: clamp(18px, 1.25vw, 24px);
+    line-height: 1.4;
+  }
+
+  .ai-analysis__card {
+    border-radius: clamp(16px, 1.666667vw, 32px);
+  }
+
+  .ai-analysis__card-top {
+    padding: clamp(16px, 1.25vw, 24px) clamp(16px, 1.666667vw, 32px);
+  }
+
+  .ai-analysis__logo {
+    height: 25px;
+  }
+
+  .ai-analysis__brand-label,
+  .ai-analysis__step-tag,
+  .ai-analysis__bubble,
+  .ai-analysis__action {
+    font-size: clamp(12px, 0.9375vw, 18px);
+  }
+
+  .ai-analysis__step-tag {
+    padding: clamp(6px, 0.625vw, 12px) clamp(8px, 0.833333vw, 16px);
+  }
+
+  .ai-analysis__card-body {
+    gap: clamp(8px, 0.833333vw, 16px);
+    padding: clamp(16px, 1.666667vw, 32px);
+  }
+
+  .ai-analysis__bubble {
+    flex: 0 1 auto;
+    white-space: nowrap;
+  }
+
+  .ai-analysis__emphasis {
+    font-weight: 400;
+  }
+
+  .ai-analysis__card-actions {
+    padding: clamp(16px, 1.25vw, 24px) clamp(16px, 1.666667vw, 32px);
+  }
+
+  .ai-analysis__action {
+    padding: clamp(6px, 0.625vw, 12px) clamp(8px, 0.833333vw, 16px);
+  }
+}
