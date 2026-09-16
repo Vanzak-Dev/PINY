@@ -2,6 +2,9 @@ import { useCallback, useEffect, useState } from 'react';
 import ProductPresentationSection from '../sections/product/ProductPresentationSection';
 import ProductActivesSection from '../sections/product/ProductActivesSection';
 import ProductBenefitsSection from '../sections/product/ProductBenefitsSection';
+import ProductComparisonSection from '../sections/product/ProductComparisonSection';
+import ProductFaqSection from '../sections/product/ProductFaqSection';
+import ProductBeforeAfterSection from '../sections/product/ProductBeforeAfterSection';
 import AiAnalysisSection from '../sections/global/AiAnalysisSection';
 import { catalogApi } from '../services/catalogApi';
 
@@ -64,6 +67,9 @@ export default function ProductPage({ productIdentifier }) {
           <ProductActivesSection product={product} />
           <AiAnalysisSection product={product} />
           <ProductBenefitsSection />
+          <ProductComparisonSection product={product} />
+          <ProductFaqSection />
+          <ProductBeforeAfterSection product={product} />
         </>
       )}
       {!loading && error && <p className="page-width" role="alert">{error}</p>}
