@@ -1,0 +1,310 @@
+.product-comparison {
+  --cell-w: 87px;
+  --cell-h: 36px;
+  --cell-gap: 58px;
+  --cell-font: 18px;
+  --icon-size: 67px;
+  --icon-box-h: 36px;
+  --row-pad-inline: 14px;
+  --table-radius: 29px;
+  --label-font: 18px;
+  --label-other-w: 87px;
+  --divider-h: 2px;
+  --highlight-pad: 15px;
+  --highlight-lift: 16px;
+  --highlight-radius: 22px;
+
+  width: 100%;
+  background: #fff;
+  color: #000b06;
+  font-family: "neulis-neue", sans-serif;
+  padding: 64px clamp(24px, 4vw, 32px);
+}
+
+.product-comparison__inner {
+  display: grid;
+  grid-template-columns: 385.5fr 385.5fr 750.952fr;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 1562px;
+  margin-inline: auto;
+}
+
+.product-comparison__gallery {
+  display: contents;
+}
+
+.product-comparison__column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 100%;
+}
+
+.product-comparison__image {
+  width: 100%;
+  border-radius: 32px;
+  object-fit: cover;
+  display: block;
+}
+
+.product-comparison__image--tall {
+  aspect-ratio: 385.5 / 357;
+}
+
+.product-comparison__image--short {
+  aspect-ratio: 385.5 / 284;
+}
+
+.product-comparison__panel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 28.952px;
+  width: 100%;
+  padding-inline: 32px;
+}
+
+.product-comparison__text {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.product-comparison__text h2 {
+  margin: 0;
+  font-family: "neulis-neue", sans-serif;
+  font-weight: 800;
+  font-size: 64px;
+  line-height: 1;
+  color: #1c8c44;
+}
+
+.product-comparison__text p {
+  margin: 8px 0 0;
+  font-family: "neulis-neue", sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: normal;
+  color: #000b06;
+}
+
+.product-comparison__table {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+  width: 100%;
+  padding-block: 12px;
+  border-radius: var(--table-radius);
+  background: #e8fce0;
+}
+
+.product-comparison__highlight {
+  position: absolute;
+  top: calc(-1 * var(--highlight-lift));
+  bottom: 0;
+  right: calc(var(--row-pad-inline) + var(--cell-w) + var(--cell-gap) - var(--highlight-pad));
+  width: calc(var(--cell-w) + 2 * var(--highlight-pad));
+  border-radius: var(--highlight-radius) var(--highlight-radius) 0 0;
+  background: #85e86f;
+  box-shadow: 0 10px 20px rgba(28, 140, 68, 0.3), 0 2px 6px rgba(28, 140, 68, 0.2);
+  z-index: 0;
+}
+
+.product-comparison__row,
+.product-comparison__row-wrap .product-comparison__row {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--cell-h);
+  padding-inline: var(--row-pad-inline);
+  width: 100%;
+}
+
+.product-comparison__label {
+  margin: 0;
+  font-family: "neulis-neue", sans-serif;
+  font-weight: 700;
+  font-size: var(--label-font);
+  line-height: normal;
+  color: #000b06;
+  white-space: nowrap;
+}
+
+.product-comparison__label--header {
+  font-weight: 400;
+  color: #1c8c44;
+}
+
+.product-comparison__label--other {
+  width: var(--label-other-w);
+  text-align: center;
+  white-space: normal;
+}
+
+.product-comparison__values {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--cell-gap);
+  flex: 0 0 auto;
+}
+
+.product-comparison__product-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--label-other-w);
+  height: var(--icon-box-h);
+  flex: 0 0 auto;
+}
+
+.product-comparison__product-icon img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.product-comparison__cell {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: var(--cell-w);
+  height: var(--cell-h);
+  font-family: "neulis-neue", sans-serif;
+  font-weight: 700;
+  font-size: var(--label-font);
+  color: #1c8c44;
+  text-align: center;
+}
+
+.product-comparison__cell--check img,
+.product-comparison__cell--x img {
+  display: block;
+  object-fit: contain;
+}
+
+.product-comparison__cell--check img {
+  width: 100%;
+  height: 100%;
+}
+
+.product-comparison__cell--x img {
+  width: 22%;
+  height: 47.5%;
+}
+
+.product-comparison__divider {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: var(--divider-h);
+  background: #1c8c44;
+}
+
+.product-comparison__row-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+@media (max-width: 1279px) {
+  .product-comparison__text h2 {
+    font-size: clamp(36px, 4.5vw, 64px);
+  }
+
+  .product-comparison__text p {
+    font-size: clamp(16px, 1.8vw, 24px);
+  }
+}
+
+/* Tablet e mobile usam exatamente o mesmo layout compacto: sem a galeria de
+   fotos, tabela em coluna única com a escala reduzida do mobile.
+   1024px inclui o iPad Pro (viewport CSS de exatamente 1024px em retrato). */
+@media (max-width: 1024px) {
+  .product-comparison {
+    --cell-w: 70px;
+    --cell-h: 29px;
+    --cell-gap: 16px;
+    --cell-font: 14.4px;
+    --icon-size: 54px;
+    --icon-box-h: 28px;
+    --row-pad-inline: 12px;
+    --table-radius: 23px;
+    --label-font: 14.4px;
+    --label-other-w: 70px;
+    --divider-h: 1.6px;
+    --highlight-pad: 12px;
+    --highlight-lift: 12px;
+    --highlight-radius: 18px;
+    padding: 40px 16px;
+  }
+
+  .product-comparison__inner {
+    grid-template-columns: 1fr;
+    grid-template-areas: "panel";
+    gap: 32px;
+  }
+
+  .product-comparison__gallery {
+    display: none;
+  }
+
+  .product-comparison__panel {
+    max-width: 480px;
+    margin-inline: auto;
+    padding-inline: 0;
+    gap: 20px;
+    font-family: "Bricolage Grotesque", "neulis-neue", sans-serif;
+  }
+
+  .product-comparison__text {
+    align-items: center;
+    text-align: center;
+  }
+
+  .product-comparison__text h2 {
+    font-size: 32px;
+    line-height: 1;
+  }
+
+  .product-comparison__text p {
+    font-size: 16px;
+    margin-top: 4px;
+  }
+
+  .product-comparison__table {
+    gap: 9.6px;
+    padding-block: 9.6px;
+  }
+
+  .product-comparison__label {
+    font-family: "Bricolage Grotesque", "neulis-neue", sans-serif;
+    white-space: normal;
+    max-width: 130px;
+  }
+
+  .product-comparison__row--header .product-comparison__label:not(.product-comparison__label--other) {
+    max-width: none;
+    white-space: nowrap;
+  }
+
+  .product-comparison__row-wrap {
+    gap: 9.6px;
+  }
+}
