@@ -7,6 +7,7 @@ import ProductFaqSection from '../sections/product/ProductFaqSection';
 import ProductBeforeAfterSection from '../sections/product/ProductBeforeAfterSection';
 import AiAnalysisSection from '../sections/global/AiAnalysisSection';
 import { catalogApi } from '../services/catalogApi';
+import { useCart } from '../hooks/useCart';
 
 export default function ProductPage({ productIdentifier }) {
   const [addedProduct, setAddedProduct] = useState(null);
@@ -14,6 +15,12 @@ export default function ProductPage({ productIdentifier }) {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
+  const { addItem } = useCart();
+
+  const handleAdd = (addedItem) => {
+    addItem(addedItem);
+    setAddedProduct(addedItem);
+  };
 
   const loadProduct = useCallback(() => {
     setLoading(true);
@@ -62,7 +69,7 @@ export default function ProductPage({ productIdentifier }) {
             product={product}
             categoryLabel={product.category || 'PINY MASK'}
             crossSellProducts={crossSellProducts}
-            onAdd={setAddedProduct}
+            onAdd={handleAdd}
           />
           <ProductActivesSection product={product} />
           <AiAnalysisSection product={product} />
