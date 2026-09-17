@@ -6,7 +6,7 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: var(--badge-radius, 12px);
   background: linear-gradient(180deg, #ffe908 50%, #efbe11 100%);
 }
 
