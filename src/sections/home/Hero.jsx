@@ -5,8 +5,6 @@ import leaf2 from "../../assets/hero/leaf-2.svg";
 import leaf3 from "../../assets/hero/leaf-3.svg";
 import leaf4 from "../../assets/hero/leaf-4.svg";
 import logo from "../../assets/hero/logo.svg";
-import iconUser from "../../assets/hero/icon-user.svg";
-import iconBag from "../../assets/hero/icon-bag.svg";
 import "./Hero.css";
 
 export default function Hero() {
@@ -49,18 +47,6 @@ export default function Hero() {
       <div className="hero__logo">
         <img src={logo} alt="Piny" />
       </div>
-
-      <header className="hero__header">
-        <nav className="hero__nav">
-          <p className="hero__nav-link">Analise sua Pele</p>
-          <p className="hero__nav-link">Piny Mask</p>
-          <p className="hero__nav-link">Piny Stars</p>
-        </nav>
-        <div className="hero__actions">
-          <img src={iconUser} alt="Conta" />
-          <img src={iconBag} alt="Sacola" />
-        </div>
-      </header>
     </section>
   );
 }
