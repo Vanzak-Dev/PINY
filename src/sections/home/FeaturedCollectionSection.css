@@ -60,6 +60,7 @@
 
 .featured-collection__tab {
   display: flex;
+  flex: 1 1 0;
   min-width: 0;
   margin: 0;
   padding: clamp(10px, 1.302083vw, 25px);
