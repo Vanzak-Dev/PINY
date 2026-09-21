@@ -153,7 +153,7 @@
 }
 
 .featured-collection__dot.is-active {
-  width: 32px;
+  width: 24px;
   border-radius: 5px;
   background: #1c8c44;
 }
