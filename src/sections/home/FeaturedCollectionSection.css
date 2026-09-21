@@ -221,7 +221,7 @@
   }
 
   .featured-collection__card {
-    flex: 0 0 calc((100% - 1 * var(--featured-collection-row-gap)) / 2);
+    flex: 0 0 calc((100% - (var(--cards-count, 2) - 1) * var(--featured-collection-row-gap)) / var(--cards-count, 2));
     height: 60.49vw;
     padding-bottom: 1.7vw;
     --card-gap: 3.5vw;

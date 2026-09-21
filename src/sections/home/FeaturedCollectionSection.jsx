@@ -5,10 +5,29 @@ import pineappleRight from '../../assets/images/pineapple-scatter-right.webp';
 import { useCollections } from '../../hooks/useCollections';
 import './FeaturedCollectionSection.css';
 
-const PAGE_SIZE = 4;
+const DESKTOP_PAGE_SIZE = 4;
+const MOBILE_PAGE_SIZE = 2;
+const MOBILE_BREAKPOINT = 768;
+
+function usePageSize() {
+  const [pageSize, setPageSize] = useState(() =>
+    typeof window !== 'undefined' && window.innerWidth < MOBILE_BREAKPOINT
+      ? MOBILE_PAGE_SIZE
+      : DESKTOP_PAGE_SIZE,
+  );
+  useEffect(() => {
+    const onResize = () => {
+      setPageSize(window.innerWidth < MOBILE_BREAKPOINT ? MOBILE_PAGE_SIZE : DESKTOP_PAGE_SIZE);
+    };
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+  return pageSize;
+}
 
 export default function FeaturedCollectionSection({ products, onAdd }) {
   const { collections } = useCollections();
+  const pageSize = usePageSize();
   const [activeCollectionId, setActiveCollectionId] = useState(null);
   const [index, setIndex] = useState(1);
   const [noTransition, setNoTransition] = useState(false);
@@ -26,19 +45,19 @@ export default function FeaturedCollectionSection({ products, onAdd }) {
       .filter(Boolean);
   }, [activeCollection, products]);
 
-  // Build pages of exactly PAGE_SIZE, wrapping around to fill the last page
+  // Build pages of exactly pageSize, wrapping around to fill the last page
   const pages = useMemo(() => {
-    if (items.length <= PAGE_SIZE) return [items];
+    if (items.length <= pageSize) return [items];
     const result = [];
-    for (let i = 0; i < items.length; i += PAGE_SIZE) {
+    for (let i = 0; i < items.length; i += pageSize) {
       const page = [];
-      for (let j = 0; j < PAGE_SIZE; j++) {
+      for (let j = 0; j < pageSize; j++) {
         page.push(items[(i + j) % items.length]);
       }
       result.push(page);
     }
     return result;
-  }, [items]);
+  }, [items, pageSize]);
 
   const pageCount = pages.length;
   const hasCarousel = pageCount > 1;
@@ -124,7 +143,7 @@ export default function FeaturedCollectionSection({ products, onAdd }) {
             <div
               key={pageIndex}
               className="featured-collection__page"
-              style={{ '--cards-count': PAGE_SIZE }}
+              style={{ '--cards-count': pageSize }}
             >
               {pageItems.map((product, cardIndex) => (
                 <div className="featured-collection__card" key={`${pageIndex}-${cardIndex}`}>
