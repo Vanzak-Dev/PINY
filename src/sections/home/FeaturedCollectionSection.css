@@ -202,13 +202,22 @@
   }
 
   .featured-collection__tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 2.5vw;
     margin-top: 5vw;
   }
 
   .featured-collection__tab {
-    flex: 0 0 calc(50% - 1.25vw);
-    padding: 2.5vw 4vw;
+    display: flex;
+    padding: 12px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    grid-row: span 1;
+    grid-column: span 1;
+    justify-self: stretch;
     border-radius: 2.5vw;
   }
 
