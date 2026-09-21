@@ -1,0 +1,27 @@
+.admin-collections { padding: 0 4vw 48px; }
+.admin-collections__heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+.admin-collections__heading h2 { font-size: 24px; margin: 3px 0 0; }
+.admin-collections__message { margin: 0 0 18px; }
+.admin-collections__workspace { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; }
+.admin-collections__workspace:has(.admin-collections__form) { grid-template-columns: minmax(280px, .8fr) minmax(420px, 1.2fr); align-items: start; }
+.admin-collections__list { border: 1px solid var(--admin-line); border-radius: 20px; background: white; overflow: hidden; }
+.admin-collections__empty { padding: 22px; color: #637068; }
+.admin-collections__row { display: flex; align-items: center; border-bottom: 1px solid var(--admin-line); }
+.admin-collections__row:last-child { border-bottom: 0; }
+.admin-collections__row.is-selected { background: var(--admin-mint); }
+.admin-collections__row-main { display: grid; gap: 4px; flex: 1; min-width: 0; padding: 14px 10px 14px 18px; border: 0; text-align: left; background: transparent; cursor: pointer; }
+.admin-collections__row-main strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.admin-collections__row-main small { color: #637068; }
+.admin-collections__form { border: 1px solid var(--admin-line); border-radius: 20px; background: white; box-shadow: 0 12px 40px rgba(16,35,25,.06); display: grid; gap: 16px; padding: 22px; }
+.admin-collections__form h3 { margin: 0; font-size: 20px; }
+.admin-collections__form label { display: grid; gap: 6px; font-weight: 700; }
+.admin-collections__form input[type="text"],
+.admin-collections__form input:not([type]) { min-height: 42px; padding: 0 12px; border: 1px solid var(--admin-line); border-radius: 10px; font-weight: 400; }
+.admin-collections__products { border: 1px solid var(--admin-line); border-radius: 14px; padding: 16px; display: grid; gap: 10px; }
+.admin-collections__products legend { font-weight: 700; padding: 0 6px; }
+.admin-collections__product-check { display: flex; align-items: center; gap: 8px; font-weight: 400; cursor: pointer; }
+.admin-collections__actions { display: flex; gap: 10px; justify-content: flex-end; }
+
+@media (max-width: 900px) {
+  .admin-collections__workspace:has(.admin-collections__form) { grid-template-columns: 1fr; }
+}

@@ -3,12 +3,13 @@ import multer from 'multer';
 import path from 'node:path';
 import { mkdir } from 'node:fs/promises';
 import { changePassword, createSession, parseCookies, readSession, verifyCredentials } from './lib/auth.js';
-import { ensureCatalog, ensureSiteSettings, normalizeProduct, normalizeReview, readProducts, readReviews, readSiteSettings, saveProducts, saveReviews, saveSiteSettings } from './lib/store.js';
+import { ensureCatalog, ensureCollections, ensureSiteSettings, normalizeCollection, normalizeProduct, normalizeReview, readCollections, readProducts, readReviews, readSiteSettings, saveCollections, saveProducts, saveReviews, saveSiteSettings } from './lib/store.js';
 
 const port = Number(process.env.PORT || 8000);
 const uploadDirectory = process.env.UPLOAD_DIR || path.resolve('uploads');
 await mkdir(uploadDirectory, { recursive: true });
 await ensureCatalog();
+await ensureCollections();
 await ensureSiteSettings();
 
 const mediaStorage = multer.diskStorage({
@@ -111,6 +112,10 @@ app.get('/api/reviews', async (_request, response) => {
   response.json((await readReviews()).filter((review) => review.active));
 });
 
+app.get('/api/collections', async (_request, response) => {
+  response.json((await readCollections()).filter((collection) => collection.active));
+});
+
 app.post('/api/auth/login', async (request, response) => {
   const auth = await verifyCredentials(String(request.body.username || ''), String(request.body.password || ''));
   if (!auth) return response.status(401).json({ error: 'Usuário ou senha inválidos.' });
@@ -142,6 +147,33 @@ app.get('/api/admin/products', async (_request, response) => response.json(await
 app.get('/api/admin/reviews', async (_request, response) => response.json(await readReviews()));
 app.get('/api/admin/settings', async (_request, response) => response.json(await readSiteSettings()));
 app.put('/api/admin/settings', async (request, response) => response.json(await saveSiteSettings(request.body)));
+
+app.get('/api/admin/collections', async (_request, response) => response.json(await readCollections()));
+app.post('/api/admin/collections', async (request, response) => {
+  const collections = await readCollections();
+  const collection = normalizeCollection(request.body);
+  if (!collection.name) return response.status(400).json({ error: 'Informe o nome da coleção.' });
+  collections.push(collection);
+  await saveCollections(collections);
+  response.status(201).json(collection);
+});
+app.put('/api/admin/collections/:id', async (request, response) => {
+  const collections = await readCollections();
+  const index = collections.findIndex((collection) => collection.id === request.params.id);
+  if (index < 0) return response.status(404).json({ error: 'Coleção não encontrada.' });
+  const collection = normalizeCollection(request.body, collections[index]);
+  if (!collection.name) return response.status(400).json({ error: 'Informe o nome da coleção.' });
+  collections[index] = collection;
+  await saveCollections(collections);
+  response.json(collection);
+});
+app.delete('/api/admin/collections/:id', async (request, response) => {
+  const collections = await readCollections();
+  const nextCollections = collections.filter((collection) => collection.id !== request.params.id);
+  if (nextCollections.length === collections.length) return response.status(404).json({ error: 'Coleção não encontrada.' });
+  await saveCollections(nextCollections);
+  response.status(204).end();
+});
 
 const reviewMediaUpload = reviewUpload.single('mediaFile');
 app.post('/api/admin/reviews', reviewMediaUpload, async (request, response) => {

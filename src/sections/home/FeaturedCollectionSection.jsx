@@ -2,30 +2,25 @@ import { useMemo, useState } from 'react';
 import ProductCard from '../../components/product/ProductCard';
 import pineappleLeft from '../../assets/images/pineapple-scatter-left.webp';
 import pineappleRight from '../../assets/images/pineapple-scatter-right.webp';
+import { useCollections } from '../../hooks/useCollections';
 import './FeaturedCollectionSection.css';
 
 export default function FeaturedCollectionSection({ products, onAdd }) {
-  const categories = useMemo(
-    () => {
-      const seen = new Set();
-      const list = [];
-      products.forEach((product) => {
-        if (product.category && !seen.has(product.category)) {
-          seen.add(product.category);
-          list.push(product.category);
-        }
-      });
-      return list;
-    },
-    [products],
+  const { collections } = useCollections();
+  const [activeCollectionId, setActiveCollectionId] = useState(null);
+
+  const activeCollection = useMemo(
+    () => collections.find((collection) => collection.id === activeCollectionId) || collections[0] || null,
+    [collections, activeCollectionId],
   );
 
-  const [activeCategory, setActiveCategory] = useState(categories[0] ?? null);
-
-  const items = useMemo(
-    () => products.filter((product) => product.category === activeCategory).slice(0, 4),
-    [products, activeCategory],
-  );
+  const items = useMemo(() => {
+    if (!activeCollection) return [];
+    return (activeCollection.productIds || [])
+      .map((id) => products.find((product) => product.id === id))
+      .filter(Boolean)
+      .slice(0, 4);
+  }, [activeCollection, products]);
 
   if (!items.length) return null;
 
@@ -42,18 +37,18 @@ export default function FeaturedCollectionSection({ products, onAdd }) {
       </h2>
       <p className="featured-collection__subtitle">Compre os produtos PINY conforme sua necessidade.</p>
 
-      {categories.length > 1 && (
+      {collections.length > 1 && (
         <div className="featured-collection__tabs" role="tablist">
-          {categories.map((category) => (
+          {collections.map((collection) => (
             <button
-              key={category}
+              key={collection.id}
               type="button"
               role="tab"
-              aria-selected={category === activeCategory}
-              className={`featured-collection__tab${category === activeCategory ? ' is-active' : ''}`}
-              onClick={() => setActiveCategory(category)}
+              aria-selected={collection.id === activeCollection.id}
+              className={`featured-collection__tab${collection.id === activeCollection.id ? ' is-active' : ''}`}
+              onClick={() => setActiveCollectionId(collection.id)}
             >
-              <span className="featured-collection__tab-label">{category}</span>
+              <span className="featured-collection__tab-label">{collection.name}</span>
             </button>
           ))}
         </div>

@@ -6,6 +6,7 @@ const dataDirectory = process.env.DATA_DIR || path.resolve('data');
 const catalogPath = path.join(dataDirectory, 'products.json');
 const reviewsPath = path.join(dataDirectory, 'reviews.json');
 const settingsPath = path.join(dataDirectory, 'site-settings.json');
+const collectionsPath = path.join(dataDirectory, 'collections.json');
 const seedPath = path.resolve('seeds/products.json');
 
 const defaultSiteSettings = {
@@ -92,6 +93,48 @@ export async function readProducts() {
 
 export async function saveProducts(products) {
   await writeJson(catalogPath, products);
+}
+
+export async function ensureCollections() {
+  await mkdir(dataDirectory, { recursive: true });
+  try {
+    await readFile(collectionsPath, 'utf8');
+  } catch {
+    await writeJson(collectionsPath, []);
+  }
+}
+
+export async function readCollections() {
+  await ensureCollections();
+  return JSON.parse(await readFile(collectionsPath, 'utf8'));
+}
+
+export async function saveCollections(collections) {
+  await writeJson(collectionsPath, collections);
+}
+
+export function normalizeCollection(input, current = {}) {
+  const now = new Date().toISOString();
+  const boolean = (value, fallback = false) => value === true || value === 'true' ? true : value === false || value === 'false' ? false : fallback;
+  const array = (value, fallback = []) => {
+    if (Array.isArray(value)) return value;
+    if (typeof value !== 'string' || !value.trim()) return fallback;
+    try {
+      const parsed = JSON.parse(value);
+      return Array.isArray(parsed) ? parsed : fallback;
+    } catch {
+      return fallback;
+    }
+  };
+
+  return {
+    id: current.id || randomUUID(),
+    name: String(input.name || current.name || '').trim(),
+    active: boolean(input.active, current.active ?? true),
+    productIds: [...new Set(array(input.productIds, current.productIds ?? []).map(String).filter(Boolean))],
+    createdAt: current.createdAt || now,
+    updatedAt: now,
+  };
 }
 
 export async function readReviews() {
