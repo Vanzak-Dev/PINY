@@ -72,10 +72,10 @@ export default function ProductPage({ productIdentifier }) {
             onAdd={handleAdd}
           />
           <ProductActivesSection product={product} />
-          <AiAnalysisSection product={product} />
           <ProductBenefitsSection />
           <ProductBoosterSection onAdd={handleAdd} />
           <Journey21DaysSection />
+          <AiAnalysisSection product={product} />
           <ProductComparisonSection product={product} />
           <ProductFaqSection />
           <ProductBeforeAfterSection product={product} />
