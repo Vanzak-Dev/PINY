@@ -8,6 +8,7 @@ import ProductFaqSection from '../sections/product/ProductFaqSection';
 import ProductBeforeAfterSection from '../sections/product/ProductBeforeAfterSection';
 import Journey21DaysSection from '../sections/product/Journey21DaysSection';
 import AiAnalysisSection from '../sections/global/AiAnalysisSection';
+import UgcReviewsSection from '../sections/ugc/UgcReviewsSection';
 import { catalogApi } from '../services/catalogApi';
 import { useCart } from '../hooks/useCart';
 
@@ -15,6 +16,7 @@ export default function ProductPage({ productIdentifier }) {
   const [addedProduct, setAddedProduct] = useState(null);
   const [product, setProduct] = useState(null);
   const [products, setProducts] = useState([]);
+  const [featuredProductId, setFeaturedProductId] = useState(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
   const { addItem } = useCart();
@@ -77,6 +79,12 @@ export default function ProductPage({ productIdentifier }) {
           <Journey21DaysSection />
           <AiAnalysisSection product={product} />
           <ProductComparisonSection product={product} />
+          <UgcReviewsSection
+            products={products}
+            onAdd={handleAdd}
+            selectedProductId={featuredProductId}
+            onSelectProduct={setFeaturedProductId}
+          />
           <ProductFaqSection />
           <ProductBeforeAfterSection product={product} />
         </>
