@@ -35,10 +35,6 @@
   -webkit-user-drag: none;
 }
 
-.featured-collection__pineapple.is-right {
-  transform: scaleX(-1);
-}
-
 .featured-collection__subtitle {
   margin: 0;
   margin-top: 10px;
