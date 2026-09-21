@@ -1,4 +1,4 @@
-import { useMemo, useState, useRef, useCallback } from 'react';
+import { useMemo, useState, useRef, useCallback, useEffect } from 'react';
 import ProductCard from '../../components/product/ProductCard';
 import pineappleLeft from '../../assets/images/pineapple-scatter-left.webp';
 import pineappleRight from '../../assets/images/pineapple-scatter-right.webp';
@@ -10,8 +10,10 @@ const PAGE_SIZE = 4;
 export default function FeaturedCollectionSection({ products, onAdd }) {
   const { collections } = useCollections();
   const [activeCollectionId, setActiveCollectionId] = useState(null);
-  const [page, setPage] = useState(0);
-  const rowRef = useRef(null);
+  const [index, setIndex] = useState(1); // starts at 1 because of leading clone
+  const [noTransition, setNoTransition] = useState(false);
+  const trackRef = useRef(null);
+  const isAnimating = useRef(false);
 
   const activeCollection = useMemo(
     () => collections.find((collection) => collection.id === activeCollectionId) || collections[0] || null,
@@ -34,30 +36,63 @@ export default function FeaturedCollectionSection({ products, onAdd }) {
   }, [items]);
 
   const pageCount = pages.length;
-  const currentPage = Math.min(page, pageCount - 1);
   const hasCarousel = items.length > PAGE_SIZE;
-  const cardsPerRow = Math.min(items.length, PAGE_SIZE);
 
-  const goToPage = useCallback((index) => {
-    setPage(index);
-    if (rowRef.current) {
-      rowRef.current.scrollTo({ left: index * rowRef.current.clientWidth, behavior: 'smooth' });
-    }
+  // Build extended pages: [last, ...all, first] for seamless loop
+  const extendedPages = useMemo(() => {
+    if (!hasCarousel || pageCount < 2) return pages;
+    return [pages[pageCount - 1], ...pages, pages[0]];
+  }, [pages, hasCarousel, pageCount]);
+
+  const goTo = useCallback((target) => {
+    setNoTransition(false);
+    setIndex(target);
   }, []);
 
-  const handleScroll = useCallback(() => {
-    if (!rowRef.current || !hasCarousel) return;
-    const pageIndex = Math.round(rowRef.current.scrollLeft / rowRef.current.clientWidth);
-    if (pageIndex !== currentPage) setPage(pageIndex);
-  }, [currentPage, hasCarousel]);
+  const goNext = useCallback(() => {
+    if (isAnimating.current) return;
+    isAnimating.current = true;
+    goTo(index + 1);
+  }, [index, goTo]);
+
+  const goPrev = useCallback(() => {
+    if (isAnimating.current) return;
+    isAnimating.current = true;
+    goTo(index - 1);
+  }, [index, goTo]);
+
+  const goToDot = useCallback((dotIndex) => {
+    if (isAnimating.current) return;
+    isAnimating.current = true;
+    goTo(dotIndex + 1); // +1 offset for leading clone
+  }, [goTo]);
+
+  // After transition ends, silently jump to real page if on a clone
+  const handleTransitionEnd = useCallback(() => {
+    isAnimating.current = false;
+    if (!hasCarousel) return;
+    if (index === 0) {
+      setNoTransition(true);
+      setIndex(pageCount);
+    } else if (index === pageCount + 1) {
+      setNoTransition(true);
+      setIndex(1);
+    }
+  }, [index, hasCarousel, pageCount]);
+
+  // Reset to page 1 when collection changes
+  useEffect(() => {
+    setNoTransition(true);
+    setIndex(1);
+  }, [activeCollectionId]);
 
   const handleTabChange = (collectionId) => {
     setActiveCollectionId(collectionId);
-    setPage(0);
-    if (rowRef.current) rowRef.current.scrollTo({ left: 0 });
   };
 
   if (!items.length) return null;
+
+  const currentDot = hasCarousel ? (index - 1 + pageCount) % pageCount : 0;
 
   return (
     <section className="featured-collection" aria-label="Seu cuidado está aqui">
@@ -89,37 +124,71 @@ export default function FeaturedCollectionSection({ products, onAdd }) {
         </div>
       )}
 
-      <div
-        className={`featured-collection__viewport${hasCarousel ? ' is-carousel' : ''}`}
-        ref={rowRef}
-        onScroll={handleScroll}
-      >
-        {pages.map((pageItems, pageIndex) => (
-          <div
-            key={pageIndex}
-            className="featured-collection__page"
-            style={{ '--cards-count': PAGE_SIZE }}
+      <div className="featured-collection__slider">
+        {hasCarousel && (
+          <button
+            type="button"
+            className="featured-collection__arrow is-prev"
+            aria-label="Anterior"
+            onClick={goPrev}
           >
-            {pageItems.map((product) => (
-              <div className="featured-collection__card" key={product.id}>
-                <ProductCard product={product} onAdd={onAdd} />
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M15 18l-6-6 6-6" stroke="#1c8c44" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+        )}
+
+        <div className="featured-collection__viewport">
+          <div
+            className="featured-collection__track"
+            ref={trackRef}
+            style={{
+              transform: `translateX(-${index * 100}%)`,
+              transition: noTransition ? 'none' : 'transform 500ms ease',
+            }}
+            onTransitionEnd={handleTransitionEnd}
+          >
+            {extendedPages.map((pageItems, pageIndex) => (
+              <div
+                key={pageIndex}
+                className="featured-collection__page"
+                style={{ '--cards-count': PAGE_SIZE }}
+              >
+                {pageItems.map((product) => (
+                  <div className="featured-collection__card" key={`${pageIndex}-${product.id}`}>
+                    <ProductCard product={product} onAdd={onAdd} />
+                  </div>
+                ))}
               </div>
             ))}
           </div>
-        ))}
+        </div>
+
+        {hasCarousel && (
+          <button
+            type="button"
+            className="featured-collection__arrow is-next"
+            aria-label="Próximo"
+            onClick={goNext}
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M9 18l6-6-6-6" stroke="#1c8c44" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+        )}
       </div>
 
       {hasCarousel && (
         <div className="featured-collection__dots" role="tablist">
-          {pages.map((_, index) => (
+          {pages.map((_, dotIndex) => (
             <button
-              key={index}
+              key={dotIndex}
               type="button"
               role="tab"
-              aria-selected={index === currentPage}
-              aria-label={`Página ${index + 1}`}
-              className={`featured-collection__dot${index === currentPage ? ' is-active' : ''}`}
-              onClick={() => goToPage(index)}
+              aria-selected={dotIndex === currentDot}
+              aria-label={`Página ${dotIndex + 1}`}
+              className={`featured-collection__dot${dotIndex === currentDot ? ' is-active' : ''}`}
+              onClick={() => goToDot(dotIndex)}
             />
           ))}
         </div>
