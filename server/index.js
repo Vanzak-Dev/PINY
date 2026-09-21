@@ -61,6 +61,11 @@ function bodyWithUploads(request, current = {}) {
     featureLeftImage: files.featureLeftImageFile?.[0] ? `/api/uploads/${files.featureLeftImageFile[0].filename}` : request.body.featureLeftImage || current.featureLeftImage,
     featureRightImage: files.featureRightImageFile?.[0] ? `/api/uploads/${files.featureRightImageFile[0].filename}` : request.body.featureRightImage || current.featureRightImage,
     featureProductImage: files.featureProductImageFile?.[0] ? `/api/uploads/${files.featureProductImageFile[0].filename}` : request.body.featureProductImage || current.featureProductImage,
+    comparisonImage1: files.comparisonImage1File?.[0] ? `/api/uploads/${files.comparisonImage1File[0].filename}` : request.body.comparisonImage1 || current.comparisonImage1,
+    comparisonImage2: files.comparisonImage2File?.[0] ? `/api/uploads/${files.comparisonImage2File[0].filename}` : request.body.comparisonImage2 || current.comparisonImage2,
+    comparisonImage3: files.comparisonImage3File?.[0] ? `/api/uploads/${files.comparisonImage3File[0].filename}` : request.body.comparisonImage3 || current.comparisonImage3,
+    comparisonImage4: files.comparisonImage4File?.[0] ? `/api/uploads/${files.comparisonImage4File[0].filename}` : request.body.comparisonImage4 || current.comparisonImage4,
+    comparisonProductIcon: files.comparisonProductIconFile?.[0] ? `/api/uploads/${files.comparisonProductIconFile[0].filename}` : request.body.comparisonProductIcon || current.comparisonProductIcon,
   };
 }
 
@@ -219,6 +224,11 @@ const productUpload = upload.fields([
   { name: 'featureLeftImageFile', maxCount: 1 },
   { name: 'featureRightImageFile', maxCount: 1 },
   { name: 'featureProductImageFile', maxCount: 1 },
+  { name: 'comparisonImage1File', maxCount: 1 },
+  { name: 'comparisonImage2File', maxCount: 1 },
+  { name: 'comparisonImage3File', maxCount: 1 },
+  { name: 'comparisonImage4File', maxCount: 1 },
+  { name: 'comparisonProductIconFile', maxCount: 1 },
 ]);
 app.post('/api/admin/products', productUpload, async (request, response) => {
   const products = await readProducts();

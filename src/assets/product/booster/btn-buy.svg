@@ -1,0 +1,11 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="98" height="76" viewBox="0 0 98 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="btnBuy">
+<rect id="Rectangle 134" x="2" y="3" width="96" height="73" rx="16" fill="#1C8C44"/>
+<rect id="Rectangle 135" x="2" y="2" width="92" height="69" rx="14" fill="#FEFEFD" stroke="#1C8C44" stroke-width="4"/>
+<path id="Vector" d="M69.8472 33.375L66.0157 52.4082C65.543 54.7562 65.3067 55.9304 64.6898 56.8085C64.1455 57.5829 63.3965 58.1928 62.5255 58.571C61.5377 59 60.3326 59 57.9223 59H40.5041C38.0938 59 36.8887 59 35.9009 58.571C35.0299 58.1928 34.2809 57.5829 33.7368 56.8085C33.1198 55.9304 32.8834 54.7562 32.4107 52.4082L28.5792 33.375M26 33.375H72.4265M38.8962 41.0625V41.0881M59.5302 41.0625V41.0881M33.7377 33.375L41.4755 18M64.6887 33.375L56.951 18" stroke="#1C8C44" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="Group 36">
+<line id="Line 78" x1="26.0001" y1="12" x2="26.0001" y2="23.3356" stroke="#1C8C44" stroke-width="4" stroke-linecap="round"/>
+<line id="Line 79" x1="31.3388" y1="17.5" x2="20.0032" y2="17.5" stroke="#1C8C44" stroke-width="4" stroke-linecap="round"/>
+</g>
+</g>
+</svg>
