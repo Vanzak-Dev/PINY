@@ -29,6 +29,7 @@ export default function Home() {
         initialIndex={2}
         onAdd={handleAdd}
       />
+      <AiAnalysisSection />
       <PineappleFeatureSection products={products} selectedProductId={featuredProductId} />
       <UgcReviewsSection
         products={products}
@@ -40,7 +41,6 @@ export default function Home() {
       <div className="testimonials-backdrop">
         <TestimonialsSection />
       </div>
-      <AiAnalysisSection />
       <InstafeedSection />
       <p role="status" aria-live="polite" hidden={!error}>{error}</p>
       <p role="status" aria-live="polite" hidden={!addedProduct}>
