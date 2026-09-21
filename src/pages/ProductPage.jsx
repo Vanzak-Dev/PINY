@@ -75,10 +75,10 @@ export default function ProductPage({ productIdentifier }) {
           <AiAnalysisSection product={product} />
           <ProductBenefitsSection />
           <ProductBoosterSection onAdd={handleAdd} />
+          <Journey21DaysSection />
           <ProductComparisonSection product={product} />
           <ProductFaqSection />
           <ProductBeforeAfterSection product={product} />
-          <Journey21DaysSection />
         </>
       )}
       {!loading && error && <p className="page-width" role="alert">{error}</p>}
