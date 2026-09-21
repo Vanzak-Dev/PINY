@@ -4,6 +4,7 @@ import AnnouncementBar from "./components/global/AnnouncementBar";
 import Footer from "./sections/global/Footer";
 import Home from "./pages/Home";
 import ProductPage from "./pages/ProductPage";
+import { CartProvider } from "./hooks/useCart";
 
 export default function App() {
   const [pathname, setPathname] = useState(window.location.pathname);
@@ -25,10 +26,10 @@ export default function App() {
     : <Home />;
 
   return (
-    <>
+    <CartProvider>
       <AnnouncementBar />
       {page}
       <Footer />
-    </>
+    </CartProvider>
   );
 }
