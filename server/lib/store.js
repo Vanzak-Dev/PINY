@@ -189,6 +189,37 @@ export function normalizeProduct(input, current = {}) {
     featureLeftImage: String(input.featureLeftImage ?? current.featureLeftImage ?? '').trim(),
     featureRightImage: String(input.featureRightImage ?? current.featureRightImage ?? '').trim(),
     featureProductImage: String(input.featureProductImage ?? current.featureProductImage ?? '').trim(),
+    beforeAfterEnabled: boolean(input.beforeAfterEnabled, current.beforeAfterEnabled ?? false),
+    beforeAfterTitle: String(input.beforeAfterTitle ?? current.beforeAfterTitle ?? '').trim(),
+    beforeAfterTitleAccent: String(input.beforeAfterTitleAccent ?? current.beforeAfterTitleAccent ?? '').trim(),
+    beforeAfterSubtitle: String(input.beforeAfterSubtitle ?? current.beforeAfterSubtitle ?? '').trim(),
+    beforeAfterBeforeLabel: String(input.beforeAfterBeforeLabel ?? current.beforeAfterBeforeLabel ?? '').trim(),
+    beforeAfterAfterLabel: String(input.beforeAfterAfterLabel ?? current.beforeAfterAfterLabel ?? '').trim(),
+    beforeAfterItems: array(input.beforeAfterItems, current.beforeAfterItems ?? [])
+      .map((item) => ({
+        name: String(item?.name || '').trim(),
+        usage: String(item?.usage || '').trim(),
+        beforeImage: String(item?.beforeImage || '').trim(),
+        afterImage: String(item?.afterImage || '').trim(),
+      }))
+      .filter((item) => item.name && item.beforeImage && item.afterImage),
+    comparisonEnabled: boolean(input.comparisonEnabled, current.comparisonEnabled ?? true),
+    comparisonTitle: String(input.comparisonTitle ?? current.comparisonTitle ?? '').trim(),
+    comparisonSubtitle: String(input.comparisonSubtitle ?? current.comparisonSubtitle ?? '').trim(),
+    comparisonPinyLabel: String(input.comparisonPinyLabel ?? current.comparisonPinyLabel ?? '').trim(),
+    comparisonOtherLabel: String(input.comparisonOtherLabel ?? current.comparisonOtherLabel ?? '').trim(),
+    comparisonImage1: String(input.comparisonImage1 ?? current.comparisonImage1 ?? '').trim(),
+    comparisonImage2: String(input.comparisonImage2 ?? current.comparisonImage2 ?? '').trim(),
+    comparisonImage3: String(input.comparisonImage3 ?? current.comparisonImage3 ?? '').trim(),
+    comparisonImage4: String(input.comparisonImage4 ?? current.comparisonImage4 ?? '').trim(),
+    comparisonProductIcon: String(input.comparisonProductIcon ?? current.comparisonProductIcon ?? '').trim(),
+    comparisonRows: array(input.comparisonRows, current.comparisonRows ?? [])
+      .map((row) => ({
+        label: String(row?.label || '').trim(),
+        piny: String(row?.piny ?? 'check').trim() || 'check',
+        other: String(row?.other ?? 'x').trim() || 'x',
+      }))
+      .filter((row) => row.label),
     imageRestRotation: number(input.imageRestRotation, current.imageRestRotation ?? 0),
     imageActiveRotation: number(input.imageActiveRotation, current.imageActiveRotation ?? 15),
     weight: number(input.weight, current.weight ?? 0),

@@ -1,0 +1,698 @@
+.product-booster {
+  --section-h: 54.0104vw;
+
+  --pour-left: -6.8229%;
+  --pour-top: -10.9984vw;
+  --pour-w: 61.8727vw;
+  --pour-h: 42.7457vw;
+  --pour-inner-w: 58.396vw;
+  --pour-inner-h: 36.9628vw;
+  --pour-rotate: 5.87deg;
+
+  --wave-left: 0%;
+  --wave-top: 11.3286vw;
+  --wave-w: 100vw;
+  --wave-h: 42.7585vw;
+
+  --cap-left: 66.5854%;
+  --cap-top: 1.7073vw;
+  --cap-w: 15.6018vw;
+  --cap-h: 17.796vw;
+  --cap-inner-w: 17.1063vw;
+  --cap-inner-h: 6.7807vw;
+  --cap-rotate: 53.64deg;
+
+  --drop1-left: 48.575%;
+  --drop1-top: 18.9906vw;
+  --drop1-w: 2.7904vw;
+  --drop1-h: 2.8919vw;
+  --drop1-inner-w: 2.0692vw;
+  --drop1-inner-h: 2.6033vw;
+  --drop2-left: 55.6766%;
+  --drop2-top: 10.7766vw;
+  --drop2-w: 4.5842vw;
+  --drop2-h: 2.6969vw;
+  --drop2-inner-w: 2.2515vw;
+  --drop2-inner-h: 4.2206vw;
+  --drop3-left: 52.8958%;
+  --drop3-top: 9.5359vw;
+  --drop3-w: 2.9446vw;
+  --drop3-h: 2.1595vw;
+  --drop3-inner-w: 1.3988vw;
+  --drop3-inner-h: 2.3352vw;
+
+  --steps-left: 10.4167%;
+  --steps-top: 33.5417vw;
+  --steps-w: 42.3958vw;
+  --steps-h: 13.9063vw;
+  --step-col-w: 30.7125%;
+  --step-icon-h: 93.633%;
+  --step2-left: 34.6437%;
+  --step3-left: 69.2875%;
+  --op-left-plus: 34.7052%;
+  --op-left-eq: 65.2948%;
+  --op-top: 37.8277%;
+  --op-font: 3.3333vw;
+  --step-font: 1.25vw;
+
+  --cta-left: 65.4688%;
+  --cta-top: 36.25vw;
+  --card-w: 24.1146vw;
+  --card-gap: 0.8333vw;
+  --card-info-gap: 0.8333vw;
+  --card-title-font: 1.25vw;
+  --card-pad: 0.8333vw;
+  --card-radius: 1.6667vw;
+  --card-icon-size: 5vw;
+  --card-icon-radius: 0.625vw;
+  --card-icon-crop: 7.1763vw;
+  --card-icon-img: 5.8594vw;
+  --card-name-font: 1.25vw;
+  --card-price-gap: 0.4167vw;
+  --card-price-font: 1.25vw;
+  --card-price-old-font: 0.9375vw;
+  --btn-w: 5.1042vw;
+  --btn-h: 3.9583vw;
+
+  --var-gap: 1.6667vw;
+  --var-size: 4.6875vw;
+  --var-border: 0.1563vw;
+  --var-crop: 7.1763vw;
+  --var-crop-left-1: -0.2661vw;
+  --var-crop-left-2: -0.2661vw;
+  --var-crop-top: 0.6193vw;
+  --var-img: 5.8594vw;
+  --var-ring: 4.375vw;
+  --var-ring-offset: 0.1563vw;
+
+  position: relative;
+  width: 100%;
+  min-height: var(--section-h);
+  overflow: hidden;
+  background: #fff;
+  color: #000b06;
+  font-family: "neulis-neue", sans-serif;
+}
+
+/* Fundo: bico derramando o produto */
+.product-booster__pour-bg {
+  position: absolute;
+  left: var(--pour-left);
+  top: var(--pour-top);
+  width: var(--pour-w);
+  height: var(--pour-h);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.product-booster__pour-bg-inner {
+  flex: none;
+  position: relative;
+  width: var(--pour-inner-w);
+  height: var(--pour-inner-h);
+  overflow: hidden;
+  transform: rotate(var(--pour-rotate));
+}
+
+.product-booster__pour-bg-inner img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 133.41%;
+  height: 100%;
+  max-width: none;
+  display: block;
+}
+
+/* Onda laranja de fundo */
+.product-booster__wave {
+  position: absolute;
+  left: var(--wave-left);
+  top: var(--wave-top);
+  width: var(--wave-w);
+  height: var(--wave-h);
+}
+
+.product-booster__wave-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.product-booster__wave-img--mobile {
+  display: none;
+}
+
+/* Tampinha flutuante decorativa */
+.product-booster__cap {
+  position: absolute;
+  left: var(--cap-left);
+  top: var(--cap-top);
+  width: var(--cap-w);
+  height: var(--cap-h);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.product-booster__cap-inner {
+  flex: none;
+  position: relative;
+  width: var(--cap-inner-w);
+  height: var(--cap-inner-h);
+  overflow: hidden;
+  transform: rotate(var(--cap-rotate));
+}
+
+.product-booster__cap-inner img {
+  position: absolute;
+  top: -53.74%;
+  left: -44.91%;
+  width: 187.34%;
+  height: 827.09%;
+  max-width: none;
+  display: block;
+}
+
+/* Gotas decorativas (apenas desktop) */
+.product-booster__drop {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.product-booster__drop-inner {
+  flex: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.product-booster__drop-inner img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.product-booster__drop--1 {
+  left: var(--drop1-left);
+  top: var(--drop1-top);
+  width: var(--drop1-w);
+  height: var(--drop1-h);
+}
+
+.product-booster__drop--1 .product-booster__drop-inner {
+  width: var(--drop1-inner-w);
+  height: var(--drop1-inner-h);
+  transform: rotate(11.21deg) scaleY(0.99) skewX(-5.78deg);
+}
+
+.product-booster__drop--2 {
+  left: var(--drop2-left);
+  top: var(--drop2-top);
+  width: var(--drop2-w);
+  height: var(--drop2-h);
+}
+
+.product-booster__drop--2 .product-booster__drop-inner {
+  width: var(--drop2-inner-w);
+  height: var(--drop2-inner-h);
+  transform: rotate(-80deg) skewX(3.48deg);
+}
+
+.product-booster__drop--3 {
+  left: var(--drop3-left);
+  top: var(--drop3-top);
+  width: var(--drop3-w);
+  height: var(--drop3-h);
+}
+
+.product-booster__drop--3 .product-booster__drop-inner {
+  width: var(--drop3-inner-w);
+  height: var(--drop3-inner-h);
+  transform: rotate(-128.11deg) scaleY(0.98) skewX(-11.15deg);
+}
+
+/* Passo a passo: base + booster = produto */
+.product-booster__steps {
+  position: absolute;
+  left: var(--steps-left);
+  top: var(--steps-top);
+  width: var(--steps-w);
+  height: var(--steps-h);
+}
+
+.product-booster__step {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: var(--step-col-w);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.product-booster__step--1 {
+  left: 0;
+}
+
+.product-booster__step--2 {
+  left: var(--step2-left);
+}
+
+.product-booster__step--3 {
+  left: var(--step3-left);
+}
+
+.product-booster__step-icon {
+  display: block;
+  width: 100%;
+  height: var(--step-icon-h);
+  flex: 0 0 auto;
+}
+
+.product-booster__step-icon--crop {
+  position: relative;
+  overflow: hidden;
+}
+
+.product-booster__step-icon-inset {
+  position: absolute;
+  inset: 10% 16.48% 10% 16.4%;
+  display: block;
+}
+
+.product-booster__step-icon-inset img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.product-booster__step-label {
+  margin: 0;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  font-family: "neulis-neue", sans-serif;
+  font-weight: 700;
+  font-size: var(--step-font);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.product-booster__operator {
+  position: absolute;
+  top: var(--op-top);
+  margin: 0;
+  transform: translateX(-50%);
+  color: #fff;
+  font-family: "neulis-neue", sans-serif;
+  font-weight: 700;
+  font-size: var(--op-font);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.product-booster__operator--plus {
+  left: var(--op-left-plus);
+}
+
+.product-booster__operator--eq {
+  left: var(--op-left-eq);
+}
+
+/* Cartão "adicione a sua rotina" */
+.product-booster__cta {
+  position: absolute;
+  left: var(--cta-left);
+  top: var(--cta-top);
+  width: var(--card-w);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--card-gap);
+}
+
+.product-booster__cta-title {
+  margin: 0;
+  width: 100%;
+  color: #fff;
+  font-family: "neulis-neue", sans-serif;
+  font-weight: 700;
+  font-size: var(--card-title-font);
+  line-height: 1;
+}
+
+.product-booster__card {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--card-gap);
+  background: #f9f9f9;
+  border-radius: var(--card-radius);
+  padding: var(--card-pad);
+  overflow: hidden;
+}
+
+.product-booster__card-main {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--card-gap);
+}
+
+.product-booster__card-icon {
+  position: relative;
+  flex: 0 0 auto;
+  width: var(--card-icon-size);
+  height: var(--card-icon-size);
+  border-radius: var(--card-icon-radius);
+  overflow: hidden;
+  background: #e98a07;
+}
+
+.product-booster__card-icon::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(249, 196, 124, 0) 50%, rgba(249, 196, 124, 1) 99.974%);
+}
+
+.product-booster__card-icon-crop {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--card-icon-crop);
+  height: var(--card-icon-crop);
+  transform: translate(-50%, -50%) rotate(15deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-booster__card-icon-crop img {
+  width: var(--card-icon-img);
+  height: var(--card-icon-img);
+  object-fit: contain;
+  display: block;
+}
+
+.product-booster__card-info {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--card-info-gap);
+}
+
+.product-booster__card-name {
+  margin: 0;
+  color: #000b06;
+  font-family: "neulis-neue", sans-serif;
+  font-weight: 700;
+  font-size: var(--card-name-font);
+  line-height: 1;
+}
+
+.product-booster__card-prices {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--card-price-gap);
+  line-height: 1;
+}
+
+.product-booster__price {
+  font-family: "neulis-neue", sans-serif;
+  font-weight: 500;
+  font-size: var(--card-price-font);
+  color: #000b06;
+  white-space: nowrap;
+}
+
+.product-booster__price--old {
+  font-weight: 300;
+  font-size: var(--card-price-old-font);
+  color: rgba(0, 11, 6, 0.5);
+  text-decoration: line-through;
+}
+
+.product-booster__buy {
+  flex: 0 0 auto;
+  width: var(--btn-w);
+  height: var(--btn-h);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.product-booster__buy img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Seletor de variação (bolinhas na base da onda) */
+.product-booster__variations {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: var(--var-gap);
+}
+
+.product-booster__variation {
+  position: relative;
+  display: block;
+  width: var(--var-size);
+  height: var(--var-size);
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.product-booster__variation--1 {
+  background: #ffbd35;
+  border: var(--var-border) solid #1c8c44;
+}
+
+.product-booster__variation--2 {
+  background: #9d7ec2;
+}
+
+.product-booster__variation-crop {
+  position: absolute;
+  top: calc(50% + var(--var-crop-top));
+  left: calc(50% + var(--var-crop-left-1));
+  width: var(--var-crop);
+  height: var(--var-crop);
+  transform: translate(-50%, -50%) rotate(15deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-booster__variation--2 .product-booster__variation-crop {
+  left: calc(50% + var(--var-crop-left-2));
+}
+
+.product-booster__variation-img {
+  width: var(--var-img);
+  height: var(--var-img);
+  object-fit: contain;
+  display: block;
+}
+
+.product-booster__variation-crop-inset {
+  position: relative;
+  width: var(--var-img);
+  height: var(--var-img);
+  overflow: hidden;
+}
+
+.product-booster__variation-crop-inset img {
+  position: absolute;
+  top: -3.17%;
+  left: 13.85%;
+  width: 73.3%;
+  height: 109.95%;
+  max-width: none;
+  display: block;
+}
+
+.product-booster__variation-ring {
+  position: absolute;
+  inset: var(--var-ring-offset);
+  width: var(--var-ring);
+  height: var(--var-ring);
+  display: block;
+}
+
+.product-booster__break {
+  display: none;
+}
+
+.product-booster__break--desktop {
+  display: inline;
+}
+
+@media (max-width: 767px) {
+  .product-booster {
+    --section-h: 246.5649vw;
+
+    --pour-left: -20.7859%;
+    --pour-top: -13.7405vw;
+    --pour-w: 84.0365vw;
+    --pour-h: 58.058vw;
+    --pour-inner-w: 79.3145vw;
+    --pour-inner-h: 50.2036vw;
+
+    --wave-left: -17.8117%;
+    --wave-top: 14.2532vw;
+    --wave-w: 135.6234vw;
+    --wave-h: 228.2705vw;
+
+    --cap-left: 79.427%;
+    --cap-top: -2.0356vw;
+    --cap-w: 21.1907vw;
+    --cap-h: 24.1708vw;
+    --cap-inner-w: 23.2341vw;
+    --cap-inner-h: 9.2097vw;
+
+    --card-w: 89.8219vw;
+    --card-gap: 4.0712vw;
+    --card-info-gap: 2.8891vw;
+    --card-title-font: 4.0712vw;
+    --card-pad: 3.0534vw;
+    --card-radius: 6.1069vw;
+    --card-icon-size: 17.3028vw;
+    --card-icon-radius: 2.1628vw;
+    --card-icon-crop: 24.8338vw;
+    --card-icon-img: 20.2766vw;
+    --card-name-font: 4.5802vw;
+    --card-price-gap: 1.4445vw;
+    --card-price-font: 4.5802vw;
+    --card-price-old-font: 3.0534vw;
+    --btn-w: 17.6947vw;
+    --btn-h: 13.7224vw;
+
+    --var-gap: 4.0712vw;
+    --var-size: 12.3644vw;
+    --var-border: 0.4122vw;
+    --var-crop: 19.6738vw;
+    --var-crop-left-1: -0.9898vw;
+    --var-crop-left-2: -0.8855vw;
+    --var-crop-top: 1.6285vw;
+    --var-img: 16.0636vw;
+    --var-ring: 11.5402vw;
+    --var-ring-offset: 0.4122vw;
+
+    --step-font: 4.0712vw;
+    --op-font: 8.1425vw;
+
+    --steps-top: 55.7252vw;
+    --steps-gap: 2.0356vw;
+    --step-inner-gap: 4.0712vw;
+    --step-icon-mobile: 25.4453vw;
+    --cta-top: 192.3664vw;
+    --var-top: 234.0967vw;
+  }
+
+  .product-booster__wave-img--desktop {
+    display: none;
+  }
+
+  .product-booster__wave-img--mobile {
+    display: block;
+  }
+
+  .product-booster__drop {
+    display: none;
+  }
+
+  /* No mobile, o passo a passo + CTA + seletor de variação seguem fluxo normal
+     (em vez de posicionamento absoluto), porque a altura exata do texto
+     renderizado no navegador varia um pouco em relação ao Figma - usar gaps
+     relativos entre os blocos evita que eles se sobreponham. */
+  .product-booster__steps {
+    position: relative;
+    left: auto;
+    top: auto;
+    margin-top: var(--steps-top);
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--steps-gap);
+  }
+
+  .product-booster__step {
+    position: static;
+    height: auto;
+    width: auto;
+    gap: var(--step-inner-gap);
+  }
+
+  .product-booster__step-icon {
+    width: var(--step-icon-mobile);
+    height: var(--step-icon-mobile);
+  }
+
+  .product-booster__step-label {
+    width: auto;
+  }
+
+  .product-booster__operator {
+    position: static;
+    transform: none;
+  }
+
+  .product-booster__cta {
+    position: relative;
+    left: auto;
+    top: auto;
+    margin-top: 8.1425vw;
+    margin-inline: auto;
+    width: var(--card-w);
+    gap: var(--card-gap);
+  }
+
+  .product-booster__cta-title {
+    text-align: center;
+  }
+
+  .product-booster__variations {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    top: auto;
+    margin-top: 11.4504vw;
+    margin-inline: auto;
+    width: fit-content;
+    transform: none;
+    padding-bottom: 4.0712vw;
+  }
+
+  .product-booster__break {
+    display: none;
+  }
+
+  .product-booster__break--mobile {
+    display: block;
+  }
+
+  .product-booster__break--desktop {
+    display: none;
+  }
+}
