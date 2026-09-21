@@ -97,8 +97,8 @@ function BeforeAfterCard({ item, beforeLabel, afterLabel }) {
           style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
         />
 
-        <span className="before-after__badge before-after__badge--left">{afterLabel}</span>
-        <span className="before-after__badge before-after__badge--right">{beforeLabel}</span>
+        <span className="before-after__badge before-after__badge--left">{beforeLabel}</span>
+        <span className="before-after__badge before-after__badge--right">{afterLabel}</span>
 
         <div className="before-after__handle" style={{ left: `${position}%` }}>
           <SliderHandle hideKnob={isActive} />
