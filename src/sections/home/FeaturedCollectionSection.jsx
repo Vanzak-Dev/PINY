@@ -83,27 +83,31 @@ export default function FeaturedCollectionSection({ products, onAdd }) {
 
   return (
     <section className="featured-collection" aria-label="Seu cuidado está aqui">
-      <h2 className="featured-collection__title">SEU CUIDADO</h2>
+      <h2 className="featured-collection__title">
+        SEU CUIDADO
+        <br />
+        <span className="featured-collection__title-line2">
+          <img className="featured-collection__pineapple is-left" src={pineappleLeft} alt="" draggable="false" />
+          está aqui
+          <img className="featured-collection__pineapple is-right" src={pineappleRight} alt="" draggable="false" />
+        </span>
+      </h2>
       <p className="featured-collection__subtitle">Compre os produtos PINY conforme sua necessidade.</p>
 
       {collections.length > 1 && (
-        <div className="featured-collection__tabs-row">
-          <img className="featured-collection__pineapple is-left" src={pineappleLeft} alt="" draggable="false" />
-          <div className="featured-collection__tabs" role="tablist">
-            {collections.map((collection) => (
-              <button
-                key={collection.id}
-                type="button"
-                role="tab"
-                aria-selected={collection.id === activeCollection.id}
-                className={`featured-collection__tab${collection.id === activeCollection.id ? ' is-active' : ''}`}
-                onClick={() => setActiveCollectionId(collection.id)}
-              >
-                <span className="featured-collection__tab-label">{collection.name}</span>
-              </button>
-            ))}
-          </div>
-          <img className="featured-collection__pineapple is-right" src={pineappleRight} alt="" draggable="false" />
+        <div className="featured-collection__tabs" role="tablist">
+          {collections.map((collection) => (
+            <button
+              key={collection.id}
+              type="button"
+              role="tab"
+              aria-selected={collection.id === activeCollection.id}
+              className={`featured-collection__tab${collection.id === activeCollection.id ? ' is-active' : ''}`}
+              onClick={() => setActiveCollectionId(collection.id)}
+            >
+              <span className="featured-collection__tab-label">{collection.name}</span>
+            </button>
+          ))}
         </div>
       )}
 
