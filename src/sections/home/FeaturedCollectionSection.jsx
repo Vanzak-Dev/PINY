@@ -18,8 +18,7 @@ export default function FeaturedCollectionSection({ products, onAdd }) {
     if (!activeCollection) return [];
     return (activeCollection.productIds || [])
       .map((id) => products.find((product) => product.id === id))
-      .filter(Boolean)
-      .slice(0, 4);
+      .filter(Boolean);
   }, [activeCollection, products]);
 
   if (!items.length) return null;
