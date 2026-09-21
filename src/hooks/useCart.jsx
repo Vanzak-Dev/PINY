@@ -16,14 +16,23 @@ export function CartProvider({ children }) {
   const close = useCallback(() => setIsOpen(false), []);
 
   const addItem = useCallback((product, quantity = 1) => {
+    const selectedQty = product?.selectedQuantity;
+    const qty = selectedQty ? Number(selectedQty.quantity) || 1 : quantity;
+    const unitPrice = selectedQty
+      ? parsePrice(selectedQty.price) / qty
+      : parsePrice(product.price);
+    const cleanProduct = selectedQty
+      ? (() => { const { selectedQuantity, ...rest } = product; return rest; })()
+      : product;
+
     setItems((current) => {
-      const existing = current.find((entry) => entry.product.id === product.id);
+      const existing = current.find((entry) => entry.product.id === cleanProduct.id);
       if (existing) {
-        return current.map((entry) => (entry.product.id === product.id
-          ? { ...entry, quantity: entry.quantity + quantity }
+        return current.map((entry) => (entry.product.id === cleanProduct.id
+          ? { ...entry, quantity: entry.quantity + qty }
           : entry));
       }
-      return [...current, { product, quantity }];
+      return [...current, { product: cleanProduct, quantity: qty, unitPrice }];
     });
     setIsOpen(true);
   }, []);
@@ -46,7 +55,8 @@ export function CartProvider({ children }) {
   }, [couponCode]);
 
   const subtotal = useMemo(
-    () => items.reduce((sum, { product, quantity }) => sum + parsePrice(product.price) * quantity, 0),
+    () => items.reduce((sum, { product, quantity, unitPrice }) =>
+      sum + (unitPrice ?? parsePrice(product.price)) * quantity, 0),
     [items],
   );
   const discount = appliedCoupon ? subtotal * appliedCoupon.rate : 0;
