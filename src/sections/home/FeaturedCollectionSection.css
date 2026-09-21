@@ -218,7 +218,15 @@
     grid-row: span 1;
     grid-column: span 1;
     justify-self: stretch;
-    border-radius: 2.5vw;
+    border-radius: 8px;
+    border: 2px dashed #85e86f;
+    background: transparent;
+  }
+
+  .featured-collection__tab.is-active {
+    border: 2px solid #1c8c44;
+    background: #85e86f;
+    box-shadow: 2px 2px 0 0 #1c8c44;
   }
 
   .featured-collection__tab-label {
