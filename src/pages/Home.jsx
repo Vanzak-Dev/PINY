@@ -8,11 +8,18 @@ import ProductCarouselSection from "../sections/product/ProductCarouselSection";
 import PineappleFeatureSection from "../sections/brand/PineappleFeatureSection";
 import UgcReviewsSection from "../sections/ugc/UgcReviewsSection";
 import { useProducts } from "../hooks/useProducts";
+import { useCart } from "../hooks/useCart";
 
 export default function Home() {
   const [addedProduct, setAddedProduct] = useState(null);
   const [featuredProductId, setFeaturedProductId] = useState(null);
   const { products, error } = useProducts();
+  const { addItem } = useCart();
+
+  const handleAdd = (product) => {
+    addItem(product);
+    setAddedProduct(product);
+  };
 
   return (
     <main>
@@ -20,16 +27,16 @@ export default function Home() {
       <ProductCarouselSection
         products={products}
         initialIndex={2}
-        onAdd={setAddedProduct}
+        onAdd={handleAdd}
       />
       <PineappleFeatureSection products={products} selectedProductId={featuredProductId} />
       <UgcReviewsSection
         products={products}
-        onAdd={setAddedProduct}
+        onAdd={handleAdd}
         selectedProductId={featuredProductId}
         onSelectProduct={setFeaturedProductId}
       />
-      <ProductCategoriesSection products={products} onAdd={setAddedProduct} />
+      <ProductCategoriesSection products={products} onAdd={handleAdd} />
       <div className="testimonials-backdrop">
         <TestimonialsSection />
       </div>

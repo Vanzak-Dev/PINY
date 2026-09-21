@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import AdminPage from "./pages/AdminPage";
 import AnnouncementBar from "./components/global/AnnouncementBar";
+import Footer from "./sections/global/Footer";
 import Home from "./pages/Home";
 import ProductPage from "./pages/ProductPage";
 
@@ -27,6 +28,7 @@ export default function App() {
     <>
       <AnnouncementBar />
       {page}
+      <Footer />
     </>
   );
 }
