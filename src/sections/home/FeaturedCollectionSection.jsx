@@ -32,6 +32,7 @@ export default function FeaturedCollectionSection({ products, onAdd }) {
   const [index, setIndex] = useState(1);
   const [noTransition, setNoTransition] = useState(false);
   const isAnimating = useRef(false);
+  const touchStartX = useRef(0);
 
   const activeCollection = useMemo(
     () => collections.find((collection) => collection.id === activeCollectionId) || collections[0] || null,
@@ -96,9 +97,24 @@ export default function FeaturedCollectionSection({ products, onAdd }) {
     setIndex(1);
   }, [activeCollectionId]);
 
-  if (!items.length) return null;
-
   const currentDot = hasCarousel ? (index - 1 + pageCount) % pageCount : 0;
+
+  // Touch swipe support
+  const handleTouchStart = useCallback((e) => {
+    touchStartX.current = e.touches[0].clientX;
+  }, []);
+
+  const handleTouchEnd = useCallback((e) => {
+    if (!hasCarousel || isAnimating.current) return;
+    const deltaX = e.changedTouches[0].clientX - touchStartX.current;
+    if (Math.abs(deltaX) < 40) return;
+    isAnimating.current = true;
+    const direction = deltaX < 0 ? 1 : -1;
+    const newDot = (currentDot + direction + pageCount) % pageCount;
+    goTo(newDot + 1);
+  }, [hasCarousel, currentDot, pageCount, goTo]);
+
+  if (!items.length) return null;
 
   return (
     <section className="featured-collection" aria-label="Seu cuidado está aqui">
@@ -130,7 +146,11 @@ export default function FeaturedCollectionSection({ products, onAdd }) {
         </div>
       )}
 
-      <div className="featured-collection__viewport">
+      <div
+        className="featured-collection__viewport"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         <div
           className="featured-collection__track"
           style={{
