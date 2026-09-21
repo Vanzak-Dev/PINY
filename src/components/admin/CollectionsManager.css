@@ -19,7 +19,8 @@
 .admin-collections__form input:not([type]) { min-height: 42px; padding: 0 12px; border: 1px solid var(--admin-line); border-radius: 10px; font-weight: 400; }
 .admin-collections__products { border: 1px solid var(--admin-line); border-radius: 14px; padding: 16px; display: grid; gap: 10px; }
 .admin-collections__products legend { font-weight: 700; padding: 0 6px; }
-.admin-collections__product-check { display: flex; align-items: center; gap: 8px; font-weight: 400; cursor: pointer; }
+.admin-collections__form .admin-collections__product-check { display: flex; align-items: center; gap: 8px; font-weight: 400; cursor: pointer; }
+.admin-collections__product-check input { width: 18px; min-height: 18px; }
 .admin-collections__actions { display: flex; gap: 10px; justify-content: flex-end; }
 
 @media (max-width: 900px) {
