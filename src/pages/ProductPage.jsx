@@ -6,6 +6,7 @@ import ProductBoosterSection from '../sections/product/ProductBoosterSection';
 import ProductComparisonSection from '../sections/product/ProductComparisonSection';
 import ProductFaqSection from '../sections/product/ProductFaqSection';
 import ProductBeforeAfterSection from '../sections/product/ProductBeforeAfterSection';
+import Journey21DaysSection from '../sections/product/Journey21DaysSection';
 import AiAnalysisSection from '../sections/global/AiAnalysisSection';
 import { catalogApi } from '../services/catalogApi';
 import { useCart } from '../hooks/useCart';
@@ -46,10 +47,8 @@ export default function ProductPage({ productIdentifier }) {
     const handleStorage = (event) => {
       if (event.key === 'piny:catalog-version') loadProduct();
     };
-    window.addEventListener('focus', loadProduct);
     window.addEventListener('storage', handleStorage);
     return () => {
-      window.removeEventListener('focus', loadProduct);
       window.removeEventListener('storage', handleStorage);
     };
   }, [loadProduct]);
@@ -79,6 +78,7 @@ export default function ProductPage({ productIdentifier }) {
           <ProductComparisonSection product={product} />
           <ProductFaqSection />
           <ProductBeforeAfterSection product={product} />
+          <Journey21DaysSection />
         </>
       )}
       {!loading && error && <p className="page-width" role="alert">{error}</p>}
