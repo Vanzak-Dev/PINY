@@ -5,7 +5,6 @@ import AiAnalysisSection from "../sections/global/AiAnalysisSection";
 import InstafeedSection from "../sections/home/InstafeedSection";
 import ProductCategoriesSection from "../sections/product/ProductCategoriesSection";
 import ProductCarouselSection from "../sections/product/ProductCarouselSection";
-import ProductFeaturedSection from "../sections/product/ProductFeaturedSection";
 import PineappleFeatureSection from "../sections/brand/PineappleFeatureSection";
 import UgcReviewsSection from "../sections/ugc/UgcReviewsSection";
 import { useProducts } from "../hooks/useProducts";
@@ -43,7 +42,6 @@ export default function Home() {
       </div>
       <AiAnalysisSection />
       <InstafeedSection />
-      <ProductFeaturedSection products={products} onAdd={handleAdd} />
       <p role="status" aria-live="polite" hidden={!error}>{error}</p>
       <p role="status" aria-live="polite" hidden={!addedProduct}>
         {addedProduct ? `${addedProduct.name} adicionada ao carrinho.` : ""}
