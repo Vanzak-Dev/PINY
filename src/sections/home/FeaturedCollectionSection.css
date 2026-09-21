@@ -207,6 +207,7 @@
   }
 
   .featured-collection__tab {
+    flex: 1 1 auto;
     padding: 2.5vw 4vw;
     border-radius: 2.5vw;
   }
