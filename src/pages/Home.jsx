@@ -30,7 +30,6 @@ export default function Home() {
         initialIndex={2}
         onAdd={handleAdd}
       />
-      <ProductFeaturedSection products={products} onAdd={handleAdd} />
       <PineappleFeatureSection products={products} selectedProductId={featuredProductId} />
       <UgcReviewsSection
         products={products}
@@ -44,6 +43,7 @@ export default function Home() {
       </div>
       <AiAnalysisSection />
       <InstafeedSection />
+      <ProductFeaturedSection products={products} onAdd={handleAdd} />
       <p role="status" aria-live="polite" hidden={!error}>{error}</p>
       <p role="status" aria-live="polite" hidden={!addedProduct}>
         {addedProduct ? `${addedProduct.name} adicionada ao carrinho.` : ""}
