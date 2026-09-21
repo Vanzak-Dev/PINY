@@ -98,7 +98,7 @@ export default function FeaturedCollectionSection({ products, onAdd }) {
           <div
             key={pageIndex}
             className="featured-collection__page"
-            style={{ '--cards-count': pageItems.length }}
+            style={{ '--cards-count': PAGE_SIZE }}
           >
             {pageItems.map((product) => (
               <div className="featured-collection__card" key={product.id}>
