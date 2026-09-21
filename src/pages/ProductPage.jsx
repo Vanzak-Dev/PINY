@@ -76,11 +76,11 @@ export default function ProductPage({ productIdentifier }) {
           <ProductBenefitsSection />
           <ProductBoosterSection onAdd={handleAdd} />
           <Journey21DaysSection />
+          <ProductBeforeAfterSection product={product} />
           <AiAnalysisSection product={product} />
           <ProductComparisonSection product={product} />
           <ProductFaqSection />
           <ProductFeaturedSection products={products} onAdd={handleAdd} />
-          <ProductBeforeAfterSection product={product} />
         </>
       )}
       {!loading && error && <p className="page-width" role="alert">{error}</p>}
