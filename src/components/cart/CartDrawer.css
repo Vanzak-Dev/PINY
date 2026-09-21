@@ -20,7 +20,7 @@
   z-index: 1;
   display: flex;
   width: 96%;
-  max-width: 100%;
+  max-width: 500px;
   height: 100dvh;
   flex-direction: column;
   overflow-y: auto;
