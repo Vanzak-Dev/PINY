@@ -3,7 +3,7 @@ import multer from 'multer';
 import path from 'node:path';
 import { mkdir } from 'node:fs/promises';
 import { changePassword, createSession, parseCookies, readSession, verifyCredentials } from './lib/auth.js';
-import { ensureCatalog, ensureSiteSettings, normalizeProduct, normalizeReview, readProducts, readReviews, readSiteSettings, saveProducts, saveReviews, saveSiteSettings } from './lib/store.js';
+import { ensureCatalog, ensureSiteSettings, normalizeProduct, normalizeProductReview, normalizeReview, readProducts, readProductReviews, readReviews, readSiteSettings, saveProducts, saveProductReviews, saveReviews, saveSiteSettings } from './lib/store.js';
 
 const port = Number(process.env.PORT || 8000);
 const uploadDirectory = process.env.UPLOAD_DIR || path.resolve('uploads');
@@ -106,6 +106,25 @@ app.get('/api/reviews', async (_request, response) => {
   response.json((await readReviews()).filter((review) => review.active));
 });
 
+app.get('/api/product-reviews', async (request, response) => {
+  const productId = String(request.query.productId || '');
+  const reviews = (await readProductReviews()).filter((review) => review.active && (!productId || review.productId === productId));
+  response.json(reviews);
+});
+
+app.post('/api/product-reviews', upload.single('photoFile'), async (request, response) => {
+  const photo = request.file ? `/api/uploads/${request.file.filename}` : request.body.photo || '';
+  const review = normalizeProductReview({ ...request.body, photo });
+  if (!review.productId) return response.status(400).json({ error: 'Selecione um produto.' });
+  if (!review.userName) return response.status(400).json({ error: 'Informe seu nome.' });
+  if (!review.title) return response.status(400).json({ error: 'Informe um título.' });
+  if (!review.body) return response.status(400).json({ error: 'Escreva sua avaliação.' });
+  const reviews = await readProductReviews();
+  reviews.push(review);
+  await saveProductReviews(reviews);
+  response.status(201).json(review);
+});
+
 app.post('/api/auth/login', async (request, response) => {
   const auth = await verifyCredentials(String(request.body.username || ''), String(request.body.password || ''));
   if (!auth) return response.status(401).json({ error: 'Usuário ou senha inválidos.' });
@@ -137,6 +156,22 @@ app.get('/api/admin/products', async (_request, response) => response.json(await
 app.get('/api/admin/reviews', async (_request, response) => response.json(await readReviews()));
 app.get('/api/admin/settings', async (_request, response) => response.json(await readSiteSettings()));
 app.put('/api/admin/settings', async (request, response) => response.json(await saveSiteSettings(request.body)));
+app.get('/api/admin/product-reviews', async (_request, response) => response.json(await readProductReviews()));
+app.delete('/api/admin/product-reviews/:id', async (request, response) => {
+  const reviews = await readProductReviews();
+  const nextReviews = reviews.filter((review) => review.id !== request.params.id);
+  if (nextReviews.length === reviews.length) return response.status(404).json({ error: 'Review não encontrado.' });
+  await saveProductReviews(nextReviews);
+  response.status(204).end();
+});
+app.put('/api/admin/product-reviews/:id', async (request, response) => {
+  const reviews = await readProductReviews();
+  const index = reviews.findIndex((review) => review.id === request.params.id);
+  if (index < 0) return response.status(404).json({ error: 'Review não encontrado.' });
+  reviews[index] = normalizeProductReview(request.body, reviews[index]);
+  await saveProductReviews(reviews);
+  response.json(reviews[index]);
+});
 
 const reviewMediaUpload = reviewUpload.single('mediaFile');
 app.post('/api/admin/reviews', reviewMediaUpload, async (request, response) => {

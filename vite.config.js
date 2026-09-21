@@ -9,5 +9,8 @@ export default defineConfig({
     proxy: {
       "/api": process.env.API_PROXY_TARGET || "http://localhost:8000",
     },
+    watch: {
+      ignored: ["**/server/data/**", "**/server/uploads/**"],
+    },
   },
 });

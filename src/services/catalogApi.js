@@ -26,4 +26,9 @@ export const catalogApi = {
   createReview: (formData) => request('/api/admin/reviews', { method: 'POST', body: formData }),
   updateReview: (id, formData) => request(`/api/admin/reviews/${id}`, { method: 'PUT', body: formData }),
   removeReview: (id) => request(`/api/admin/reviews/${id}`, { method: 'DELETE' }),
+  listProductReviews: (productId) => request(`/api/product-reviews?productId=${encodeURIComponent(productId)}`),
+  submitProductReview: (formData) => request('/api/product-reviews', { method: 'POST', body: formData }),
+  listProductReviewsAdmin: () => request('/api/admin/product-reviews'),
+  removeProductReview: (id) => request(`/api/admin/product-reviews/${id}`, { method: 'DELETE' }),
+  toggleProductReview: (id, data) => request(`/api/admin/product-reviews/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }),
 };

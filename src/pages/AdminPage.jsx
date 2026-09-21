@@ -4,6 +4,7 @@ import AnnouncementBarManager from '../components/admin/AnnouncementBarManager';
 import PasswordChange from '../components/admin/PasswordChange';
 import ProductForm from '../components/admin/ProductForm';
 import ProductList from '../components/admin/ProductList';
+import ProductReviewsManager from '../components/admin/ProductReviewsManager';
 import UgcManager from '../components/admin/UgcManager';
 import { catalogApi } from '../services/catalogApi';
 import './AdminPage.css';
@@ -82,6 +83,7 @@ export default function AdminPage() {
         {formOpen && <ProductForm product={selected} products={products} onSave={save} onCancel={() => { setFormOpen(false); setSelected(null); }} />}
       </div>
       <UgcManager products={products} />
+      <ProductReviewsManager products={products} />
       {pendingDelete && (
         <div className="admin-dialog-backdrop" role="presentation">
           <section className="admin-dialog" role="dialog" aria-modal="true" aria-labelledby="delete-title">

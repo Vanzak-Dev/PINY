@@ -3,6 +3,7 @@ import ProductPresentationSection from '../sections/product/ProductPresentationS
 import ProductActivesSection from '../sections/product/ProductActivesSection';
 import ProductBenefitsSection from '../sections/product/ProductBenefitsSection';
 import AiAnalysisSection from '../sections/global/AiAnalysisSection';
+import ProductReviewsSection from '../sections/product/ProductReviewsSection';
 import { catalogApi } from '../services/catalogApi';
 
 export default function ProductPage({ productIdentifier }) {
@@ -13,7 +14,6 @@ export default function ProductPage({ productIdentifier }) {
   const [loading, setLoading] = useState(true);
 
   const loadProduct = useCallback(() => {
-    setLoading(true);
     Promise.all([
       catalogApi.getProduct(productIdentifier),
       catalogApi.listProducts(),
@@ -31,6 +31,7 @@ export default function ProductPage({ productIdentifier }) {
   }, [productIdentifier]);
 
   useEffect(() => {
+    setLoading(true);
     loadProduct();
     const handleStorage = (event) => {
       if (event.key === 'piny:catalog-version') loadProduct();
@@ -64,6 +65,7 @@ export default function ProductPage({ productIdentifier }) {
           <ProductActivesSection product={product} />
           <AiAnalysisSection product={product} />
           <ProductBenefitsSection />
+          <ProductReviewsSection product={product} />
         </>
       )}
       {!loading && error && <p className="page-width" role="alert">{error}</p>}
