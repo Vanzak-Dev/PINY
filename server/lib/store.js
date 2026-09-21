@@ -5,6 +5,7 @@ import { randomUUID } from 'node:crypto';
 const dataDirectory = process.env.DATA_DIR || path.resolve('data');
 const catalogPath = path.join(dataDirectory, 'products.json');
 const reviewsPath = path.join(dataDirectory, 'reviews.json');
+const productReviewsPath = path.join(dataDirectory, 'product-reviews.json');
 const settingsPath = path.join(dataDirectory, 'site-settings.json');
 const collectionsPath = path.join(dataDirectory, 'collections.json');
 const seedPath = path.resolve('seeds/products.json');
@@ -149,6 +150,43 @@ export async function readReviews() {
 
 export async function saveReviews(reviews) {
   await writeJson(reviewsPath, reviews);
+}
+
+export async function readProductReviews() {
+  await mkdir(dataDirectory, { recursive: true });
+  try {
+    return JSON.parse(await readFile(productReviewsPath, 'utf8'));
+  } catch {
+    await writeJson(productReviewsPath, []);
+    return [];
+  }
+}
+
+export async function saveProductReviews(reviews) {
+  await writeJson(productReviewsPath, reviews);
+}
+
+export function normalizeProductReview(input, current = {}) {
+  const now = new Date().toISOString();
+  const active = input.active === true || input.active === 'true'
+    ? true
+    : input.active === false || input.active === 'false'
+      ? false
+      : current.active ?? true;
+  const stars = Math.min(5, Math.max(1, Math.round(Number(input.stars ?? current.stars ?? 5))));
+
+  return {
+    id: current.id || randomUUID(),
+    productId: String(input.productId ?? current.productId ?? '').trim(),
+    stars,
+    userName: String(input.userName ?? current.userName ?? '').trim(),
+    title: String(input.title ?? current.title ?? '').trim(),
+    body: String(input.body ?? current.body ?? '').trim(),
+    photo: String(input.photo ?? current.photo ?? '').trim(),
+    active,
+    createdAt: current.createdAt || now,
+    updatedAt: now,
+  };
 }
 
 export function normalizeReview(input, current = {}) {

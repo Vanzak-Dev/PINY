@@ -9,6 +9,7 @@ import ProductFeaturedSection from '../sections/product/ProductFeaturedSection';
 import ProductBeforeAfterSection from '../sections/product/ProductBeforeAfterSection';
 import Journey21DaysSection from '../sections/product/Journey21DaysSection';
 import AiAnalysisSection from '../sections/global/AiAnalysisSection';
+import ProductReviewsSection from '../sections/product/ProductReviewsSection';
 import { catalogApi } from '../services/catalogApi';
 import { useCart } from '../hooks/useCart';
 
@@ -80,6 +81,7 @@ export default function ProductPage({ productIdentifier }) {
           <AiAnalysisSection product={product} />
           <ProductComparisonSection product={product} />
           <ProductFaqSection />
+          <ProductReviewsSection product={product} />
           <ProductFeaturedSection products={products} onAdd={handleAdd} />
         </>
       )}
