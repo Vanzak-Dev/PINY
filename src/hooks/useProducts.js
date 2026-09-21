@@ -20,10 +20,8 @@ export function useProducts({ featuredOnly = true } = {}) {
     const handleStorage = (event) => {
       if (event.key === 'piny:catalog-version') loadProducts();
     };
-    window.addEventListener('focus', loadProducts);
     window.addEventListener('storage', handleStorage);
     return () => {
-      window.removeEventListener('focus', loadProducts);
       window.removeEventListener('storage', handleStorage);
     };
   }, [loadProducts]);

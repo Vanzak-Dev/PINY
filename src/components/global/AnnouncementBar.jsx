@@ -36,10 +36,8 @@ export default function AnnouncementBar({ settings: suppliedSettings }) {
       if (event.key === 'piny:site-settings-version') load();
     };
     load();
-    window.addEventListener('focus', load);
     window.addEventListener('storage', handleStorage);
     return () => {
-      window.removeEventListener('focus', load);
       window.removeEventListener('storage', handleStorage);
     };
   }, [suppliedSettings]);
