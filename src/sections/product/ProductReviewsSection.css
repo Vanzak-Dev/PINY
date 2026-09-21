@@ -1,0 +1,617 @@
+/* ===== Section container ===== */
+.product-reviews {
+  padding-block: 48px 64px;
+}
+
+/* ===== Title ===== */
+.product-reviews__title {
+  color: #1C8C44;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-size: clamp(32px, 4vw, 57.905px);
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 0 0 32px;
+}
+
+/* ===== Dashboard ===== */
+.product-reviews__dashboard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 24px 32px;
+  margin-bottom: 40px;
+}
+
+/* ===== Left cluster (summary + divider + dist) ===== */
+.product-reviews__left {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex: 1;
+  min-width: 0;
+}
+
+.product-reviews__divider {
+  border-right: 0.874px solid #F5F5F5;
+  align-self: stretch;
+}
+
+/* ===== Summary (left) ===== */
+.product-reviews__summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.product-reviews__avg {
+  color: #0A0A0A;
+  text-align: center;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-size: clamp(28px, 3vw, 41.931px);
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.product-reviews__count {
+  color: #0A0A0A;
+  text-align: center;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-size: clamp(11px, 1vw, 13.977px);
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+/* ===== Distribution (middle) ===== */
+.product-reviews__dist {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  max-width: 400px;
+}
+
+.pr-dist__row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: none;
+  background: none;
+  padding: 2px 0;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: opacity 0.2s ease;
+}
+
+.pr-dist__row:hover {
+  opacity: 0.7;
+}
+
+.pr-dist__row.is-active {
+  opacity: 1;
+}
+
+.pr-dist__row.is-active .pr-dist__bar-fill {
+  background: #1C8C44;
+}
+
+.pr-dist__row.is-active .pr-dist__label {
+  font-weight: 700;
+}
+
+.pr-dist__label {
+  color: #0A0A0A;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-size: 13.977px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  width: 60px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.pr-dist__bar-track {
+  width: 131px;
+  height: 8px;
+  background: #F5F5F5;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.pr-dist__bar-fill {
+  height: 100%;
+  background: #FFA800;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.pr-dist__count {
+  color: #0A0A0A;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-size: 13.977px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  width: 20px;
+  text-align: left;
+  flex-shrink: 0;
+}
+
+/* ===== Filter wrapper ===== */
+.product-reviews__filter-wrapper {
+  position: relative;
+}
+
+/* ===== Actions (right) ===== */
+.product-reviews__actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.product-reviews__write-btn {
+  display: flex;
+  padding: 13.184px 26.367px;
+  justify-content: center;
+  align-items: center;
+  gap: 13.184px;
+  border: none;
+  border-radius: 0;
+  background: #1C8C44;
+  color: #FFF;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-size: clamp(16px, 1.8vw, 25.446px);
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.product-reviews__write-btn:hover {
+  background: #167a3a;
+}
+
+.product-reviews__filter-btn {
+  display: flex;
+  width: 60.975px;
+  height: 60.975px;
+  padding: 13.184px;
+  justify-content: center;
+  align-items: center;
+  gap: 13.184px;
+  border: none;
+  border-radius: 0;
+  background: #F5F5F5;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.product-reviews__filter-btn:hover {
+  background: #ebebeb;
+}
+
+.product-reviews__filter-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ===== Reviews grid ===== */
+.product-reviews__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+@media (min-width: 1024px) {
+  .product-reviews__grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.product-reviews__empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #637068;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-size: 16px;
+  padding: 48px 0;
+}
+
+/* ===== Review card ===== */
+.pr-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0;
+}
+
+.pr-card__image {
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #f5f5f5;
+}
+
+.pr-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pr-card__rating-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+
+.pr-card__date {
+  color: #999;
+  font-family: "Clash Grotesk Variable", sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.pr-card__user-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pr-card__avatar {
+  display: flex;
+  width: 34.943px;
+  height: 34.943px;
+  padding: 6.726px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6.726px;
+  border-radius: 26.906px;
+  background: #F2ECE0;
+  color: #121212;
+  font-family: "Afacad Flux", sans-serif;
+  font-size: 17.471px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  flex-shrink: 0;
+}
+
+.pr-card__username {
+  color: #121212;
+  font-family: "Afacad Flux", sans-serif;
+  font-size: 17.471px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.pr-card__title {
+  color: #121212;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-size: 13.977px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin: 4px 0 0;
+}
+
+.pr-card__body {
+  color: #121212;
+  font-family: "Clash Grotesk Variable", sans-serif;
+  font-size: 12.23px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ===== Pagination ===== */
+.product-reviews__pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 40px;
+}
+
+.product-reviews__page-btn,
+.product-reviews__page-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+  color: #121212;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.product-reviews__page-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.product-reviews__page-num.is-active {
+  background: #1C8C44;
+  color: #fff;
+  border-color: #1C8C44;
+}
+
+/* ===== Write review modal ===== */
+.pr-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 16px;
+}
+
+.pr-modal {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 16px;
+  padding: 32px;
+}
+
+.pr-modal__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: #f0f0f0;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+}
+
+.pr-modal__title {
+  color: #1C8C44;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 0 0 24px;
+}
+
+.pr-modal__label {
+  display: block;
+  color: #465249;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  margin-top: 16px;
+}
+
+.pr-modal__label:first-of-type {
+  margin-top: 0;
+}
+
+.pr-modal__stars {
+  display: flex;
+  gap: 4px;
+}
+
+.pr-modal__star-btn {
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.pr-modal__input {
+  width: 100%;
+  min-height: 42px;
+  padding: 10px 12px;
+  border: 1px solid #cbd8cd;
+  border-radius: 8px;
+  color: #121212;
+  background: #fff;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-size: 14px;
+}
+
+.pr-modal__textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cbd8cd;
+  border-radius: 8px;
+  color: #121212;
+  background: #fff;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-size: 14px;
+  resize: vertical;
+}
+
+.pr-modal__error {
+  color: #c62828;
+  font-size: 14px;
+  margin: 12px 0 0;
+}
+
+.pr-modal__submit {
+  display: flex;
+  width: 100%;
+  padding: 13px 26px;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 8px;
+  background: #1C8C44;
+  color: #FFF;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  cursor: pointer;
+  margin-top: 24px;
+  transition: background 0.2s ease;
+}
+
+.pr-modal__submit:hover {
+  background: #167a3a;
+}
+
+.pr-modal__submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ===== Photo upload ===== */
+.pr-modal__photo-upload {
+  position: relative;
+  margin-top: 6px;
+}
+
+.pr-modal__photo-input {
+  display: none;
+}
+
+.pr-modal__photo-dropzone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 140px;
+  border: 2px dashed #cbd8cd;
+  border-radius: 8px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+
+.pr-modal__photo-dropzone:hover {
+  border-color: #1C8C44;
+}
+
+.pr-modal__photo-placeholder {
+  color: #637068;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-size: 14px;
+}
+
+.pr-modal__photo-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pr-modal__photo-remove {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 767px) {
+  .product-reviews {
+    padding-block: 32px 48px;
+  }
+
+  .product-reviews__dashboard {
+    flex-direction: column;
+    gap: 24px;
+    padding: 16px;
+  }
+
+  .product-reviews__left {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .product-reviews__divider {
+    width: 100%;
+    height: 0;
+    border-right: none;
+    border-top: 0.874px solid #F5F5F5;
+  }
+
+  .product-reviews__dist {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .product-reviews__actions {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .product-reviews__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .product-reviews__write-btn {
+    font-size: 16px;
+    padding: 10px 20px;
+  }
+
+  .product-reviews__filter-btn {
+    width: 48px;
+    height: 48px;
+    padding: 10px;
+  }
+
+  .pr-card__avatar {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+    padding: 5px;
+  }
+
+  .pr-card__username {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-reviews__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

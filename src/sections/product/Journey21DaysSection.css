@@ -1,0 +1,179 @@
+.journey-21 {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding: 64px 20px;
+  background: #fff;
+}
+
+.journey-21__heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.journey-21__title {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #1c8c44;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 75%;
+  text-align: center;
+}
+
+.journey-21__title-line {
+  display: block;
+}
+
+.journey-21__title-accent {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.journey-21__pineapple {
+  display: block;
+  height: 30px;
+  width: auto;
+}
+
+.journey-21__subtitle {
+  margin: 0;
+  color: #000b06;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+}
+
+.journey-21__cards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  max-width: 364px;
+}
+
+.journey-21__card {
+  display: flex;
+  width: 100%;
+  padding: 32px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  border-radius: 32px;
+  border: 4px dashed #85e86f;
+  background: #e8fce0;
+  box-shadow: 4px 4px 0 0 #85e86f;
+}
+
+.journey-21__card--highlight {
+  border: 4px solid #1c8c44;
+  background: #85e86f;
+  box-shadow: 4px 4px 0 0 #1c8c44;
+}
+
+.journey-21__badge {
+  color: #1c8c44;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%;
+  text-transform: uppercase;
+  display: flex;
+  padding: 6px 8px;
+  align-items: center;
+  gap: 8px;
+  border-radius: 999px;
+  border: 1px solid #1c8c44;
+}
+
+.journey-21__card--highlight .journey-21__badge {
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+.journey-21__card-title {
+  margin: 0;
+  color: #1c8c44;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 100%;
+}
+
+.journey-21__card--highlight .journey-21__card-title {
+  color: #fff;
+}
+
+.journey-21__card-description {
+  margin: 0;
+  color: #1c8c44;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 100%;
+  text-wrap: balance;
+}
+
+.journey-21__card--highlight .journey-21__card-description {
+  color: #fff;
+}
+
+@media (min-width: 1024px) {
+  .journey-21 {
+    padding: 64px clamp(20px, 10vw, 200px);
+  }
+
+  .journey-21__title {
+    font-size: 64px;
+  }
+
+  .journey-21__pineapple {
+    height: 48px;
+  }
+
+  .journey-21__subtitle {
+    font-size: 24px;
+  }
+
+  .journey-21__cards {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: center;
+    gap: 24px;
+    max-width: none;
+  }
+
+  .journey-21__card {
+    width: 364px;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1535px) {
+  .journey-21__card {
+    width: calc(50% - 12px);
+  }
+}
+
+@media (min-width: 1536px) {
+  .journey-21__card {
+    width: calc(25% - 18px);
+  }
+}
