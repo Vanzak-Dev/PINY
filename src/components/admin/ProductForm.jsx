@@ -26,7 +26,24 @@ const emptyProduct = {
   featureEnabled: false, featureLabel: '', featurePrice: '', featureBackgroundCenter: '#F3FD5A', featureBackgroundEdge: '#FFD72F',
   featureLeftImage: '', featureRightImage: '', featureProductImage: '', weight: '',
   dimensions: { length: '', width: '', height: '' }, seoTitle: '', seoDescription: '',
+  comparisonEnabled: true, comparisonTitle: '', comparisonSubtitle: '', comparisonPinyLabel: '', comparisonOtherLabel: '',
+  comparisonImage1: '', comparisonImage2: '', comparisonImage3: '', comparisonImage4: '', comparisonProductIcon: '',
+  comparisonRows: [
+    { label: '12 combinações diferentes', piny: 'check', other: 'x' },
+    { label: 'Booster concentrado 2 em 1', piny: 'check', other: 'x' },
+    { label: 'Análise de pele por IA', piny: 'check', other: 'x' },
+    { label: 'Garantia de 21 dias', piny: 'check', other: 'x' },
+    { label: 'Ácido salicílico + glicólico de fábrica', piny: 'check', other: 'Raro' },
+    { label: 'Vegano e cruelty free', piny: 'check', other: 'Nem Sempre' },
+  ],
 };
+
+const comparisonValueOptions = [
+  { value: 'check', label: 'Check (✓)' },
+  { value: 'x', label: 'X (✕)' },
+  { value: 'custom', label: 'Texto personalizado' },
+];
+const comparisonValueKind = (value) => (value === 'check' || value === 'x' ? value : 'custom');
 
 export default function ProductForm({ product, products = [], onSave, onCancel }) {
   const [values, setValues] = useState(emptyProduct);
@@ -35,6 +52,11 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
   const [featureLeftImageFile, setFeatureLeftImageFile] = useState(null);
   const [featureRightImageFile, setFeatureRightImageFile] = useState(null);
   const [featureProductImageFile, setFeatureProductImageFile] = useState(null);
+  const [comparisonImage1File, setComparisonImage1File] = useState(null);
+  const [comparisonImage2File, setComparisonImage2File] = useState(null);
+  const [comparisonImage3File, setComparisonImage3File] = useState(null);
+  const [comparisonImage4File, setComparisonImage4File] = useState(null);
+  const [comparisonProductIconFile, setComparisonProductIconFile] = useState(null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const imagePreview = useObjectUrl(imageFile);
@@ -51,8 +73,11 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
         : [{ quantity: 1, price: product.price ?? '', discountLabel: '' }],
       crossSellIds: product.crossSellIds || [],
       dimensions: { ...emptyProduct.dimensions, ...product.dimensions },
+      comparisonRows: product.comparisonRows?.length ? product.comparisonRows : emptyProduct.comparisonRows,
     } : emptyProduct);
-    setImageFile(null); setBackgroundFile(null); setFeatureLeftImageFile(null); setFeatureRightImageFile(null); setFeatureProductImageFile(null); setError('');
+    setImageFile(null); setBackgroundFile(null); setFeatureLeftImageFile(null); setFeatureRightImageFile(null); setFeatureProductImageFile(null);
+    setComparisonImage1File(null); setComparisonImage2File(null); setComparisonImage3File(null); setComparisonImage4File(null); setComparisonProductIconFile(null);
+    setError('');
   }, [product]);
 
   const change = (key, value) => setValues((current) => ({ ...current, [key]: value }));
@@ -86,6 +111,11 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
     if (featureLeftImageFile) data.append('featureLeftImageFile', featureLeftImageFile);
     if (featureRightImageFile) data.append('featureRightImageFile', featureRightImageFile);
     if (featureProductImageFile) data.append('featureProductImageFile', featureProductImageFile);
+    if (comparisonImage1File) data.append('comparisonImage1File', comparisonImage1File);
+    if (comparisonImage2File) data.append('comparisonImage2File', comparisonImage2File);
+    if (comparisonImage3File) data.append('comparisonImage3File', comparisonImage3File);
+    if (comparisonImage4File) data.append('comparisonImage4File', comparisonImage4File);
+    if (comparisonProductIconFile) data.append('comparisonProductIconFile', comparisonProductIconFile);
     try { await onSave(data); }
     catch (requestError) { setError(requestError.message); }
     finally { setSaving(false); }
@@ -178,6 +208,52 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
           <label>Upload da imagem esquerda<input type="file" accept="image/*" onChange={(e) => setFeatureLeftImageFile(e.target.files[0])} />{values.featureLeftImage && <small>Atual: {values.featureLeftImage}</small>}</label>
           <label>Upload da imagem do produto<input type="file" accept="image/*" onChange={(e) => setFeatureProductImageFile(e.target.files[0])} />{values.featureProductImage && <small>Atual: {values.featureProductImage}</small>}</label>
           <label>Upload da imagem direita<input type="file" accept="image/*" onChange={(e) => setFeatureRightImageFile(e.target.files[0])} />{values.featureRightImage && <small>Atual: {values.featureRightImage}</small>}</label>
+        </div>
+      </section>
+      <section className="admin-form__section">
+        <div className="admin-form__section-heading">
+          <div><h3>Comparação com concorrentes</h3><small>Seção "Kit PINY vs. Máscara Comum" da página do produto. Imagens e tópicos são específicos de cada produto.</small></div>
+        </div>
+        <label className="admin-check"><input type="checkbox" checked={values.comparisonEnabled} onChange={(e) => change('comparisonEnabled', e.target.checked)} /> Exibir esta seção na página do produto</label>
+        <div className="admin-grid admin-grid--2">
+          <label>Título<input value={values.comparisonTitle} onChange={(e) => change('comparisonTitle', e.target.value)} placeholder="Kit PINY vs. Máscara Comum" /></label>
+          <label>Subtítulo<input value={values.comparisonSubtitle} onChange={(e) => change('comparisonSubtitle', e.target.value)} placeholder="Mais de 44 mil peles transformadas desde 2021, com uma selfie de cada vez." /></label>
+          <label>Rótulo da coluna PINY<input value={values.comparisonPinyLabel} onChange={(e) => change('comparisonPinyLabel', e.target.value)} placeholder="Máscaras Faciais" /></label>
+          <label>Rótulo da coluna concorrente<input value={values.comparisonOtherLabel} onChange={(e) => change('comparisonOtherLabel', e.target.value)} placeholder="Outras Marcas" /></label>
+        </div>
+        <div className="admin-grid admin-grid--2">
+          <label>Upload imagem 1 (topo esquerda)<input type="file" accept="image/*" onChange={(e) => setComparisonImage1File(e.target.files[0])} />{values.comparisonImage1 && <small>Atual: {values.comparisonImage1}</small>}</label>
+          <label>Upload imagem 2 (base esquerda)<input type="file" accept="image/*" onChange={(e) => setComparisonImage2File(e.target.files[0])} />{values.comparisonImage2 && <small>Atual: {values.comparisonImage2}</small>}</label>
+          <label>Upload imagem 3 (topo direita)<input type="file" accept="image/*" onChange={(e) => setComparisonImage3File(e.target.files[0])} />{values.comparisonImage3 && <small>Atual: {values.comparisonImage3}</small>}</label>
+          <label>Upload imagem 4 (base direita)<input type="file" accept="image/*" onChange={(e) => setComparisonImage4File(e.target.files[0])} />{values.comparisonImage4 && <small>Atual: {values.comparisonImage4}</small>}</label>
+          <label>Upload ícone circular (cabeçalho da tabela)<input type="file" accept="image/*" onChange={(e) => setComparisonProductIconFile(e.target.files[0])} />{values.comparisonProductIcon && <small>Atual: {values.comparisonProductIcon}</small>}<small>Use uma foto reta/frontal do produto — evite fotos com o pote rotacionado, pois ficam tortas no círculo pequeno.</small></label>
+        </div>
+
+        <div className="admin-repeater">
+          <div className="admin-repeater__heading"><strong>Tópicos comparados</strong><button type="button" className="admin-button" onClick={() => addCollectionItem('comparisonRows', { label: '', piny: 'check', other: 'x' })}>Adicionar tópico</button></div>
+          {values.comparisonRows.length === 0 && <small>Nenhum tópico cadastrado.</small>}
+          {values.comparisonRows.map((row, index) => {
+            const pinyKind = comparisonValueKind(row.piny);
+            const otherKind = comparisonValueKind(row.other);
+            return (
+              <div className="admin-repeater__row admin-repeater__row--comparison" key={`comparison-${index}`}>
+                <label>Tópico<input value={row.label} onChange={(e) => changeCollectionItem('comparisonRows', index, 'label', e.target.value)} placeholder="Ex.: Garantia de 21 dias" /></label>
+                <label>PINY
+                  <select value={pinyKind} onChange={(e) => changeCollectionItem('comparisonRows', index, 'piny', e.target.value === 'custom' ? '' : e.target.value)}>
+                    {comparisonValueOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
+                  </select>
+                  {pinyKind === 'custom' && <input value={row.piny === 'check' || row.piny === 'x' ? '' : row.piny} onChange={(e) => changeCollectionItem('comparisonRows', index, 'piny', e.target.value)} placeholder="Ex.: Sempre" />}
+                </label>
+                <label>Outras marcas
+                  <select value={otherKind} onChange={(e) => changeCollectionItem('comparisonRows', index, 'other', e.target.value === 'custom' ? '' : e.target.value)}>
+                    {comparisonValueOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
+                  </select>
+                  {otherKind === 'custom' && <input value={row.other === 'check' || row.other === 'x' ? '' : row.other} onChange={(e) => changeCollectionItem('comparisonRows', index, 'other', e.target.value)} placeholder="Ex.: Raro" />}
+                </label>
+                <button type="button" className="admin-repeater__remove" onClick={() => removeCollectionItem('comparisonRows', index)} aria-label={`Remover tópico ${index + 1}`}>×</button>
+              </div>
+            );
+          })}
         </div>
       </section>
       <section className="admin-form__section"><h3>Logística e SEO</h3><div className="admin-grid admin-grid--3">

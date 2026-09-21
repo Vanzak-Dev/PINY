@@ -2,8 +2,13 @@ import { useCallback, useEffect, useState } from 'react';
 import ProductPresentationSection from '../sections/product/ProductPresentationSection';
 import ProductActivesSection from '../sections/product/ProductActivesSection';
 import ProductBenefitsSection from '../sections/product/ProductBenefitsSection';
+import ProductBoosterSection from '../sections/product/ProductBoosterSection';
+import ProductComparisonSection from '../sections/product/ProductComparisonSection';
+import ProductFaqSection from '../sections/product/ProductFaqSection';
+import ProductBeforeAfterSection from '../sections/product/ProductBeforeAfterSection';
 import AiAnalysisSection from '../sections/global/AiAnalysisSection';
 import { catalogApi } from '../services/catalogApi';
+import { useCart } from '../hooks/useCart';
 
 export default function ProductPage({ productIdentifier }) {
   const [addedProduct, setAddedProduct] = useState(null);
@@ -11,6 +16,12 @@ export default function ProductPage({ productIdentifier }) {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
+  const { addItem } = useCart();
+
+  const handleAdd = (addedItem) => {
+    addItem(addedItem);
+    setAddedProduct(addedItem);
+  };
 
   const loadProduct = useCallback(() => {
     setLoading(true);
@@ -59,11 +70,15 @@ export default function ProductPage({ productIdentifier }) {
             product={product}
             categoryLabel={product.category || 'PINY MASK'}
             crossSellProducts={crossSellProducts}
-            onAdd={setAddedProduct}
+            onAdd={handleAdd}
           />
           <ProductActivesSection product={product} />
           <AiAnalysisSection product={product} />
           <ProductBenefitsSection />
+          <ProductBoosterSection onAdd={handleAdd} />
+          <ProductComparisonSection product={product} />
+          <ProductFaqSection />
+          <ProductBeforeAfterSection product={product} />
         </>
       )}
       {!loading && error && <p className="page-width" role="alert">{error}</p>}
