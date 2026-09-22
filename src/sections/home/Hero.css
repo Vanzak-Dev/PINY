@@ -158,7 +158,8 @@
 
 .hero__nav {
   position: absolute;
-  left: 50%;
+    opacity: 1;
+    z-index: 2;
   top: 50%;
   transform: translate(-50%, -50%);
   display: flex;

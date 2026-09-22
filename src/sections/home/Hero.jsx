@@ -1,3 +1,4 @@
+import { useState } from "react";
 import videoLeft from "../../assets/hero/Video-left.mp4";
 import videoRight from "../../assets/hero/Video-right.mp4";
 import leaf1 from "../../assets/hero/leaf-1.svg";
@@ -7,9 +8,12 @@ import leaf4 from "../../assets/hero/leaf-4.svg";
 import logo from "../../assets/hero/logo.svg";
 import iconUser from "../../assets/hero/icon-user.svg";
 import iconBag from "../../assets/hero/icon-bag.svg";
+import SearchPanel from "../../components/global/SearchPanel";
 import "./Hero.css";
 
 export default function Hero() {
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
   return (
     <section className="hero">
       <div className="hero__media">
@@ -59,8 +63,18 @@ export default function Hero() {
         <div className="hero__actions">
           <img src={iconUser} alt="Conta" />
           <img src={iconBag} alt="Sacola" />
+          <button
+            className="hero__search-trigger"
+            type="button"
+            aria-label="Pesquisar produtos"
+            aria-expanded={isSearchOpen}
+            onClick={() => setIsSearchOpen(true)}
+          >
+            <span aria-hidden="true" />
+          </button>
         </div>
       </header>
+      <SearchPanel isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </section>
   );
 }
