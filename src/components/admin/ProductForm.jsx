@@ -21,7 +21,7 @@ function useObjectUrl(file) {
 const emptyProduct = {
   name: '', slug: '', sku: '', status: 'active', featured: true, category: '', shortDescription: '', description: '',
   reviewCount: '', badges: [], quantityOptions: [{ quantity: 1, price: '', discountLabel: '' }], crossSellIds: [],
-  price: '', oldPrice: '', costPrice: '', stock: 0, trackStock: true, tags: '', image: '', backgroundImage: '',
+  price: '', oldPrice: '', costPrice: '', stock: 0, trackStock: true, tags: '', image: '', backgroundImage: '', presentationBackgroundImage: '', presentationProductImage: '',
   backgroundColor: '#b8efad', imageRestRotation: 0, imageActiveRotation: 15,
   featureEnabled: false, featureLabel: '', featurePrice: '', featureBackgroundCenter: '#F3FD5A', featureBackgroundEdge: '#FFD72F',
   featureLeftImage: '', featureRightImage: '', featureProductImage: '', weight: '',
@@ -57,6 +57,8 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
   const [comparisonImage3File, setComparisonImage3File] = useState(null);
   const [comparisonImage4File, setComparisonImage4File] = useState(null);
   const [comparisonProductIconFile, setComparisonProductIconFile] = useState(null);
+  const [presentationBackgroundFile, setPresentationBackgroundFile] = useState(null);
+  const [presentationProductFile, setPresentationProductFile] = useState(null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const imagePreview = useObjectUrl(imageFile);
@@ -77,6 +79,7 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
     } : emptyProduct);
     setImageFile(null); setBackgroundFile(null); setFeatureLeftImageFile(null); setFeatureRightImageFile(null); setFeatureProductImageFile(null);
     setComparisonImage1File(null); setComparisonImage2File(null); setComparisonImage3File(null); setComparisonImage4File(null); setComparisonProductIconFile(null);
+    setPresentationBackgroundFile(null); setPresentationProductFile(null);
     setError('');
   }, [product]);
 
@@ -116,6 +119,8 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
     if (comparisonImage3File) data.append('comparisonImage3File', comparisonImage3File);
     if (comparisonImage4File) data.append('comparisonImage4File', comparisonImage4File);
     if (comparisonProductIconFile) data.append('comparisonProductIconFile', comparisonProductIconFile);
+    if (presentationBackgroundFile) data.append('presentationBackgroundFile', presentationBackgroundFile);
+    if (presentationProductFile) data.append('presentationProductFile', presentationProductFile);
     try { await onSave(data); }
     catch (requestError) { setError(requestError.message); }
     finally { setSaving(false); }
@@ -145,6 +150,13 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
           <div><h3>Página do produto</h3><small>Selos, opções de compra e produtos relacionados exibidos na página individual.</small></div>
         </div>
         <label>Quantidade de avaliações<input value={values.reviewCount} onChange={(e) => change('reviewCount', e.target.value)} placeholder="Ex.: 2k+" /></label>
+
+        <div className="admin-grid admin-grid--2">
+          <label>URL da imagem de fundo da página<input type="text" value={values.presentationBackgroundImage} onChange={(e) => change('presentationBackgroundImage', e.target.value)} placeholder="https://… ou /catalog-assets/…" /></label>
+          <label>URL da imagem do produto (página)<input type="text" value={values.presentationProductImage} onChange={(e) => change('presentationProductImage', e.target.value)} placeholder="https://… ou /catalog-assets/…" /></label>
+          <label>Upload da imagem de fundo da página<input type="file" accept="image/*" onChange={(e) => setPresentationBackgroundFile(e.target.files[0])} />{values.presentationBackgroundImage && <small>Atual: {values.presentationBackgroundImage}</small>}</label>
+          <label>Upload da imagem do produto (página)<input type="file" accept="image/*" onChange={(e) => setPresentationProductFile(e.target.files[0])} />{values.presentationProductImage && <small>Atual: {values.presentationProductImage}</small>}</label>
+        </div>
 
         <div className="admin-repeater">
           <div className="admin-repeater__heading"><strong>Selos</strong><button type="button" className="admin-button" onClick={() => addCollectionItem('badges', { label: '', tone: 'outline', color: '#1c8c44' })}>Adicionar selo</button></div>

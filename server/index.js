@@ -67,6 +67,8 @@ function bodyWithUploads(request, current = {}) {
     comparisonImage3: files.comparisonImage3File?.[0] ? `/api/uploads/${files.comparisonImage3File[0].filename}` : request.body.comparisonImage3 || current.comparisonImage3,
     comparisonImage4: files.comparisonImage4File?.[0] ? `/api/uploads/${files.comparisonImage4File[0].filename}` : request.body.comparisonImage4 || current.comparisonImage4,
     comparisonProductIcon: files.comparisonProductIconFile?.[0] ? `/api/uploads/${files.comparisonProductIconFile[0].filename}` : request.body.comparisonProductIcon || current.comparisonProductIcon,
+    presentationBackgroundImage: files.presentationBackgroundFile?.[0] ? `/api/uploads/${files.presentationBackgroundFile[0].filename}` : request.body.presentationBackgroundImage || current.presentationBackgroundImage,
+    presentationProductImage: files.presentationProductFile?.[0] ? `/api/uploads/${files.presentationProductFile[0].filename}` : request.body.presentationProductImage || current.presentationProductImage,
   };
 }
 
@@ -262,6 +264,8 @@ const productUpload = upload.fields([
   { name: 'comparisonImage3File', maxCount: 1 },
   { name: 'comparisonImage4File', maxCount: 1 },
   { name: 'comparisonProductIconFile', maxCount: 1 },
+  { name: 'presentationBackgroundFile', maxCount: 1 },
+  { name: 'presentationProductFile', maxCount: 1 },
 ]);
 app.post('/api/admin/products', productUpload, async (request, response) => {
   const products = await readProducts();

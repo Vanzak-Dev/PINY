@@ -260,6 +260,8 @@ export function normalizeProduct(input, current = {}) {
     trackStock: boolean(input.trackStock, current.trackStock ?? true),
     tags: Array.isArray(input.tags) ? input.tags : String(input.tags ?? current.tags ?? '').split(',').map((tag) => tag.trim()).filter(Boolean),
     image: String(input.image ?? current.image ?? '').trim(),
+    presentationBackgroundImage: String(input.presentationBackgroundImage ?? current.presentationBackgroundImage ?? '').trim(),
+    presentationProductImage: String(input.presentationProductImage ?? current.presentationProductImage ?? '').trim(),
     backgroundImage: String(input.backgroundImage ?? current.backgroundImage ?? '').trim(),
     backgroundColor: String(input.backgroundColor ?? current.backgroundColor ?? '#b8efad').trim(),
     featureEnabled: boolean(input.featureEnabled, current.featureEnabled ?? false),

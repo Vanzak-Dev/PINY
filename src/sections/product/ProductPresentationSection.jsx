@@ -63,13 +63,17 @@ export default function ProductPresentationSection({ product, categoryLabel = 'P
   const selectedOption = quantityOptions[selectedIndex];
 
   return (
-    <section className="product-presentation" aria-label={`Apresentação do produto ${product.name}`}>
+    <section
+      className="product-presentation"
+      aria-label={`Apresentação do produto ${product.name}`}
+      style={product.presentationBackgroundImage ? { backgroundImage: `url('${product.presentationBackgroundImage}')` } : undefined}
+    >
       <div className="product-presentation__container page-width">
         <div className="product-presentation__visual">
           <img className="product-presentation__mobile-ice" src={mobileIce} alt="" aria-hidden="true" />
           <img
             className="product-presentation__product-image"
-            src={product.image}
+            src={product.presentationProductImage || product.image}
             alt={`${categoryLabel} ${product.name}`}
           />
         </div>
