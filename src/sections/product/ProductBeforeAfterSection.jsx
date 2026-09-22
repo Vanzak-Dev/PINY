@@ -94,7 +94,7 @@ function BeforeAfterCard({ item, beforeLabel, afterLabel }) {
           src={item.afterImage}
           alt={`${item.name} depois`}
           draggable={false}
-          style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
+          style={{ clipPath: `inset(0 0 0 ${100 - position}%)` }}
         />
 
         <span className="before-after__badge before-after__badge--left">{beforeLabel}</span>
