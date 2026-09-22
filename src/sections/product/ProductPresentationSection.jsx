@@ -17,6 +17,7 @@ export default function ProductPresentationSection({ product, categoryLabel = 'P
 
   const startCrossSellDrag = (event) => {
     if (event.pointerType !== 'mouse' || event.button !== 0) return;
+    if (event.target.closest('button')) return;
 
     const items = crossSellItemsRef.current;
     if (!items) return;
