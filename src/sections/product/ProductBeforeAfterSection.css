@@ -187,25 +187,25 @@
 .before-after__dots {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 8px;
 }
 
 .before-after__dot {
   display: block;
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
   padding: 0;
-  border: 0.833px solid #000b06;
+  border: 1.5px solid #1c8c44;
   border-radius: 999px;
   background: transparent;
   cursor: pointer;
-  transition: width 0.2s ease, background 0.2s ease;
+  transition: width 0.2s ease, background 0.2s ease, border-color 0.2s ease;
 }
 
 .before-after__dot.is-active {
-  width: 10px;
-  border-color: #000b06;
-  background: #000b06;
+  width: 20px;
+  border-color: #1c8c44;
+  background: #1c8c44;
 }
 
 @media (min-width: 768px) {

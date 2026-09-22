@@ -137,24 +137,23 @@
 .featured-collection__dots {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   margin-top: clamp(16px, 1.666667vw, 32px);
 }
 
 .featured-collection__dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  border: 2px solid #1c8c44;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  border: 1.5px solid #1c8c44;
   background: transparent;
   padding: 0;
   cursor: pointer;
-  transition: all 250ms ease;
+  transition: width 0.2s ease, background 0.2s ease, border-color 0.2s ease;
 }
 
 .featured-collection__dot.is-active {
-  width: 24px;
-  border-radius: 5px;
+  width: 20px;
   background: #1c8c44;
 }
 
