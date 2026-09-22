@@ -35,6 +35,12 @@ export default function SearchPanel({ isOpen, onClose, offsetTop }) {
 
   if (!isOpen) return null;
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (!query.trim()) return;
+    window.location.href = `/pesquisa?q=${encodeURIComponent(query.trim())}`;
+  };
+
   const normalizedQuery = query.trim().toLowerCase();
   const filteredSuggestions = suggestedSearches.filter((suggestion) => suggestion.toLowerCase().includes(normalizedQuery));
 
@@ -52,7 +58,7 @@ export default function SearchPanel({ isOpen, onClose, offsetTop }) {
     <div className="search-panel" role="dialog" aria-label="Pesquisa de produtos">
       <div className="search-panel__backdrop" onClick={onClose} />
       <div className="search-panel__surface" style={offsetTop ? { top: `${offsetTop}px` } : undefined}>
-        <div className="search-panel__input-wrap">
+        <form className="search-panel__input-wrap" onSubmit={handleSubmit}>
           <input
             ref={inputRef}
             value={query}
@@ -60,8 +66,10 @@ export default function SearchPanel({ isOpen, onClose, offsetTop }) {
             placeholder="Pesquisar produtos..."
             aria-label="Pesquisar produtos"
           />
-          <span className="search-panel__icon" aria-hidden="true" />
-        </div>
+          <button type="submit" className="search-panel__submit" aria-label="Pesquisar">
+            <span className="search-panel__icon" aria-hidden="true" />
+          </button>
+        </form>
 
         <div className="search-panel__columns">
           <section className="search-panel__suggestions">

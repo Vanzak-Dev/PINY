@@ -6,6 +6,7 @@ import CartDrawer from "./components/cart/CartDrawer";
 import Footer from "./sections/global/Footer";
 import Home from "./pages/Home";
 import ProductPage from "./pages/ProductPage";
+import SearchResultsPage from "./pages/SearchResultsPage";
 import { CartProvider, useCart } from "./hooks/useCart";
 
 export default function App() {
@@ -54,6 +55,8 @@ export default function App() {
 
   const page = pathname.startsWith("/produtos/")
     ? <ProductPage productIdentifier={decodeURIComponent(pathname.split("/produtos/")[1])} />
+    : pathname.startsWith("/pesquisa")
+    ? <SearchResultsPage query={new URLSearchParams(window.location.search).get("q") || ""} />
     : <Home />;
 
   return (
