@@ -142,8 +142,8 @@
 }
 
 .featured-collection__dot {
-  width: 6px;
-  height: 6px;
+  width: 12px;
+  height: 12px;
   border-radius: 999px;
   border: 1.5px solid #1c8c44;
   background: transparent;
@@ -153,7 +153,8 @@
 }
 
 .featured-collection__dot.is-active {
-  width: 20px;
+  width: 24px;
+  height: 12px;
   background: #1c8c44;
 }
 
