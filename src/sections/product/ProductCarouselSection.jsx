@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import ProductCard from '../../components/product/ProductCard';
 import CarouselArrowButton from '../../components/ui/CarouselArrowButton';
 import './ProductCarouselSection.css';
@@ -59,6 +59,21 @@ export default function ProductCarouselSection({ products, initialIndex = 0, onA
     if (event.key === 'ArrowRight') move(1);
   };
 
+  const touchStartX = useRef(null);
+
+  const handleTouchStart = (event) => {
+    touchStartX.current = event.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (event) => {
+    if (touchStartX.current === null) return;
+    const deltaX = event.changedTouches[0].clientX - touchStartX.current;
+    touchStartX.current = null;
+    const swipeThreshold = 40;
+    if (deltaX > swipeThreshold) move(-1);
+    else if (deltaX < -swipeThreshold) move(1);
+  };
+
   return (
     <section
       className="product-carousel"
@@ -66,6 +81,8 @@ export default function ProductCarouselSection({ products, initialIndex = 0, onA
       aria-roledescription="carrossel"
       tabIndex="0"
       onKeyDown={handleKeyDown}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
     >
       <div className="product-carousel__viewport">
         <div className="product-carousel__stage">
