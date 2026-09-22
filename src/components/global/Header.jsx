@@ -13,6 +13,7 @@ export default function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
   const headerRef = useRef(null);
   const [headerHeight, setHeaderHeight] = useState(0);
+  const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
     const headerEl = headerRef.current;
@@ -24,9 +25,30 @@ export default function Header() {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+    const updateVisibility = () => {
+      const currentScrollY = window.scrollY;
+      const scrolledDown = currentScrollY > lastScrollY;
+      const pastHeader = currentScrollY > (headerRef.current?.offsetHeight || 0);
+      setHidden(scrolledDown && pastHeader);
+      lastScrollY = currentScrollY;
+      ticking = false;
+    };
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(updateVisibility);
+        ticking = true;
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <>
-    <header className="site-header" ref={headerRef}>
+    <header className={`site-header${hidden ? " site-header--hidden" : ""}`} ref={headerRef}>
       <div className="site-header__inner">
         <button type="button" className="site-header__menu-btn" aria-label="Menu" onClick={() => setMobileMenuOpen(true)}>
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">

@@ -6,6 +6,11 @@
   z-index: 100;
   background-color: rgba(255, 255, 255, var(--scroll, 1));
   border-radius: 0 0 16px 16px;
+  transition: transform 0.3s ease;
+}
+
+.site-header--hidden {
+  transform: translateY(-100%);
 }
 
 .site-header__inner {
