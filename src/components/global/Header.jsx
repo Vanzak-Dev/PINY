@@ -2,7 +2,7 @@ import { useState } from "react";
 import logo from "../../assets/hero/logo.svg";
 import MegaMenu from "./MegaMenu";
 import MobileMenu from "./MobileMenu";
-import SearchOverlay from "./SearchOverlay";
+import SearchPanel from "./SearchPanel";
 import { useCart } from "../../hooks/useCart";
 import "./Header.css";
 
@@ -53,7 +53,7 @@ export default function Header() {
       </div>
     </header>
     <MobileMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
-    <SearchOverlay isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
+    <SearchPanel isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   );
 }
