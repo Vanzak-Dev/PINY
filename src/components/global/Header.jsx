@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import logo from "../../assets/hero/logo.svg";
 import MegaMenu from "./MegaMenu";
 import MobileMenu from "./MobileMenu";
@@ -11,10 +11,22 @@ export default function Header() {
   const itemCount = items.reduce((sum, { quantity }) => sum + quantity, 0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const headerRef = useRef(null);
+  const [headerHeight, setHeaderHeight] = useState(0);
+
+  useEffect(() => {
+    const headerEl = headerRef.current;
+    if (!headerEl) return undefined;
+    const updateHeight = () => setHeaderHeight(headerEl.offsetHeight);
+    updateHeight();
+    const observer = new ResizeObserver(updateHeight);
+    observer.observe(headerEl);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <>
-    <header className="site-header">
+    <header className="site-header" ref={headerRef}>
       <div className="site-header__inner">
         <button type="button" className="site-header__menu-btn" aria-label="Menu" onClick={() => setMobileMenuOpen(true)}>
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
@@ -53,7 +65,7 @@ export default function Header() {
       </div>
     </header>
     <MobileMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
-    <SearchPanel isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
+    <SearchPanel isOpen={searchOpen} onClose={() => setSearchOpen(false)} offsetTop={headerHeight} />
     </>
   );
 }
