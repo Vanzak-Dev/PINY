@@ -4,7 +4,7 @@ import './ProductRating.css';
 export default function ProductRating({ count, stars = 5 }) {
   return (
     <div className="product-rating">
-      <StarRating stars={stars} size={20} />
+      <StarRating stars={stars} size={20} color="#1C8C3C" />
       <span className="product-rating__count">({count})</span>
     </div>
   );
