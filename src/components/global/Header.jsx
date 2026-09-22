@@ -2,6 +2,7 @@ import { useState } from "react";
 import logo from "../../assets/hero/logo.svg";
 import MegaMenu from "./MegaMenu";
 import MobileMenu from "./MobileMenu";
+import SearchOverlay from "./SearchOverlay";
 import { useCart } from "../../hooks/useCart";
 import "./Header.css";
 
@@ -9,6 +10,7 @@ export default function Header() {
   const { items, open } = useCart();
   const itemCount = items.reduce((sum, { quantity }) => sum + quantity, 0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   return (
     <>
@@ -34,7 +36,7 @@ export default function Header() {
           <a className="site-header__nav-link" href="#">Piny Stars</a>
         </nav>
         <div className="site-header__actions">
-          <button type="button" className="site-header__action" aria-label="Buscar">
+          <button type="button" className="site-header__action" aria-label="Buscar" onClick={() => setSearchOpen(true)}>
             <svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" viewBox="0 0 29 29" fill="none">
               <circle cx="11.6667" cy="11.6667" r="10.6667" stroke="#1C8C44" strokeWidth="2"/>
               <path d="M19.8333 19.8333L27.9999 28" stroke="#1C8C44" strokeWidth="2" strokeLinecap="round"/>
@@ -51,6 +53,7 @@ export default function Header() {
       </div>
     </header>
     <MobileMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
+    <SearchOverlay isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   );
 }
