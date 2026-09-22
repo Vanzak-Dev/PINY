@@ -83,6 +83,21 @@ export default function UgcReviewsSection({ products, onAdd, selectedProductId, 
     setActivePosition((current) => current + step);
   };
 
+  const touchStartX = useRef(null);
+
+  const handleTouchStart = (event) => {
+    touchStartX.current = event.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (event) => {
+    if (touchStartX.current === null) return;
+    const deltaX = event.changedTouches[0].clientX - touchStartX.current;
+    touchStartX.current = null;
+    const swipeThreshold = 40;
+    if (deltaX > swipeThreshold) move(-1);
+    else if (deltaX < -swipeThreshold) move(1);
+  };
+
   return (
     <section className="ugc-reviews" aria-label="Reviews da comunidade PINY">
       <UgcBackgroundPattern />
@@ -108,7 +123,11 @@ export default function UgcReviewsSection({ products, onAdd, selectedProductId, 
 
       <PinyLoversLogo />
 
-      <div className="ugc-reviews__carousel">
+      <div
+        className="ugc-reviews__carousel"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         <div className="ugc-reviews__stage">
           {loopedReviews.map((review, position) => {
             const relative = position - activePosition;
