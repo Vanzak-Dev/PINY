@@ -171,7 +171,7 @@
 .product-presentation__cross-sell-items {
   display: flex;
   min-width: 0;
-  gap: 16px;
+  gap: 32px;
   margin-inline: -16px;
   padding-inline: 16px;
   overflow-x: auto;

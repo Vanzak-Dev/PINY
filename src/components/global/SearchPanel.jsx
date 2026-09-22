@@ -19,7 +19,7 @@ function matchesQuery(product, query) {
   return haystack.includes(query);
 }
 
-export default function SearchPanel({ isOpen, onClose, offsetTop }) {
+export default function SearchPanel({ isOpen, onClose, offsetTop, onAdd }) {
   const inputRef = useRef(null);
   const [query, setQuery] = useState('');
 
@@ -95,7 +95,7 @@ export default function SearchPanel({ isOpen, onClose, offsetTop }) {
                         <a href={productUrl} aria-label={`Ver detalhes de ${product.name}`} onClick={onClose}>
                           <img src={product.image} alt={product.name} />
                         </a>
-                        <button type="button" aria-label={`Adicionar ${product.name} ao carrinho`}><AddToCartIcon /></button>
+                        <button type="button" aria-label={`Adicionar ${product.name} ao carrinho`} onClick={() => onAdd?.(product)}><AddToCartIcon /></button>
                       </div>
                       <a className="search-panel__product-info" href={productUrl} onClick={onClose}>
                         <strong>{product.name.split(' ')[0]}<br />{product.name.split(' ').slice(1).join(' ')}</strong>

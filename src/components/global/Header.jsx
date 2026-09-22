@@ -7,7 +7,7 @@ import { useCart } from "../../hooks/useCart";
 import "./Header.css";
 
 export default function Header() {
-  const { items, open } = useCart();
+  const { items, open, addItem } = useCart();
   const itemCount = items.reduce((sum, { quantity }) => sum + quantity, 0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -65,7 +65,7 @@ export default function Header() {
       </div>
     </header>
     <MobileMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
-    <SearchPanel isOpen={searchOpen} onClose={() => setSearchOpen(false)} offsetTop={headerHeight} />
+    <SearchPanel isOpen={searchOpen} onClose={() => setSearchOpen(false)} offsetTop={headerHeight} onAdd={addItem} />
     </>
   );
 }
