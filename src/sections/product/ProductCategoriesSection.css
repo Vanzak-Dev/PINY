@@ -168,7 +168,7 @@
   border-radius: 999px;
   background: transparent;
   cursor: pointer;
-  transition: width 200ms ease, background 200ms ease, border-color 200ms ease;
+  transition: width 200ms ease, height 200ms ease, background 200ms ease, border-color 200ms ease;
 }
 
 .product-categories__dot.is-active {
@@ -295,19 +295,19 @@
 
   .product-categories__dots {
     margin-top: 32px;
-    height: 12px;
+    height: 5px;
     gap: 8px;
     margin-bottom: 32px;
   }
 
   .product-categories__dot {
-    width: 12px;
-    height: 12px;
-    border-width: 1.5px;
+    width: 5px;
+    height: 5px;
+    border-width: 1px;
   }
 
   .product-categories__dot.is-active {
-    width: 24px;
-    height: 12px;
+    width: 10px;
+    height: 5px;
   }
 }
