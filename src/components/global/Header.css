@@ -6,7 +6,6 @@
   z-index: 100;
   background-color: rgba(255, 255, 255, var(--scroll, 1));
   border-radius: 0 0 16px 16px;
-  box-shadow: 0 2px 16px rgba(0, 0, 0, calc(0.06 * var(--scroll, 1)));
 }
 
 .site-header__inner {

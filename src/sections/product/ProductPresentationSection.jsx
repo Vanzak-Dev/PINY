@@ -1,14 +1,17 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ProductBadge from '../../components/product/ProductBadge';
 import ProductIconBadge from '../../components/product/ProductIconBadge';
 import ProductRating from '../../components/product/ProductRating';
 import ProductQuantityOption from '../../components/product/ProductQuantityOption';
 import FrequentlyBoughtItem from '../../components/product/FrequentlyBoughtItem';
+import { catalogApi } from '../../services/catalogApi';
 import mobileIce from '../../assets/product/mobile-raw-3.png';
 import './ProductPresentationSection.css';
 
 export default function ProductPresentationSection({ product, categoryLabel = 'PINY MASK', crossSellProducts = [], onAdd }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [reviewCount, setReviewCount] = useState(0);
+  const [reviewStars, setReviewStars] = useState(5);
   const crossSellItemsRef = useRef(null);
   const crossSellDragRef = useRef({ pointerId: null, startX: 0, scrollLeft: 0, moved: false });
 
@@ -55,6 +58,19 @@ export default function ProductPresentationSection({ product, categoryLabel = 'P
     crossSellDragRef.current.moved = false;
   };
 
+  useEffect(() => {
+    if (!product?.id) return;
+    catalogApi.listProductReviews(product.id)
+      .then((reviews) => {
+        setReviewCount(reviews.length);
+        if (reviews.length > 0) {
+          const avg = reviews.reduce((sum, r) => sum + r.stars, 0) / reviews.length;
+          setReviewStars(Math.round(avg));
+        }
+      })
+      .catch(() => {});
+  }, [product?.id]);
+
   if (!product) return null;
 
   const quantityOptions = product.quantityOptions?.length
@@ -100,7 +116,7 @@ export default function ProductPresentationSection({ product, categoryLabel = 'P
                   </ProductBadge>
                 ))}
               </div>
-              {product.reviewCount && <ProductRating count={product.reviewCount} />}
+              {reviewCount > 0 && <ProductRating count={reviewCount} stars={reviewStars} />}
             </div>
           </div>
 

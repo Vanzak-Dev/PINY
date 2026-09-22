@@ -1,10 +1,10 @@
-import ratingStars from '../../assets/product/rating-stars.svg';
+import StarRating from './StarRating';
 import './ProductRating.css';
 
-export default function ProductRating({ count }) {
+export default function ProductRating({ count, stars = 5 }) {
   return (
     <div className="product-rating">
-      <img className="product-rating__stars" src={ratingStars} alt="" aria-hidden="true" />
+      <StarRating stars={stars} size={20} />
       <span className="product-rating__count">({count})</span>
     </div>
   );

@@ -5,9 +5,7 @@
 }
 
 .product-rating__stars {
-  display: block;
-  width: 109px;
-  height: 25px;
+  display: flex;
 }
 
 .product-rating__count {
@@ -20,8 +18,7 @@
 
 @media (max-width: 767px) {
   .product-rating__stars {
-    width: clamp(82px, 24vw, 104px);
-    height: clamp(19px, 5.6vw, 24px);
+    gap: 1px;
   }
 
   .product-rating__count {
