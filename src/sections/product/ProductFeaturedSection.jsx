@@ -117,7 +117,7 @@ export default function ProductFeaturedSection({ products, onAdd }) {
         <div
           className="product-featured__track"
           style={{
-            transform: `translateX(-${index * 100}%)`,
+            transform: `translateX(-${hasCarousel ? index : 0}%)`,
             transition: noTransition ? 'none' : 'transform 500ms ease',
           }}
           onTransitionEnd={handleTransitionEnd}
