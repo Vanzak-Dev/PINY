@@ -90,7 +90,7 @@
 }
 
 .product-actives__callout--left-top {
-  top: 18.697917vw;
+  top: 19.219194vw;
   left: 22.916667%;
 }
 
@@ -100,15 +100,15 @@
 }
 
 .product-actives__callout--right-top {
-  top: 18.697917vw;
+  top: 18.784556vw;
   right: 23.4375%;
   flex-direction: row-reverse;
   text-align: right;
 }
 
 .product-actives__callout--left-bottom {
-  top: 31.822917vw;
-  left: 12.864583%;
+  top: 32.067116vw;
+  left: 12.6%;
 }
 
 .product-actives__callout--left-bottom>div,
@@ -117,8 +117,8 @@
 }
 
 .product-actives__callout--right-bottom {
-  top: 31.71875vw;
-  right: 13.020833%;
+  top: 31.755781vw;
+  right: 12.0%;
   flex-direction: row-reverse;
   text-align: right;
 }

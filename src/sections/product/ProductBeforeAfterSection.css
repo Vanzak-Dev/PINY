@@ -88,9 +88,14 @@
   aspect-ratio: 494.61 / 416.386;
   overflow: hidden;
   border-radius: 22.82px;
-  cursor: none;
   touch-action: pan-y;
   user-select: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .before-after__image:hover {
+    cursor: none;
+  }
 }
 
 .before-after__photo {
