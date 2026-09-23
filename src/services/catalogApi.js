@@ -1,6 +1,14 @@
 async function request(path, options = {}) {
   const response = await fetch(path, { credentials: 'include', ...options });
-  const data = response.status === 204 ? null : await response.json();
+  const text = await response.text();
+  let data = null;
+  if (text) {
+    try {
+      data = JSON.parse(text);
+    } catch {
+      throw new Error('Resposta inválida do servidor.');
+    }
+  }
   if (!response.ok) throw new Error(data?.error || 'Não foi possível concluir a operação.');
   return data;
 }
