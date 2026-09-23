@@ -8,6 +8,7 @@ import ProductFaqSection from '../sections/product/ProductFaqSection';
 import ProductFeaturedSection from '../sections/product/ProductFeaturedSection';
 import ProductBeforeAfterSection from '../sections/product/ProductBeforeAfterSection';
 import Journey21DaysSection from '../sections/product/Journey21DaysSection';
+import HowToUseSection from '../sections/product/HowToUseSection';
 import AiAnalysisSection from '../sections/global/AiAnalysisSection';
 import ProductReviewsSection from '../sections/product/ProductReviewsSection';
 import { catalogApi } from '../services/catalogApi';
@@ -75,6 +76,7 @@ export default function ProductPage({ productIdentifier }) {
           <ProductBenefitsSection />
           <ProductBoosterSection onAdd={handleAdd} />
           <Journey21DaysSection />
+          <HowToUseSection />
           <ProductBeforeAfterSection product={product} />
           <AiAnalysisSection product={product} />
           <ProductComparisonSection product={product} />
