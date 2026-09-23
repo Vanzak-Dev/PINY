@@ -14,7 +14,6 @@ import { catalogApi } from '../services/catalogApi';
 import { useCart } from '../hooks/useCart';
 
 export default function ProductPage({ productIdentifier }) {
-  const [addedProduct, setAddedProduct] = useState(null);
   const [product, setProduct] = useState(null);
   const [products, setProducts] = useState([]);
   const [error, setError] = useState('');
@@ -23,7 +22,6 @@ export default function ProductPage({ productIdentifier }) {
 
   const handleAdd = (addedItem) => {
     addItem(addedItem);
-    setAddedProduct(addedItem);
   };
 
   const loadProduct = useCallback(() => {
@@ -86,9 +84,6 @@ export default function ProductPage({ productIdentifier }) {
         </>
       )}
       {!loading && error && <p className="page-width" role="alert">{error}</p>}
-      <p role="status" aria-live="polite" hidden={!addedProduct}>
-        {addedProduct ? `${addedProduct.name} adicionada ao carrinho.` : ''}
-      </p>
     </main>
   );
 }
