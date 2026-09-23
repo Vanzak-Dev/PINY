@@ -277,11 +277,16 @@
   }
 
   .product-presentation__title-row .product-icon-badge {
-    --badge-size: clamp(62px, 20vw, 88px);
+    --badge-size: clamp(62px, 20vw, 88px) !important;
   }
 
   .product-presentation__meta {
     gap: 12px;
+  }
+
+  .product-presentation__meta .product-rating svg {
+    width: 13.393px !important;
+    height: 12.857px !important;
   }
 
   .product-presentation__highlight p {
