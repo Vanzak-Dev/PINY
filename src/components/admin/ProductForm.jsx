@@ -24,7 +24,7 @@ const emptyProduct = {
   price: '', oldPrice: '', costPrice: '', stock: 0, trackStock: true, tags: '', image: '', backgroundImage: '', presentationBackgroundImage: '', presentationProductImage: '',
   backgroundColor: '#b8efad', imageRestRotation: 0, imageActiveRotation: 15,
   featureEnabled: false, featureLabel: '', featurePrice: '', featureBackgroundCenter: '#F3FD5A', featureBackgroundEdge: '#FFD72F',
-  featureLeftImage: '', featureRightImage: '', featureProductImage: '', weight: '',
+  featureLeftImage: '', featureRightImage: '', featureProductImage: '', featureProductInfoMobileBackground: '', weight: '',
   dimensions: { length: '', width: '', height: '' }, seoTitle: '', seoDescription: '',
   comparisonEnabled: true, comparisonTitle: '', comparisonSubtitle: '', comparisonPinyLabel: '', comparisonOtherLabel: '',
   comparisonImage1: '', comparisonImage2: '', comparisonImage3: '', comparisonImage4: '', comparisonProductIcon: '',
@@ -52,6 +52,7 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
   const [featureLeftImageFile, setFeatureLeftImageFile] = useState(null);
   const [featureRightImageFile, setFeatureRightImageFile] = useState(null);
   const [featureProductImageFile, setFeatureProductImageFile] = useState(null);
+  const [featureProductInfoMobileBgFile, setFeatureProductInfoMobileBgFile] = useState(null);
   const [comparisonImage1File, setComparisonImage1File] = useState(null);
   const [comparisonImage2File, setComparisonImage2File] = useState(null);
   const [comparisonImage3File, setComparisonImage3File] = useState(null);
@@ -77,7 +78,7 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
       dimensions: { ...emptyProduct.dimensions, ...product.dimensions },
       comparisonRows: product.comparisonRows?.length ? product.comparisonRows : emptyProduct.comparisonRows,
     } : emptyProduct);
-    setImageFile(null); setBackgroundFile(null); setFeatureLeftImageFile(null); setFeatureRightImageFile(null); setFeatureProductImageFile(null);
+    setImageFile(null); setBackgroundFile(null); setFeatureLeftImageFile(null); setFeatureRightImageFile(null); setFeatureProductImageFile(null); setFeatureProductInfoMobileBgFile(null);
     setComparisonImage1File(null); setComparisonImage2File(null); setComparisonImage3File(null); setComparisonImage4File(null); setComparisonProductIconFile(null);
     setPresentationBackgroundFile(null); setPresentationProductFile(null);
     setError('');
@@ -114,6 +115,7 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
     if (featureLeftImageFile) data.append('featureLeftImageFile', featureLeftImageFile);
     if (featureRightImageFile) data.append('featureRightImageFile', featureRightImageFile);
     if (featureProductImageFile) data.append('featureProductImageFile', featureProductImageFile);
+    if (featureProductInfoMobileBgFile) data.append('featureProductInfoMobileBackgroundFile', featureProductInfoMobileBgFile);
     if (comparisonImage1File) data.append('comparisonImage1File', comparisonImage1File);
     if (comparisonImage2File) data.append('comparisonImage2File', comparisonImage2File);
     if (comparisonImage3File) data.append('comparisonImage3File', comparisonImage3File);
@@ -220,6 +222,10 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
           <label>Upload da imagem esquerda<input type="file" accept="image/*" onChange={(e) => setFeatureLeftImageFile(e.target.files[0])} />{values.featureLeftImage && <small>Atual: {values.featureLeftImage}</small>}</label>
           <label>Upload da imagem do produto<input type="file" accept="image/*" onChange={(e) => setFeatureProductImageFile(e.target.files[0])} />{values.featureProductImage && <small>Atual: {values.featureProductImage}</small>}</label>
           <label>Upload da imagem direita<input type="file" accept="image/*" onChange={(e) => setFeatureRightImageFile(e.target.files[0])} />{values.featureRightImage && <small>Atual: {values.featureRightImage}</small>}</label>
+        </div>
+        <div className="admin-grid admin-grid--2">
+          <label>URL do fundo do product info (mobile)<input type="text" value={values.featureProductInfoMobileBackground} onChange={(e) => change('featureProductInfoMobileBackground', e.target.value)} placeholder="https://… ou /catalog-assets/…" /></label>
+          <label>Upload do fundo do product info (mobile)<input type="file" accept="image/*" onChange={(e) => setFeatureProductInfoMobileBgFile(e.target.files[0])} />{values.featureProductInfoMobileBackground && <small>Atual: {values.featureProductInfoMobileBackground}</small>}</label>
         </div>
       </section>
       <section className="admin-form__section">

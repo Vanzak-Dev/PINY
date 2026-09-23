@@ -272,6 +272,7 @@ export function normalizeProduct(input, current = {}) {
     featureLeftImage: String(input.featureLeftImage ?? current.featureLeftImage ?? '').trim(),
     featureRightImage: String(input.featureRightImage ?? current.featureRightImage ?? '').trim(),
     featureProductImage: String(input.featureProductImage ?? current.featureProductImage ?? '').trim(),
+    featureProductInfoMobileBackground: String(input.featureProductInfoMobileBackground ?? current.featureProductInfoMobileBackground ?? '').trim(),
     beforeAfterEnabled: boolean(input.beforeAfterEnabled, current.beforeAfterEnabled ?? false),
     beforeAfterTitle: String(input.beforeAfterTitle ?? current.beforeAfterTitle ?? '').trim(),
     beforeAfterTitleAccent: String(input.beforeAfterTitleAccent ?? current.beforeAfterTitleAccent ?? '').trim(),

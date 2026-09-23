@@ -100,7 +100,7 @@ function PineappleFeaturePanel({ product, isIncoming, isEntered, panelRef }) {
       />
 
       <div className="pineapple-feature__content">
-        <PineappleProductInfo />
+        <PineappleProductInfo mobileBackgroundImage={product.featureProductInfoMobileBackground} />
         <PineapplePerks />
         {product.featureLabel && <p className="pineapple-feature__label">{product.featureLabel}</p>}
         <div className="pineapple-feature__product-lockup">

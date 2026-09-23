@@ -240,8 +240,8 @@
 
   .product-presentation__product-image {
     z-index: 2;
-    width: 67.204301%;
-    height: 57.126949%;
+    width: 381px;
+    height: 362px;
     transform: translate(-50%, -50%) rotate(-6deg);
   }
 
