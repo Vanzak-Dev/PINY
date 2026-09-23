@@ -21,7 +21,7 @@ function useObjectUrl(file) {
 const emptyProduct = {
   name: '', slug: '', sku: '', status: 'active', featured: true, category: '', shortDescription: '', description: '',
   reviewCount: '', badges: [], quantityOptions: [{ quantity: 1, price: '', discountLabel: '' }], crossSellIds: [],
-  price: '', oldPrice: '', costPrice: '', stock: 0, trackStock: true, tags: '', image: '', backgroundImage: '', presentationBackgroundImage: '', presentationProductImage: '',
+  price: '', oldPrice: '', costPrice: '', stock: 0, trackStock: true, tags: '', image: '', backgroundImage: '', presentationBackgroundImage: '', presentationMobileBackgroundImage: '', presentationProductImage: '',
   backgroundColor: '#b8efad', imageRestRotation: 0, imageActiveRotation: 15,
   featureEnabled: false, featureLabel: '', featurePrice: '', featureBackgroundCenter: '#F3FD5A', featureBackgroundEdge: '#FFD72F',
   featureLeftImage: '', featureRightImage: '', featureProductImage: '', featureProductInfoMobileBackground: '', weight: '',
@@ -59,6 +59,7 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
   const [comparisonImage4File, setComparisonImage4File] = useState(null);
   const [comparisonProductIconFile, setComparisonProductIconFile] = useState(null);
   const [presentationBackgroundFile, setPresentationBackgroundFile] = useState(null);
+  const [presentationMobileBackgroundFile, setPresentationMobileBackgroundFile] = useState(null);
   const [presentationProductFile, setPresentationProductFile] = useState(null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
@@ -80,7 +81,7 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
     } : emptyProduct);
     setImageFile(null); setBackgroundFile(null); setFeatureLeftImageFile(null); setFeatureRightImageFile(null); setFeatureProductImageFile(null); setFeatureProductInfoMobileBgFile(null);
     setComparisonImage1File(null); setComparisonImage2File(null); setComparisonImage3File(null); setComparisonImage4File(null); setComparisonProductIconFile(null);
-    setPresentationBackgroundFile(null); setPresentationProductFile(null);
+    setPresentationBackgroundFile(null); setPresentationMobileBackgroundFile(null); setPresentationProductFile(null);
     setError('');
   }, [product]);
 
@@ -122,6 +123,7 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
     if (comparisonImage4File) data.append('comparisonImage4File', comparisonImage4File);
     if (comparisonProductIconFile) data.append('comparisonProductIconFile', comparisonProductIconFile);
     if (presentationBackgroundFile) data.append('presentationBackgroundFile', presentationBackgroundFile);
+    if (presentationMobileBackgroundFile) data.append('presentationMobileBackgroundFile', presentationMobileBackgroundFile);
     if (presentationProductFile) data.append('presentationProductFile', presentationProductFile);
     try { await onSave(data); }
     catch (requestError) { setError(requestError.message); }
@@ -158,6 +160,8 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
           <label>URL da imagem do produto (página)<input type="text" value={values.presentationProductImage} onChange={(e) => change('presentationProductImage', e.target.value)} placeholder="https://… ou /catalog-assets/…" /></label>
           <label>Upload da imagem de fundo da página<input type="file" accept="image/*" onChange={(e) => setPresentationBackgroundFile(e.target.files[0])} />{values.presentationBackgroundImage && <small>Atual: {values.presentationBackgroundImage}</small>}</label>
           <label>Upload da imagem do produto (página)<input type="file" accept="image/*" onChange={(e) => setPresentationProductFile(e.target.files[0])} />{values.presentationProductImage && <small>Atual: {values.presentationProductImage}</small>}</label>
+          <label>URL do fundo mobile da página<input type="text" value={values.presentationMobileBackgroundImage} onChange={(e) => change('presentationMobileBackgroundImage', e.target.value)} placeholder="https://… ou /catalog-assets/…" /></label>
+          <label>Upload do fundo mobile da página<input type="file" accept="image/*" onChange={(e) => setPresentationMobileBackgroundFile(e.target.files[0])} />{values.presentationMobileBackgroundImage && <small>Atual: {values.presentationMobileBackgroundImage}</small>}</label>
         </div>
 
         <div className="admin-repeater">

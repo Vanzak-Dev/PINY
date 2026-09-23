@@ -83,7 +83,10 @@ export default function ProductPresentationSection({ product, categoryLabel = 'P
     <section
       className="product-presentation"
       aria-label={`Apresentação do produto ${product.name}`}
-      style={product.presentationBackgroundImage ? { backgroundImage: `url('${product.presentationBackgroundImage}')` } : undefined}
+      style={{
+        ...(product.presentationBackgroundImage ? { '--presentation-bg': `url('${product.presentationBackgroundImage}')` } : {}),
+        ...(product.presentationMobileBackgroundImage ? { '--presentation-mobile-bg': `url('${product.presentationMobileBackgroundImage}')` } : {}),
+      }}
     >
       <div className="product-presentation__container page-width">
         <div className="product-presentation__visual">

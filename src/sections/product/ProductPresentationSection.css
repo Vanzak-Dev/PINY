@@ -2,7 +2,11 @@
   width: 100%;
   margin-top: 65px;
   padding-block: 48px;
-  background: #fff url('../../assets/product/product-hero-background.svg') no-repeat center / cover;
+  background-color: #fff;
+  background-image: var(--presentation-bg, url('../../assets/product/product-hero-background.svg'));
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 .product-presentation__container {
@@ -205,9 +209,7 @@
   .product-presentation {
     padding-block: 0 16px;
     background-color: #fff;
-    background-image:
-      url('../../assets/product/mobile-mask.svg'),
-      url('../../assets/product/mobile-background.svg');
+    background-image: var(--presentation-mobile-bg, url('../../assets/product/mobile-mask.svg'), url('../../assets/product/mobile-background.svg'));
     background-position: center top;
     background-repeat: no-repeat;
     background-size: 100% auto;
