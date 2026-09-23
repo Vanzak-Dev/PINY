@@ -259,7 +259,7 @@
   }
 
   .product-presentation__breadcrumb {
-    font-size: clamp(12px, 3.5vw, 14px);
+    font-size: 12px;
     line-height: 1.2;
   }
 
