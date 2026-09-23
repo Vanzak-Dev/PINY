@@ -599,6 +599,7 @@
     height: calc(var(--ugc-main-height) + 18.1755vw);
     margin-top: 4vw;
     margin-left: 0;
+    touch-action: pan-y;
   }
 
   .ugc-reviews__stage {
