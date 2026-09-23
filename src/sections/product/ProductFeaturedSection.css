@@ -15,7 +15,7 @@
   color: #1c8c44;
   text-align: center;
   font-family: "Neulis Neue", "neulis-neue", sans-serif;
-  font-size: clamp(28px, 3.333333vw, 64px);
+  font-size: 64px;
   font-style: normal;
   font-weight: 800;
   line-height: 75%;
@@ -41,7 +41,7 @@
   color: #000b06;
   text-align: center;
   font-family: "Neulis Neue", "neulis-neue", sans-serif;
-  font-size: clamp(16px, 1.25vw, 24px);
+  font-size: 24px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -119,6 +119,7 @@
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
     scroll-snap-type: x mandatory;
+    scroll-padding: 7%;
     touch-action: pan-y;
   }
 
@@ -127,10 +128,10 @@
   }
 
   .product-featured__card {
-    flex: 0 0 calc((100% - 1 * var(--product-featured-row-gap)) / 2);
+    flex: 0 0 86%;
     height: 60.49vw;
     padding-bottom: 1.7vw;
-    scroll-snap-align: start;
+    scroll-snap-align: center;
     --card-gap: 3.5vw;
     --information-height: 5.54125vw;
     --product-image-size: 24.40125vw;

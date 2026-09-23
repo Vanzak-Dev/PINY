@@ -73,8 +73,8 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  width: var(--product-image-size, 12.817656vw);
-  height: var(--product-image-size, 12.817656vw);
+  width: 140.716px;
+  height: 140.716px;
   object-fit: contain;
   transform: translate(-50%, -50%) rotate(var(--image-rest-rotation, 0deg));
   transform-origin: center;
@@ -100,8 +100,8 @@
   }
 
   .product-card:not(.product-card--motion-locked):hover .product-card__image {
-    width: var(--product-image-active-size, 15.737708vw);
-    height: var(--product-image-active-size, 15.737708vw);
+    width: 140.716px;
+    height: 140.716px;
     transform: translate(-50%, -50%) rotate(var(--image-active-rotation, 15deg));
   }
 
