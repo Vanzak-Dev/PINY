@@ -4,6 +4,31 @@ import AnnouncementBar from "./components/global/AnnouncementBar";
 import Footer from "./sections/global/Footer";
 import Home from "./pages/Home";
 import ProductPage from "./pages/ProductPage";
+import CartDrawer from "./components/cart/CartDrawer";
+import { CartProvider, useCart } from "./hooks/useCart";
+
+function CartDrawerContainer() {
+  const cart = useCart();
+
+  return (
+    <CartDrawer
+      isOpen={cart.isOpen}
+      onClose={cart.close}
+      onAdd={cart.addItem}
+      items={cart.items}
+      onRemoveItem={cart.removeItem}
+      onUpdateQuantity={cart.updateQuantity}
+      couponCode={cart.couponCode}
+      onCouponCodeChange={cart.setCouponCode}
+      onApplyCoupon={cart.applyCoupon}
+      subtotal={cart.subtotal}
+      discount={cart.discount}
+      total={cart.total}
+      remainingForGift={cart.remainingForGift}
+      giftProgress={cart.giftProgress}
+    />
+  );
+}
 
 export default function App() {
   const [pathname, setPathname] = useState(window.location.pathname);
@@ -25,10 +50,11 @@ export default function App() {
     : <Home />;
 
   return (
-    <>
+    <CartProvider>
       <AnnouncementBar />
       {page}
       <Footer />
-    </>
+      <CartDrawerContainer />
+    </CartProvider>
   );
 }

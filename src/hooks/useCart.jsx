@@ -46,13 +46,19 @@ export function CartProvider({ children }) {
   }, [couponCode]);
 
   const subtotal = useMemo(
+    () => items.reduce((sum, { product, quantity }) => sum + parsePrice(product.oldPrice || product.price) * quantity, 0),
+    [items],
+  );
+  const activeTotal = useMemo(
     () => items.reduce((sum, { product, quantity }) => sum + parsePrice(product.price) * quantity, 0),
     [items],
   );
-  const discount = appliedCoupon ? subtotal * appliedCoupon.rate : 0;
+  const productDiscount = subtotal - activeTotal;
+  const couponDiscount = appliedCoupon ? activeTotal * appliedCoupon.rate : 0;
+  const discount = productDiscount + couponDiscount;
   const total = Math.max(subtotal - discount, 0);
-  const remainingForGift = Math.max(GIFT_THRESHOLD - subtotal, 0);
-  const giftProgress = Math.min(subtotal / GIFT_THRESHOLD, 1);
+  const remainingForGift = Math.max(GIFT_THRESHOLD - activeTotal, 0);
+  const giftProgress = Math.min(activeTotal / GIFT_THRESHOLD, 1);
 
   const value = useMemo(() => ({
     items,
