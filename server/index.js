@@ -4,6 +4,8 @@ import path from 'node:path';
 import { mkdir } from 'node:fs/promises';
 import { changePassword, createSession, parseCookies, readSession, verifyCredentials } from './lib/auth.js';
 import { ensureCatalog, ensureCollections, ensureSiteSettings, normalizeCollection, normalizeProduct, normalizeProductReview, normalizeReview, readCollections, readProductReviews, readProducts, readReviews, readSiteSettings, saveCollections, saveProductReviews, saveProducts, saveReviews, saveSiteSettings } from './lib/store.js';
+import { getYampiConfig, ensureCustomer, findSkuByCode, createOrder, findCustomersByCpf, listOrdersByCustomer, getOrderDetails, extractLocalizedString, cleanDigits } from './lib/yampi.js';
+import { readOrders, upsertOrder, findOrderByYampiId } from './lib/orders.js';
 
 const port = Number(process.env.PORT || 8000);
 const uploadDirectory = process.env.UPLOAD_DIR || path.resolve('uploads');
@@ -321,6 +323,254 @@ app.delete('/api/admin/products/:id', async (request, response) => {
   await saveProducts(nextProducts);
   response.status(204).end();
 });
+
+// ─── Yampi integration ────────────────────────────────────────────
+
+/**
+ * POST /api/yampi/orders
+ * Body: { customerData, productData }
+ * Creates a customer (if needed), finds the SKU, creates a Yampi order,
+ * and saves a local Order record with status "pending".
+ */
+app.post('/api/yampi/orders', async (request, response) => {
+  try {
+    const config = getYampiConfig();
+    const { customerData, productData } = request.body;
+
+    if (!customerData?.email || !customerData?.name) {
+      return response.status(400).json({ error: 'customerData deve conter name e email.' });
+    }
+    if (!productData?.sku) {
+      return response.status(400).json({ error: 'productData deve conter o sku (código do SKU).' });
+    }
+
+    // 1. Find or create customer
+    const customer = await ensureCustomer(customerData, config);
+
+    // 2. Find SKU by code
+    const sku = await findSkuByCode(productData.sku, config);
+    if (!sku) {
+      return response.status(404).json({ error: `SKU "${productData.sku}" não encontrado na Yampi.` });
+    }
+
+    const quantity = Math.max(1, Number(productData.quantity || 1));
+    const productId = sku.product_id || sku.productId;
+    const skuId = sku.id || sku.sku_id;
+
+    // 3. Create order in Yampi
+    const orderPayload = {
+      customer_id: customer.id,
+      status: 'waiting_payment',
+      items: [
+        {
+          product_id: productId,
+          sku_id: skuId,
+          quantity,
+        },
+      ],
+      shipping_address: customerData.shippingAddress || {},
+    };
+    const yampiOrder = await createOrder(orderPayload, config);
+
+    // 4. Save local Order record
+    const checkoutUrl = yampiOrder?.checkout_url || yampiOrder?.checkout?.url || '';
+    const yampiOrderId = String(yampiOrder?.id || yampiOrder?.order?.id || '');
+    const productName = extractLocalizedString(sku.name) || productData.name || '';
+    const totalPrice = Number(yampiOrder?.total || yampiOrder?.amount || productData.price * quantity || 0);
+
+    const localOrder = await upsertOrder({
+      customer_name: customerData.name,
+      customer_email: customerData.email,
+      customer_phone: customerData.phone || '',
+      customer_cpf: customerData.cpf || '',
+      shipping_address: customerData.shippingAddress || {},
+      product_name: productName,
+      quantity,
+      total_price: totalPrice,
+      yampi_order_id: yampiOrderId,
+      yampi_checkout_url: checkoutUrl,
+      status: 'pending',
+      payment_method: yampiOrder?.payment_method || '',
+    });
+
+    response.status(201).json({
+      success: true,
+      order_id: localOrder.id,
+      yampi_order_id: yampiOrderId,
+      checkout_url: checkoutUrl,
+    });
+  } catch (error) {
+    console.error('createYampiOrder error:', error.message);
+    response.status(500).json({ success: false, error: error.message });
+  }
+});
+
+/**
+ * POST /api/yampi/lookup
+ * Body: { cpf }
+ * Searches Yampi customers by CPF, fetches their orders,
+ * normalises fields and upserts local Order records.
+ */
+app.post('/api/yampi/lookup', async (request, response) => {
+  try {
+    const config = getYampiConfig();
+    const { cpf } = request.body;
+
+    if (!cpf) {
+      return response.status(400).json({ error: 'Informe o CPF para busca.' });
+    }
+
+    // 1. Find customers matching the CPF
+    const customers = await findCustomersByCpf(cpf, config);
+    if (customers.length === 0) {
+      return response.json({ orders: [], synced: 0 });
+    }
+
+    const syncedOrders = [];
+
+    // 2. For each customer, fetch all orders
+    for (const customer of customers) {
+      const orders = await listOrdersByCustomer(customer.id, config);
+
+      for (const order of orders) {
+        // 3. Get order details (items + tracking)
+        const details = await getOrderDetails(order.id || order.order_id, config);
+        const items = details?.items || order?.items || [];
+        const productName = items.map((item) => extractLocalizedString(item.name || item.product?.name)).filter(Boolean).join(', ');
+        const tracking = details?.tracking || order?.tracking || {};
+
+        const normalized = {
+          customer_name: customer.name || '',
+          customer_email: customer.email || '',
+          customer_phone: customer.phone || '',
+          customer_cpf: customer.document || '',
+          shipping_address: details?.shipping_address || order?.shipping_address || {},
+          product_name: productName,
+          quantity: items.reduce((sum, item) => sum + Number(item.quantity || 0), 0),
+          total_price: Number(details?.total || order?.total || 0),
+          yampi_order_id: String(order.id || order.order_id),
+          yampi_checkout_url: details?.checkout_url || order?.checkout_url || '',
+          status: mapYampiStatus(details?.status || order?.status),
+          payment_method: details?.payment_method || order?.payment_method || '',
+          tracking_code: tracking.code || tracking.tracking_code || '',
+          tracking_url: tracking.url || tracking.tracking_url || '',
+          estimated_delivery_date: details?.estimated_delivery_date || order?.estimated_delivery_date || '',
+          shipped_at: details?.shipped_at || order?.shipped_at || '',
+        };
+
+        const upserted = await upsertOrder(normalized);
+        syncedOrders.push(upserted);
+      }
+    }
+
+    response.json({ orders: syncedOrders, synced: syncedOrders.length });
+  } catch (error) {
+    console.error('lookupYampiOrders error:', error.message);
+    response.status(500).json({ error: error.message });
+  }
+});
+
+/**
+ * POST /api/yampi/webhook
+ * Public endpoint registered in the Yampi panel.
+ * Receives events: order.paid, order.cancelled, order.shipped,
+ * order.tracking_added, order.delivered.
+ */
+app.post('/api/yampi/webhook', async (request, response) => {
+  try {
+    const { event, data } = request.body;
+
+    if (!event || !data) {
+      return response.status(400).json({ error: 'Payload inválido. Esperado { event, data }.' });
+    }
+
+    const yampiOrderId = String(data.id || data.order_id || '');
+    if (!yampiOrderId) {
+      return response.status(400).json({ error: 'ID do pedido não encontrado no payload.' });
+    }
+
+    const localOrder = await findOrderByYampiId(yampiOrderId);
+    if (!localOrder) {
+      // Acknowledge webhook even if we don't have a local order yet
+      return response.json({ success: true, message: 'Pedido local não encontrado. Webhook ignorado.' });
+    }
+
+    const now = new Date().toISOString();
+    const updates = { tracking_history: localOrder.tracking_history || [] };
+
+    switch (event) {
+      case 'order.paid':
+        updates.status = 'paid';
+        updates.payment_method = data.payment_method || localOrder.payment_method;
+        break;
+      case 'order.cancelled':
+        updates.status = 'cancelled';
+        break;
+      case 'order.shipped':
+        updates.status = 'shipped';
+        updates.shipped_at = data.shipped_at || now;
+        if (data.tracking_code) updates.tracking_code = data.tracking_code;
+        if (data.tracking_url) updates.tracking_url = data.tracking_url;
+        if (data.estimated_delivery_date) updates.estimated_delivery_date = data.estimated_delivery_date;
+        break;
+      case 'order.tracking_added':
+        if (data.tracking_code) updates.tracking_code = data.tracking_code;
+        if (data.tracking_url) updates.tracking_url = data.tracking_url;
+        if (data.estimated_delivery_date) updates.estimated_delivery_date = data.estimated_delivery_date;
+        break;
+      case 'order.delivered':
+        updates.status = 'delivered';
+        break;
+      default:
+        // Unknown event — acknowledge but don't modify
+        return response.json({ success: true, message: `Evento ${event} não processado.` });
+    }
+
+    // Append to tracking history
+    updates.tracking_history = [
+      ...updates.tracking_history,
+      {
+        event,
+        status: updates.status || localOrder.status,
+        tracking_code: updates.tracking_code || localOrder.tracking_code || '',
+        tracking_url: updates.tracking_url || localOrder.tracking_url || '',
+        timestamp: now,
+      },
+    ];
+
+    await upsertOrder({ ...updates, yampi_order_id: yampiOrderId });
+
+    response.json({ success: true, event, yampi_order_id: yampiOrderId });
+  } catch (error) {
+    console.error('yampiWebhook error:', error.message);
+    response.status(500).json({ error: error.message });
+  }
+});
+
+/**
+ * GET /api/yampi/orders
+ * Returns all local orders (for admin/debugging).
+ */
+app.get('/api/yampi/orders', async (_request, response) => {
+  response.json(await readOrders());
+});
+
+/**
+ * Maps Yampi order statuses to local Order statuses.
+ */
+function mapYampiStatus(yampiStatus) {
+  const map = {
+    waiting_payment: 'pending',
+    pending: 'pending',
+    paid: 'paid',
+    approved: 'paid',
+    cancelled: 'cancelled',
+    canceled: 'cancelled',
+    shipped: 'shipped',
+    delivered: 'delivered',
+  };
+  return map[yampiStatus] || 'pending';
+}
 
 app.use((error, _request, response, _next) => {
   if (error instanceof multer.MulterError) return response.status(400).json({ error: 'A imagem deve ter no máximo 8 MB.' });

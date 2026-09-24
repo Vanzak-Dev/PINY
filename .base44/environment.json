@@ -2,5 +2,21 @@
   "previewPort": 3000,
   "healthPath": "/",
   "startCommand": "docker compose -f docker-compose.base44.yml up -d",
-  "secrets": []
+  "secrets": [
+    {
+      "name": "YAMPI_ALIAS",
+      "description": "Alias da sua loja na Yampi (encontrado no painel da Yampi em Configurações > API).",
+      "requiredAtBoot": false
+    },
+    {
+      "name": "YAMPI_API_TOKEN",
+      "description": "Token de API da Yampi (painel > Configurações > API > User-Token).",
+      "requiredAtBoot": false
+    },
+    {
+      "name": "YAMPI_SECRET_KEY",
+      "description": "Secret Key da Yampi (painel > Configurações > API > User-Secret-Key).",
+      "requiredAtBoot": false
+    }
+  ]
 }
