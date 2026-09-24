@@ -4,6 +4,8 @@
 }
 
 .how-to-use__bg {
+  width: 100%;
+  background-size: 200px;
   background-repeat: repeat;
   padding: 48px 16px;
   display: flex;
