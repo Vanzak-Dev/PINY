@@ -548,6 +548,72 @@ app.post('/api/yampi/webhook', async (request, response) => {
 });
 
 /**
+ * POST /api/yampi/checkout
+ * Body: { items: [{ sku, quantity, name, price }], customerData? }
+ * Creates a single Yampi order with all cart items and returns the checkout URL.
+ * If customerData is omitted, a minimal test customer is used.
+ */
+app.post('/api/yampi/checkout', async (request, response) => {
+  try {
+    const config = getYampiConfig();
+    const { items, customerData } = request.body;
+
+    if (!Array.isArray(items) || items.length === 0) {
+      return response.status(400).json({ error: 'Carrinho vazio. Adicione produtos antes de finalizar.' });
+    }
+
+    // 1. Find or create customer (use test data if not provided)
+    const customer = customerData?.email
+      ? await ensureCustomer(customerData, config)
+      : await ensureCustomer({ name: 'Cliente Checkout', email: `checkout-${Date.now()}@piny.com.br` }, config);
+
+    // 2. Resolve all SKUs
+    const orderItems = [];
+    for (const item of items) {
+      const sku = await findSkuByCode(item.sku, config);
+      if (!sku) {
+        return response.status(404).json({ error: `SKU "${item.sku}" não encontrado na Yampi.` });
+      }
+      orderItems.push({
+        product_id: sku.product_id || sku.productId,
+        sku_id: sku.id || sku.sku_id,
+        quantity: Math.max(1, Number(item.quantity || 1)),
+      });
+    }
+
+    // 3. Create order in Yampi with all items
+    const yampiOrder = await createOrder({
+      customer_id: customer.id,
+      status: 'waiting_payment',
+      items: orderItems,
+    }, config);
+
+    const checkoutUrl = yampiOrder?.checkout_url || yampiOrder?.checkout?.url || '';
+    const yampiOrderId = String(yampiOrder?.id || yampiOrder?.order?.id || '');
+
+    // 4. Save local Order record
+    await upsertOrder({
+      customer_name: customerData?.name || customer.name || '',
+      customer_email: customerData?.email || customer.email || '',
+      customer_phone: customerData?.phone || '',
+      customer_cpf: customerData?.cpf || '',
+      shipping_address: customerData?.shippingAddress || {},
+      product_name: items.map((i) => i.name).filter(Boolean).join(', '),
+      quantity: items.reduce((sum, i) => sum + Number(i.quantity || 0), 0),
+      total_price: Number(yampiOrder?.total || yampiOrder?.amount || 0),
+      yampi_order_id: yampiOrderId,
+      yampi_checkout_url: checkoutUrl,
+      status: 'pending',
+    });
+
+    response.json({ success: true, checkout_url: checkoutUrl, yampi_order_id: yampiOrderId });
+  } catch (error) {
+    console.error('yampiCheckout error:', error.message);
+    response.status(500).json({ success: false, error: error.message });
+  }
+});
+
+/**
  * GET /api/yampi/orders
  * Returns all local orders (for admin/debugging).
  */

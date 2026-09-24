@@ -98,6 +98,7 @@ export default function CartDrawer({
   remainingForGift = 0,
   giftProgress = 0,
   onCheckout,
+  isCheckingOut = false,
 }) {
   useEffect(() => {
     if (!isOpen) return undefined;
@@ -224,8 +225,8 @@ export default function CartDrawer({
                 </div>
               </div>
 
-              <button type="button" className="cart-drawer__checkout" onClick={onCheckout}>
-                FINALIZAR COMPRA
+              <button type="button" className="cart-drawer__checkout" onClick={onCheckout} disabled={isCheckingOut}>
+                {isCheckingOut ? "REDIRECIONANDO..." : "FINALIZAR COMPRA"}
               </button>
             </div>
           </>
