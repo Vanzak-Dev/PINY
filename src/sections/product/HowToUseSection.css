@@ -105,18 +105,23 @@
 
 /* Mobile images grid */
 .how-to-use__mobile-images {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
   gap: 12px;
   width: 100%;
   max-width: 480px;
+}
+
+.how-to-use__mobile-column {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
 }
 
 .how-to-use__mobile-image {
   width: 100%;
   height: 126.741px;
   flex-shrink: 0;
-  align-self: stretch;
   object-fit: cover;
   border-radius: 20px;
 }
