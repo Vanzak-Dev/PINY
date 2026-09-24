@@ -138,7 +138,7 @@ export default function ProductPresentationSection({ product, categoryLabel = 'P
                   quantity={option.quantity}
                   price={option.price}
                   discountLabel={option.discountLabel}
-                  productImage={product.image}
+                  productImage={product.quantityOptionIcon || product.image}
                   image={option.image}
                   selected={index === selectedIndex}
                   onSelect={() => setSelectedIndex(index)}

@@ -61,7 +61,7 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
   const [presentationBackgroundFile, setPresentationBackgroundFile] = useState(null);
   const [presentationMobileBackgroundFile, setPresentationMobileBackgroundFile] = useState(null);
   const [presentationProductFile, setPresentationProductFile] = useState(null);
-  const [quantityOptionFiles, setQuantityOptionFiles] = useState({});
+  const [quantityOptionIconFile, setQuantityOptionIconFile] = useState(null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const imagePreview = useObjectUrl(imageFile);
@@ -83,7 +83,7 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
     setImageFile(null); setBackgroundFile(null); setFeatureLeftImageFile(null); setFeatureRightImageFile(null); setFeatureProductImageFile(null); setFeatureProductInfoMobileBgFile(null);
     setComparisonImage1File(null); setComparisonImage2File(null); setComparisonImage3File(null); setComparisonImage4File(null); setComparisonProductIconFile(null);
     setPresentationBackgroundFile(null); setPresentationMobileBackgroundFile(null); setPresentationProductFile(null);
-    setQuantityOptionFiles({});
+    setQuantityOptionIconFile(null);
     setError('');
   }, [product]);
 
@@ -127,9 +127,7 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
     if (presentationBackgroundFile) data.append('presentationBackgroundFile', presentationBackgroundFile);
     if (presentationMobileBackgroundFile) data.append('presentationMobileBackgroundFile', presentationMobileBackgroundFile);
     if (presentationProductFile) data.append('presentationProductFile', presentationProductFile);
-    Object.entries(quantityOptionFiles).forEach(([index, file]) => {
-      if (file) data.append(`quantityOptionImageFile_${index}`, file);
-    });
+    if (quantityOptionIconFile) data.append('quantityOptionIconFile', quantityOptionIconFile);
     try { await onSave(data); }
     catch (requestError) { setError(requestError.message); }
     finally { setSaving(false); }
@@ -182,6 +180,8 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
           ))}
         </div>
 
+        <label>Ícone das opções de quantidade<input type="file" accept="image/*" onChange={(e) => setQuantityOptionIconFile(e.target.files[0])} />{values.quantityOptionIcon && !quantityOptionIconFile && <small>Atual: {values.quantityOptionIcon}</small>}<small>Imagem única usada como ícone em todas as opções de quantidade. Se vazio, usa a imagem principal do produto.</small></label>
+
         <div className="admin-repeater">
           <div className="admin-repeater__heading"><strong>Opções de quantidade</strong><button type="button" className="admin-button" onClick={() => addCollectionItem('quantityOptions', { quantity: 1, price: values.price || '', discountLabel: '' })}>Adicionar opção</button></div>
           {values.quantityOptions.map((option, index) => (
@@ -189,7 +189,6 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
               <label>Quantidade<input type="number" min="1" value={option.quantity} onChange={(e) => changeCollectionItem('quantityOptions', index, 'quantity', e.target.value)} /></label>
               <label>Preço total<input type="number" min="0" step="0.01" value={option.price} onChange={(e) => changeCollectionItem('quantityOptions', index, 'price', e.target.value)} /></label>
               <label>Desconto<input value={option.discountLabel || ''} onChange={(e) => changeCollectionItem('quantityOptions', index, 'discountLabel', e.target.value)} placeholder="15% off" /></label>
-              <label>Imagem da opção<input type="file" accept="image/*" onChange={(e) => setQuantityOptionFiles((prev) => ({ ...prev, [index]: e.target.files[0] }))} />{option.image && !quantityOptionFiles[index] && <small>Atual: {option.image}</small>}</label>
               <button type="button" className="admin-repeater__remove" onClick={() => removeCollectionItem('quantityOptions', index)} aria-label={`Remover opção ${index + 1}`}>×</button>
             </div>
           ))}

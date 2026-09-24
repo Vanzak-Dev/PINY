@@ -266,6 +266,7 @@ export function normalizeProduct(input, current = {}) {
     presentationBackgroundImage: String(input.presentationBackgroundImage ?? current.presentationBackgroundImage ?? '').trim(),
     presentationMobileBackgroundImage: String(input.presentationMobileBackgroundImage ?? current.presentationMobileBackgroundImage ?? '').trim(),
     presentationProductImage: String(input.presentationProductImage ?? current.presentationProductImage ?? '').trim(),
+    quantityOptionIcon: String(input.quantityOptionIcon ?? current.quantityOptionIcon ?? '').trim(),
     backgroundImage: String(input.backgroundImage ?? current.backgroundImage ?? '').trim(),
     backgroundColor: String(input.backgroundColor ?? current.backgroundColor ?? '#b8efad').trim(),
     featureEnabled: boolean(input.featureEnabled, current.featureEnabled ?? false),
