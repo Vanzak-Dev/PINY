@@ -1,0 +1,18 @@
+[
+  {
+    "id": "mask-faciais",
+    "name": "Máscaras Faciais",
+    "active": true,
+    "productIds": ["argila-preta-1", "argila-rosa", "argila-branca", "argila-verde", "argila-preta-2"],
+    "createdAt": "2026-09-09T00:00:00.000Z",
+    "updatedAt": "2026-09-09T00:00:00.000Z"
+  },
+  {
+    "id": "mais-procuradas",
+    "name": "Mais Procuradas",
+    "active": true,
+    "productIds": ["argila-preta-1", "argila-rosa", "argila-branca"],
+    "createdAt": "2026-09-09T00:00:00.000Z",
+    "updatedAt": "2026-09-09T00:00:00.000Z"
+  }
+]

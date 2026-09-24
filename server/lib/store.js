@@ -9,6 +9,7 @@ const productReviewsPath = path.join(dataDirectory, 'product-reviews.json');
 const settingsPath = path.join(dataDirectory, 'site-settings.json');
 const collectionsPath = path.join(dataDirectory, 'collections.json');
 const seedPath = path.resolve('seeds/products.json');
+const collectionsSeedPath = path.resolve('seeds/collections.json');
 
 const defaultSiteSettings = {
   announcementBar: {
@@ -101,7 +102,8 @@ export async function ensureCollections() {
   try {
     await readFile(collectionsPath, 'utf8');
   } catch {
-    await writeJson(collectionsPath, []);
+    const seed = JSON.parse(await readFile(collectionsSeedPath, 'utf8'));
+    await writeJson(collectionsPath, seed);
   }
 }
 
