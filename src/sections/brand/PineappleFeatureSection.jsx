@@ -130,7 +130,7 @@ export default function PineappleFeatureSection({ products = [], selectedProduct
   const incomingPanelRef = useRef(null);
 
   // Phase 1: notice the selection changed and kick the new panel off-screen,
-  // then flip it to "entered" a frame later so the clip-path transition
+  // then flip it to "entered" shortly after so the clip-path transition
   // actually runs (rather than snapping straight to its end state).
   useEffect(() => {
     if (!selectedProduct) return undefined;
@@ -144,15 +144,9 @@ export default function PineappleFeatureSection({ products = [], selectedProduct
     setIncomingProduct(selectedProduct);
     setIsEntered(false);
 
-    let secondFrame = 0;
-    const firstFrame = window.requestAnimationFrame(() => {
-      secondFrame = window.requestAnimationFrame(() => setIsEntered(true));
-    });
+    const timer = window.setTimeout(() => setIsEntered(true), 50);
 
-    return () => {
-      window.cancelAnimationFrame(firstFrame);
-      window.cancelAnimationFrame(secondFrame);
-    };
+    return () => window.clearTimeout(timer);
     // Depend on the id (a stable primitive), not the product object itself:
     // `products.find(...)` can hand back a differently-referenced-but-
     // logically-identical object on unrelated re-renders (e.g. retries from
