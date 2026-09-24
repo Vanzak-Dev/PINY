@@ -196,8 +196,8 @@
   opacity: 1;
   transform: translateX(calc(-50% + var(--ugc-relative, 0) * (var(--ugc-side-width) + var(--ugc-card-gap))));
   backface-visibility: hidden;
-  will-change: width, transform, opacity;
-  contain: layout;
+  will-change: transform, opacity;
+  contain: layout style;
   transition: width 800ms cubic-bezier(.22, .61, .36, 1), top 800ms cubic-bezier(.22, .61, .36, 1), transform 800ms cubic-bezier(.22, .61, .36, 1), opacity 500ms ease;
 }
 
@@ -599,6 +599,7 @@
     height: calc(var(--ugc-main-height) + 18.1755vw);
     margin-top: 4vw;
     margin-left: 0;
+    touch-action: pan-y;
   }
 
   .ugc-reviews__stage {

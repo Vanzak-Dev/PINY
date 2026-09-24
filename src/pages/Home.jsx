@@ -7,6 +7,7 @@ import ProductCategoriesSection from "../sections/product/ProductCategoriesSecti
 import ProductCarouselSection from "../sections/product/ProductCarouselSection";
 import PineappleFeatureSection from "../sections/brand/PineappleFeatureSection";
 import UgcReviewsSection from "../sections/ugc/UgcReviewsSection";
+import FeaturedCollectionSection from "../sections/home/FeaturedCollectionSection";
 import { useProducts } from "../hooks/useProducts";
 import { useCart } from "../hooks/useCart";
 
@@ -37,6 +38,7 @@ export default function Home() {
         onSelectProduct={setFeaturedProductId}
       />
       <ProductCategoriesSection products={products} onAdd={handleAdd} />
+      <FeaturedCollectionSection products={products} onAdd={handleAdd} />
       <div className="testimonials-backdrop">
         <TestimonialsSection />
       </div>

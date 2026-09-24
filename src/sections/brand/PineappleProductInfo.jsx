@@ -45,9 +45,12 @@ function PinyWordmark() {
   );
 }
 
-export default function PineappleProductInfo() {
+export default function PineappleProductInfo({ mobileBackgroundImage }) {
   return (
-    <div className="pineapple-product-info">
+    <div
+      className="pineapple-product-info"
+      style={mobileBackgroundImage ? { '--mobile-bg': `url(${mobileBackgroundImage})` } : undefined}
+    >
       <p className="pineapple-product-info__tagline">
         <span aria-hidden="true" />
         Uma argila, para cada pele.

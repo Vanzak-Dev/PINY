@@ -39,7 +39,8 @@ function CartRecommendedItem({ product, onAdd }) {
 }
 
 function CartLineItem({ item, onRemove, onUpdateQuantity }) {
-  const { product, quantity } = item;
+  const { product, quantity, unitPrice } = item;
+  const effectiveUnitPrice = unitPrice ?? product.price;
 
   return (
     <li className="cart-drawer__item">
@@ -55,7 +56,7 @@ function CartLineItem({ item, onRemove, onUpdateQuantity }) {
       <div className="cart-drawer__item-info">
         <p className="cart-drawer__item-name">{product.name}</p>
         <div className="cart-drawer__item-prices">
-          <span>{formatPrice(product.price)}</span>
+          <span>{formatPrice(effectiveUnitPrice)}</span>
           {product.oldPrice && <del>{formatPrice(product.oldPrice)}</del>}
         </div>
       </div>

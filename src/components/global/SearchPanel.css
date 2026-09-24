@@ -1,36 +1,43 @@
-.search-panel { position: fixed; inset: 0; z-index: 30; color: #000b06; }
+.search-panel { position: fixed; inset: 0; z-index: 150; color: #000b06; }
 .search-panel__backdrop { position: absolute; inset: 0; background: rgba(0, 11, 6, 0.18); }
-.search-panel__surface { position: absolute; top: 16px; left: 50%; box-sizing: border-box; width: min(1024px, calc(100% - 32px)); height: 285px; transform: translateX(-50%) scale(1.5); transform-origin: top center; overflow: hidden; border-radius: 32px; background: #fff; padding: 16px; }
-.search-panel__input-wrap { display: flex; align-items: center; justify-content: space-between; height: 45px; padding: 0 16px; border-radius: 16px; background: #f9f9f8; }
+.search-panel__surface { position: absolute; top: 16px; left: 50%; box-sizing: border-box; width: 1520px; max-width: calc(100vw - 40px); min-height: 424px; max-height: calc(100vh - 32px); transform: translateX(-50%); overflow-y: auto; overflow-x: hidden; border-radius: 32px; background: #fff; padding: 32px; }
+.search-panel__input-wrap { display: flex; width: 100%; padding: 16px; justify-content: space-between; align-items: center; height: 45px; box-sizing: border-box; border-radius: 16px; background: #f9f9f8; }
 .search-panel__input-wrap input { width: 100%; border: 0; outline: 0; background: transparent; color: #0a0a0a; font: 300 16px/1 "neulis-neue", sans-serif; }
 .search-panel__input-wrap input::placeholder { color: #0a0a0a; opacity: 1; }
+.search-panel__submit { display: flex; align-items: center; padding: 0; border: 0; background: none; color: #1C8C44; cursor: pointer; flex: 0 0 auto; }
 .search-panel__icon, .hero__search-trigger span { position: relative; display: block; width: 18px; height: 18px; flex: 0 0 auto; border: 1.5px solid currentColor; border-radius: 50%; }
 .search-panel__icon::after, .hero__search-trigger span::after { position: absolute; right: -5px; bottom: -3px; width: 8px; height: 1.5px; transform: rotate(48deg); transform-origin: left center; background: currentColor; content: ''; }
 .search-panel__columns { display: flex; gap: 32px; margin-top: 17px; }
 .search-panel__suggestions { width: 35%; padding-top: 0; }
-.search-panel__products { flex: 1; min-width: 0; border-left: 2px solid #f5f5f5; padding-left: 12px; }
-.search-panel h2 { margin: 0 0 8px; color: #1c8c44; font: 800 16px/25px "neulis-neue", sans-serif; text-transform: uppercase; }
+.search-panel__products { flex: 1; min-width: 0; border-left: 2px solid #f5f5f5; padding-left: 12px; overflow: hidden; }
+.search-panel h2 { margin: 0 0 8px; color: #1C8C44; font-family: "neulis-neue", sans-serif; font-size: 24px; font-style: normal; font-weight: 800; line-height: 25px; text-transform: uppercase; leading-trim: both; text-edge: cap; }
+.search-panel__no-results { margin: 0; color: #666; font-family: "neulis-neue", sans-serif; font-size: 14px; }
 .search-panel__tags { display: flex; flex-wrap: wrap; gap: 8px; }
-.search-panel__tags button { border: 1px solid #1c8c44; border-radius: 999px; padding: 5px 11px; color: #1c8c44; background: #fff; cursor: pointer; font: 400 13px/1 "neulis-neue", sans-serif; text-transform: uppercase; }
-.search-panel__product-list { display: flex; gap: 10px; overflow: hidden; }
-.search-panel__product { width: calc((100% - 40px) / 5); min-width: 0; }
-.search-panel__product-visual { position: relative; aspect-ratio: 169.05 / 206.616; overflow: hidden; border-radius: 10px; }
+.search-panel__tags button { border: 1px solid #1c8c44; border-radius: 999px; padding: 8px 20px; color: #1C8C44; background: #fff; cursor: pointer; font-family: "neulis-neue", sans-serif; font-size: 24px; font-style: normal; font-weight: 400; line-height: 100%; text-transform: uppercase; leading-trim: both; text-edge: cap; }
+.search-panel__product-list { display: flex; gap: 10px; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; }
+.search-panel__product { display: flex; width: 168.909px; height: 241.976px; padding-bottom: 6.809px; flex-direction: column; align-items: center; gap: 6.386px; flex-shrink: 0; }
+.search-panel__product-visual { position: relative; width: 100%; aspect-ratio: 169.05 / 206.616; overflow: hidden; border-radius: 10px; }
 .search-panel__product-visual img { position: absolute; top: 24px; left: 50%; width: 76%; height: 76%; transform: translateX(-50%); object-fit: contain; }
 .search-panel__product-visual button { position: absolute; right: 4px; bottom: 4px; display: grid; width: 24.5px; height: 19px; padding: 0; place-items: center; border: 0; border-radius: 0; background: transparent; color: #1c8c44; cursor: pointer; }
 .search-panel__product-visual button svg { display: block; width: 100%; height: 100%; }
-.search-panel__product-info { display: flex; justify-content: space-between; gap: 3px; padding: 4px 4px 0; font: 600 10px/10px "neulis-neue", sans-serif; }
-.search-panel__product-info strong { font-weight: 600; }
-.search-panel__product-info span { display: flex; flex-direction: column; align-items: flex-end; white-space: nowrap; font-size: 7px; font-weight: 500; }
-.search-panel__product-info del { color: rgba(0, 11, 6, 0.5); font-size: 6px; }
+.search-panel__product-info { display: flex; width: 100%; justify-content: space-between; gap: 3px; padding: 4px 4px 0; font-family: "neulis-neue", sans-serif; text-decoration: none; color: inherit; box-sizing: border-box; }
+.search-panel__product-info strong { color: #000B06; font-size: 15.183px; font-style: normal; font-weight: 500; line-height: 100%; leading-trim: both; text-edge: cap; }
+.search-panel__product-info span { display: flex; flex-direction: column; align-items: flex-end; white-space: nowrap; color: #000B06; text-align: right; font-size: 11.387px; font-style: normal; font-weight: 500; line-height: 100%; leading-trim: both; text-edge: cap; }
+.search-panel__product-info del { color: rgba(0, 11, 6, 0.50); font-size: 8.54px; font-style: normal; font-weight: 300; line-height: 100%; leading-trim: both; text-edge: cap; text-decoration-line: line-through; }
 .hero__search-trigger { display: grid; width: 28px; height: 28px; padding: 3px; place-items: center; border: 0; background: transparent; color: #1c8c44; cursor: pointer; }
 .hero__search-trigger span { width: 20px; height: 20px; }
 
+@media (min-width: 768px) and (max-width: 1519px) {
+  .search-panel__suggestions { width: 30%; }
+  .search-panel__tags button { padding: 6px 14px; font-size: 16px; }
+}
+
 @media (max-width: 767px) {
-  .search-panel__surface { top: 0; left: 0; width: 100%; height: 216px; transform: none; border-radius: 0; padding: 16px; }
-  .search-panel__input-wrap { height: 41px; border-radius: 16px; padding-inline: 16px; }
+  .search-panel__surface { top: 0 !important; left: 0; width: 100%; max-width: 100%; height: auto; min-height: 0; max-height: none; transform: none; border-radius: 0 0 24px 24px; padding: 16px 16px 30px; }
+  .search-panel__input-wrap { width: 361px; max-width: 100%; padding: 8.24px 16.481px; height: 41px; border-radius: 16px; }
   .search-panel__input-wrap input { font-size: 14px; }
-  .search-panel__columns { display: block; margin-top: 39px; }
-  .search-panel__suggestions { width: 100%; border-top: 1px solid #f0f0f0; padding-top: 17px; }
+  .search-panel__columns { display: block; margin-top: 20px; }
+  .search-panel__suggestions { width: 100%; padding-top: 0; }
   .search-panel h2 { margin-bottom: 8px; font-size: 16px; }
   .search-panel__tags { gap: 8px; }
   .search-panel__tags button { padding: 4px 9px; font-size: 12px; }

@@ -1,29 +1,56 @@
-import { createContext, useCallback, useContext, useMemo, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { parsePrice } from '../lib/formatPrice';
 
 const CartContext = createContext(null);
 
 const GIFT_THRESHOLD = 150;
 const COUPONS = { PINY10: 0.1 };
+const STORAGE_KEY = 'piny_cart';
+
+function loadCart() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
 
 export function CartProvider({ children }) {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState(loadCart);
   const [isOpen, setIsOpen] = useState(false);
   const [couponCode, setCouponCode] = useState('');
   const [appliedCoupon, setAppliedCoupon] = useState(null);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+    } catch {
+      /* ignore quota errors */
+    }
+  }, [items]);
 
   const open = useCallback(() => setIsOpen(true), []);
   const close = useCallback(() => setIsOpen(false), []);
 
   const addItem = useCallback((product, quantity = 1) => {
+    const selectedQty = product?.selectedQuantity;
+    const qty = selectedQty ? Number(selectedQty.quantity) || 1 : quantity;
+    const unitPrice = selectedQty
+      ? parsePrice(selectedQty.price) / qty
+      : parsePrice(product.price);
+    const cleanProduct = selectedQty
+      ? (() => { const { selectedQuantity, ...rest } = product; return rest; })()
+      : product;
+
     setItems((current) => {
-      const existing = current.find((entry) => entry.product.id === product.id);
+      const existing = current.find((entry) => entry.product.id === cleanProduct.id);
       if (existing) {
-        return current.map((entry) => (entry.product.id === product.id
-          ? { ...entry, quantity: entry.quantity + quantity }
+        return current.map((entry) => (entry.product.id === cleanProduct.id
+          ? { ...entry, quantity: entry.quantity + qty }
           : entry));
       }
-      return [...current, { product, quantity }];
+      return [...current, { product: cleanProduct, quantity: qty, unitPrice }];
     });
     setIsOpen(true);
   }, []);
@@ -46,11 +73,13 @@ export function CartProvider({ children }) {
   }, [couponCode]);
 
   const subtotal = useMemo(
-    () => items.reduce((sum, { product, quantity }) => sum + parsePrice(product.oldPrice || product.price) * quantity, 0),
+    () => items.reduce((sum, { product, quantity }) =>
+      sum + parsePrice(product.oldPrice || product.price) * quantity, 0),
     [items],
   );
   const activeTotal = useMemo(
-    () => items.reduce((sum, { product, quantity }) => sum + parsePrice(product.price) * quantity, 0),
+    () => items.reduce((sum, { product, quantity, unitPrice }) =>
+      sum + (unitPrice ?? parsePrice(product.price)) * quantity, 0),
     [items],
   );
   const productDiscount = subtotal - activeTotal;

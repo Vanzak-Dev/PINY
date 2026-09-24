@@ -19,8 +19,8 @@
   position: relative;
   z-index: 1;
   display: flex;
-  width: 500px;
-  max-width: 100%;
+  width: 96%;
+  max-width: 500px;
   height: 100dvh;
   flex-direction: column;
   overflow-y: auto;
@@ -29,7 +29,8 @@
 
 @media (max-width: 500px) {
   .cart-drawer__panel {
-    width: 100%;
+    width: 96%;
+    max-width: 420px;
   }
 }
 

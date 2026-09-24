@@ -96,6 +96,10 @@
     width: auto;
     height: auto;
     text-align: center;
+    background-image: var(--mobile-bg, none);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 
   .pineapple-product-info__tagline {

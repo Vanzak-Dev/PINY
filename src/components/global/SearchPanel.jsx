@@ -5,14 +5,21 @@ import { formatPrice } from '../../lib/formatPrice';
 import './SearchPanel.css';
 
 const suggestedSearches = ['ACNE', 'ANTIMANCHAS', 'DETOX', 'OLEOSIDADE', 'CALMANTE', 'MÁSCARA', 'ADESIVO', 'ESTRELAS'];
-const panelProducts = ['Argila Branca', 'Argila Verde', 'Argila Rosa', 'Argila Preta', 'Argila Branca'];
+const defaultPanelProducts = ['Argila Branca', 'Argila Verde', 'Argila Rosa', 'Argila Preta', 'Argila Branca'];
 const panelColors = ['#fff547', '#a4f484', '#ed7d9c', '#747b78', '#fff547'];
 
 function findProduct(name) {
   return featuredProducts.find((product) => product.name === name) || featuredProducts[0];
 }
 
-export default function SearchPanel({ isOpen, onClose }) {
+function matchesQuery(product, query) {
+  const haystack = [product.name, product.category, ...(product.badges?.map((badge) => badge.label) || [])]
+    .join(' ')
+    .toLowerCase();
+  return haystack.includes(query);
+}
+
+export default function SearchPanel({ isOpen, onClose, offsetTop, onAdd }) {
   const inputRef = useRef(null);
   const [query, setQuery] = useState('');
 
@@ -28,13 +35,30 @@ export default function SearchPanel({ isOpen, onClose }) {
 
   if (!isOpen) return null;
 
-  const filteredSuggestions = suggestedSearches.filter((suggestion) => suggestion.toLowerCase().includes(query.toLowerCase()));
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (!query.trim()) return;
+    window.location.href = `/pesquisa?q=${encodeURIComponent(query.trim())}`;
+  };
+
+  const normalizedQuery = query.trim().toLowerCase();
+  const filteredSuggestions = suggestedSearches.filter((suggestion) => suggestion.toLowerCase().includes(normalizedQuery));
+
+  const searchResults = normalizedQuery
+    ? featuredProducts.filter((product) => matchesQuery(product, normalizedQuery)).slice(0, 5)
+    : null;
+
+  const displayProducts = searchResults && searchResults.length > 0
+    ? searchResults.map((product, index) => ({ product, color: panelColors[index % panelColors.length] }))
+    : defaultPanelProducts.map((name, index) => ({ product: findProduct(name), color: panelColors[index] }));
+
+  const hasNoResults = normalizedQuery && searchResults && searchResults.length === 0;
 
   return (
     <div className="search-panel" role="dialog" aria-label="Pesquisa de produtos">
       <div className="search-panel__backdrop" onClick={onClose} />
-      <div className="search-panel__surface">
-        <div className="search-panel__input-wrap">
+      <div className="search-panel__surface" style={offsetTop ? { top: `${offsetTop}px` } : undefined}>
+        <form className="search-panel__input-wrap" onSubmit={handleSubmit}>
           <input
             ref={inputRef}
             value={query}
@@ -42,8 +66,10 @@ export default function SearchPanel({ isOpen, onClose }) {
             placeholder="Pesquisar produtos..."
             aria-label="Pesquisar produtos"
           />
-          <span className="search-panel__icon" aria-hidden="true" />
-        </div>
+          <button type="submit" className="search-panel__submit" aria-label="Pesquisar">
+            <span className="search-panel__icon" aria-hidden="true" />
+          </button>
+        </form>
 
         <div className="search-panel__columns">
           <section className="search-panel__suggestions">
@@ -57,23 +83,29 @@ export default function SearchPanel({ isOpen, onClose }) {
 
           <section className="search-panel__products">
             <h2>Você pode gostar:</h2>
-            <div className="search-panel__product-list">
-              {panelProducts.map((name, index) => {
-                const product = findProduct(name);
-                return (
-                  <article className="search-panel__product" key={`${name}-${index}`}>
-                    <div className="search-panel__product-visual" style={{ backgroundColor: panelColors[index] }}>
-                      <img src={product.image} alt={name} />
-                      <button type="button" aria-label={`Adicionar ${name} ao carrinho`}><AddToCartIcon /></button>
-                    </div>
-                    <div className="search-panel__product-info">
-                      <strong>{name.split(' ')[0]}<br />{name.split(' ').slice(1).join(' ')}</strong>
-                      <span><del>{formatPrice(product.oldPrice)}</del>{formatPrice(product.price)}</span>
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
+            {hasNoResults ? (
+              <p className="search-panel__no-results">Nenhum produto encontrado.</p>
+            ) : (
+              <div className="search-panel__product-list">
+                {displayProducts.map(({ product, color }, index) => {
+                  const productUrl = `/produtos/${product.slug || product.id}`;
+                  return (
+                    <article className="search-panel__product" key={`${product.id}-${index}`}>
+                      <div className="search-panel__product-visual" style={{ backgroundColor: color }}>
+                        <a href={productUrl} aria-label={`Ver detalhes de ${product.name}`} onClick={onClose}>
+                          <img src={product.image} alt={product.name} />
+                        </a>
+                        <button type="button" aria-label={`Adicionar ${product.name} ao carrinho`} onClick={() => onAdd?.(product)}><AddToCartIcon /></button>
+                      </div>
+                      <a className="search-panel__product-info" href={productUrl} onClick={onClose}>
+                        <strong>{product.name.split(' ')[0]}<br />{product.name.split(' ').slice(1).join(' ')}</strong>
+                        <span><del>{formatPrice(product.oldPrice)}</del>{formatPrice(product.price)}</span>
+                      </a>
+                    </article>
+                  );
+                })}
+              </div>
+            )}
           </section>
         </div>
       </div>

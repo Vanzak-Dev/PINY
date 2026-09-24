@@ -1,19 +1,23 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ProductBadge from '../../components/product/ProductBadge';
 import ProductIconBadge from '../../components/product/ProductIconBadge';
 import ProductRating from '../../components/product/ProductRating';
 import ProductQuantityOption from '../../components/product/ProductQuantityOption';
 import FrequentlyBoughtItem from '../../components/product/FrequentlyBoughtItem';
+import { catalogApi } from '../../services/catalogApi';
 import mobileIce from '../../assets/product/mobile-raw-3.png';
 import './ProductPresentationSection.css';
 
 export default function ProductPresentationSection({ product, categoryLabel = 'PINY MASK', crossSellProducts = [], onAdd }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [reviewCount, setReviewCount] = useState(0);
+  const [reviewStars, setReviewStars] = useState(5);
   const crossSellItemsRef = useRef(null);
   const crossSellDragRef = useRef({ pointerId: null, startX: 0, scrollLeft: 0, moved: false });
 
   const startCrossSellDrag = (event) => {
     if (event.pointerType !== 'mouse' || event.button !== 0) return;
+    if (event.target.closest('button')) return;
 
     const items = crossSellItemsRef.current;
     if (!items) return;
@@ -55,6 +59,19 @@ export default function ProductPresentationSection({ product, categoryLabel = 'P
     crossSellDragRef.current.moved = false;
   };
 
+  useEffect(() => {
+    if (!product?.id) return;
+    catalogApi.listProductReviews(product.id)
+      .then((reviews) => {
+        setReviewCount(reviews.length);
+        if (reviews.length > 0) {
+          const avg = reviews.reduce((sum, r) => sum + r.stars, 0) / reviews.length;
+          setReviewStars(Math.round(avg));
+        }
+      })
+      .catch(() => {});
+  }, [product?.id]);
+
   if (!product) return null;
 
   const quantityOptions = product.quantityOptions?.length
@@ -63,13 +80,20 @@ export default function ProductPresentationSection({ product, categoryLabel = 'P
   const selectedOption = quantityOptions[selectedIndex];
 
   return (
-    <section className="product-presentation" aria-label={`Apresentação do produto ${product.name}`}>
+    <section
+      className="product-presentation"
+      aria-label={`Apresentação do produto ${product.name}`}
+      style={{
+        ...(product.presentationBackgroundImage ? { '--presentation-bg': `url('${product.presentationBackgroundImage}')` } : {}),
+        ...(product.presentationMobileBackgroundImage ? { '--presentation-mobile-bg': `url('${product.presentationMobileBackgroundImage}')` } : {}),
+      }}
+    >
       <div className="product-presentation__container page-width">
         <div className="product-presentation__visual">
           <img className="product-presentation__mobile-ice" src={mobileIce} alt="" aria-hidden="true" />
           <img
             className="product-presentation__product-image"
-            src={product.image}
+            src={product.presentationProductImage || product.image}
             alt={`${categoryLabel} ${product.name}`}
           />
         </div>
@@ -96,7 +120,7 @@ export default function ProductPresentationSection({ product, categoryLabel = 'P
                   </ProductBadge>
                 ))}
               </div>
-              {product.reviewCount && <ProductRating count={product.reviewCount} />}
+              {reviewCount > 0 && <ProductRating count={reviewCount} stars={reviewStars} />}
             </div>
           </div>
 

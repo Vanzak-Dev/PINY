@@ -3,12 +3,13 @@ import multer from 'multer';
 import path from 'node:path';
 import { mkdir } from 'node:fs/promises';
 import { changePassword, createSession, parseCookies, readSession, verifyCredentials } from './lib/auth.js';
-import { ensureCatalog, ensureSiteSettings, normalizeProduct, normalizeReview, readProducts, readReviews, readSiteSettings, saveProducts, saveReviews, saveSiteSettings } from './lib/store.js';
+import { ensureCatalog, ensureCollections, ensureSiteSettings, normalizeCollection, normalizeProduct, normalizeProductReview, normalizeReview, readCollections, readProductReviews, readProducts, readReviews, readSiteSettings, saveCollections, saveProductReviews, saveProducts, saveReviews, saveSiteSettings } from './lib/store.js';
 
 const port = Number(process.env.PORT || 8000);
 const uploadDirectory = process.env.UPLOAD_DIR || path.resolve('uploads');
 await mkdir(uploadDirectory, { recursive: true });
 await ensureCatalog();
+await ensureCollections();
 await ensureSiteSettings();
 
 const mediaStorage = multer.diskStorage({
@@ -61,11 +62,15 @@ function bodyWithUploads(request, current = {}) {
     featureLeftImage: files.featureLeftImageFile?.[0] ? `/api/uploads/${files.featureLeftImageFile[0].filename}` : request.body.featureLeftImage || current.featureLeftImage,
     featureRightImage: files.featureRightImageFile?.[0] ? `/api/uploads/${files.featureRightImageFile[0].filename}` : request.body.featureRightImage || current.featureRightImage,
     featureProductImage: files.featureProductImageFile?.[0] ? `/api/uploads/${files.featureProductImageFile[0].filename}` : request.body.featureProductImage || current.featureProductImage,
+    featureProductInfoMobileBackground: files.featureProductInfoMobileBackgroundFile?.[0] ? `/api/uploads/${files.featureProductInfoMobileBackgroundFile[0].filename}` : request.body.featureProductInfoMobileBackground || current.featureProductInfoMobileBackground,
     comparisonImage1: files.comparisonImage1File?.[0] ? `/api/uploads/${files.comparisonImage1File[0].filename}` : request.body.comparisonImage1 || current.comparisonImage1,
     comparisonImage2: files.comparisonImage2File?.[0] ? `/api/uploads/${files.comparisonImage2File[0].filename}` : request.body.comparisonImage2 || current.comparisonImage2,
     comparisonImage3: files.comparisonImage3File?.[0] ? `/api/uploads/${files.comparisonImage3File[0].filename}` : request.body.comparisonImage3 || current.comparisonImage3,
     comparisonImage4: files.comparisonImage4File?.[0] ? `/api/uploads/${files.comparisonImage4File[0].filename}` : request.body.comparisonImage4 || current.comparisonImage4,
     comparisonProductIcon: files.comparisonProductIconFile?.[0] ? `/api/uploads/${files.comparisonProductIconFile[0].filename}` : request.body.comparisonProductIcon || current.comparisonProductIcon,
+    presentationBackgroundImage: files.presentationBackgroundFile?.[0] ? `/api/uploads/${files.presentationBackgroundFile[0].filename}` : request.body.presentationBackgroundImage || current.presentationBackgroundImage,
+    presentationMobileBackgroundImage: files.presentationMobileBackgroundFile?.[0] ? `/api/uploads/${files.presentationMobileBackgroundFile[0].filename}` : request.body.presentationMobileBackgroundImage || current.presentationMobileBackgroundImage,
+    presentationProductImage: files.presentationProductFile?.[0] ? `/api/uploads/${files.presentationProductFile[0].filename}` : request.body.presentationProductImage || current.presentationProductImage,
   };
 }
 
@@ -111,6 +116,29 @@ app.get('/api/reviews', async (_request, response) => {
   response.json((await readReviews()).filter((review) => review.active));
 });
 
+app.get('/api/collections', async (_request, response) => {
+  response.json((await readCollections()).filter((collection) => collection.active));
+});
+
+app.get('/api/product-reviews', async (request, response) => {
+  const productId = String(request.query.productId || '');
+  const reviews = (await readProductReviews()).filter((review) => review.active && (!productId || review.productId === productId));
+  response.json(reviews);
+});
+
+app.post('/api/product-reviews', upload.single('photoFile'), async (request, response) => {
+  const photo = request.file ? `/api/uploads/${request.file.filename}` : request.body.photo || '';
+  const review = normalizeProductReview({ ...request.body, photo });
+  if (!review.productId) return response.status(400).json({ error: 'Selecione um produto.' });
+  if (!review.userName) return response.status(400).json({ error: 'Informe seu nome.' });
+  if (!review.title) return response.status(400).json({ error: 'Informe um título.' });
+  if (!review.body) return response.status(400).json({ error: 'Escreva sua avaliação.' });
+  const reviews = await readProductReviews();
+  reviews.push(review);
+  await saveProductReviews(reviews);
+  response.status(201).json(review);
+});
+
 app.post('/api/auth/login', async (request, response) => {
   const auth = await verifyCredentials(String(request.body.username || ''), String(request.body.password || ''));
   if (!auth) return response.status(401).json({ error: 'Usuário ou senha inválidos.' });
@@ -142,6 +170,50 @@ app.get('/api/admin/products', async (_request, response) => response.json(await
 app.get('/api/admin/reviews', async (_request, response) => response.json(await readReviews()));
 app.get('/api/admin/settings', async (_request, response) => response.json(await readSiteSettings()));
 app.put('/api/admin/settings', async (request, response) => response.json(await saveSiteSettings(request.body)));
+
+app.get('/api/admin/collections', async (_request, response) => response.json(await readCollections()));
+app.post('/api/admin/collections', async (request, response) => {
+  const collections = await readCollections();
+  const collection = normalizeCollection(request.body);
+  if (!collection.name) return response.status(400).json({ error: 'Informe o nome da coleção.' });
+  collections.push(collection);
+  await saveCollections(collections);
+  response.status(201).json(collection);
+});
+app.put('/api/admin/collections/:id', async (request, response) => {
+  const collections = await readCollections();
+  const index = collections.findIndex((collection) => collection.id === request.params.id);
+  if (index < 0) return response.status(404).json({ error: 'Coleção não encontrada.' });
+  const collection = normalizeCollection(request.body, collections[index]);
+  if (!collection.name) return response.status(400).json({ error: 'Informe o nome da coleção.' });
+  collections[index] = collection;
+  await saveCollections(collections);
+  response.json(collection);
+});
+app.delete('/api/admin/collections/:id', async (request, response) => {
+  const collections = await readCollections();
+  const nextCollections = collections.filter((collection) => collection.id !== request.params.id);
+  if (nextCollections.length === collections.length) return response.status(404).json({ error: 'Coleção não encontrada.' });
+  await saveCollections(nextCollections);
+  response.status(204).end();
+});
+
+app.get('/api/admin/product-reviews', async (_request, response) => response.json(await readProductReviews()));
+app.delete('/api/admin/product-reviews/:id', async (request, response) => {
+  const reviews = await readProductReviews();
+  const nextReviews = reviews.filter((review) => review.id !== request.params.id);
+  if (nextReviews.length === reviews.length) return response.status(404).json({ error: 'Review não encontrado.' });
+  await saveProductReviews(nextReviews);
+  response.status(204).end();
+});
+app.put('/api/admin/product-reviews/:id', async (request, response) => {
+  const reviews = await readProductReviews();
+  const index = reviews.findIndex((review) => review.id === request.params.id);
+  if (index < 0) return response.status(404).json({ error: 'Review não encontrado.' });
+  reviews[index] = normalizeProductReview(request.body, reviews[index]);
+  await saveProductReviews(reviews);
+  response.json(reviews[index]);
+});
 
 const reviewMediaUpload = reviewUpload.single('mediaFile');
 app.post('/api/admin/reviews', reviewMediaUpload, async (request, response) => {
@@ -189,11 +261,15 @@ const productUpload = upload.fields([
   { name: 'featureLeftImageFile', maxCount: 1 },
   { name: 'featureRightImageFile', maxCount: 1 },
   { name: 'featureProductImageFile', maxCount: 1 },
+  { name: 'featureProductInfoMobileBackgroundFile', maxCount: 1 },
   { name: 'comparisonImage1File', maxCount: 1 },
   { name: 'comparisonImage2File', maxCount: 1 },
   { name: 'comparisonImage3File', maxCount: 1 },
   { name: 'comparisonImage4File', maxCount: 1 },
   { name: 'comparisonProductIconFile', maxCount: 1 },
+  { name: 'presentationBackgroundFile', maxCount: 1 },
+  { name: 'presentationMobileBackgroundFile', maxCount: 1 },
+  { name: 'presentationProductFile', maxCount: 1 },
 ]);
 app.post('/api/admin/products', productUpload, async (request, response) => {
   const products = await readProducts();
