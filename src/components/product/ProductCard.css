@@ -73,8 +73,8 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 140.716px;
-  height: 140.716px;
+  width: 205.71627807617188px;
+  height: 205.71627807617188px;
   object-fit: contain;
   transform: translate(-50%, -50%) rotate(var(--image-rest-rotation, 0deg));
   transform-origin: center;
