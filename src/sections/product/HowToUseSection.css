@@ -130,11 +130,58 @@
   gap: 12px;
 }
 
-/* ── Desktop (≥1024px) ────────────────────────── */
+/* ── Tablet (1024px–1279px) ───────────────────── */
 @media (min-width: 1024px) {
   .how-to-use {
-    padding: 80px clamp(20px, 10vw, 200px);
+    padding: 64px clamp(20px, 10vw, 200px);
     gap: 0;
+  }
+
+  .how-to-use__layout {
+    max-width: 600px;
+    margin-inline: auto;
+  }
+
+  .how-to-use__badge {
+    width: 280px;
+    margin: 0 auto 28px;
+  }
+
+  .how-to-use__card {
+    border-radius: 28px;
+    padding: 40px 32px;
+  }
+
+  .how-to-use__step-text {
+    font-size: 20px;
+  }
+
+  .how-to-use__step {
+    gap: 18px;
+    padding-bottom: 26px;
+  }
+
+  .how-to-use__step-number {
+    width: 42px;
+    height: 42px;
+    font-size: 24px;
+  }
+
+  .how-to-use__connector {
+    left: 20px;
+    top: 46px;
+  }
+
+  /* Hide mobile images on tablet+ */
+  .how-to-use__mobile-images {
+    display: none;
+  }
+}
+
+/* ── Desktop (1280px+) ────────────────────────── */
+@media (min-width: 1280px) {
+  .how-to-use {
+    padding: 80px clamp(20px, 10vw, 200px);
   }
 
   .how-to-use__layout {
@@ -157,7 +204,7 @@
 
   .how-to-use__images--left,
   .how-to-use__images--right {
-    width: 385.5px;
+    width: 260px;
   }
 
   .how-to-use__image {
@@ -168,12 +215,12 @@
 
   .how-to-use__images--left .how-to-use__image:nth-child(1),
   .how-to-use__images--right .how-to-use__image:nth-child(2) {
-    height: 357px;
+    height: 260px;
   }
 
   .how-to-use__images--left .how-to-use__image:nth-child(2),
   .how-to-use__images--right .how-to-use__image:nth-child(1) {
-    height: 284px;
+    height: 200px;
   }
 
   .how-to-use__center {
@@ -205,14 +252,25 @@
     left: 18px;
     top: 44px;
   }
-
-  /* Hide mobile images on desktop */
-  .how-to-use__mobile-images {
-    display: none;
-  }
 }
 
-@media (min-width: 1280px) {
+/* ── Large desktop (1536px+) ──────────────────── */
+@media (min-width: 1536px) {
+  .how-to-use__images--left,
+  .how-to-use__images--right {
+    width: 385.5px;
+  }
+
+  .how-to-use__images--left .how-to-use__image:nth-child(1),
+  .how-to-use__images--right .how-to-use__image:nth-child(2) {
+    height: 357px;
+  }
+
+  .how-to-use__images--left .how-to-use__image:nth-child(2),
+  .how-to-use__images--right .how-to-use__image:nth-child(1) {
+    height: 284px;
+  }
+
   .how-to-use__center {
     max-width: 560px;
   }
