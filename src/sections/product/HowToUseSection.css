@@ -4,7 +4,7 @@
   background-color: #fef8dd;
   background-size: 1500px;
   background-repeat: repeat;
-  padding: 48px 16px;
+  padding: 32px 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -42,8 +42,8 @@
 
 .how-to-use__card {
   background: #fff;
-  border-radius: 24px;
-  padding: 32px 24px;
+  border-radius: 16px;
+  padding: 26px 16px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -211,18 +211,10 @@
 
   .how-to-use__image {
     width: 100%;
+    flex: 1;
+    min-height: 0;
     object-fit: cover;
     border-radius: 20px;
-  }
-
-  .how-to-use__images--left .how-to-use__image:nth-child(1),
-  .how-to-use__images--right .how-to-use__image:nth-child(2) {
-    height: 260px;
-  }
-
-  .how-to-use__images--left .how-to-use__image:nth-child(2),
-  .how-to-use__images--right .how-to-use__image:nth-child(1) {
-    height: 200px;
   }
 
   .how-to-use__center {
@@ -264,16 +256,6 @@
   .how-to-use__images--left,
   .how-to-use__images--right {
     width: 385.5px;
-  }
-
-  .how-to-use__images--left .how-to-use__image:nth-child(1),
-  .how-to-use__images--right .how-to-use__image:nth-child(2) {
-    height: 357px;
-  }
-
-  .how-to-use__images--left .how-to-use__image:nth-child(2),
-  .how-to-use__images--right .how-to-use__image:nth-child(1) {
-    height: 284px;
   }
 
   .how-to-use__center {
