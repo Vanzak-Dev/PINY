@@ -158,7 +158,8 @@
     align-items: stretch;
     justify-content: center;
     gap: 24px;
-    max-width: none;
+    max-width: var(--page-width, 1400px);
+    margin-inline: auto;
   }
 
   .journey-21__card {

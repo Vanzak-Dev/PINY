@@ -142,8 +142,9 @@
     align-items: center;
     justify-content: center;
     gap: 20px;
-    max-width: none;
+    max-width: var(--page-width, 1400px);
     width: 100%;
+    margin-inline: auto;
   }
 
   /* Show side images on desktop */
