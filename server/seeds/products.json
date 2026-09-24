@@ -75,7 +75,27 @@
     ],
     "createdAt": "2026-09-09T00:00:00.000Z",
     "updatedAt": "2026-09-09T00:00:00.000Z",
-    "featureEnabled": false
+    "featureEnabled": false,
+    "quantityOptions": [
+      {
+        "quantity": 3,
+        "price": 99.9,
+        "discountLabel": "15% OFF",
+        "image": ""
+      },
+      {
+        "quantity": 2,
+        "price": 89,
+        "discountLabel": "10% OFF",
+        "image": ""
+      },
+      {
+        "quantity": 1,
+        "price": 100,
+        "discountLabel": "",
+        "image": ""
+      }
+    ]
   },
   {
     "id": "argila-rosa",
@@ -153,7 +173,27 @@
     ],
     "createdAt": "2026-09-09T00:00:00.000Z",
     "updatedAt": "2026-09-09T00:00:00.000Z",
-    "featureEnabled": false
+    "featureEnabled": false,
+    "quantityOptions": [
+      {
+        "quantity": 3,
+        "price": 99.9,
+        "discountLabel": "15% OFF",
+        "image": ""
+      },
+      {
+        "quantity": 2,
+        "price": 89,
+        "discountLabel": "10% OFF",
+        "image": ""
+      },
+      {
+        "quantity": 1,
+        "price": 100,
+        "discountLabel": "",
+        "image": ""
+      }
+    ]
   },
   {
     "id": "argila-branca",
@@ -264,6 +304,26 @@
         "beforeImage": "/catalog-assets/before-after/yasmin-antes.webp",
         "afterImage": "/catalog-assets/before-after/yasmin-depois.webp"
       }
+    ],
+    "quantityOptions": [
+      {
+        "quantity": 3,
+        "price": 99.9,
+        "discountLabel": "15% OFF",
+        "image": ""
+      },
+      {
+        "quantity": 2,
+        "price": 89,
+        "discountLabel": "10% OFF",
+        "image": ""
+      },
+      {
+        "quantity": 1,
+        "price": 100,
+        "discountLabel": "",
+        "image": ""
+      }
     ]
   },
   {
@@ -342,7 +402,27 @@
     ],
     "createdAt": "2026-09-09T00:00:00.000Z",
     "updatedAt": "2026-09-09T00:00:00.000Z",
-    "featureEnabled": false
+    "featureEnabled": false,
+    "quantityOptions": [
+      {
+        "quantity": 3,
+        "price": 99.9,
+        "discountLabel": "15% OFF",
+        "image": ""
+      },
+      {
+        "quantity": 2,
+        "price": 89,
+        "discountLabel": "10% OFF",
+        "image": ""
+      },
+      {
+        "quantity": 1,
+        "price": 100,
+        "discountLabel": "",
+        "image": ""
+      }
+    ]
   },
   {
     "id": "argila-preta-2",
@@ -420,6 +500,26 @@
     ],
     "createdAt": "2026-09-09T00:00:00.000Z",
     "updatedAt": "2026-09-09T00:00:00.000Z",
-    "featureEnabled": false
+    "featureEnabled": false,
+    "quantityOptions": [
+      {
+        "quantity": 3,
+        "price": 99.9,
+        "discountLabel": "15% OFF",
+        "image": ""
+      },
+      {
+        "quantity": 2,
+        "price": 89,
+        "discountLabel": "10% OFF",
+        "image": ""
+      },
+      {
+        "quantity": 1,
+        "price": 100,
+        "discountLabel": "",
+        "image": ""
+      }
+    ]
   }
 ]
