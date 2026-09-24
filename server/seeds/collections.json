@@ -1,17 +1,33 @@
 [
   {
-    "id": "mask-faciais",
-    "name": "Máscaras Faciais",
+    "id": "antiacne",
+    "name": "Antiacne",
     "active": true,
     "productIds": ["argila-preta-1", "argila-rosa", "argila-branca", "argila-verde", "argila-preta-2"],
     "createdAt": "2026-09-09T00:00:00.000Z",
     "updatedAt": "2026-09-09T00:00:00.000Z"
   },
   {
-    "id": "mais-procuradas",
-    "name": "Mais Procuradas",
+    "id": "antioleosidade",
+    "name": "Antioleosidade",
     "active": true,
-    "productIds": ["argila-preta-1", "argila-rosa", "argila-branca"],
+    "productIds": ["argila-preta-1", "argila-rosa", "argila-branca", "argila-verde", "argila-preta-2"],
+    "createdAt": "2026-09-09T00:00:00.000Z",
+    "updatedAt": "2026-09-09T00:00:00.000Z"
+  },
+  {
+    "id": "calmante-detox",
+    "name": "Calmante & Detox",
+    "active": true,
+    "productIds": ["argila-preta-1", "argila-rosa", "argila-branca", "argila-verde", "argila-preta-2"],
+    "createdAt": "2026-09-09T00:00:00.000Z",
+    "updatedAt": "2026-09-09T00:00:00.000Z"
+  },
+  {
+    "id": "cuidado-diario",
+    "name": "Cuidado Diário",
+    "active": true,
+    "productIds": ["argila-preta-1", "argila-rosa", "argila-branca", "argila-verde", "argila-preta-2"],
     "createdAt": "2026-09-09T00:00:00.000Z",
     "updatedAt": "2026-09-09T00:00:00.000Z"
   }
