@@ -57,8 +57,8 @@ async function yampiRequest(path, { method = 'GET', body, alias, token, secret }
     data = { raw: text };
   }
   if (!response.ok) {
-    const message = data?.message || data?.error || `Yampi API error ${response.status}`;
-    throw new Error(message);
+    const detail = data?.message || data?.error || data?.errors?.[0]?.message || data?.raw || `Yampi API error ${response.status}`;
+    throw new Error(detail);
   }
   return data;
 }
