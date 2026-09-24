@@ -15,11 +15,11 @@ const steps = [
 
 export default function HowToUseSection() {
   return (
-    <section className="how-to-use" aria-label="Como usar">
-      <div
-        className="how-to-use__bg"
-        style={{ backgroundImage: `url(${bgPattern})` }}
-      >
+    <section
+      className="how-to-use"
+      aria-label="Como usar"
+      style={{ backgroundImage: `url(${bgPattern})` }}
+    >
         <div className="how-to-use__layout">
           {/* Left images (desktop) */}
           <div className="how-to-use__images how-to-use__images--left">
@@ -56,7 +56,6 @@ export default function HowToUseSection() {
             <img className="how-to-use__mobile-image" src={imgBottomRight} alt="Aplicando a máscara na bochecha" />
           </div>
         </div>
-      </div>
     </section>
   );
 }
