@@ -121,6 +121,10 @@
   border-radius: 20px;
 }
 
+.how-to-use__mobile-image--tall {
+  height: 159.319px;
+}
+
 /* ── Tablet (1024px–1279px) ───────────────────── */
 @media (min-width: 1024px) {
   .how-to-use {

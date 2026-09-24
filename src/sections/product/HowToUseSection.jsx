@@ -50,10 +50,10 @@ export default function HowToUseSection() {
 
         {/* Mobile images grid */}
         <div className="how-to-use__mobile-images">
-          <img className="how-to-use__mobile-image" src={imgTopLeft} alt="Aplicando a máscara no rosto" />
+          <img className="how-to-use__mobile-image how-to-use__mobile-image--tall" src={imgTopLeft} alt="Aplicando a máscara no rosto" />
           <img className="how-to-use__mobile-image" src={imgTopRight} alt="Potes do produto PINY" />
           <img className="how-to-use__mobile-image" src={imgBottomLeft} alt="Pote do produto PINY" />
-          <img className="how-to-use__mobile-image" src={imgBottomRight} alt="Aplicando a máscara na bochecha" />
+          <img className="how-to-use__mobile-image how-to-use__mobile-image--tall" src={imgBottomRight} alt="Aplicando a máscara na bochecha" />
         </div>
     </section>
   );
