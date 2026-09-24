@@ -1,6 +1,7 @@
 /* ── Base / Mobile ─────────────────────────────── */
 .how-to-use {
   width: 100%;
+  background-color: #fef8dd;
   background-size: 200px;
   background-repeat: repeat;
   padding: 48px 16px;
@@ -182,6 +183,8 @@
 @media (min-width: 1280px) {
   .how-to-use {
     padding: 80px clamp(20px, 10vw, 200px);
+    background-size: auto;
+    background-image: none;
   }
 
   .how-to-use__layout {
