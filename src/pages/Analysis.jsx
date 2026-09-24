@@ -20,9 +20,11 @@ export default function Analysis() {
   const { track } = useAnalytics('Analysis');
 
   const handleSelfieComplete = async (url) => {
+    console.log('[SKIN-DEBUG] 5. handleSelfieComplete called with url:', url);
     track('analise_step', { step: 'foto_enviada' });
     setSelfieUrl(url);
     setStep('analyzing');
+    console.log('[SKIN-DEBUG] 5a. Step set to "analyzing", calling handleAnalysis...');
     await handleAnalysis(url);
   };
 
@@ -33,6 +35,7 @@ export default function Analysis() {
     setAnalysisStage('analyzing');
 
     try {
+      console.log('[SKIN-DEBUG] 6. handleAnalysis STARTED, url:', url);
       setAnalysisStage('analyzing_image');
       track('analise_step', { step: 'processando' });
       const analysisPrompt = `Você é um dermatologista especialista em análise visual de pele. Analise esta selfie com precisão e detalhe.
@@ -107,6 +110,7 @@ REGRAS:
 
 Gere a rotina completa seguindo o schema.`;
 
+      console.log('[SKIN-DEBUG] 7. Calling first InvokeLLM (skin analysis), file_urls:', [url]);
       const scoresPromise = base44.integrations.Core.InvokeLLM({
         prompt: analysisPrompt,
         file_urls: [url],
@@ -137,9 +141,12 @@ Gere a rotina completa seguindo o schema.`;
       });
 
       const analysisResult = await scoresPromise;
+      console.log('[SKIN-DEBUG] 8. First InvokeLLM returned:', JSON.stringify(analysisResult)?.substring(0, 500));
       const scoresResult = analysisResult.scores;
+      console.log('[SKIN-DEBUG] 8a. scoresResult:', JSON.stringify(scoresResult));
 
       setAnalysisStage('generating_routine');
+      console.log('[SKIN-DEBUG] 9. Calling second InvokeLLM (routine generation)...');
 
       const routinePromise = base44.integrations.Core.InvokeLLM({
         prompt: routinePrompt(analysisResult),
@@ -257,6 +264,7 @@ Gere a rotina completa seguindo o schema.`;
       });
 
       const routineResult = await routinePromise;
+      console.log('[SKIN-DEBUG] 10. Second InvokeLLM returned:', JSON.stringify(routineResult)?.substring(0, 500));
 
       const analysisData = {
         selfie_url: url,
@@ -270,12 +278,15 @@ Gere a rotina completa seguindo o schema.`;
         timestamp: new Date().toISOString()
       };
       localStorage.setItem('piny_latest_analysis', JSON.stringify(analysisData));
+      console.log('[SKIN-DEBUG] 11. Analysis data saved to localStorage');
 
       // Save skin analysis data internally for product research
       const topProblems = Object.entries(scoresResult);
       topProblems.sort((a, b) => b[1] - a[1]);
       const [topKey, topValue] = topProblems[0];
+      console.log('[SKIN-DEBUG] 12. top_problem:', topKey, 'top_score:', topValue);
 
+      console.log('[SKIN-DEBUG] 13. Calling SkinAnalysisData.create...');
       base44.entities.SkinAnalysisData.create({
         selfie_url: url,
         scores: scoresResult,
@@ -285,19 +296,20 @@ Gere a rotina completa seguindo o schema.`;
         observacoes: analysisResult.observacoes || null,
         top_problem: topKey,
         top_score: topValue,
-      }).catch(err => console.error('Failed to save skin analysis data:', err));
+      }).catch(err => console.error('[SKIN-DEBUG] 13a. SkinAnalysisData.create ERROR:', err?.message || err, '\nFull:', err));
 
       const elapsedTime = Date.now() - startTime;
       const remainingTime = Math.max(0, minDisplayTime - elapsedTime);
-      
+
       track('analise_step', { step: 'resultado_pronto' });
 
       await new Promise(resolve => setTimeout(resolve, remainingTime));
 
+      console.log('[SKIN-DEBUG] 14. Navigating to Results...');
       navigate(createPageUrl('Results'));
       
     } catch (error) {
-      console.error('Analysis error:', error);
+      console.error('[SKIN-DEBUG] FATAL ERROR in handleAnalysis:', error?.message || error, '\nFull error:', error, '\nStack:', error?.stack);
       setError({
         title: 'Ops! Algo deu errado',
         message: 'Não conseguimos processar sua análise. Por favor, tente novamente.',

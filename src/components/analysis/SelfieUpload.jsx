@@ -71,8 +71,13 @@ export default function SelfieUpload({ onComplete }) {
   };
 
   const handleFile = async (file) => {
-    if (!file) return;
+    if (!file) {
+      console.log('[SKIN-DEBUG] handleFile called with NO file');
+      return;
+    }
+    console.log('[SKIN-DEBUG] 1. handleFile called, file:', file.name, file.type, file.size, 'bytes');
     const correctedFile = await fixImageOrientation(file);
+    console.log('[SKIN-DEBUG] 1a. Image orientation fixed, correctedFile:', correctedFile.name, correctedFile.size, 'bytes');
 
     const reader = new FileReader();
     reader.onload = (e) => setPreview(e.target.result);
@@ -81,13 +86,21 @@ export default function SelfieUpload({ onComplete }) {
     setScanning(true);
     setUploading(true);
     try {
-      const { file_url } = await base44.integrations.Core.UploadFile({ file: correctedFile });
+      console.log('[SKIN-DEBUG] 2. Calling base44.integrations.Core.UploadFile...');
+      const uploadResult = await base44.integrations.Core.UploadFile({ file: correctedFile });
+      console.log('[SKIN-DEBUG] 3. UploadFile returned:', JSON.stringify(uploadResult));
+      const { file_url } = uploadResult;
+      console.log('[SKIN-DEBUG] 3a. file_url extracted:', file_url);
+      if (!file_url) {
+        console.error('[SKIN-DEBUG] 3b. ERROR: file_url is missing/undefined in upload response!');
+      }
       await new Promise((r) => setTimeout(r, 1600));
       setScanning(false);
       setUploading(false);
+      console.log('[SKIN-DEBUG] 4. Calling onComplete(file_url)...');
       onComplete(file_url);
     } catch (err) {
-      console.error(err);
+      console.error('[SKIN-DEBUG] UPLOAD ERROR:', err?.message || err, '\nFull error:', err);
       setScanning(false);
       setUploading(false);
     }
