@@ -377,14 +377,14 @@
   height: var(--card-icon-size);
   border-radius: var(--card-icon-radius);
   overflow: hidden;
-  background: #e98a07;
+  background: var(--card-icon-bg, #e98a07);
 }
 
 .product-booster__card-icon::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(249, 196, 124, 0) 50%, rgba(249, 196, 124, 1) 99.974%);
+  background: linear-gradient(180deg, var(--card-icon-gradient, rgba(249, 196, 124, 0) 50%, rgba(249, 196, 124, 1) 99.974%));
 }
 
 .product-booster__card-icon-crop {
@@ -479,15 +479,21 @@
   height: var(--var-size);
   border-radius: 50%;
   overflow: hidden;
+  padding: 0;
+  border: var(--var-border) solid transparent;
+  cursor: pointer;
 }
 
 .product-booster__variation--1 {
   background: #ffbd35;
-  border: var(--var-border) solid #1c8c44;
 }
 
 .product-booster__variation--2 {
   background: #9d7ec2;
+}
+
+.product-booster__variation--active {
+  border-color: #1c8c44;
 }
 
 .product-booster__variation-crop {
@@ -548,9 +554,9 @@
 
 @media (max-width: 767px) {
   .product-booster {
-    --section-h: 246.5649vw;
+    --section-h: 270.5649vw;
 
-    --pour-left: -20.7859%;
+    --pour-left: -25.9237%;
     --pour-top: -13.7405vw;
     --pour-w: 84.0365vw;
     --pour-h: 58.058vw;
@@ -560,9 +566,9 @@
     --wave-left: -17.8117%;
     --wave-top: 14.2532vw;
     --wave-w: 135.6234vw;
-    --wave-h: 228.2705vw;
+    --wave-h: 252.2705vw;
 
-    --cap-left: 79.427%;
+    --cap-left: 72.0103%;
     --cap-top: -2.0356vw;
     --cap-w: 21.1907vw;
     --cap-h: 24.1708vw;
@@ -614,6 +620,7 @@
 
   .product-booster__wave-img--mobile {
     display: block;
+    height: 94%;
   }
 
   .product-booster__drop {

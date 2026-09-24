@@ -61,7 +61,7 @@ export default function App() {
 
   return (
     <CartProvider>
-      <AppContent pathname={pathname} page={page} />
+      <AppContent page={page} />
     </CartProvider>
   );
 }
@@ -84,6 +84,7 @@ function AppContent({ page }) {
         couponCode={cart.couponCode}
         onCouponCodeChange={cart.setCouponCode}
         onApplyCoupon={cart.applyCoupon}
+        subtotal={cart.subtotal}
         discount={cart.discount}
         total={cart.total}
         remainingForGift={cart.remainingForGift}

@@ -7,13 +7,11 @@ import mascot from '../../assets/cart/empty-cart-mascot.svg';
 import iconClose from '../../assets/cart/icon-close.svg';
 import iconCartBadge from '../../assets/cart/icon-cart-badge.svg';
 import iconTrash from '../../assets/cart/icon-trash.svg';
-import iconPineappleAlert from '../../assets/cart/icon-pineapple-alert.svg';
 import markerStarFilled from '../../assets/cart/marker-star-filled.svg';
 import markerStarOutline from '../../assets/cart/marker-star-outline.svg';
 import './CartDrawer.css';
 
 const defaultRecommendedProducts = featuredProducts.slice(0, 2);
-const GIFT_MILESTONES = [0.5, 0.9725];
 
 function CartRecommendedItem({ product, onAdd }) {
   return (
@@ -94,6 +92,7 @@ export default function CartDrawer({
   couponCode = '',
   onCouponCodeChange,
   onApplyCoupon,
+  subtotal = 0,
   discount = 0,
   total = 0,
   remainingForGift = 0,
@@ -172,27 +171,14 @@ export default function CartDrawer({
                 <div className="cart-drawer__progress-track">
                   <div className="cart-drawer__progress-fill" style={{ width: `${giftProgress * 100}%` }} />
                 </div>
-                {GIFT_MILESTONES.map((position) => (
-                  <img
-                    key={position}
-                    className="cart-drawer__progress-marker"
-                    style={{ left: `${position * 100}%` }}
-                    src={giftProgress >= position ? markerStarFilled : markerStarOutline}
-                    alt=""
-                    aria-hidden="true"
-                    draggable="false"
-                  />
-                ))}
-              </div>
-
-              <div className="cart-drawer__alert">
-                <div className="cart-drawer__alert-text">
-                  <div className="cart-drawer__alert-heading">
-                    <img className="cart-drawer__alert-icon" src={iconPineappleAlert} alt="" aria-hidden="true" draggable="false" />
-                    <p className="cart-drawer__alert-title">Seus itens não estão reservados!</p>
-                  </div>
-                  <p className="cart-drawer__alert-subtitle">Conclua a compra antes que os itens esgotem.</p>
-                </div>
+                <img
+                  className="cart-drawer__progress-marker"
+                  style={{ left: `${giftProgress * 100}%` }}
+                  src={giftProgress >= 1 ? markerStarFilled : markerStarOutline}
+                  alt=""
+                  aria-hidden="true"
+                  draggable="false"
+                />
               </div>
 
               <ul className="cart-drawer__items">
@@ -223,9 +209,15 @@ export default function CartDrawer({
 
               <div className="cart-drawer__totals">
                 <div className="cart-drawer__totals-row">
-                  <span>Descontos:</span>
-                  <span>-{formatPrice(discount)}</span>
+                  <span>Subtotal:</span>
+                  <span>{formatPrice(subtotal)}</span>
                 </div>
+                {discount > 0 && (
+                  <div className="cart-drawer__totals-row">
+                    <span>Descontos:</span>
+                    <span>-{formatPrice(discount)}</span>
+                  </div>
+                )}
                 <div className="cart-drawer__totals-row cart-drawer__totals-row--total">
                   <span>TOTAL:</span>
                   <span>{formatPrice(total)}</span>

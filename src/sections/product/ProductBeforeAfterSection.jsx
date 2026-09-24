@@ -25,72 +25,66 @@ function SliderHandle({ hideKnob }) {
 }
 
 function BeforeAfterCard({ item, beforeLabel, afterLabel }) {
-  const imageRef = useRef(null);
-  const draggingRef = useRef(false);
+  const frameRef = useRef(null);
   const [position, setPosition] = useState(50);
-  const [isActive, setIsActive] = useState(false);
+  const [dragging, setDragging] = useState(false);
 
   const updateFromClientX = (clientX) => {
-    const el = imageRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
+    const rect = frameRef.current.getBoundingClientRect();
     const ratio = ((clientX - rect.left) / rect.width) * 100;
     setPosition(Math.min(100, Math.max(0, ratio)));
   };
 
+  // Mouse: a posicao segue o hover, sem precisar clicar. Touch: precisa arrastar
+  // (nao existe hover em touch, e mover o dedo sem pressionar tambem rolaria a pagina).
   const handlePointerMove = (event) => {
-    if (event.pointerType === 'mouse' || draggingRef.current) {
+    if (event.pointerType === 'mouse' || dragging) {
       updateFromClientX(event.clientX);
     }
   };
 
   const handlePointerDown = (event) => {
     if (event.pointerType === 'mouse') return;
-    draggingRef.current = true;
-    setIsActive(true);
-    imageRef.current?.setPointerCapture(event.pointerId);
+    frameRef.current.setPointerCapture(event.pointerId);
+    setDragging(true);
     updateFromClientX(event.clientX);
   };
 
-  const endDrag = (event) => {
-    if (!draggingRef.current) return;
-    draggingRef.current = false;
-    setIsActive(false);
-    if (imageRef.current?.hasPointerCapture(event.pointerId)) {
-      imageRef.current.releasePointerCapture(event.pointerId);
+  const stopDragging = (event) => {
+    setDragging(false);
+    if (frameRef.current?.hasPointerCapture(event.pointerId)) {
+      frameRef.current.releasePointerCapture(event.pointerId);
     }
   };
 
   const handlePointerEnter = (event) => {
-    if (event.pointerType !== 'mouse') return;
-    setIsActive(true);
+    if (event.pointerType === 'mouse') setDragging(true);
   };
 
   const handlePointerLeave = (event) => {
-    if (event.pointerType !== 'mouse') return;
-    if (!draggingRef.current) setIsActive(false);
+    if (event.pointerType === 'mouse') setDragging(false);
   };
 
   return (
     <div className="before-after__card">
       <div
-        className={`before-after__image${isActive ? ' is-active' : ''}`}
-        ref={imageRef}
+        className={`before-after__image${dragging ? ' is-active' : ''}`}
+        ref={frameRef}
         onPointerMove={handlePointerMove}
         onPointerDown={handlePointerDown}
-        onPointerUp={endDrag}
-        onPointerCancel={endDrag}
+        onPointerUp={stopDragging}
+        onPointerCancel={stopDragging}
         onPointerEnter={handlePointerEnter}
         onPointerLeave={handlePointerLeave}
       >
         <img
-          className="before-after__photo before-after__photo--base"
+          className="before-after__photo"
           src={item.beforeImage}
           alt={`${item.name} antes`}
           draggable={false}
         />
         <img
-          className="before-after__photo before-after__photo--reveal"
+          className="before-after__photo"
           src={item.afterImage}
           alt={`${item.name} depois`}
           draggable={false}
@@ -101,7 +95,7 @@ function BeforeAfterCard({ item, beforeLabel, afterLabel }) {
         <span className="before-after__badge before-after__badge--right">{afterLabel}</span>
 
         <div className="before-after__handle" style={{ left: `${position}%` }}>
-          <SliderHandle hideKnob={isActive} />
+          <SliderHandle hideKnob={dragging} />
         </div>
       </div>
 
