@@ -8,11 +8,14 @@
     "build": "vite build"
   },
   "dependencies": {
+    "@base44/sdk": "^0.8.51",
+    "@base44/vite-plugin": "^1.0.42",
     "@vitejs/plugin-react": "latest",
     "framer-motion": "^13.4.3",
     "lucide-react": "^1.48.0",
     "react": "latest",
     "react-dom": "latest",
+    "react-router-dom": "^7.18.4",
     "vite": "latest"
   }
 }

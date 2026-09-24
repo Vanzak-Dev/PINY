@@ -17,6 +17,18 @@
       "name": "YAMPI_SECRET_KEY",
       "description": "Secret Key da Yampi (painel > Configurações > API > User-Secret-Key).",
       "requiredAtBoot": false
+    },
+    {
+      "name": "VITE_BASE44_APP_ID",
+      "description": "ID do app Base44 (encontrado na URL do editor Base44, entre /apps/ e /editor/). Necessário para o SDK Base44 funcionar (Skin Analysis, InvokeLLM, GenerateImage, etc.).",
+      "requiredAtBoot": false,
+      "generatedForDevelopment": true
+    },
+    {
+      "name": "VITE_BASE44_FUNCTIONS_VERSION",
+      "description": "Versão das functions do Base44 (padrão: v1).",
+      "requiredAtBoot": false,
+      "generatedForDevelopment": true
     }
   ]
 }
