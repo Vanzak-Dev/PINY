@@ -1,0 +1,52 @@
+{
+  "name": "SkinAnalysisData",
+  "type": "object",
+  "properties": {
+    "selfie_url": {
+      "type": "string",
+      "description": "URL da selfie analisada"
+    },
+    "scores": {
+      "type": "object",
+      "description": "Scores da análise de pele (0-10)",
+      "properties": {
+        "acne": { "type": "number" },
+        "manchas": { "type": "number" },
+        "poros": { "type": "number" },
+        "oleosidade": { "type": "number" },
+        "vermelhidao": { "type": "number" },
+        "textura": { "type": "number" }
+      }
+    },
+    "condicoes_identificadas": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Condições identificadas na pele"
+    },
+    "tipo_pele": {
+      "type": "string",
+      "description": "Tipo de pele: oleosa, mista, seca, sensível, normal"
+    },
+    "gravidade_geral": {
+      "type": "string",
+      "description": "Gravidade: leve, moderada, severa"
+    },
+    "top_problem": {
+      "type": "string",
+      "description": "Maior problema da pele baseado no score mais alto"
+    },
+    "top_score": {
+      "type": "number",
+      "description": "Valor do score mais alto"
+    },
+    "observacoes": {
+      "type": "string",
+      "description": "Observações adicionais da IA"
+    }
+  },
+  "required": [
+    "selfie_url",
+    "scores",
+    "top_problem"
+  ]
+}
