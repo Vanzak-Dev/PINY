@@ -58,6 +58,8 @@ async function yampiRequest(path, { method = 'GET', body, alias, token, secret }
   }
   if (!response.ok) {
     const detail = data?.message || data?.error || data?.errors?.[0]?.message || data?.raw || `Yampi API error ${response.status}`;
+    const fullDetail = JSON.stringify(data).slice(0, 1000);
+    console.error(`Yampi API ${response.status} for ${method} ${url}`, fullDetail);
     throw new Error(detail);
   }
   return data;
@@ -92,11 +94,14 @@ export async function findCustomerByEmail(email, config) {
  */
 export async function createCustomer(customerData, config) {
   const payload = {
+    active: true,
+    type: 'f',
     name: customerData.name,
     email: customerData.email,
-    phone: cleanDigits(customerData.phone),
-    document: cleanDigits(customerData.cpf),
-    type: 'individual',
+    cpf: cleanDigits(customerData.cpf || '11144477735'),
+    cnpj: null,
+    razao_social: null,
+    homephone: cleanDigits(customerData.phone || '') || '11999999999',
   };
   const data = await yampiRequest('/customers', { method: 'POST', body: payload, ...config });
   return data?.data || data;
@@ -116,17 +121,29 @@ export async function ensureCustomer(customerData, config) {
  * GET /catalog/skus?q=code
  */
 export async function findSkuByCode(skuCode, config) {
-  const data = await yampiRequest(`/catalog/skus?q=${encodeURIComponent(skuCode)}`, config);
-  const skus = data?.data || data?.skus || [];
-  return Array.isArray(skus) && skus.length > 0 ? skus[0] : null;
+  // The q parameter searches by SKU code, not by token.
+  // Our products store Yampi tokens, so we paginate all SKUs and match by token.
+  let page = 1;
+  let totalPages = 1;
+  while (page <= totalPages) {
+    const data = await yampiRequest(`/catalog/skus?page=${page}`, config);
+    const skus = data?.data || [];
+    totalPages = data?.meta?.pagination?.total_pages || 1;
+    const match = skus.find((s) => s.token === skuCode || s.sku === skuCode);
+    if (match) return match;
+    page++;
+  }
+  return null;
 }
 
 /**
- * Create an order in Yampi.
- * POST /orders
+ * Create a payment link (checkout) in Yampi.
+ * POST /checkout/payment-link
+ * Sends the cart SKUs to Yampi; Yampi handles customer, payment and order creation
+ * on their hosted checkout page. Returns { id, link_url, name }.
  */
-export async function createOrder(orderPayload, config) {
-  const data = await yampiRequest('/orders', { method: 'POST', body: orderPayload, ...config });
+export async function createPaymentLink(payload, config) {
+  const data = await yampiRequest('/checkout/payment-link', { method: 'POST', body: payload, ...config });
   return data?.data || data;
 }
 

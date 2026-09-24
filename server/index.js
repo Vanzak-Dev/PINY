@@ -4,7 +4,7 @@ import path from 'node:path';
 import { mkdir } from 'node:fs/promises';
 import { changePassword, createSession, parseCookies, readSession, verifyCredentials } from './lib/auth.js';
 import { ensureCatalog, ensureCollections, ensureSiteSettings, normalizeCollection, normalizeProduct, normalizeProductReview, normalizeReview, readCollections, readProductReviews, readProducts, readReviews, readSiteSettings, saveCollections, saveProductReviews, saveProducts, saveReviews, saveSiteSettings } from './lib/store.js';
-import { getYampiConfig, ensureCustomer, findSkuByCode, createOrder, findCustomersByCpf, listOrdersByCustomer, getOrderDetails, extractLocalizedString, cleanDigits } from './lib/yampi.js';
+import { getYampiConfig, findSkuByCode, createPaymentLink, findCustomersByCpf, listOrdersByCustomer, getOrderDetails, extractLocalizedString } from './lib/yampi.js';
 import { readOrders, upsertOrder, findOrderByYampiId } from './lib/orders.js';
 
 const port = Number(process.env.PORT || 8000);
@@ -327,85 +327,6 @@ app.delete('/api/admin/products/:id', async (request, response) => {
 // ─── Yampi integration ────────────────────────────────────────────
 
 /**
- * POST /api/yampi/orders
- * Body: { customerData, productData }
- * Creates a customer (if needed), finds the SKU, creates a Yampi order,
- * and saves a local Order record with status "pending".
- */
-app.post('/api/yampi/orders', async (request, response) => {
-  try {
-    const config = getYampiConfig();
-    const { customerData, productData } = request.body;
-
-    if (!customerData?.email || !customerData?.name) {
-      return response.status(400).json({ error: 'customerData deve conter name e email.' });
-    }
-    if (!productData?.sku) {
-      return response.status(400).json({ error: 'productData deve conter o sku (código do SKU).' });
-    }
-
-    // 1. Find or create customer
-    const customer = await ensureCustomer(customerData, config);
-
-    // 2. Find SKU by code
-    const sku = await findSkuByCode(productData.sku, config);
-    if (!sku) {
-      return response.status(404).json({ error: `SKU "${productData.sku}" não encontrado na Yampi.` });
-    }
-
-    const quantity = Math.max(1, Number(productData.quantity || 1));
-    const productId = sku.product_id || sku.productId;
-    const skuId = sku.id || sku.sku_id;
-
-    // 3. Create order in Yampi
-    const orderPayload = {
-      customer_id: customer.id,
-      status: 'waiting_payment',
-      items: [
-        {
-          product_id: productId,
-          sku_id: skuId,
-          quantity,
-        },
-      ],
-      shipping_address: customerData.shippingAddress || {},
-    };
-    const yampiOrder = await createOrder(orderPayload, config);
-
-    // 4. Save local Order record
-    const checkoutUrl = yampiOrder?.checkout_url || yampiOrder?.checkout?.url || '';
-    const yampiOrderId = String(yampiOrder?.id || yampiOrder?.order?.id || '');
-    const productName = extractLocalizedString(sku.name) || productData.name || '';
-    const totalPrice = Number(yampiOrder?.total || yampiOrder?.amount || productData.price * quantity || 0);
-
-    const localOrder = await upsertOrder({
-      customer_name: customerData.name,
-      customer_email: customerData.email,
-      customer_phone: customerData.phone || '',
-      customer_cpf: customerData.cpf || '',
-      shipping_address: customerData.shippingAddress || {},
-      product_name: productName,
-      quantity,
-      total_price: totalPrice,
-      yampi_order_id: yampiOrderId,
-      yampi_checkout_url: checkoutUrl,
-      status: 'pending',
-      payment_method: yampiOrder?.payment_method || '',
-    });
-
-    response.status(201).json({
-      success: true,
-      order_id: localOrder.id,
-      yampi_order_id: yampiOrderId,
-      checkout_url: checkoutUrl,
-    });
-  } catch (error) {
-    console.error('createYampiOrder error:', error.message);
-    response.status(500).json({ success: false, error: error.message });
-  }
-});
-
-/**
  * POST /api/yampi/lookup
  * Body: { cpf }
  * Searches Yampi customers by CPF, fetches their orders,
@@ -549,64 +470,47 @@ app.post('/api/yampi/webhook', async (request, response) => {
 
 /**
  * POST /api/yampi/checkout
- * Body: { items: [{ sku, quantity, name, price }], customerData? }
- * Creates a single Yampi order with all cart items and returns the checkout URL.
- * If customerData is omitted, a minimal test customer is used.
+ * Body: { items: [{ sku, quantity, name }] }
+ * Resolves each cart item's SKU in Yampi, creates a Payment Link (checkout)
+ * and returns the link_url. Yampi handles customer data, payment and order
+ * creation on their hosted checkout page — we just redirect the user there.
  */
 app.post('/api/yampi/checkout', async (request, response) => {
   try {
     const config = getYampiConfig();
-    const { items, customerData } = request.body;
+    const { items } = request.body;
 
     if (!Array.isArray(items) || items.length === 0) {
       return response.status(400).json({ error: 'Carrinho vazio. Adicione produtos antes de finalizar.' });
     }
 
-    // 1. Find or create customer (use test data if not provided)
-    const customer = customerData?.email
-      ? await ensureCustomer(customerData, config)
-      : await ensureCustomer({ name: 'Cliente Checkout', email: `checkout-${Date.now()}@piny.com.br` }, config);
-
-    // 2. Resolve all SKUs
-    const orderItems = [];
+    // 1. Resolve all SKUs to get their Yampi IDs
+    const skus = [];
     for (const item of items) {
       const sku = await findSkuByCode(item.sku, config);
       if (!sku) {
         return response.status(404).json({ error: `SKU "${item.sku}" não encontrado na Yampi.` });
       }
-      orderItems.push({
-        product_id: sku.product_id || sku.productId,
-        sku_id: sku.id || sku.sku_id,
+      skus.push({
+        id: sku.id || sku.sku_id,
         quantity: Math.max(1, Number(item.quantity || 1)),
       });
     }
 
-    // 3. Create order in Yampi with all items
-    const yampiOrder = await createOrder({
-      customer_id: customer.id,
-      status: 'waiting_payment',
-      items: orderItems,
+    // 2. Create a payment link — Yampi handles the rest (customer, payment, order)
+    const paymentLink = await createPaymentLink({
+      name: `Checkout PINY ${Date.now()}`,
+      active: true,
+      skus,
     }, config);
 
-    const checkoutUrl = yampiOrder?.checkout_url || yampiOrder?.checkout?.url || '';
-    const yampiOrderId = String(yampiOrder?.id || yampiOrder?.order?.id || '');
+    const checkoutUrl = paymentLink?.link_url || '';
 
-    // 4. Save local Order record
-    await upsertOrder({
-      customer_name: customerData?.name || customer.name || '',
-      customer_email: customerData?.email || customer.email || '',
-      customer_phone: customerData?.phone || '',
-      customer_cpf: customerData?.cpf || '',
-      shipping_address: customerData?.shippingAddress || {},
-      product_name: items.map((i) => i.name).filter(Boolean).join(', '),
-      quantity: items.reduce((sum, i) => sum + Number(i.quantity || 0), 0),
-      total_price: Number(yampiOrder?.total || yampiOrder?.amount || 0),
-      yampi_order_id: yampiOrderId,
-      yampi_checkout_url: checkoutUrl,
-      status: 'pending',
-    });
+    if (!checkoutUrl) {
+      return response.status(500).json({ error: 'Yampi não retornou uma URL de checkout.' });
+    }
 
-    response.json({ success: true, checkout_url: checkoutUrl, yampi_order_id: yampiOrderId });
+    response.json({ success: true, checkout_url: checkoutUrl });
   } catch (error) {
     console.error('yampiCheckout error:', error.message);
     response.status(500).json({ success: false, error: error.message });
