@@ -29,7 +29,7 @@
   border: none;
   cursor: pointer;
   padding: 0;
-  opacity: var(--scroll, 1);
+  opacity: 1;
   z-index: 1;
 }
 
@@ -42,7 +42,7 @@
 .site-header__logo {
   display: flex;
   align-items: center;
-  opacity: var(--scroll, 1);
+  opacity: 1;
   text-decoration: none;
   position: absolute;
   left: 50%;
@@ -57,14 +57,14 @@
 
 .site-header__nav {
   display: none;
-  opacity: var(--scroll, 1);
+  opacity: 1;
 }
 
 .site-header__actions {
   display: flex;
   align-items: center;
   gap: 16px;
-  opacity: var(--scroll, 1);
+  opacity: 1;
   z-index: 1;
 }
 
