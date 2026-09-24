@@ -6,7 +6,6 @@ import blobBottomLeft from '../../assets/images/ai-analysis/ai-analysis-jar-bott
 import './AiAnalysisSection.css';
 
 const DEFAULT_ACCENT = '#FFBD35';
-const PDP_ACCENT = '#1C8C44';
 
 const BLOBS = [
   { key: 'a', src: blobTopRight },
@@ -30,7 +29,7 @@ function AiAnalysisDecor({ variant }) {
 }
 
 export default function AiAnalysisSection({ product }) {
-  const accentColor = product ? PDP_ACCENT : DEFAULT_ACCENT;
+  const accentColor = product?.backgroundColor || DEFAULT_ACCENT;
 
   return (
     <section
