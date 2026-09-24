@@ -186,7 +186,7 @@
 
   .how-to-use__layout {
     flex-direction: row;
-    align-items: center;
+    align-items: stretch;
     justify-content: center;
     gap: 20px;
     max-width: var(--page-width, 1400px);
@@ -227,6 +227,7 @@
     flex: 1;
     max-width: 520px;
     gap: 32px;
+    justify-content: center;
   }
 
   .how-to-use__badge {
@@ -237,6 +238,8 @@
   .how-to-use__card {
     border-radius: 32px;
     padding: 48px 40px;
+    flex: 1;
+    justify-content: center;
   }
 
   .how-to-use__step-text {
