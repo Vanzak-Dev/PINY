@@ -29,8 +29,8 @@ export default function HowToUseSection() {
 
           {/* Center card */}
           <div className="how-to-use__center">
+            <img className="how-to-use__badge" src={badgeSvg} alt="Como usar?" />
             <div className="how-to-use__card">
-              <img className="how-to-use__badge" src={badgeSvg} alt="Como usar?" />
               {steps.map((step, i) => (
                 <div className="how-to-use__step" key={step.number}>
                   <div className="how-to-use__step-number">{step.number}</div>

@@ -2,7 +2,7 @@
 .how-to-use {
   width: 100%;
   background-color: #fef8dd;
-  background-size: 200px;
+  background-size: 1500px;
   background-repeat: repeat;
   padding: 48px 16px;
   display: flex;
@@ -37,7 +37,7 @@
 .how-to-use__badge {
   width: 220px;
   height: auto;
-  margin: 0 auto 24px;
+  margin: 0 auto;
 }
 
 .how-to-use__card {
@@ -145,7 +145,7 @@
 
   .how-to-use__badge {
     width: 280px;
-    margin: 0 auto 28px;
+    margin: 0 auto;
   }
 
   .how-to-use__card {
@@ -235,7 +235,7 @@
 
   .how-to-use__badge {
     width: 320px;
-    margin: 0 auto 32px;
+    margin: 0 auto;
   }
 
   .how-to-use__card {
