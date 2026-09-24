@@ -8,6 +8,7 @@ import ProductCarouselSection from "../sections/product/ProductCarouselSection";
 import PineappleFeatureSection from "../sections/brand/PineappleFeatureSection";
 import UgcReviewsSection from "../sections/ugc/UgcReviewsSection";
 import FeaturedCollectionSection from "../sections/home/FeaturedCollectionSection";
+import ProductBeforeAfterSection from "../sections/product/ProductBeforeAfterSection";
 import { useProducts } from "../hooks/useProducts";
 import { useCart } from "../hooks/useCart";
 
@@ -16,6 +17,8 @@ export default function Home() {
   const [featuredProductId, setFeaturedProductId] = useState(null);
   const { products, error } = useProducts();
   const { addItem } = useCart();
+
+  const beforeAfterProduct = products.find((p) => p.beforeAfterEnabled);
 
   const handleAdd = (product) => {
     addItem(product);
@@ -39,6 +42,7 @@ export default function Home() {
       />
       <ProductCategoriesSection products={products} onAdd={handleAdd} />
       <FeaturedCollectionSection products={products} onAdd={handleAdd} />
+      {beforeAfterProduct && <ProductBeforeAfterSection product={beforeAfterProduct} />}
       <div className="testimonials-backdrop">
         <TestimonialsSection />
       </div>
