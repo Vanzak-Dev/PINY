@@ -252,6 +252,7 @@ export function normalizeProduct(input, current = {}) {
         quantity: Math.max(1, Math.round(number(option?.quantity, 1))),
         price: Math.max(0, number(option?.price, 0)),
         discountLabel: String(option?.discountLabel || '').trim(),
+        image: String(option?.image ?? '').trim(),
       }))
       .filter((option) => option.price > 0),
     crossSellIds: [...new Set(array(input.crossSellIds, current.crossSellIds ?? []).map(String).filter(Boolean))],

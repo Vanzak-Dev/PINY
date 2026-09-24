@@ -89,6 +89,12 @@
   z-index: 2;
 }
 
+.quantity-option__icon--single {
+  width: 72px;
+  height: 72px;
+  z-index: 2;
+}
+
 .quantity-option__label {
   display: flex;
   flex-direction: column;
@@ -173,6 +179,11 @@
 
   .quantity-option__icons--3 .quantity-option__icon:nth-child(2) {
     left: calc(50% + 18px);
+  }
+
+  .quantity-option__icon--single {
+    width: clamp(44px, 14vw, 58px);
+    height: clamp(44px, 14vw, 58px);
   }
 
   .quantity-option__label strong {

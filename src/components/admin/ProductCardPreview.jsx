@@ -23,6 +23,7 @@ export default function ProductCardPreview({ values, products = [], imagePreview
       ...option,
       quantity: Number(option.quantity) || 1,
       price: Number(option.price) || Number(values.price) || 0,
+      image: option.image || '',
     })),
   };
   const crossSellProducts = (values.crossSellIds || [])

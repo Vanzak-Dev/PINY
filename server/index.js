@@ -73,7 +73,27 @@ function bodyWithUploads(request, current = {}) {
     presentationBackgroundImage: files.presentationBackgroundFile?.[0] ? `/api/uploads/${files.presentationBackgroundFile[0].filename}` : request.body.presentationBackgroundImage || current.presentationBackgroundImage,
     presentationMobileBackgroundImage: files.presentationMobileBackgroundFile?.[0] ? `/api/uploads/${files.presentationMobileBackgroundFile[0].filename}` : request.body.presentationMobileBackgroundImage || current.presentationMobileBackgroundImage,
     presentationProductImage: files.presentationProductFile?.[0] ? `/api/uploads/${files.presentationProductFile[0].filename}` : request.body.presentationProductImage || current.presentationProductImage,
+    quantityOptions: mergeQuantityOptionImages(request, current),
   };
+}
+
+function mergeQuantityOptionImages(request, current = {}) {
+  const files = request.files || {};
+  let options;
+  try {
+    options = typeof request.body.quantityOptions === 'string'
+      ? JSON.parse(request.body.quantityOptions)
+      : request.body.quantityOptions;
+  } catch {
+    options = current.quantityOptions ?? [];
+  }
+  if (!Array.isArray(options)) options = [];
+  return options.map((option, index) => {
+    const fileKey = `quantityOptionImageFile_${index}`;
+    const file = files[fileKey]?.[0];
+    if (file) return { ...option, image: `/api/uploads/${file.filename}` };
+    return option;
+  });
 }
 
 function validateProduct(product) {
@@ -272,6 +292,16 @@ const productUpload = upload.fields([
   { name: 'presentationBackgroundFile', maxCount: 1 },
   { name: 'presentationMobileBackgroundFile', maxCount: 1 },
   { name: 'presentationProductFile', maxCount: 1 },
+  { name: 'quantityOptionImageFile_0', maxCount: 1 },
+  { name: 'quantityOptionImageFile_1', maxCount: 1 },
+  { name: 'quantityOptionImageFile_2', maxCount: 1 },
+  { name: 'quantityOptionImageFile_3', maxCount: 1 },
+  { name: 'quantityOptionImageFile_4', maxCount: 1 },
+  { name: 'quantityOptionImageFile_5', maxCount: 1 },
+  { name: 'quantityOptionImageFile_6', maxCount: 1 },
+  { name: 'quantityOptionImageFile_7', maxCount: 1 },
+  { name: 'quantityOptionImageFile_8', maxCount: 1 },
+  { name: 'quantityOptionImageFile_9', maxCount: 1 },
 ]);
 app.post('/api/admin/products', productUpload, async (request, response) => {
   const products = await readProducts();
