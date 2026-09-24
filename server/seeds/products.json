@@ -3,7 +3,7 @@
     "id": "argila-preta-1",
     "name": "Argila Preta",
     "slug": "argila-preta-1",
-    "sku": "LEU33RYIBB",
+    "sku": "SOJB5FC83R",
     "status": "active",
     "featured": true,
     "category": "Máscaras faciais",
@@ -42,12 +42,36 @@
     "comparisonImage4": "/catalog-assets/comparison-image-4.webp",
     "comparisonProductIcon": "/catalog-assets/comparison-product-icon.png",
     "comparisonRows": [
-      { "label": "12 combinações diferentes", "piny": "check", "other": "x" },
-      { "label": "Booster concentrado 2 em 1", "piny": "check", "other": "x" },
-      { "label": "Análise de pele por IA", "piny": "check", "other": "x" },
-      { "label": "Garantia de 21 dias", "piny": "check", "other": "x" },
-      { "label": "Ácido salicílico + glicólico de fábrica", "piny": "check", "other": "Raro" },
-      { "label": "Vegano e cruelty free", "piny": "check", "other": "Nem Sempre" }
+      {
+        "label": "12 combinações diferentes",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Booster concentrado 2 em 1",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Análise de pele por IA",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Garantia de 21 dias",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Ácido salicílico + glicólico de fábrica",
+        "piny": "check",
+        "other": "Raro"
+      },
+      {
+        "label": "Vegano e cruelty free",
+        "piny": "check",
+        "other": "Nem Sempre"
+      }
     ],
     "createdAt": "2026-09-09T00:00:00.000Z",
     "updatedAt": "2026-09-09T00:00:00.000Z",
@@ -57,7 +81,7 @@
     "id": "argila-rosa",
     "name": "Argila Rosa",
     "slug": "argila-rosa",
-    "sku": "EKZP645WYJ",
+    "sku": "KHXFRQX3HU",
     "status": "active",
     "featured": true,
     "category": "Máscaras faciais",
@@ -96,12 +120,36 @@
     "comparisonImage4": "/catalog-assets/comparison-image-4.webp",
     "comparisonProductIcon": "/catalog-assets/comparison-product-icon.png",
     "comparisonRows": [
-      { "label": "12 combinações diferentes", "piny": "check", "other": "x" },
-      { "label": "Booster concentrado 2 em 1", "piny": "check", "other": "x" },
-      { "label": "Análise de pele por IA", "piny": "check", "other": "x" },
-      { "label": "Garantia de 21 dias", "piny": "check", "other": "x" },
-      { "label": "Ácido salicílico + glicólico de fábrica", "piny": "check", "other": "Raro" },
-      { "label": "Vegano e cruelty free", "piny": "check", "other": "Nem Sempre" }
+      {
+        "label": "12 combinações diferentes",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Booster concentrado 2 em 1",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Análise de pele por IA",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Garantia de 21 dias",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Ácido salicílico + glicólico de fábrica",
+        "piny": "check",
+        "other": "Raro"
+      },
+      {
+        "label": "Vegano e cruelty free",
+        "piny": "check",
+        "other": "Nem Sempre"
+      }
     ],
     "createdAt": "2026-09-09T00:00:00.000Z",
     "updatedAt": "2026-09-09T00:00:00.000Z",
@@ -111,7 +159,7 @@
     "id": "argila-branca",
     "name": "Argila Branca",
     "slug": "argila-branca",
-    "sku": "C8OIOHNVIF",
+    "sku": "G2BHBD67VW",
     "status": "active",
     "featured": true,
     "category": "Máscaras faciais",
@@ -150,12 +198,36 @@
     "comparisonImage4": "/catalog-assets/comparison-image-4.webp",
     "comparisonProductIcon": "/catalog-assets/comparison-product-icon.png",
     "comparisonRows": [
-      { "label": "12 combinações diferentes", "piny": "check", "other": "x" },
-      { "label": "Booster concentrado 2 em 1", "piny": "check", "other": "x" },
-      { "label": "Análise de pele por IA", "piny": "check", "other": "x" },
-      { "label": "Garantia de 21 dias", "piny": "check", "other": "x" },
-      { "label": "Ácido salicílico + glicólico de fábrica", "piny": "check", "other": "Raro" },
-      { "label": "Vegano e cruelty free", "piny": "check", "other": "Nem Sempre" }
+      {
+        "label": "12 combinações diferentes",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Booster concentrado 2 em 1",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Análise de pele por IA",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Garantia de 21 dias",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Ácido salicílico + glicólico de fábrica",
+        "piny": "check",
+        "other": "Raro"
+      },
+      {
+        "label": "Vegano e cruelty free",
+        "piny": "check",
+        "other": "Nem Sempre"
+      }
     ],
     "createdAt": "2026-09-09T00:00:00.000Z",
     "updatedAt": "2026-09-09T00:00:00.000Z",
@@ -198,7 +270,7 @@
     "id": "argila-verde",
     "name": "Argila Verde",
     "slug": "argila-verde",
-    "sku": "IM13EISJM8",
+    "sku": "NEJ1V72MF9",
     "status": "active",
     "featured": true,
     "category": "Máscaras faciais",
@@ -237,12 +309,36 @@
     "comparisonImage4": "/catalog-assets/comparison-image-4.webp",
     "comparisonProductIcon": "/catalog-assets/comparison-product-icon.png",
     "comparisonRows": [
-      { "label": "12 combinações diferentes", "piny": "check", "other": "x" },
-      { "label": "Booster concentrado 2 em 1", "piny": "check", "other": "x" },
-      { "label": "Análise de pele por IA", "piny": "check", "other": "x" },
-      { "label": "Garantia de 21 dias", "piny": "check", "other": "x" },
-      { "label": "Ácido salicílico + glicólico de fábrica", "piny": "check", "other": "Raro" },
-      { "label": "Vegano e cruelty free", "piny": "check", "other": "Nem Sempre" }
+      {
+        "label": "12 combinações diferentes",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Booster concentrado 2 em 1",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Análise de pele por IA",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Garantia de 21 dias",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Ácido salicílico + glicólico de fábrica",
+        "piny": "check",
+        "other": "Raro"
+      },
+      {
+        "label": "Vegano e cruelty free",
+        "piny": "check",
+        "other": "Nem Sempre"
+      }
     ],
     "createdAt": "2026-09-09T00:00:00.000Z",
     "updatedAt": "2026-09-09T00:00:00.000Z",
@@ -252,7 +348,7 @@
     "id": "argila-preta-2",
     "name": "Argila Preta",
     "slug": "argila-preta-2",
-    "sku": "LEU33RYIBB",
+    "sku": "JSEBHIAZON",
     "status": "active",
     "featured": true,
     "category": "Máscaras faciais",
@@ -291,12 +387,36 @@
     "comparisonImage4": "/catalog-assets/comparison-image-4.webp",
     "comparisonProductIcon": "/catalog-assets/comparison-product-icon.png",
     "comparisonRows": [
-      { "label": "12 combinações diferentes", "piny": "check", "other": "x" },
-      { "label": "Booster concentrado 2 em 1", "piny": "check", "other": "x" },
-      { "label": "Análise de pele por IA", "piny": "check", "other": "x" },
-      { "label": "Garantia de 21 dias", "piny": "check", "other": "x" },
-      { "label": "Ácido salicílico + glicólico de fábrica", "piny": "check", "other": "Raro" },
-      { "label": "Vegano e cruelty free", "piny": "check", "other": "Nem Sempre" }
+      {
+        "label": "12 combinações diferentes",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Booster concentrado 2 em 1",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Análise de pele por IA",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Garantia de 21 dias",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Ácido salicílico + glicólico de fábrica",
+        "piny": "check",
+        "other": "Raro"
+      },
+      {
+        "label": "Vegano e cruelty free",
+        "piny": "check",
+        "other": "Nem Sempre"
+      }
     ],
     "createdAt": "2026-09-09T00:00:00.000Z",
     "updatedAt": "2026-09-09T00:00:00.000Z",
