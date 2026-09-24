@@ -100,8 +100,8 @@
   }
 
   .product-card:not(.product-card--motion-locked):hover .product-card__image {
-    width: 140.716px;
-    height: 140.716px;
+    width: var(--product-image-active-size, 15.737708vw);
+    height: var(--product-image-active-size, 15.737708vw);
     transform: translate(-50%, -50%) rotate(var(--image-active-rotation, 15deg));
   }
 
