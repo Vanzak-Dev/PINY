@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
-import { featuredProducts } from '../data/products';
 import { catalogApi } from '../services/catalogApi';
 
 export function useProducts({ featuredOnly = true } = {}) {
-  const [products, setProducts] = useState(featuredOnly ? featuredProducts : []);
+  const [products, setProducts] = useState([]);
   const [error, setError] = useState('');
 
   const loadProducts = useCallback(() => {
