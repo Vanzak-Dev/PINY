@@ -318,6 +318,14 @@ export function normalizeProduct(input, current = {}) {
       .filter((row) => row.label),
     activesEnabled: boolean(input.activesEnabled, current.activesEnabled ?? true),
     activesProductImage: String(input.activesProductImage ?? current.activesProductImage ?? '').trim(),
+    benefitsEnabled: boolean(input.benefitsEnabled, current.benefitsEnabled ?? true),
+    benefitsPatternImage: String(input.benefitsPatternImage ?? current.benefitsPatternImage ?? '').trim(),
+    benefitsItems: array(input.benefitsItems, current.benefitsItems ?? [])
+      .map((item) => ({
+        icon: String(item?.icon || '').trim(),
+        label: String(item?.label || '').trim(),
+      }))
+      .filter((item) => item.label),
     activesTextureImage: String(input.activesTextureImage ?? current.activesTextureImage ?? '').trim(),
     activesBrushImage: String(input.activesBrushImage ?? current.activesBrushImage ?? '').trim(),
     activesCallouts: array(input.activesCallouts, current.activesCallouts ?? [])

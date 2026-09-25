@@ -73,7 +73,7 @@ export default function ProductPage({ productIdentifier }) {
             onAdd={handleAdd}
           />
           {product.activesEnabled !== false && <ProductActivesSection product={product} />}
-          <ProductBenefitsSection />
+          {product.benefitsEnabled !== false && <ProductBenefitsSection product={product} />}
           <ProductBoosterSection onAdd={handleAdd} />
           <Journey21DaysSection />
           <HowToUseSection />

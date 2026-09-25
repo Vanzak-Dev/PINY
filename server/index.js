@@ -79,6 +79,17 @@ function bodyWithUploads(request, current = {}) {
     activesProductImage: files.activesProductFile?.[0] ? `/api/uploads/${files.activesProductFile[0].filename}` : request.body.activesProductImage || current.activesProductImage,
     activesTextureImage: files.activesTextureFile?.[0] ? `/api/uploads/${files.activesTextureFile[0].filename}` : request.body.activesTextureImage || current.activesTextureImage,
     activesBrushImage: files.activesBrushFile?.[0] ? `/api/uploads/${files.activesBrushFile[0].filename}` : request.body.activesBrushImage || current.activesBrushImage,
+    benefitsPatternImage: files.benefitsPatternFile?.[0] ? `/api/uploads/${files.benefitsPatternFile[0].filename}` : request.body.benefitsPatternImage || current.benefitsPatternImage,
+    benefitsItems: (() => {
+      try {
+        const items = JSON.parse(request.body.benefitsItems || '[]');
+        for (let i = 0; i < 8; i++) {
+          const file = files[`benefitIconFile_${i}`]?.[0];
+          if (file && items[i]) items[i].icon = `/api/uploads/${file.filename}`;
+        }
+        return JSON.stringify(items);
+      } catch { return request.body.benefitsItems || '[]'; }
+    })(),
   };
 }
 
@@ -284,6 +295,15 @@ const productUpload = upload.fields([
   { name: 'activesProductFile', maxCount: 1 },
   { name: 'activesTextureFile', maxCount: 1 },
   { name: 'activesBrushFile', maxCount: 1 },
+  { name: 'benefitsPatternFile', maxCount: 1 },
+  { name: 'benefitIconFile_0', maxCount: 1 },
+  { name: 'benefitIconFile_1', maxCount: 1 },
+  { name: 'benefitIconFile_2', maxCount: 1 },
+  { name: 'benefitIconFile_3', maxCount: 1 },
+  { name: 'benefitIconFile_4', maxCount: 1 },
+  { name: 'benefitIconFile_5', maxCount: 1 },
+  { name: 'benefitIconFile_6', maxCount: 1 },
+  { name: 'benefitIconFile_7', maxCount: 1 },
 ]);
 app.post('/api/admin/products', productUpload, async (request, response) => {
   const products = await readProducts();

@@ -46,6 +46,13 @@ const emptyProduct = {
     { title: 'Extrato de Abacaxi', lines: ['O símbolo da PINY'] },
     { title: 'Salicílico + Glicólico', lines: ['Motor antiacne', 'de fábrica'] },
   ],
+  benefitsEnabled: true, benefitsPatternImage: '',
+  benefitsItems: [
+    { icon: '', label: 'Trata marcas e manchas' },
+    { icon: '', label: 'Absorve a\nOleosidade' },
+    { icon: '', label: 'Uniformiza o\ntom de pele' },
+    { icon: '', label: 'Best-Seller:\n+200mil Vendas' },
+  ],
 };
 
 const comparisonValueOptions = [
@@ -77,6 +84,8 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
   const [activesProductFile, setActivesProductFile] = useState(null);
   const [activesTextureFile, setActivesTextureFile] = useState(null);
   const [activesBrushFile, setActivesBrushFile] = useState(null);
+  const [benefitsPatternFile, setBenefitsPatternFile] = useState(null);
+  const [benefitIconFiles, setBenefitIconFiles] = useState({});
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const imagePreview = useObjectUrl(imageFile);
@@ -100,6 +109,7 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
     setPresentationBackgroundFile(null); setPresentationMobileBackgroundFile(null); setPresentationProductFile(null);
     setQuantityOptionIconFile(null);
     setActivesProductFile(null); setActivesTextureFile(null); setActivesBrushFile(null);
+    setBenefitsPatternFile(null); setBenefitIconFiles({});
     setError('');
   }, [product]);
 
@@ -149,6 +159,8 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
     if (activesProductFile) data.append('activesProductFile', activesProductFile);
     if (activesTextureFile) data.append('activesTextureFile', activesTextureFile);
     if (activesBrushFile) data.append('activesBrushFile', activesBrushFile);
+    if (benefitsPatternFile) data.append('benefitsPatternFile', benefitsPatternFile);
+    Object.entries(benefitIconFiles).forEach(([index, file]) => { if (file) data.append(`benefitIconFile_${index}`, file); });
     try { await onSave(data); }
     catch (requestError) { setError(requestError.message); }
     finally { setSaving(false); }
@@ -331,6 +343,25 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
               <label>Título<input value={callout.title} onChange={(e) => changeCollectionItem('activesCallouts', index, 'title', e.target.value)} placeholder="Ex.: Caulim" /></label>
               <label>Linhas (uma por linha)<textarea rows="3" value={callout.lines.join('\n')} onChange={(e) => changeCollectionItem('activesCallouts', index, 'lines', e.target.value.split('\n'))} placeholder="A argila mais suave,&#10;absorve sem irritar" /></label>
               <button type="button" className="admin-repeater__remove" onClick={() => removeCollectionItem('activesCallouts', index)} aria-label={`Remover ativo ${index + 1}`}>×</button>
+            </div>
+          ))}
+        </div>
+      </section>
+      <section className="admin-form__section">
+        <div className="admin-form__section-heading">
+          <div><h3>Benefícios (product-benefits)</h3><small>Imagem de fundo, ícones e textos dos benefícios exibidos na página do produto.</small></div>
+        </div>
+        <label className="admin-check"><input type="checkbox" checked={values.benefitsEnabled} onChange={(e) => change('benefitsEnabled', e.target.checked)} /> Exibir esta seção na página do produto</label>
+        <label>Upload imagem de fundo (product-benefits__pattern)<input type="file" accept="image/*" onChange={(e) => setBenefitsPatternFile(e.target.files[0])} />{values.benefitsPatternImage && <small>Atual: {values.benefitsPatternImage}</small>}</label>
+        <div className="admin-repeater">
+          <div className="admin-repeater__heading"><strong>Itens de benefício</strong><button type="button" className="admin-button" onClick={() => addCollectionItem('benefitsItems', { icon: '', label: '' })}>Adicionar benefício</button></div>
+          {values.benefitsItems.length === 0 && <small>Nenhum benefício cadastrado.</small>}
+          {values.benefitsItems.map((benefit, index) => (
+            <div className="admin-repeater__row admin-repeater__row--benefits" key={`benefit-${index}`}>
+              <label>Ícone (URL)<input type="text" value={benefit.icon} onChange={(e) => changeCollectionItem('benefitsItems', index, 'icon', e.target.value)} placeholder="https://… ou /catalog-assets/…" /></label>
+              <label>Upload do ícone<input type="file" accept="image/*" onChange={(e) => setBenefitIconFiles((prev) => ({ ...prev, [index]: e.target.files[0] }))} />{benefit.icon && !benefitIconFiles[index] && <small>Atual: {benefit.icon}</small>}</label>
+              <label>Texto (use Enter para quebrar linha)<textarea rows="2" value={benefit.label} onChange={(e) => changeCollectionItem('benefitsItems', index, 'label', e.target.value)} placeholder="Ex.: Trata marcas e manchas" /></label>
+              <button type="button" className="admin-repeater__remove" onClick={() => removeCollectionItem('benefitsItems', index)} aria-label={`Remover benefício ${index + 1}`}>×</button>
             </div>
           ))}
         </div>

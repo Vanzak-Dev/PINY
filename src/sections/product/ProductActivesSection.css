@@ -44,11 +44,11 @@
 
 .product-actives__brush {
   position: absolute;
-  top: 16vw;
-  left: 35.833333%;
+  top: 24vw;
+  left: 34.833333%;
   z-index: 2;
   width: 31.655503vw;
-  height: 32.130094vw;
+  height: 21.130094vw;
   max-width: none;
   object-fit: contain;
 }
