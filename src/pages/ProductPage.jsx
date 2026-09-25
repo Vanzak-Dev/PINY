@@ -72,7 +72,7 @@ export default function ProductPage({ productIdentifier }) {
             crossSellProducts={crossSellProducts}
             onAdd={handleAdd}
           />
-          <ProductActivesSection product={product} />
+          {product.activesEnabled !== false && <ProductActivesSection product={product} />}
           <ProductBenefitsSection />
           <ProductBoosterSection onAdd={handleAdd} />
           <Journey21DaysSection />

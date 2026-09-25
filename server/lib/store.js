@@ -316,6 +316,7 @@ export function normalizeProduct(input, current = {}) {
         other: String(row?.other ?? 'x').trim() || 'x',
       }))
       .filter((row) => row.label),
+    activesEnabled: boolean(input.activesEnabled, current.activesEnabled ?? true),
     activesProductImage: String(input.activesProductImage ?? current.activesProductImage ?? '').trim(),
     activesTextureImage: String(input.activesTextureImage ?? current.activesTextureImage ?? '').trim(),
     activesBrushImage: String(input.activesBrushImage ?? current.activesBrushImage ?? '').trim(),

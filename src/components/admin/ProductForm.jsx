@@ -39,7 +39,7 @@ const emptyProduct = {
     { label: 'Ácido salicílico + glicólico de fábrica', piny: 'check', other: 'Raro' },
     { label: 'Vegano e cruelty free', piny: 'check', other: 'Nem Sempre' },
   ],
-  activesProductImage: '', activesTextureImage: '', activesBrushImage: '',
+  activesEnabled: true, activesProductImage: '', activesTextureImage: '', activesBrushImage: '',
   activesCallouts: [
     { title: 'Caulim', lines: ['A argila mais suave,', 'absorve sem irritar'] },
     { title: 'Óxido de Zinco', lines: ['Ação secativa'] },
@@ -316,6 +316,7 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
       <section className="admin-form__section">
         <div className="admin-form__section-heading">
           <div><h3>Ativos (product-actives)</h3><small>Imagens e textos da seção de ativos exibida na página do produto.</small></div>
+        <label className="admin-check"><input type="checkbox" checked={values.activesEnabled} onChange={(e) => change('activesEnabled', e.target.checked)} /> Exibir esta seção na página do produto</label>
         </div>
         <div className="admin-grid admin-grid--3">
           <label>Upload imagem do produto (product-actives__product)<input type="file" accept="image/*" onChange={(e) => setActivesProductFile(e.target.files[0])} />{values.activesProductImage && <small>Atual: {values.activesProductImage}</small>}</label>
