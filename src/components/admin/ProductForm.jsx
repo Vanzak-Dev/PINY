@@ -53,6 +53,14 @@ const emptyProduct = {
     { icon: '', label: 'Uniformiza o\ntom de pele' },
     { icon: '', label: 'Best-Seller:\n+200mil Vendas' },
   ],
+  howToUseEnabled: true, howToUseBackgroundColor: '#fef8dd', howToUseBackgroundImage: '',
+  howToUseImages: ['', '', '', ''],
+  howToUseSteps: [
+    { text: 'Aplique uma camada generosa do produto' },
+    { text: 'Deixe agir por 15-20min e enxágue' },
+    { text: 'Use 1-2x ao dia, conforme a condição da sua pele' },
+    { text: 'De dia, finalize com protetor solar — a fórmula tem ácidos.' },
+  ],
 };
 
 const comparisonValueOptions = [
@@ -86,6 +94,8 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
   const [activesBrushFile, setActivesBrushFile] = useState(null);
   const [benefitsPatternFile, setBenefitsPatternFile] = useState(null);
   const [benefitIconFiles, setBenefitIconFiles] = useState({});
+  const [howToUseBackgroundFile, setHowToUseBackgroundFile] = useState(null);
+  const [howToUseImageFiles, setHowToUseImageFiles] = useState([null, null, null, null]);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const imagePreview = useObjectUrl(imageFile);
@@ -110,6 +120,7 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
     setQuantityOptionIconFile(null);
     setActivesProductFile(null); setActivesTextureFile(null); setActivesBrushFile(null);
     setBenefitsPatternFile(null); setBenefitIconFiles({});
+    setHowToUseBackgroundFile(null); setHowToUseImageFiles([null, null, null, null]);
     setError('');
   }, [product]);
 
@@ -161,6 +172,8 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
     if (activesBrushFile) data.append('activesBrushFile', activesBrushFile);
     if (benefitsPatternFile) data.append('benefitsPatternFile', benefitsPatternFile);
     Object.entries(benefitIconFiles).forEach(([index, file]) => { if (file) data.append(`benefitIconFile_${index}`, file); });
+    if (howToUseBackgroundFile) data.append('howToUseBackgroundFile', howToUseBackgroundFile);
+    howToUseImageFiles.forEach((file, index) => { if (file) data.append(`howToUseImage${index + 1}File`, file); });
     try { await onSave(data); }
     catch (requestError) { setError(requestError.message); }
     finally { setSaving(false); }
@@ -365,6 +378,32 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
               <label>Upload do ícone<input type="file" accept="image/*" onChange={(e) => setBenefitIconFiles((prev) => ({ ...prev, [index]: e.target.files[0] }))} />{benefit.icon && !benefitIconFiles[index] && <small>Atual: {benefit.icon}</small>}</label>
               <label>Texto (use Enter para quebrar linha)<textarea rows="2" value={benefit.label} onChange={(e) => changeCollectionItem('benefitsItems', index, 'label', e.target.value)} placeholder="Ex.: Trata marcas e manchas" /></label>
               <button type="button" className="admin-repeater__remove" onClick={() => removeCollectionItem('benefitsItems', index)} aria-label={`Remover benefício ${index + 1}`}>×</button>
+            </div>
+          ))}
+        </div>
+      </section>
+      <section className="admin-form__section">
+        <div className="admin-form__section-heading">
+          <div><h3>Como usar (how-to-use)</h3><small>Imagens, textos dos passos, imagem de fundo e cor de fundo da seção "Como usar" da página do produto.</small></div>
+        </div>
+        <label className="admin-check"><input type="checkbox" checked={values.howToUseEnabled} onChange={(e) => change('howToUseEnabled', e.target.checked)} /> Exibir esta seção na página do produto</label>
+        <div className="admin-grid admin-grid--2">
+          <label>Upload imagem de fundo<input type="file" accept="image/*" onChange={(e) => setHowToUseBackgroundFile(e.target.files[0])} />{values.howToUseBackgroundImage && <small>Atual: {values.howToUseBackgroundImage}</small>}</label>
+          <label>Cor de fundo da seção<input type="color" value={values.howToUseBackgroundColor} onChange={(e) => change('howToUseBackgroundColor', e.target.value)} /></label>
+        </div>
+        <div className="admin-grid admin-grid--2">
+          <label>Upload imagem 1 (sup. esquerda)<input type="file" accept="image/*" onChange={(e) => setHowToUseImageFiles((prev) => prev.map((f, i) => i === 0 ? e.target.files[0] : f))} />{values.howToUseImages[0] && <small>Atual: {values.howToUseImages[0]}</small>}</label>
+          <label>Upload imagem 2 (inf. esquerda)<input type="file" accept="image/*" onChange={(e) => setHowToUseImageFiles((prev) => prev.map((f, i) => i === 1 ? e.target.files[0] : f))} />{values.howToUseImages[1] && <small>Atual: {values.howToUseImages[1]}</small>}</label>
+          <label>Upload imagem 3 (sup. direita)<input type="file" accept="image/*" onChange={(e) => setHowToUseImageFiles((prev) => prev.map((f, i) => i === 2 ? e.target.files[0] : f))} />{values.howToUseImages[2] && <small>Atual: {values.howToUseImages[2]}</small>}</label>
+          <label>Upload imagem 4 (inf. direita)<input type="file" accept="image/*" onChange={(e) => setHowToUseImageFiles((prev) => prev.map((f, i) => i === 3 ? e.target.files[0] : f))} />{values.howToUseImages[3] && <small>Atual: {values.howToUseImages[3]}</small>}</label>
+        </div>
+        <div className="admin-repeater">
+          <div className="admin-repeater__heading"><strong>Passos</strong><button type="button" className="admin-button" onClick={() => addCollectionItem('howToUseSteps', { text: '' })}>Adicionar passo</button></div>
+          {values.howToUseSteps.length === 0 && <small>Nenhum passo cadastrado.</small>}
+          {values.howToUseSteps.map((step, index) => (
+            <div className="admin-repeater__row admin-repeater__row--how-to-use" key={`how-to-use-${index}`}>
+              <label>Texto do passo {index + 1}<textarea rows="2" value={step.text} onChange={(e) => changeCollectionItem('howToUseSteps', index, 'text', e.target.value)} placeholder="Ex.: Aplique uma camada generosa do produto" /></label>
+              <button type="button" className="admin-repeater__remove" onClick={() => removeCollectionItem('howToUseSteps', index)} aria-label={`Remover passo ${index + 1}`}>×</button>
             </div>
           ))}
         </div>

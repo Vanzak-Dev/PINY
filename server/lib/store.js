@@ -321,6 +321,13 @@ export function normalizeProduct(input, current = {}) {
     benefitsEnabled: boolean(input.benefitsEnabled, current.benefitsEnabled ?? true),
     benefitsPatternImage: String(input.benefitsPatternImage ?? current.benefitsPatternImage ?? '').trim(),
     benefitsBackgroundColor: String(input.benefitsBackgroundColor ?? current.benefitsBackgroundColor ?? '#fef8dd').trim(),
+    howToUseEnabled: boolean(input.howToUseEnabled, current.howToUseEnabled ?? true),
+    howToUseBackgroundColor: String(input.howToUseBackgroundColor ?? current.howToUseBackgroundColor ?? '#fef8dd').trim(),
+    howToUseBackgroundImage: String(input.howToUseBackgroundImage ?? current.howToUseBackgroundImage ?? '').trim(),
+    howToUseImages: array(input.howToUseImages, current.howToUseImages ?? []).map((img) => String(img || '').trim()),
+    howToUseSteps: array(input.howToUseSteps, current.howToUseSteps ?? [])
+      .map((step) => ({ text: String(step?.text || '').trim() }))
+      .filter((step) => step.text),
     benefitsItems: array(input.benefitsItems, current.benefitsItems ?? [])
       .map((item) => ({
         icon: String(item?.icon || '').trim(),

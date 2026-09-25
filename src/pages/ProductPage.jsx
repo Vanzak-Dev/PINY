@@ -76,7 +76,7 @@ export default function ProductPage({ productIdentifier }) {
           {product.benefitsEnabled !== false && <ProductBenefitsSection product={product} />}
           <ProductBoosterSection onAdd={handleAdd} />
           <Journey21DaysSection />
-          <HowToUseSection />
+          {product.howToUseEnabled !== false && <HowToUseSection product={product} />}
           <ProductBeforeAfterSection product={product} />
           <AiAnalysisSection product={product} />
           <ProductComparisonSection product={product} />

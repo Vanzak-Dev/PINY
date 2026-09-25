@@ -90,6 +90,17 @@ function bodyWithUploads(request, current = {}) {
         return JSON.stringify(items);
       } catch { return request.body.benefitsItems || '[]'; }
     })(),
+    howToUseBackgroundImage: files.howToUseBackgroundFile?.[0] ? `/api/uploads/${files.howToUseBackgroundFile[0].filename}` : request.body.howToUseBackgroundImage || current.howToUseBackgroundImage,
+    howToUseImages: (() => {
+      try {
+        const imgs = JSON.parse(request.body.howToUseImages || '[]');
+        for (let i = 0; i < 4; i++) {
+          const file = files[`howToUseImage${i + 1}File`]?.[0];
+          if (file) imgs[i] = `/api/uploads/${file.filename}`;
+        }
+        return JSON.stringify(imgs);
+      } catch { return request.body.howToUseImages || '[]'; }
+    })(),
   };
 }
 
@@ -304,6 +315,11 @@ const productUpload = upload.fields([
   { name: 'benefitIconFile_5', maxCount: 1 },
   { name: 'benefitIconFile_6', maxCount: 1 },
   { name: 'benefitIconFile_7', maxCount: 1 },
+  { name: 'howToUseBackgroundFile', maxCount: 1 },
+  { name: 'howToUseImage1File', maxCount: 1 },
+  { name: 'howToUseImage2File', maxCount: 1 },
+  { name: 'howToUseImage3File', maxCount: 1 },
+  { name: 'howToUseImage4File', maxCount: 1 },
 ]);
 app.post('/api/admin/products', productUpload, async (request, response) => {
   const products = await readProducts();

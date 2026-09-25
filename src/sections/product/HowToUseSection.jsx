@@ -6,25 +6,35 @@ import imgTopRight from '../../assets/images/how-to-use/img-superior-direita.web
 import imgBottomRight from '../../assets/images/how-to-use/img-inferior-direita.webp';
 import './HowToUseSection.css';
 
-const steps = [
+const defaultSteps = [
   { number: '01', text: 'Aplique uma camada generosa do produto' },
   { number: '02', text: 'Deixe agir por 15-20min e enxágue' },
   { number: '03', text: 'Use 1-2x ao dia, conforme a condição da sua pele' },
   { number: '04', text: 'De dia, finalize com protetor solar — a fórmula tem ácidos.' },
 ];
 
-export default function HowToUseSection() {
+const defaultImages = [imgTopLeft, imgBottomLeft, imgTopRight, imgBottomRight];
+
+export default function HowToUseSection({ product }) {
+  const bgImage = product?.howToUseBackgroundImage || bgPattern;
+  const bgColor = product?.howToUseBackgroundColor || '#fef8dd';
+  const images = (product?.howToUseImages?.length ? product.howToUseImages : defaultImages).map((img, i) => img || defaultImages[i] || '');
+  const steps = (product?.howToUseSteps?.length ? product.howToUseSteps : defaultSteps).map((step, i) => ({
+    number: String(i + 1).padStart(2, '0'),
+    text: step.text,
+  }));
+
   return (
     <section
       className="how-to-use"
       aria-label="Como usar"
-      style={{ backgroundImage: `url(${bgPattern})` }}
+      style={{ backgroundImage: `url(${bgImage})`, '--how-to-use-bg': bgColor }}
     >
         <div className="how-to-use__layout">
           {/* Left images (desktop) */}
           <div className="how-to-use__images how-to-use__images--left">
-            <img className="how-to-use__image" src={imgTopLeft} alt="Aplicando a máscara no rosto" />
-            <img className="how-to-use__image" src={imgBottomLeft} alt="Pote do produto PINY" />
+            <img className="how-to-use__image" src={images[0]} alt="Aplicando a máscara no rosto" />
+            <img className="how-to-use__image" src={images[1]} alt="Pote do produto PINY" />
           </div>
 
           {/* Center card */}
@@ -43,20 +53,20 @@ export default function HowToUseSection() {
 
           {/* Right images (desktop) */}
           <div className="how-to-use__images how-to-use__images--right">
-            <img className="how-to-use__image" src={imgTopRight} alt="Potes do produto PINY" />
-            <img className="how-to-use__image" src={imgBottomRight} alt="Aplicando a máscara na bochecha" />
+            <img className="how-to-use__image" src={images[2]} alt="Potes do produto PINY" />
+            <img className="how-to-use__image" src={images[3]} alt="Aplicando a máscara na bochecha" />
           </div>
         </div>
 
         {/* Mobile images grid */}
         <div className="how-to-use__mobile-images">
           <div className="how-to-use__mobile-column">
-            <img className="how-to-use__mobile-image how-to-use__mobile-image--tall" src={imgTopLeft} alt="Aplicando a máscara no rosto" />
-            <img className="how-to-use__mobile-image" src={imgBottomLeft} alt="Pote do produto PINY" />
+            <img className="how-to-use__mobile-image how-to-use__mobile-image--tall" src={images[0]} alt="Aplicando a máscara no rosto" />
+            <img className="how-to-use__mobile-image" src={images[1]} alt="Pote do produto PINY" />
           </div>
           <div className="how-to-use__mobile-column">
-            <img className="how-to-use__mobile-image" src={imgTopRight} alt="Potes do produto PINY" />
-            <img className="how-to-use__mobile-image how-to-use__mobile-image--tall" src={imgBottomRight} alt="Aplicando a máscara na bochecha" />
+            <img className="how-to-use__mobile-image" src={images[2]} alt="Potes do produto PINY" />
+            <img className="how-to-use__mobile-image how-to-use__mobile-image--tall" src={images[3]} alt="Aplicando a máscara na bochecha" />
           </div>
         </div>
     </section>
