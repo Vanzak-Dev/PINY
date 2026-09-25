@@ -90,6 +90,7 @@ function bodyWithUploads(request, current = {}) {
         return JSON.stringify(items);
       } catch { return request.body.benefitsItems || '[]'; }
     })(),
+    faqPatternImage: files.faqPatternFile?.[0] ? `/api/uploads/${files.faqPatternFile[0].filename}` : request.body.faqPatternImage || current.faqPatternImage,
     howToUseBackgroundImage: files.howToUseBackgroundFile?.[0] ? `/api/uploads/${files.howToUseBackgroundFile[0].filename}` : request.body.howToUseBackgroundImage || current.howToUseBackgroundImage,
     howToUseImages: (() => {
       try {
@@ -315,6 +316,7 @@ const productUpload = upload.fields([
   { name: 'benefitIconFile_5', maxCount: 1 },
   { name: 'benefitIconFile_6', maxCount: 1 },
   { name: 'benefitIconFile_7', maxCount: 1 },
+  { name: 'faqPatternFile', maxCount: 1 },
   { name: 'howToUseBackgroundFile', maxCount: 1 },
   { name: 'howToUseImage1File', maxCount: 1 },
   { name: 'howToUseImage2File', maxCount: 1 },

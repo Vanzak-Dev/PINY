@@ -322,6 +322,8 @@ export function normalizeProduct(input, current = {}) {
     benefitsPatternImage: String(input.benefitsPatternImage ?? current.benefitsPatternImage ?? '').trim(),
     benefitsBackgroundColor: String(input.benefitsBackgroundColor ?? current.benefitsBackgroundColor ?? '#fef8dd').trim(),
     aiAnalysisBackgroundColor: String(input.aiAnalysisBackgroundColor ?? current.aiAnalysisBackgroundColor ?? '#fef8dd').trim(),
+    faqBackgroundColor: String(input.faqBackgroundColor ?? current.faqBackgroundColor ?? '#fef8dd').trim(),
+    faqPatternImage: String(input.faqPatternImage ?? current.faqPatternImage ?? '').trim(),
     howToUseEnabled: boolean(input.howToUseEnabled, current.howToUseEnabled ?? true),
     howToUseBackgroundColor: String(input.howToUseBackgroundColor ?? current.howToUseBackgroundColor ?? '#fef8dd').trim(),
     howToUseBackgroundImage: String(input.howToUseBackgroundImage ?? current.howToUseBackgroundImage ?? '').trim(),

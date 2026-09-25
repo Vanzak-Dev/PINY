@@ -8,7 +8,7 @@ import pineappleLeft from '../../assets/product/faq/pineapple-left.svg';
 import pineappleRight from '../../assets/product/faq/pineapple-right.svg';
 import './ProductFaqSection.css';
 
-export default function ProductFaqSection() {
+export default function ProductFaqSection({ product }) {
   const [openId, setOpenId] = useState(null);
 
   const handleToggle = (id) => {
@@ -18,9 +18,11 @@ export default function ProductFaqSection() {
   const groupA = faqItems.slice(0, 3);
   const groupB = faqItems.slice(3, 6);
 
+  const patternSrc = product?.faqPatternImage || patternBackground;
+
   return (
-    <section className="product-faq" aria-labelledby="product-faq-heading">
-      <img className="product-faq__pattern" src={patternBackground} alt="" aria-hidden="true" />
+    <section className="product-faq" aria-labelledby="product-faq-heading" style={{ '--product-faq-bg': product?.faqBackgroundColor || '#fef8dd' }}>
+      <img className="product-faq__pattern" src={patternSrc} alt="" aria-hidden="true" />
 
       <div className="product-faq__badge">
         <img className="product-faq__badge-ellipse product-faq__badge-ellipse--outer" src={badgeEllipseOuter} alt="" aria-hidden="true" />

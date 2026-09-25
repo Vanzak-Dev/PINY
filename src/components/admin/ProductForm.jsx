@@ -62,6 +62,7 @@ const emptyProduct = {
     { text: 'De dia, finalize com protetor solar — a fórmula tem ácidos.' },
   ],
   aiAnalysisBackgroundColor: '#fef8dd',
+  faqBackgroundColor: '#fef8dd', faqPatternImage: '',
   beforeAfterEnabled: false, beforeAfterTitle: 'ANTES & DEPOIS', beforeAfterTitleAccent: 'Reais',
   beforeAfterSubtitle: '', beforeAfterBeforeLabel: 'ANTES', beforeAfterAfterLabel: 'DEPOIS',
   beforeAfterItems: [],
@@ -98,6 +99,7 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
   const [activesBrushFile, setActivesBrushFile] = useState(null);
   const [benefitsPatternFile, setBenefitsPatternFile] = useState(null);
   const [benefitIconFiles, setBenefitIconFiles] = useState({});
+  const [faqPatternFile, setFaqPatternFile] = useState(null);
   const [howToUseBackgroundFile, setHowToUseBackgroundFile] = useState(null);
   const [howToUseImageFiles, setHowToUseImageFiles] = useState([null, null, null, null]);
   const [saving, setSaving] = useState(false);
@@ -124,6 +126,7 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
     setQuantityOptionIconFile(null);
     setActivesProductFile(null); setActivesTextureFile(null); setActivesBrushFile(null);
     setBenefitsPatternFile(null); setBenefitIconFiles({});
+    setFaqPatternFile(null);
     setHowToUseBackgroundFile(null); setHowToUseImageFiles([null, null, null, null]);
     setError('');
   }, [product]);
@@ -176,6 +179,7 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
     if (activesBrushFile) data.append('activesBrushFile', activesBrushFile);
     if (benefitsPatternFile) data.append('benefitsPatternFile', benefitsPatternFile);
     Object.entries(benefitIconFiles).forEach(([index, file]) => { if (file) data.append(`benefitIconFile_${index}`, file); });
+    if (faqPatternFile) data.append('faqPatternFile', faqPatternFile);
     if (howToUseBackgroundFile) data.append('howToUseBackgroundFile', howToUseBackgroundFile);
     howToUseImageFiles.forEach((file, index) => { if (file) data.append(`howToUseImage${index + 1}File`, file); });
     try { await onSave(data); }
@@ -417,6 +421,15 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
           <div><h3>Não sabe qual é a máscara ideal para você? (ai-analysis)</h3><small>Cor de fundo da seção de análise de pele por IA exibida na página do produto.</small></div>
         </div>
         <label>Cor de fundo da seção<input type="color" value={values.aiAnalysisBackgroundColor} onChange={(e) => change('aiAnalysisBackgroundColor', e.target.value)} /></label>
+      </section>
+      <section className="admin-form__section">
+        <div className="admin-form__section-heading">
+          <div><h3>FAQ (product-faq)</h3><small>Cor de fundo e imagem de padrão da seção de FAQ exibida na página do produto.</small></div>
+        </div>
+        <div className="admin-grid admin-grid--2">
+          <label>Cor de fundo da seção<input type="color" value={values.faqBackgroundColor} onChange={(e) => change('faqBackgroundColor', e.target.value)} /></label>
+          <label>Upload imagem de fundo (product-faq__pattern)<input type="file" accept="image/*" onChange={(e) => setFaqPatternFile(e.target.files[0])} />{values.faqPatternImage && <small>Atual: {values.faqPatternImage}</small>}</label>
+        </div>
       </section>
       <section className="admin-form__section">
         <div className="admin-form__section-heading">

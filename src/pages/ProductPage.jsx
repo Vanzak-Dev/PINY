@@ -80,7 +80,7 @@ export default function ProductPage({ productIdentifier }) {
           <ProductBeforeAfterSection product={product} />
           <AiAnalysisSection product={product} />
           <ProductComparisonSection product={product} />
-          <ProductFaqSection />
+          <ProductFaqSection product={product} />
           <ProductReviewsSection product={product} />
           <ProductFeaturedSection products={products} onAdd={handleAdd} />
         </>
