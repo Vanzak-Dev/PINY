@@ -4,7 +4,7 @@
   left: 16.319444vw;
   width: 18.229167vw;
   height: 18.75vw;
-  color: #1c8c44;
+  color: var(--feature-text-color, #1c8c44);
 }
 
 .pineapple-product-info p {

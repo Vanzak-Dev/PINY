@@ -106,9 +106,9 @@
   left: 50%;
   margin: 0;
   padding: .416667vw 1.302083vw .520833vw;
-  border: .15625vw solid #1c8c44;
+  border: .15625vw solid var(--feature-text-color, #1c8c44);
   border-radius: 999px;
-  color: #1c8c44;
+  color: var(--feature-text-color, #1c8c44);
   font-size: 1.5625vw;
   font-weight: 400;
   line-height: 1;
