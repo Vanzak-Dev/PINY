@@ -73,6 +73,8 @@ export default function UgcReviewsSection({ products, onAdd, selectedProductId, 
     return () => window.clearTimeout(movementTimer.current);
   }, [activePosition, isMoving, reviewCount]);
 
+  const touchStartX = useRef(null);
+
   if (!reviewCount) return null;
 
   const activeIndex = normalizeIndex(activePosition, reviewCount);
@@ -82,8 +84,6 @@ export default function UgcReviewsSection({ products, onAdd, selectedProductId, 
     setIsMoving(true);
     setActivePosition((current) => current + step);
   };
-
-  const touchStartX = useRef(null);
 
   const handleTouchStart = (event) => {
     touchStartX.current = event.touches[0].clientX;
