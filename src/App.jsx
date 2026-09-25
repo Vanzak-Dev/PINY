@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 import AdminPage from "./pages/AdminPage";
+import AnaliseSuaPelePage from "./pages/AnaliseSuaPelePage";
 import AnnouncementBar from "./components/global/AnnouncementBar";
 import Header from "./components/global/Header";
 import CartDrawer from "./components/cart/CartDrawer";
 import Footer from "./sections/global/Footer";
 import Home from "./pages/Home";
+import MonteSuaTexturaPage from "./pages/MonteSuaTexturaPage";
 import ProductPage from "./pages/ProductPage";
 import SearchResultsPage from "./pages/SearchResultsPage";
 import { CartProvider, useCart } from "./hooks/useCart";
@@ -57,6 +59,10 @@ export default function App() {
     ? <ProductPage productIdentifier={decodeURIComponent(pathname.split("/produtos/")[1])} />
     : pathname.startsWith("/pesquisa")
     ? <SearchResultsPage query={new URLSearchParams(window.location.search).get("q") || ""} />
+    : pathname.startsWith("/monte-sua-textura")
+    ? <MonteSuaTexturaPage />
+    : pathname.startsWith("/analise-sua-pele")
+    ? <AnaliseSuaPelePage />
     : <Home />;
 
   return (

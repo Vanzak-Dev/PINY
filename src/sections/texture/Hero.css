@@ -1,0 +1,110 @@
+.texture-hero {
+  position: relative;
+  width: 100%;
+  margin-top: 34px;
+  aspect-ratio: 392 / 600;
+  overflow: hidden;
+  background: #fff;
+}
+
+.texture-hero__bg {
+  position: absolute;
+  display: block;
+  max-width: none;
+  pointer-events: none;
+}
+
+.texture-hero__bg--mobile {
+  left: -39.17%;
+  top: 0.02%;
+  width: 178.35%;
+  height: 99.95%;
+}
+
+.texture-hero__bg--desktop {
+  display: none;
+}
+
+.texture-hero__vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 392 600' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%25' width='100%25' fill='url(%23grad)' opacity='1'/><defs><radialGradient id='grad' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(-6.9271 33.128 -33.16 26.44 184.77 329.22)'><stop stop-color='rgba(255,255,255,0)' offset='0.29175'/><stop stop-color='rgba(255,255,255,1)' offset='1'/></radialGradient></defs></svg>");
+}
+
+.texture-hero__title {
+  position: absolute;
+  top: 50px;
+  left: 20px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  color: #000b06;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 1;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.texture-hero__title-line--bold {
+  font-weight: 700;
+}
+
+.texture-hero__subtitle {
+  position: absolute;
+  right: 20px;
+  bottom: 98px;
+  width: 255px;
+  margin: 0;
+  transform: translateY(100%);
+  color: #000b06;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1;
+  text-align: right;
+  text-transform: capitalize;
+}
+
+.texture-hero__subtitle-line {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .texture-hero {
+    margin-top: 65px;
+    aspect-ratio: 1920 / 965;
+  }
+
+  .texture-hero__bg--mobile {
+    display: none;
+  }
+
+  .texture-hero__bg--desktop {
+    display: block;
+    left: -5.9%;
+    top: -1.24%;
+    width: 108.89%;
+    height: 113.96%;
+  }
+
+  .texture-hero__vignette {
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1920 965' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%25' width='100%25' fill='url(%23grad)' opacity='1'/><defs><radialGradient id='grad' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(35.8 58.7 -108.3 66.053 905 529.5)'><stop stop-color='rgba(255,255,255,0)' offset='0.29175'/><stop stop-color='rgba(255,255,255,1)' offset='1'/></radialGradient></defs></svg>");
+  }
+
+  .texture-hero__title {
+    left: clamp(24px, 10.416667vw, 200px);
+    font-size: clamp(40px, 3.333333vw, 64px);
+  }
+
+  .texture-hero__subtitle {
+    right: clamp(24px, 10.416667vw, 200px);
+    bottom: clamp(98px, 7.604167vw, 146px);
+    width: clamp(255px, 26.5625vw, 510px);
+    font-size: clamp(16px, 1.666667vw, 32px);
+  }
+}

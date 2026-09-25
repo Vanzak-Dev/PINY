@@ -61,8 +61,8 @@ export default function Header() {
           <img src={logo} alt="Piny" />
         </a>
         <nav className="site-header__nav">
-          <a className="site-header__nav-link" href="#">Analise sua Pele</a>
-          <a className="site-header__nav-link" href="#">Monte sua Textura</a>
+          <a className="site-header__nav-link" href="/analise-sua-pele">Analise sua Pele</a>
+          <a className="site-header__nav-link" href="/monte-sua-textura">Monte sua Textura</a>
           <div className="site-header__nav-item--has-mega">
             <a className="site-header__nav-link" href="#">Piny Mask</a>
             <MegaMenu />
