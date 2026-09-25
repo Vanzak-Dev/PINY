@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, AlertCircle, RefreshCw } from 'lucide-react';
+import { AlertCircle, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { ASSETS } from '@/components/config/assets';
 
 import SelfieUpload from '@/components/analysis/SelfieUpload';
 import AnalyzingLoader from '@/components/analysis/AnalyzingLoader';
 import { useAnalytics } from '@/hooks/useAnalytics';
+import QuizLayout from '@/components/skin-analysis/QuizLayout';
 
 export default function Analysis() {
   const navigate = useNavigate();
@@ -60,112 +60,67 @@ export default function Analysis() {
     setSelfieUrl(null);
   };
 
+  const quizStep = step === 'analyzing' ? 2 : 1;
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-emerald-50/40">
-      <div className="max-w-lg mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="flex items-center mb-8">
-          <Link to={createPageUrl('Home')}>
-            <Button variant="ghost" size="icon" className="text-slate-400">
-              <ArrowLeft className="w-5 h-5" />
-            </Button>
-          </Link>
-          <div className="flex-1 text-center pr-10">
-            <img 
-              src={ASSETS.logos.main}
-              alt="PINY"
-              className="h-8 mx-auto"
-            />
-          </div>
-        </div>
+    <QuizLayout step={quizStep}>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+        {step === 'selfie' && (
+          <SelfieUpload onComplete={handleSelfieComplete} />
+        )}
 
-        {/* Steps Indicator */}
-        <div className="flex items-center justify-center gap-2 mb-8">
-          {['selfie', 'analyzing', 'error'].map((s, i) => (
-            <React.Fragment key={s}>
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all border ${
-                step === s 
-                  ? 'bg-emerald-600 text-white border-emerald-600' 
-                  : ['selfie', 'analyzing'].indexOf(step) > i
-                    ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                    : 'bg-white text-slate-400 border-slate-200'
-              }`}>
-                {i + 1}
-              </div>
-              {i < 1 && (
-                <div className={`w-12 h-1 rounded-full ${
-                  ['selfie', 'analyzing'].indexOf(step) > i
-                    ? 'bg-emerald-400'
-                    : 'bg-slate-200'
-                }`} />
-              )}
-            </React.Fragment>
-          ))}
-        </div>
+        {step === 'analyzing' && (
+          <AnalyzingLoader currentStage={analysisStage} />
+        )}
 
-        {/* Content */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="bg-white rounded-3xl shadow-sm p-6 md:p-8 border border-slate-200/70"
-        >
-          {step === 'selfie' && (
-            <SelfieUpload onComplete={handleSelfieComplete} />
-          )}
+        {step === 'error' && (
+          <div className="text-center py-8">
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: 'spring', stiffness: 200 }}
+              className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-red-100 mb-6"
+            >
+              <AlertCircle className="w-10 h-10 text-red-500" />
+            </motion.div>
 
-          {step === 'analyzing' && (
-            <AnalyzingLoader currentStage={analysisStage} />
-          )}
+            <h2 className="text-2xl font-bold text-gray-900 mb-3">
+              {error?.title || 'Erro na análise'}
+            </h2>
+            <p className="text-gray-600 mb-6 leading-relaxed">
+              {error?.message || 'Ocorreu um erro ao processar sua selfie.'}
+            </p>
 
-          {step === 'error' && (
-            <div className="text-center py-8">
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ type: 'spring', stiffness: 200 }}
-                className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-red-100 mb-6"
+            <div className="space-y-3">
+              <Button
+                onClick={handleRetry}
+                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white rounded-2xl py-6 text-[16px] font-bold transition-all"
               >
-                <AlertCircle className="w-10 h-10 text-red-500" />
-              </motion.div>
+                <RefreshCw className="w-5 h-5 mr-2" />
+                Tentar novamente
+              </Button>
 
-              <h2 className="text-2xl font-bold text-gray-900 mb-3">
-                {error?.title || 'Erro na análise'}
-              </h2>
-              <p className="text-gray-600 mb-6 leading-relaxed">
-                {error?.message || 'Ocorreu um erro ao processar sua selfie.'}
-              </p>
-
-              <div className="space-y-3">
-                <Button
-                  onClick={handleRetry}
-                  className="w-full bg-emerald-600 hover:bg-emerald-700 text-white rounded-2xl py-6 text-[16px] font-bold transition-all"
-                >
-                  <RefreshCw className="w-5 h-5 mr-2" />
-                  Tentar novamente
-                </Button>
-
-                <a
-                  href__="mailto:contato@piny.com.br"
-                  className="block text-sm text-gray-500 hover:text-gray-700 transition-colors"
-                >
-                  Precisa de ajuda? <span className="underline font-medium">Fale com a gente</span>
-                </a>
-              </div>
-
-              {error?.details && (
-                <details className="mt-6 text-left">
-                  <summary className="text-xs text-gray-400 cursor-pointer hover:text-gray-600">
-                    Detalhes técnicos
-                  </summary>
-                  <p className="text-xs text-gray-500 mt-2 font-mono bg-gray-50 p-3 rounded-lg border border-gray-200">
-                    {error.details}
-                  </p>
-                </details>
-              )}
+              <a
+                href__="mailto:contato@piny.com.br"
+                className="block text-sm text-gray-500 hover:text-gray-700 transition-colors"
+              >
+                Precisa de ajuda? <span className="underline font-medium">Fale com a gente</span>
+              </a>
             </div>
-          )}
-        </motion.div>
-      </div>
-    </div>
+
+            {error?.details && (
+              <details className="mt-6 text-left">
+                <summary className="text-xs text-gray-400 cursor-pointer hover:text-gray-600">
+                  Detalhes técnicos
+                </summary>
+                <p className="text-xs text-gray-500 mt-2 font-mono bg-gray-50 p-3 rounded-lg border border-gray-200">
+                  {error.details}
+                </p>
+              </details>
+            )}
+          </div>
+        )}
+      </motion.div>
+    </QuizLayout>
   );
 }
