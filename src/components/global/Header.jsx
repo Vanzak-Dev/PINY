@@ -64,10 +64,10 @@ export default function Header() {
           <a className="site-header__nav-link" href="/analise-sua-pele">Analise sua Pele</a>
           <a className="site-header__nav-link" href="/monte-sua-textura">Monte sua Textura</a>
           <div className="site-header__nav-item--has-mega">
-            <a className="site-header__nav-link" href="#">Piny Mask</a>
+            <a className="site-header__nav-link" href="/piny-mask">Piny Mask</a>
             <MegaMenu />
           </div>
-          <a className="site-header__nav-link" href="#">Piny Stars</a>
+          <a className="site-header__nav-link" href="/piny-stars">Piny Stars</a>
         </nav>
         <div className="site-header__actions">
           <button type="button" className="site-header__action" aria-label="Buscar" onClick={() => setSearchOpen(true)}>

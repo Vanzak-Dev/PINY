@@ -7,6 +7,8 @@ import CartDrawer from "./components/cart/CartDrawer";
 import Footer from "./sections/global/Footer";
 import Home from "./pages/Home";
 import MonteSuaTexturaPage from "./pages/MonteSuaTexturaPage";
+import PinyMaskPage from "./pages/PinyMaskPage";
+import PinyStarsPage from "./pages/PinyStarsPage";
 import ProductPage from "./pages/ProductPage";
 import SearchResultsPage from "./pages/SearchResultsPage";
 import { CartProvider, useCart } from "./hooks/useCart";
@@ -61,6 +63,10 @@ export default function App() {
     ? <SearchResultsPage query={new URLSearchParams(window.location.search).get("q") || ""} />
     : pathname.startsWith("/monte-sua-textura")
     ? <MonteSuaTexturaPage />
+    : pathname.startsWith("/piny-mask")
+    ? <PinyMaskPage />
+    : pathname.startsWith("/piny-stars")
+    ? <PinyStarsPage />
     : pathname.startsWith("/analise-sua-pele")
     ? <AnaliseSuaPelePage />
     : <Home />;
