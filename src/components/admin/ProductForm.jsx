@@ -39,6 +39,13 @@ const emptyProduct = {
     { label: 'Ácido salicílico + glicólico de fábrica', piny: 'check', other: 'Raro' },
     { label: 'Vegano e cruelty free', piny: 'check', other: 'Nem Sempre' },
   ],
+  activesProductImage: '', activesTextureImage: '', activesBrushImage: '',
+  activesCallouts: [
+    { title: 'Caulim', lines: ['A argila mais suave,', 'absorve sem irritar'] },
+    { title: 'Óxido de Zinco', lines: ['Ação secativa'] },
+    { title: 'Extrato de Abacaxi', lines: ['O símbolo da PINY'] },
+    { title: 'Salicílico + Glicólico', lines: ['Motor antiacne', 'de fábrica'] },
+  ],
 };
 
 const comparisonValueOptions = [
@@ -67,6 +74,9 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
   const [presentationMobileBackgroundFile, setPresentationMobileBackgroundFile] = useState(null);
   const [presentationProductFile, setPresentationProductFile] = useState(null);
   const [quantityOptionIconFile, setQuantityOptionIconFile] = useState(null);
+  const [activesProductFile, setActivesProductFile] = useState(null);
+  const [activesTextureFile, setActivesTextureFile] = useState(null);
+  const [activesBrushFile, setActivesBrushFile] = useState(null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const imagePreview = useObjectUrl(imageFile);
@@ -89,6 +99,7 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
     setComparisonImage1File(null); setComparisonImage2File(null); setComparisonImage3File(null); setComparisonImage4File(null); setComparisonProductIconFile(null); setComparisonCheckIconFile(null); setComparisonXIconFile(null);
     setPresentationBackgroundFile(null); setPresentationMobileBackgroundFile(null); setPresentationProductFile(null);
     setQuantityOptionIconFile(null);
+    setActivesProductFile(null); setActivesTextureFile(null); setActivesBrushFile(null);
     setError('');
   }, [product]);
 
@@ -135,6 +146,9 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
     if (presentationMobileBackgroundFile) data.append('presentationMobileBackgroundFile', presentationMobileBackgroundFile);
     if (presentationProductFile) data.append('presentationProductFile', presentationProductFile);
     if (quantityOptionIconFile) data.append('quantityOptionIconFile', quantityOptionIconFile);
+    if (activesProductFile) data.append('activesProductFile', activesProductFile);
+    if (activesTextureFile) data.append('activesTextureFile', activesTextureFile);
+    if (activesBrushFile) data.append('activesBrushFile', activesBrushFile);
     try { await onSave(data); }
     catch (requestError) { setError(requestError.message); }
     finally { setSaving(false); }
@@ -297,6 +311,27 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
               </div>
             );
           })}
+        </div>
+      </section>
+      <section className="admin-form__section">
+        <div className="admin-form__section-heading">
+          <div><h3>Ativos (product-actives)</h3><small>Imagens e textos da seção de ativos exibida na página do produto.</small></div>
+        </div>
+        <div className="admin-grid admin-grid--3">
+          <label>Upload imagem do produto (product-actives__product)<input type="file" accept="image/*" onChange={(e) => setActivesProductFile(e.target.files[0])} />{values.activesProductImage && <small>Atual: {values.activesProductImage}</small>}</label>
+          <label>Upload imagem da textura (product-actives__texture)<input type="file" accept="image/*" onChange={(e) => setActivesTextureFile(e.target.files[0])} />{values.activesTextureImage && <small>Atual: {values.activesTextureImage}</small>}</label>
+          <label>Upload imagem do pincel (product-actives__brush)<input type="file" accept="image/*" onChange={(e) => setActivesBrushFile(e.target.files[0])} />{values.activesBrushImage && <small>Atual: {values.activesBrushImage}</small>}</label>
+        </div>
+        <div className="admin-repeater">
+          <div className="admin-repeater__heading"><strong>Textos dos ativos</strong><button type="button" className="admin-button" onClick={() => addCollectionItem('activesCallouts', { title: '', lines: [] })}>Adicionar ativo</button></div>
+          {values.activesCallouts.length === 0 && <small>Nenhum ativo cadastrado.</small>}
+          {values.activesCallouts.map((callout, index) => (
+            <div className="admin-repeater__row admin-repeater__row--actives" key={`actives-${index}`}>
+              <label>Título<input value={callout.title} onChange={(e) => changeCollectionItem('activesCallouts', index, 'title', e.target.value)} placeholder="Ex.: Caulim" /></label>
+              <label>Linhas (uma por linha)<textarea rows="3" value={callout.lines.join('\n')} onChange={(e) => changeCollectionItem('activesCallouts', index, 'lines', e.target.value.split('\n'))} placeholder="A argila mais suave,&#10;absorve sem irritar" /></label>
+              <button type="button" className="admin-repeater__remove" onClick={() => removeCollectionItem('activesCallouts', index)} aria-label={`Remover ativo ${index + 1}`}>×</button>
+            </div>
+          ))}
         </div>
       </section>
       <section className="admin-form__section"><h3>Logística e SEO</h3><div className="admin-grid admin-grid--3">

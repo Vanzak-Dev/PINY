@@ -76,6 +76,9 @@ function bodyWithUploads(request, current = {}) {
     presentationMobileBackgroundImage: files.presentationMobileBackgroundFile?.[0] ? `/api/uploads/${files.presentationMobileBackgroundFile[0].filename}` : request.body.presentationMobileBackgroundImage || current.presentationMobileBackgroundImage,
     presentationProductImage: files.presentationProductFile?.[0] ? `/api/uploads/${files.presentationProductFile[0].filename}` : request.body.presentationProductImage || current.presentationProductImage,
     quantityOptionIcon: files.quantityOptionIconFile?.[0] ? `/api/uploads/${files.quantityOptionIconFile[0].filename}` : request.body.quantityOptionIcon || current.quantityOptionIcon || '',
+    activesProductImage: files.activesProductFile?.[0] ? `/api/uploads/${files.activesProductFile[0].filename}` : request.body.activesProductImage || current.activesProductImage,
+    activesTextureImage: files.activesTextureFile?.[0] ? `/api/uploads/${files.activesTextureFile[0].filename}` : request.body.activesTextureImage || current.activesTextureImage,
+    activesBrushImage: files.activesBrushFile?.[0] ? `/api/uploads/${files.activesBrushFile[0].filename}` : request.body.activesBrushImage || current.activesBrushImage,
   };
 }
 
@@ -278,6 +281,9 @@ const productUpload = upload.fields([
   { name: 'presentationMobileBackgroundFile', maxCount: 1 },
   { name: 'presentationProductFile', maxCount: 1 },
   { name: 'quantityOptionIconFile', maxCount: 1 },
+  { name: 'activesProductFile', maxCount: 1 },
+  { name: 'activesTextureFile', maxCount: 1 },
+  { name: 'activesBrushFile', maxCount: 1 },
 ]);
 app.post('/api/admin/products', productUpload, async (request, response) => {
   const products = await readProducts();

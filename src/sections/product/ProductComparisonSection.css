@@ -110,7 +110,6 @@
   width: calc(var(--cell-w) + 2 * var(--highlight-pad));
   border-radius: var(--highlight-radius) var(--highlight-radius) 0 0;
   background: var(--comparison-highlight-color, #85e86f);
-  box-shadow: 0 10px 20px rgba(28, 140, 68, 0.3), 0 2px 6px rgba(28, 140, 68, 0.2);
   z-index: 0;
 }
 

@@ -316,6 +316,15 @@ export function normalizeProduct(input, current = {}) {
         other: String(row?.other ?? 'x').trim() || 'x',
       }))
       .filter((row) => row.label),
+    activesProductImage: String(input.activesProductImage ?? current.activesProductImage ?? '').trim(),
+    activesTextureImage: String(input.activesTextureImage ?? current.activesTextureImage ?? '').trim(),
+    activesBrushImage: String(input.activesBrushImage ?? current.activesBrushImage ?? '').trim(),
+    activesCallouts: array(input.activesCallouts, current.activesCallouts ?? [])
+      .map((callout) => ({
+        title: String(callout?.title || '').trim(),
+        lines: array(callout?.lines, []).map((line) => String(line || '').trim()).filter(Boolean),
+      }))
+      .filter((callout) => callout.title),
     imageRestRotation: number(input.imageRestRotation, current.imageRestRotation ?? 0),
     imageActiveRotation: number(input.imageActiveRotation, current.imageActiveRotation ?? 15),
     weight: number(input.weight, current.weight ?? 0),
