@@ -1,5 +1,5 @@
-import jarsDesktop from '../../assets/images/texture-hero/jars-desktop.png';
-import jarsMobile from '../../assets/images/texture-hero/jars-mobile.png';
+import jarsDesktop from '../../assets/images/texture-hero/jars-desktop.webp';
+import jarsMobile from '../../assets/images/texture-hero/jars-mobile.webp';
 import './Hero.css';
 
 export default function Hero() {
