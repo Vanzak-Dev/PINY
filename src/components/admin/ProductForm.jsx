@@ -22,7 +22,7 @@ const emptyProduct = {
   name: '', slug: '', sku: '', status: 'active', featured: true, category: '', shortDescription: '', description: '',
   reviewCount: '', badges: [], quantityOptions: [{ quantity: 1, price: '', discountLabel: '' }], crossSellIds: [],
   price: '', oldPrice: '', costPrice: '', stock: 0, trackStock: true, tags: '', image: '', backgroundImage: '', presentationBackgroundImage: '', presentationMobileBackgroundImage: '', presentationProductImage: '',
-  backgroundColor: '#b8efad', imageRestRotation: 0, imageActiveRotation: 15,
+  backgroundColor: '#b8efad', badgeGradientColor1: '', badgeGradientColor2: '', badgeGradientAngle: '180', imageRestRotation: 0, imageActiveRotation: 15,
   featureEnabled: false, featureLabel: '', featurePrice: '', featureBackgroundCenter: '#F3FD5A', featureBackgroundEdge: '#FFD72F',
   featureLeftImage: '', featureRightImage: '', featureProductImage: '', featureProductInfoMobileBackground: '', weight: '',
   dimensions: { length: '', width: '', height: '' }, seoTitle: '', seoDescription: '',
@@ -267,6 +267,9 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
         <label>Upload da imagem principal<input type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files[0])} />{values.image && <small>Atual: {values.image}</small>}</label>
         <label>Upload do fundo animado<input type="file" accept="image/*" onChange={(e) => setBackgroundFile(e.target.files[0])} />{values.backgroundImage && <small>Atual: {values.backgroundImage}</small>}</label>
         <label>Cor do card<input type="color" value={values.backgroundColor} onChange={(e) => change('backgroundColor', e.target.value)} /></label>
+        <label>Gradiente do selo — cor 1<input type="color" value={values.badgeGradientColor1} onChange={(e) => change('badgeGradientColor1', e.target.value)} /></label>
+        <label>Gradiente do selo — cor 2<input type="color" value={values.badgeGradientColor2} onChange={(e) => change('badgeGradientColor2', e.target.value)} /></label>
+        <label>Gradiente do selo — ângulo (deg)<input type="number" min="0" max="360" value={values.badgeGradientAngle} onChange={(e) => change('badgeGradientAngle', e.target.value)} /></label>
         <label>Rotação inicial<input type="number" value={values.imageRestRotation} onChange={(e) => change('imageRestRotation', e.target.value)} /></label>
         <label>Rotação ativa<input type="number" value={values.imageActiveRotation} onChange={(e) => change('imageActiveRotation', e.target.value)} /></label>
       </div></section>

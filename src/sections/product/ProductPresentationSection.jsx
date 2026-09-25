@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import ProductBadge from '../../components/product/ProductBadge';
-import ProductIconBadge from '../../components/product/ProductIconBadge';
+import ProductIconBadge, { buildBadgeGradient } from '../../components/product/ProductIconBadge';
 import ProductRating from '../../components/product/ProductRating';
 import ProductQuantityOption from '../../components/product/ProductQuantityOption';
 import FrequentlyBoughtItem from '../../components/product/FrequentlyBoughtItem';
@@ -109,7 +109,7 @@ export default function ProductPresentationSection({ product, categoryLabel = 'P
                 <p className="product-presentation__category">{categoryLabel}</p>
                 <p className="product-presentation__name">{product.name}</p>
               </div>
-              <ProductIconBadge image={product.image} alt={product.name} size={96} />
+              <ProductIconBadge image={product.image} alt={product.name} size={96} gradient={buildBadgeGradient(product)} />
             </div>
 
             <div className="product-presentation__meta">
