@@ -43,6 +43,12 @@ const REASONS_BY_PROBLEM = {
     'Refina poros dilatados pela oleosidade e melhora a textura',
     'Mantém a pele equilibrada e sem brilho o dia todo',
   ],
+  textura: [
+    'Suaviza a textura: argila e ácidos esfoliam e renovam a superfície da pele',
+    'Refina poros e remove cravos: limpa profundamente sem agredir',
+    'Acelera a renovação celular deixando a pele mais lisa',
+    'Mantém a pele uniforme e suave com uso contínuo',
+  ],
 };
 
 function hasCondition(condicoes, match) {
@@ -72,6 +78,7 @@ function getReasons(analysisResult) {
       { key: 'poros', score: scores.poros || 0 },
       { key: 'oleosidade', score: scores.oleosidade || 0 },
       { key: 'vermelhidao', score: scores.vermelhidao || 0 },
+      { key: 'textura', score: scores.textura || 0 },
     ];
     problemKey = problems.sort((a, b) => b.score - a.score)[0].key;
   }

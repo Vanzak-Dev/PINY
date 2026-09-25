@@ -33,6 +33,12 @@ const BENEFITS_BY_PROBLEM = {
     { title: 'Refina textura', desc: 'Reduz poros e deixa a pele lisa' },
   ],
   vermelhidao: DEFAULT_BENEFITS,
+  textura: [
+    { title: 'Textura lisa e uniforme', desc: 'Esfolia e renova a superfície da pele' },
+    { title: 'Pele mais suave em dias', desc: 'Primeiras melhorias visíveis em 7 dias' },
+    { title: 'Refina poros dilatados', desc: 'Desobstrui e reduz o relevo da pele' },
+    { title: 'Renovação celular acelerada', desc: 'Remove células mortas sem agredir' },
+  ],
 };
 
 function getBenefits(analysisResult) {
@@ -48,6 +54,7 @@ function getBenefits(analysisResult) {
       { key: 'poros', score: scores.poros || 0 },
       { key: 'oleosidade', score: scores.oleosidade || 0 },
       { key: 'vermelhidao', score: scores.vermelhidao || 0 },
+      { key: 'textura', score: scores.textura || 0 },
     ];
     problemKey = problems.sort((a, b) => b.score - a.score)[0].key;
   }

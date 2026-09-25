@@ -32,7 +32,33 @@ const SCORE_KEYS = [
   { key: 'textura', label: 'Textura' },
 ];
 
+const REQUIRED_SCORE_KEYS = ['acne', 'manchas', 'poros', 'oleosidade', 'vermelhidao', 'textura'];
+
+function isValidScores(scores) {
+  if (!scores || typeof scores !== 'object') return false;
+  return REQUIRED_SCORE_KEYS.every(
+    (key) => typeof scores[key] === 'number' && !isNaN(scores[key])
+  );
+}
+
 export default function QuizStepResult({ result, onNext }) {
+  if (!isValidScores(result?.scores)) {
+    return (
+      <div className="quiz-result">
+        <QuizStepIndicator current={3} />
+        <div className="quiz-result__note">
+          <span className="quiz-timeline__marker quiz-timeline__marker--done" aria-hidden="true">
+            <QuizCheckIcon />
+          </span>
+          <p>Não foi possível interpretar completamente os resultados da sua análise. Você pode continuar para ver as recomendações.</p>
+        </div>
+        <button type="button" className="quiz-btn-primary quiz-result__btn" onClick={onNext}>
+          Entender meu problema
+        </button>
+      </div>
+    );
+  }
+
   const tags = result
     ? [`Tipo de pele: ${result.tipo_pele || '—'}`, `Gravidade: ${result.gravidade_geral || '—'}`]
     : FALLBACK_TAGS;

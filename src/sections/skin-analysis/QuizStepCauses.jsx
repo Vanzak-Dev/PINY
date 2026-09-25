@@ -54,6 +54,16 @@ const EXPLANATIONS = {
     insight: 'Poros dilatados precisam de limpeza profunda e controle de oleosidade para refinar a textura.',
   },
   oleosidade: DEFAULT_CAUSES,
+  textura: {
+    titleLines: ['Por que sua pele tem', 'textura irregular?'],
+    causes: [
+      'Acúmulo de células mortas deixando a superfície áspera',
+      'Poros dilatados e cravos criando relevo na pele',
+      'Renovação celular lenta mantendo a textura desigual',
+      'Oleosidade e impurezas obstruindo os poros',
+    ],
+    insight: 'Textura irregular precisa de esfoliação suave e renovação celular para deixar a pele lisa.',
+  },
 };
 
 function hasCondition(condicoes, match) {
@@ -106,6 +116,7 @@ function getExplanation(analysisResult) {
       { key: 'poros', score: scores.poros || 0 },
       { key: 'oleosidade', score: scores.oleosidade || 0 },
       { key: 'vermelhidao', score: scores.vermelhidao || 0 },
+      { key: 'textura', score: scores.textura || 0 },
     ];
     problemKey = problems.sort((a, b) => b.score - a.score)[0].key;
   }

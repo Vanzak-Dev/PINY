@@ -106,6 +106,23 @@ const TESTIMONIALS_BY_PROBLEM = {
       text: '"Sofria com rosácea e minha pele estava sempre inflamada. O tratamento acalmou minha pele de forma incrível!"',
     },
   ],
+  textura: [
+    {
+      name: 'Juliana, 25 anos',
+      tag: 'Textura 70% mais suave',
+      text: '"Minha pele era áspera e irregular. Em 21 dias, ficou lisinha e com poros bem menos visíveis!"',
+    },
+    {
+      name: 'Renata, 31 anos',
+      tag: 'Pele lisa e uniforme',
+      text: '"A textura da minha pele sempre me incomodou. Com o tratamento, ficou suave e renovada!"',
+    },
+    {
+      name: 'Bianca, 28 anos',
+      tag: 'Textura refinada',
+      text: '"Cravos e aspereza sumiram. Minha pele está lisa, uniforme e muito mais macia!"',
+    },
+  ],
 };
 
 const STATS = [
@@ -128,6 +145,7 @@ function getTestimonials(analysisResult) {
   const hasVermelhidao = hasCondition(condicoes, 'vermelhidão') || hasCondition(condicoes, 'vermelhidao') || hasCondition(condicoes, 'sensibilidade');
   const hasManchas = hasCondition(condicoes, 'manchas');
   const hasPoros = hasCondition(condicoes, 'poros');
+  const hasTextura = hasCondition(condicoes, 'textura');
 
   let category = top_problem;
 
@@ -137,12 +155,14 @@ function getTestimonials(analysisResult) {
     else if (hasVermelhidao) category = 'vermelhidao';
     else if (hasManchas) category = 'manchas';
     else if (hasPoros) category = 'poros';
+    else if (hasTextura) category = 'textura';
     else if (scores) {
       const problems = [
         { key: 'acne', score: scores.acne || 0 },
         { key: 'manchas', score: scores.manchas || 0 },
         { key: 'poros', score: scores.poros || 0 },
         { key: 'oleosidade', score: scores.oleosidade || 0 },
+        { key: 'textura', score: scores.textura || 0 },
       ];
       category = problems.sort((a, b) => b.score - a.score)[0].key;
     }
