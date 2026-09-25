@@ -15,9 +15,11 @@
      card (e nao do topo da secao), entao continua correto mesmo se o
      cabecalho/card mudar de altura. */
   padding: 32px var(--ai-analysis-gutter) 60vw;
-  /* Teto pedido explicitamente: nunca maior que a proporcao do frame
-     mobile do Figma (393x680px), mesmo se o conteudo natural for maior. */
-  max-height: 168vw;
+  /* Sem teto de altura no mobile: o conteudo do card (com scroll interno
+     proprio no body) precisa caber inteiro, e o padding inferior de 60vw
+     reserva espaco para o pote decorativo. Com max-height o overflow:hidden
+     clipava o final do card. */
+  max-height: none;
   border-radius: 0 0 16px 16px;
 }
 
@@ -233,9 +235,12 @@
   flex-direction: column;
   gap: 8px;
   padding: 16px;
-  max-height: 60vh;
+  padding-bottom: 32px;
+  max-height: 420px;
   overflow-y: auto;
   scroll-behavior: smooth;
+  scroll-padding-bottom: 32px;
+  -webkit-overflow-scrolling: touch;
 }
 
 .ai-analysis__message {

@@ -76,7 +76,14 @@ export default function AiAnalysisSection({ product }) {
   const afterStartedRef = useRef(false);
 
   useEffect(() => {
-    bodyRef.current?.scrollTo({ top: bodyRef.current.scrollHeight, behavior: 'smooth' });
+    const el = bodyRef.current;
+    if (!el) return;
+    // Delay ensures the new message has painted before scrolling —
+    // iOS Safari otherwise stops short with smooth behavior.
+    const t = setTimeout(() => {
+      el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
+    }, 100);
+    return () => clearTimeout(t);
   }, [messages, typing]);
 
   const bootRef = useRef(false);
