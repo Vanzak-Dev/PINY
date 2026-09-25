@@ -14,17 +14,35 @@ const ITEMS = [
   'Montando sua rotina',
 ];
 
-export default function QuizStepAnalyzing({ onComplete }) {
+export default function QuizStepAnalyzing({ error, onRetry }) {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    if (progress >= 100) {
-      onComplete?.();
-      return;
-    }
+    if (error) return;
+    if (progress >= 95) return;
     const timer = setTimeout(() => setProgress((value) => value + 1), 70);
     return () => clearTimeout(timer);
-  }, [progress, onComplete]);
+  }, [progress, error]);
+
+  if (error) {
+    return (
+      <div className="quiz-analyzing">
+        <QuizStepIndicator current={2} />
+        <div className="quiz-analyzing__error">
+          <p className="quiz-analyzing__error-title">Não foi possível concluir a análise</p>
+          <p className="quiz-analyzing__error-message">{error}</p>
+          <div className="quiz-analyzing__error-actions">
+            <button type="button" className="quiz-btn-primary" onClick={onRetry}>
+              Tentar novamente
+            </button>
+            <button type="button" className="quiz-analyzing__error-back" onClick={onRetry}>
+              Voltar
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const completedCount = Math.min(ITEMS.length, Math.ceil((progress / 100) * ITEMS.length));
 

@@ -35,6 +35,47 @@
   width: 100%;
 }
 
+.quiz-analyzing__error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+  padding: 32px 16px;
+}
+
+.quiz-analyzing__error-title {
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  color: #1c8c44;
+}
+
+.quiz-analyzing__error-message {
+  font-size: 15px;
+  color: #666;
+  max-width: 400px;
+}
+
+.quiz-analyzing__error-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.quiz-analyzing__error-back {
+  background: none;
+  border: none;
+  color: #1c8c44;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 @media (min-width: 768px) {
   .quiz-analyzing__body {
     flex-direction: row;
