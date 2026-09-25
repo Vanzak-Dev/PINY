@@ -35,7 +35,7 @@
   margin-top: 1.25vw;
   align-items: center;
   gap: .213438vw;
-  color: #1c8c44;
+  color: var(--feature-text-color, #1c8c44);
 }
 
 .pineapple-product-info__glyph {
@@ -75,7 +75,7 @@
   height: .104167vw;
   margin-top: 1.666667vw;
   margin-bottom: 1.25vw;
-  background: #1c8c44;
+  background: var(--feature-text-color, #1c8c44);
 }
 
 .pineapple-product-info__description {

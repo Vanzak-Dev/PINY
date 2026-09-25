@@ -1,6 +1,6 @@
 import './PineapplePerks.css';
 
-const perks = [
+const defaultPerks = [
   {
     key: 'acne',
     label: 'Trata acne e manchas',
@@ -45,21 +45,24 @@ const perks = [
   },
 ];
 
-export default function PineapplePerks() {
+export default function PineapplePerks({ customPerks }) {
+  const perks = (customPerks && customPerks.length > 0)
+    ? customPerks.map((perk, index) => ({ ...perk, key: perk.key || `custom-perk-${index}` }))
+    : defaultPerks;
+
   return (
     <div className="pineapple-perks">
       <div className="pineapple-perks__grid">
         {perks.map((perk) => (
           <div className="pineapple-perks__item" key={perk.key}>
             <span className="pineapple-perks__icon-wrap">
-              <svg
-                className="pineapple-perks__icon"
-                viewBox="0 0 96 96"
-                fill="none"
-                aria-hidden="true"
-              >
-                <g fill="white">{perk.icon}</g>
-              </svg>
+              {perk.icon && typeof perk.icon === 'string' ? (
+                <img className="pineapple-perks__icon pineapple-perks__icon--image" src={perk.icon} alt="" aria-hidden="true" />
+              ) : (
+                <svg className="pineapple-perks__icon" viewBox="0 0 96 96" fill="none" aria-hidden="true">
+                  <g fill="white">{perk.icon}</g>
+                </svg>
+              )}
             </span>
             <p className="pineapple-perks__label">{perk.label}</p>
           </div>

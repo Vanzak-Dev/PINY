@@ -24,7 +24,7 @@ const emptyProduct = {
   price: '', oldPrice: '', costPrice: '', stock: 0, trackStock: true, tags: '', image: '', backgroundImage: '', presentationBackgroundImage: '', presentationMobileBackgroundImage: '', presentationProductImage: '',
   backgroundColor: '#b8efad', badgeGradientColor1: '', badgeGradientColor2: '', badgeGradientAngle: '180', imageRestRotation: 0, imageActiveRotation: 15,
   featureEnabled: false, featureLabel: '', featurePrice: '', featureBackgroundCenter: '#F3FD5A', featureBackgroundEdge: '#FFD72F',
-  featureLeftImage: '', featureRightImage: '', featureProductImage: '', featureProductInfoMobileBackground: '', weight: '',
+  featureLeftImage: '', featureRightImage: '', featureProductImage: '', featureProductInfoMobileBackground: '', featureTextColor: '', featurePerks: [], weight: '',
   dimensions: { length: '', width: '', height: '' }, seoTitle: '', seoDescription: '',
   comparisonEnabled: true, comparisonTitle: '', comparisonSubtitle: '', comparisonPinyLabel: '', comparisonOtherLabel: '',
   comparisonImage1: '', comparisonImage2: '', comparisonImage3: '', comparisonImage4: '', comparisonProductIcon: '',
@@ -83,6 +83,7 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
   const [featureRightImageFile, setFeatureRightImageFile] = useState(null);
   const [featureProductImageFile, setFeatureProductImageFile] = useState(null);
   const [featureProductInfoMobileBgFile, setFeatureProductInfoMobileBgFile] = useState(null);
+  const [featurePerkIconFiles, setFeaturePerkIconFiles] = useState({});
   const [comparisonImage1File, setComparisonImage1File] = useState(null);
   const [comparisonImage2File, setComparisonImage2File] = useState(null);
   const [comparisonImage3File, setComparisonImage3File] = useState(null);
@@ -120,7 +121,7 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
       dimensions: { ...emptyProduct.dimensions, ...product.dimensions },
       comparisonRows: product.comparisonRows?.length ? product.comparisonRows : emptyProduct.comparisonRows,
     } : emptyProduct);
-    setImageFile(null); setBackgroundFile(null); setFeatureLeftImageFile(null); setFeatureRightImageFile(null); setFeatureProductImageFile(null); setFeatureProductInfoMobileBgFile(null);
+    setImageFile(null); setBackgroundFile(null); setFeatureLeftImageFile(null); setFeatureRightImageFile(null); setFeatureProductImageFile(null); setFeatureProductInfoMobileBgFile(null); setFeaturePerkIconFiles({});
     setComparisonImage1File(null); setComparisonImage2File(null); setComparisonImage3File(null); setComparisonImage4File(null); setComparisonProductIconFile(null); setComparisonCheckIconFile(null); setComparisonXIconFile(null);
     setPresentationBackgroundFile(null); setPresentationMobileBackgroundFile(null); setPresentationProductFile(null);
     setQuantityOptionIconFile(null);
@@ -163,6 +164,7 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
     if (featureRightImageFile) data.append('featureRightImageFile', featureRightImageFile);
     if (featureProductImageFile) data.append('featureProductImageFile', featureProductImageFile);
     if (featureProductInfoMobileBgFile) data.append('featureProductInfoMobileBackgroundFile', featureProductInfoMobileBgFile);
+    Object.entries(featurePerkIconFiles).forEach(([index, file]) => { if (file) data.append(`featurePerkIconFile_${index}`, file); });
     if (comparisonImage1File) data.append('comparisonImage1File', comparisonImage1File);
     if (comparisonImage2File) data.append('comparisonImage2File', comparisonImage2File);
     if (comparisonImage3File) data.append('comparisonImage3File', comparisonImage3File);
@@ -292,6 +294,18 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
         <div className="admin-grid admin-grid--2">
           <label>URL do fundo do product info (mobile)<input type="text" value={values.featureProductInfoMobileBackground} onChange={(e) => change('featureProductInfoMobileBackground', e.target.value)} placeholder="https://… ou /catalog-assets/…" /></label>
           <label>Upload do fundo do product info (mobile)<input type="file" accept="image/*" onChange={(e) => setFeatureProductInfoMobileBgFile(e.target.files[0])} />{values.featureProductInfoMobileBackground && <small>Atual: {values.featureProductInfoMobileBackground}</small>}</label>
+        </div>
+        <label>Cor dos textos da seção<input type="color" value={values.featureTextColor} onChange={(e) => change('featureTextColor', e.target.value)} /><small>Aplicada nos rótulos dos perks, no wordmark PINY e no divisor.</small></label>
+        <div className="admin-repeater">
+          <div className="admin-repeater__heading"><strong>Perks (ícones e textos)</strong><button type="button" className="admin-button" onClick={() => addCollectionItem('featurePerks', { icon: '', label: '' })}>Adicionar perk</button></div>
+          {values.featurePerks.length === 0 && <small>Nenhum perk cadastrado — os perks padrão serão exibidos.</small>}
+          {values.featurePerks.map((perk, index) => (
+            <div className="admin-repeater__row admin-repeater__row--perks" key={`perk-${index}`}>
+              <label>Upload do ícone<input type="file" accept="image/*" onChange={(e) => setFeaturePerkIconFiles((prev) => ({ ...prev, [index]: e.target.files[0] }))} />{perk.icon && !featurePerkIconFiles[index] && <small>Atual: {perk.icon}</small>}</label>
+              <label>Texto<input value={perk.label} onChange={(e) => changeCollectionItem('featurePerks', index, 'label', e.target.value)} placeholder="Ex.: Trata acne e manchas" /></label>
+              <button type="button" className="admin-repeater__remove" onClick={() => removeCollectionItem('featurePerks', index)} aria-label={`Remover perk ${index + 1}`}>×</button>
+            </div>
+          ))}
         </div>
       </section>
       <section className="admin-form__section">

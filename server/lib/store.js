@@ -281,6 +281,13 @@ export function normalizeProduct(input, current = {}) {
     featureRightImage: String(input.featureRightImage ?? current.featureRightImage ?? '').trim(),
     featureProductImage: String(input.featureProductImage ?? current.featureProductImage ?? '').trim(),
     featureProductInfoMobileBackground: String(input.featureProductInfoMobileBackground ?? current.featureProductInfoMobileBackground ?? '').trim(),
+    featureTextColor: String(input.featureTextColor ?? current.featureTextColor ?? '').trim(),
+    featurePerks: array(input.featurePerks, current.featurePerks ?? [])
+      .map((perk) => ({
+        icon: String(perk?.icon || '').trim(),
+        label: String(perk?.label || '').trim(),
+      }))
+      .filter((perk) => perk.label || perk.icon),
     beforeAfterEnabled: boolean(input.beforeAfterEnabled, current.beforeAfterEnabled ?? false),
     beforeAfterTitle: String(input.beforeAfterTitle ?? current.beforeAfterTitle ?? '').trim(),
     beforeAfterTitleAccent: String(input.beforeAfterTitleAccent ?? current.beforeAfterTitleAccent ?? '').trim(),

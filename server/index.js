@@ -91,6 +91,16 @@ function bodyWithUploads(request, current = {}) {
       } catch { return request.body.benefitsItems || '[]'; }
     })(),
     faqPatternImage: files.faqPatternFile?.[0] ? `/api/uploads/${files.faqPatternFile[0].filename}` : request.body.faqPatternImage || current.faqPatternImage,
+    featurePerks: (() => {
+      try {
+        const perks = JSON.parse(request.body.featurePerks || '[]');
+        for (let i = 0; i < 8; i++) {
+          const file = files[`featurePerkIconFile_${i}`]?.[0];
+          if (file && perks[i]) perks[i].icon = `/api/uploads/${file.filename}`;
+        }
+        return JSON.stringify(perks);
+      } catch { return request.body.featurePerks || '[]'; }
+    })(),
     howToUseBackgroundImage: files.howToUseBackgroundFile?.[0] ? `/api/uploads/${files.howToUseBackgroundFile[0].filename}` : request.body.howToUseBackgroundImage || current.howToUseBackgroundImage,
     howToUseImages: (() => {
       try {
@@ -317,6 +327,14 @@ const productUpload = upload.fields([
   { name: 'benefitIconFile_6', maxCount: 1 },
   { name: 'benefitIconFile_7', maxCount: 1 },
   { name: 'faqPatternFile', maxCount: 1 },
+  { name: 'featurePerkIconFile_0', maxCount: 1 },
+  { name: 'featurePerkIconFile_1', maxCount: 1 },
+  { name: 'featurePerkIconFile_2', maxCount: 1 },
+  { name: 'featurePerkIconFile_3', maxCount: 1 },
+  { name: 'featurePerkIconFile_4', maxCount: 1 },
+  { name: 'featurePerkIconFile_5', maxCount: 1 },
+  { name: 'featurePerkIconFile_6', maxCount: 1 },
+  { name: 'featurePerkIconFile_7', maxCount: 1 },
   { name: 'howToUseBackgroundFile', maxCount: 1 },
   { name: 'howToUseImage1File', maxCount: 1 },
   { name: 'howToUseImage2File', maxCount: 1 },
