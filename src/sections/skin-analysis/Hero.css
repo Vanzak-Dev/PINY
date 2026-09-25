@@ -1,0 +1,257 @@
+.skin-analysis-hero {
+  position: relative;
+  width: 100%;
+  margin-top: 65px;
+  aspect-ratio: 393 / 600;
+  overflow: hidden;
+  background: #c1f3b6;
+}
+
+.skin-analysis-hero__bg {
+  position: absolute;
+  display: block;
+  max-width: none;
+  pointer-events: none;
+  left: -54.961832vw;
+  top: 0;
+  width: 272.519084vw;
+  height: 152.671756vw;
+}
+
+.skin-analysis-hero__photo-frame {
+  position: absolute;
+  display: block;
+  bottom: 0;
+  left: -39.69%;
+  right: -38.42%;
+  aspect-ratio: 4096 / 2732;
+}
+
+.skin-analysis-hero__photo {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.skin-analysis-hero__photo-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 51.062%, rgba(0, 0, 0, 0.2) 69.249%);
+  pointer-events: none;
+}
+
+.skin-analysis-hero__content {
+  position: absolute;
+  inset: 0;
+}
+
+.skin-analysis-hero__eyebrow {
+  position: absolute;
+  top: 4.071246vw;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  color: #fff;
+  font-family: "neulis-neue", sans-serif;
+  font-weight: 700;
+  font-size: 6.10687vw;
+  line-height: 1;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.skin-analysis-hero__title {
+  position: absolute;
+  inset: 0;
+}
+
+.skin-analysis-hero__title-line {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.skin-analysis-hero__title-line span {
+  display: block;
+  transform: rotate(-3.43deg) skewX(-3.43deg);
+  font-family: "Quiny", sans-serif;
+  font-weight: 400;
+  line-height: 0.56;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.skin-analysis-hero__title-line--1 {
+  top: 14.0864vw;
+  left: 16.539440vw;
+  width: 65.1368vw;
+  height: 17.6438vw;
+}
+
+.skin-analysis-hero__title-line--1 span {
+  width: 65.1368vw;
+  font-size: 24.7498vw;
+}
+
+.skin-analysis-hero__title-line--2 {
+  top: 28.1842vw;
+  left: 16.9112vw;
+  width: 65.7902vw;
+  height: 10.3049vw;
+}
+
+.skin-analysis-hero__title-line--2 span {
+  width: 65.7902vw;
+  font-size: 11.2710vw;
+}
+
+.skin-analysis-hero__subtitle {
+  position: absolute;
+  top: 114.2494vw;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 65.966vw;
+  margin: 0;
+  color: #fff;
+  font-family: "neulis-neue", sans-serif;
+  font-weight: 400;
+  font-size: 4.0712vw;
+  line-height: 1;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.skin-analysis-hero__cta-wrap {
+  position: absolute;
+  top: 134.6056vw;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.skin-analysis-hero__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2723vw;
+  padding: 1.9084vw 3.5623vw;
+  border: 0.5089vw solid #1c8c44;
+  border-radius: 2.0356vw;
+  background: #85e86f;
+  box-shadow: 0.5089vw 0.5089vw 0 #1c8c44;
+  cursor: pointer;
+  font-family: "neulis-neue", sans-serif;
+  font-weight: 700;
+  font-size: 4.0712vw;
+  line-height: 1;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.skin-analysis-hero__cta img {
+  width: 6.1069vw;
+  height: 6.1069vw;
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .skin-analysis-hero {
+    aspect-ratio: 1920 / 965;
+    background: #fff547;
+  }
+
+  .skin-analysis-hero__bg {
+    left: -0.260417vw;
+    top: -8.541667vw;
+    width: 113.75vw;
+    height: 63.645833vw;
+  }
+
+  .skin-analysis-hero__photo-frame {
+    left: -4.375vw;
+    top: 0.46875vw;
+    right: auto;
+    bottom: auto;
+    width: 74.583333vw;
+    height: 49.739583vw;
+    aspect-ratio: auto;
+  }
+
+  .skin-analysis-hero__photo-gradient {
+    display: none;
+  }
+
+  .skin-analysis-hero__content {
+    inset: auto;
+    top: 50%;
+    right: 10.416667vw;
+    left: auto;
+    bottom: auto;
+    transform: translateY(-50%);
+    width: 37.65625vw;
+    height: 30.989583vw;
+  }
+
+  .skin-analysis-hero__eyebrow {
+    top: 0;
+    left: calc(50% - 12.473958vw);
+    transform: none;
+    font-size: 3.333333vw;
+  }
+
+  .skin-analysis-hero__title-line--1 {
+    top: 4.168099vw;
+    left: 1.585328vw;
+    width: 33.992297vw;
+    height: 9.269974vw;
+  }
+
+  .skin-analysis-hero__title-line--1 span {
+    width: 34.057656vw;
+    font-size: 12.916667vw;
+  }
+
+  .skin-analysis-hero__title-line--2 {
+    top: 11.50643vw;
+    left: 1.777375vw;
+    width: 34.334969vw;
+    height: 5.339505vw;
+  }
+
+  .skin-analysis-hero__title-line--2 span {
+    width: 34.396563vw;
+    font-size: 5.879531vw;
+  }
+
+  .skin-analysis-hero__subtitle {
+    top: 18.489583vw;
+    width: 34.427083vw;
+    font-size: 1.666667vw;
+  }
+
+  .skin-analysis-hero__cta-wrap {
+    top: 26.822917vw;
+    height: 4.166667vw;
+  }
+
+  .skin-analysis-hero__cta {
+    gap: 0.520833vw;
+    padding: 1.302083vw;
+    border-width: 0.208333vw;
+    border-radius: 0.833333vw;
+    box-shadow: 0.208333vw 0.208333vw 0 #1c8c44;
+    font-size: 1.666667vw;
+  }
+
+  .skin-analysis-hero__cta img {
+    width: 1.666667vw;
+    height: 1.666667vw;
+  }
+}

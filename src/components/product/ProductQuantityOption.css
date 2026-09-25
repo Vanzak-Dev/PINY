@@ -107,10 +107,28 @@
   font-weight: 400;
 }
 
-.quantity-option__tag {
+.quantity-option__tags {
   position: absolute;
   top: -14px;
   left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transform: translateX(-50%);
+}
+
+/* Sem espaço lado a lado, a tag de desconto fica na borda e a extra empilha acima. */
+.quantity-option__tags--multi {
+  top: auto;
+  bottom: calc(100% - 24px);
+  flex-wrap: wrap-reverse;
+  justify-content: center;
+  row-gap: 4px;
+  width: max-content;
+  max-width: calc(100% + 8px);
+}
+
+.quantity-option__tag {
   padding: 8px 12px;
   border-radius: 999px;
   background: #85e86f;
@@ -119,13 +137,18 @@
   font-size: 16px;
   font-weight: 700;
   text-transform: uppercase;
-  transform: translateX(-50%);
   white-space: nowrap;
 }
 
 .quantity-option__tag--selected {
   background: #1c8c44;
   color: #fff;
+}
+
+.quantity-option__tag--extra {
+  border: 2px solid #1c8c44;
+  background: #e8fce0;
+  color: #1c8c44;
 }
 
 @media (max-width: 640px) {
@@ -183,8 +206,17 @@
     font-size: clamp(11px, 3.4vw, 14px);
   }
 
-  .quantity-option__tag {
+  .quantity-option__tags {
     top: clamp(-11px, -2.5vw, -8px);
+    gap: 4px;
+  }
+
+  .quantity-option__tags--multi {
+    top: auto;
+    bottom: calc(100% - 14px);
+  }
+
+  .quantity-option__tag {
     padding: clamp(4px, 1.25vw, 6px) clamp(6px, 2vw, 9px);
     font-size: clamp(9px, 2.7vw, 12px);
   }

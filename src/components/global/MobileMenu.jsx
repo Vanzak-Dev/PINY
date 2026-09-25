@@ -15,13 +15,13 @@ const menuSections = [
   {
     title: 'Análise com IA',
     items: [
-      { label: 'Analise sua Pele', image: analiseImg, href: '#' },
+      { label: 'Analise sua Pele', image: analiseImg, href: '/analise-sua-pele' },
     ],
   },
   {
     title: 'Kits',
     items: [
-      { label: 'Monte sua Textura', image: montesuaImg, href: '#' },
+      { label: 'Monte sua Textura', image: montesuaImg, href: '/monte-sua-textura' },
     ],
   },
   {
