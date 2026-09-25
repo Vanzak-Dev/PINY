@@ -54,10 +54,11 @@ export default function App() {
   }, [pathname]);
 
   if (pathname.startsWith("/skin-analysis-test")) return <SkinAnalysisTest />;
-  if (pathname === "/skin-analysis") return <SkinAnalysisHome />;
   if (pathname.startsWith("/admin")) return <AdminPage />;
 
-  const page = pathname.startsWith("/produtos/")
+  const page = pathname === "/skin-analysis"
+    ? <SkinAnalysisHome />
+    : pathname.startsWith("/produtos/")
     ? <ProductPage productIdentifier={decodeURIComponent(pathname.split("/produtos/")[1])} />
     : pathname.startsWith("/pesquisa")
     ? <SearchResultsPage query={new URLSearchParams(window.location.search).get("q") || ""} />
