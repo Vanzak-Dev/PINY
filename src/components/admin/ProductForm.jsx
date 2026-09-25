@@ -61,6 +61,7 @@ const emptyProduct = {
     { text: 'Use 1-2x ao dia, conforme a condição da sua pele' },
     { text: 'De dia, finalize com protetor solar — a fórmula tem ácidos.' },
   ],
+  aiAnalysisBackgroundColor: '#fef8dd',
   beforeAfterEnabled: false, beforeAfterTitle: 'ANTES & DEPOIS', beforeAfterTitleAccent: 'Reais',
   beforeAfterSubtitle: '', beforeAfterBeforeLabel: 'ANTES', beforeAfterAfterLabel: 'DEPOIS',
   beforeAfterItems: [],
@@ -410,6 +411,12 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
             </div>
           ))}
         </div>
+      </section>
+      <section className="admin-form__section">
+        <div className="admin-form__section-heading">
+          <div><h3>Não sabe qual é a máscara ideal para você? (ai-analysis)</h3><small>Cor de fundo da seção de análise de pele por IA exibida na página do produto.</small></div>
+        </div>
+        <label>Cor de fundo da seção<input type="color" value={values.aiAnalysisBackgroundColor} onChange={(e) => change('aiAnalysisBackgroundColor', e.target.value)} /></label>
       </section>
       <section className="admin-form__section">
         <div className="admin-form__section-heading">

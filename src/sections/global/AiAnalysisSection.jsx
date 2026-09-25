@@ -36,7 +36,7 @@ export default function AiAnalysisSection({ product }) {
     <section
       className="ai-analysis"
       aria-labelledby="ai-analysis-title"
-      style={{ '--ai-analysis-accent': accentColor }}
+      style={{ '--ai-analysis-accent': accentColor, '--ai-analysis-bg': product?.aiAnalysisBackgroundColor || '#fef8dd' }}
     >
       {/* No mobile os potes sao ancorados ao final do card (dentro de
           .ai-analysis__inner); no desktop, ao topo da propria secao -

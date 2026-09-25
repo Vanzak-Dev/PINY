@@ -7,7 +7,7 @@
   align-items: center;
   justify-content: flex-start;
   overflow: hidden;
-  background: #fef8dd;
+  background: var(--ai-analysis-bg, #fef8dd);
   /* O espaco reservado embaixo (60vw) e' exatamente o quanto o pote rosa
      (blob d) se estende para alem do fim do card - ver
      .ai-analysis__decor--mobile - garantindo que ele fique colado no canto
