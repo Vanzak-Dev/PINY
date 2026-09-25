@@ -45,7 +45,11 @@ export default function QuizStepResult({ result, onNext }) {
     ? SCORE_KEYS.map(({ key, label }) => ({ label, value: result.scores[key] ?? 0 }))
     : FALLBACK_METRICS;
 
-  const score = result?.top_score ?? 46;
+  const scoreValues = result?.scores
+    ? SCORE_KEYS.map(({ key }) => result.scores[key] ?? 0)
+    : FALLBACK_METRICS.map((m) => m.value);
+  const avgProblem = scoreValues.reduce((a, b) => a + b, 0) / (scoreValues.length || 1);
+  const score = Math.max(20, Math.min(95, Math.round(100 - avgProblem * 9)));
   const scoreMax = 100;
   const maxMetric = Math.max(...metrics.map((metric) => metric.value));
 
