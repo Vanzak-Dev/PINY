@@ -595,7 +595,11 @@ app.post('/api/generate-after-image', async (request, response) => {
       console.warn('generate-after-image: função externa ainda não deployada (404). Usando fallback.');
       return response.status(502).json({ error: 'Geração de imagem ainda não configurada.' });
     }
-    console.error('generate-after-image error:', error.message);
+    if (error.upstream) {
+      console.warn('generate-after-image: serviço externo indisponível (' + error.message + '). Frontend usará fallback.');
+    } else {
+      console.error('generate-after-image error:', error.message);
+    }
 
     if (error.status === 504) {
       return response.status(504).json({ error: 'Timeout ao gerar imagem. Tente novamente.' });
