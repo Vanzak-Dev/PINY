@@ -2,6 +2,7 @@ import TextureHero from '../sections/texture/Hero';
 import GuaranteeSection from '../sections/global/GuaranteeSection';
 import AiAnalysisSection from '../sections/global/AiAnalysisSection';
 import KitPickerSection from '../sections/global/KitPickerSection';
+import GuaranteeBanner from '../sections/global/GuaranteeBanner';
 import Journey21DaysSection from '../sections/product/Journey21DaysSection';
 import HowToUseSection from '../sections/product/HowToUseSection';
 import ProductComparisonSection from '../sections/product/ProductComparisonSection';
@@ -36,6 +37,7 @@ export default function MonteSuaTexturaPage() {
       />
       {beforeAfterProduct && <ProductBeforeAfterSection product={beforeAfterProduct} />}
       <ProductFaqSection />
+      <GuaranteeBanner />
       <p role="status" aria-live="polite" hidden={!error}>{error}</p>
     </main>
   );
