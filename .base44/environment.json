@@ -29,6 +29,11 @@
       "description": "Versão das functions do Base44 (padrão: v1).",
       "requiredAtBoot": false,
       "generatedForDevelopment": true
+    },
+    {
+      "name": "SKIN_API_KEY",
+      "description": "API Key do endpoint externo de Skin Analysis (app piny-routine-advisor-copy). Enviada como header X-API-Key no backend para https://piny-routine-advisor-copy-eb9d0002.base44.app/functions/analyzeSkin. Nunca deve ir para o frontend.",
+      "requiredAtBoot": false
     }
   ]
 }
