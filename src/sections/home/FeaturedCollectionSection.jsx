@@ -154,7 +154,7 @@ export default function FeaturedCollectionSection({ products, onAdd }) {
         <div
           className="featured-collection__track"
           style={{
-            transform: `translateX(-${index * 100}%)`,
+            transform: `translateX(-${hasCarousel ? index * 100 : 0}%)`,
             transition: noTransition ? 'none' : 'transform 500ms ease',
           }}
           onTransitionEnd={handleTransitionEnd}
