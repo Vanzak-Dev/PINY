@@ -30,6 +30,7 @@ const emptyProduct = {
   comparisonImage1: '', comparisonImage2: '', comparisonImage3: '', comparisonImage4: '', comparisonProductIcon: '',
   comparisonHeaderLabelColor: '#1c8c44', comparisonHighlightColor: '#85e86f', comparisonTableColor: '#e8fce0', comparisonCellColor: '#1c8c44',
   comparisonCheckIcon: '',
+  comparisonXIcon: '', comparisonDividerColor: '#1c8c44',
   comparisonRows: [
     { label: '12 combinações diferentes', piny: 'check', other: 'x' },
     { label: 'Booster concentrado 2 em 1', piny: 'check', other: 'x' },
@@ -61,6 +62,7 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
   const [comparisonImage4File, setComparisonImage4File] = useState(null);
   const [comparisonProductIconFile, setComparisonProductIconFile] = useState(null);
   const [comparisonCheckIconFile, setComparisonCheckIconFile] = useState(null);
+  const [comparisonXIconFile, setComparisonXIconFile] = useState(null);
   const [presentationBackgroundFile, setPresentationBackgroundFile] = useState(null);
   const [presentationMobileBackgroundFile, setPresentationMobileBackgroundFile] = useState(null);
   const [presentationProductFile, setPresentationProductFile] = useState(null);
@@ -84,7 +86,7 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
       comparisonRows: product.comparisonRows?.length ? product.comparisonRows : emptyProduct.comparisonRows,
     } : emptyProduct);
     setImageFile(null); setBackgroundFile(null); setFeatureLeftImageFile(null); setFeatureRightImageFile(null); setFeatureProductImageFile(null); setFeatureProductInfoMobileBgFile(null);
-    setComparisonImage1File(null); setComparisonImage2File(null); setComparisonImage3File(null); setComparisonImage4File(null); setComparisonProductIconFile(null); setComparisonCheckIconFile(null);
+    setComparisonImage1File(null); setComparisonImage2File(null); setComparisonImage3File(null); setComparisonImage4File(null); setComparisonProductIconFile(null); setComparisonCheckIconFile(null); setComparisonXIconFile(null);
     setPresentationBackgroundFile(null); setPresentationMobileBackgroundFile(null); setPresentationProductFile(null);
     setQuantityOptionIconFile(null);
     setError('');
@@ -128,6 +130,7 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
     if (comparisonImage4File) data.append('comparisonImage4File', comparisonImage4File);
     if (comparisonProductIconFile) data.append('comparisonProductIconFile', comparisonProductIconFile);
     if (comparisonCheckIconFile) data.append('comparisonCheckIconFile', comparisonCheckIconFile);
+    if (comparisonXIconFile) data.append('comparisonXIconFile', comparisonXIconFile);
     if (presentationBackgroundFile) data.append('presentationBackgroundFile', presentationBackgroundFile);
     if (presentationMobileBackgroundFile) data.append('presentationMobileBackgroundFile', presentationMobileBackgroundFile);
     if (presentationProductFile) data.append('presentationProductFile', presentationProductFile);
@@ -265,6 +268,8 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
           <label>Cor de fundo da tabela<input type="color" value={values.comparisonTableColor} onChange={(e) => change('comparisonTableColor', e.target.value)} /></label>
           <label>Cor das células<input type="color" value={values.comparisonCellColor} onChange={(e) => change('comparisonCellColor', e.target.value)} /></label>
           <label>Upload ícone de check<input type="file" accept="image/*" onChange={(e) => setComparisonCheckIconFile(e.target.files[0])} />{values.comparisonCheckIcon && <small>Atual: {values.comparisonCheckIcon}</small>}<small>Imagem exibida nas células de "check" da tabela. Se vazio, usa o ícone padrão.</small></label>
+          <label>Upload ícone de X<input type="file" accept="image/*" onChange={(e) => setComparisonXIconFile(e.target.files[0])} />{values.comparisonXIcon && <small>Atual: {values.comparisonXIcon}</small>}<small>Imagem exibida nas células de "X" da tabela. Se vazio, usa o ícone padrão.</small></label>
+          <label>Cor do divisor<input type="color" value={values.comparisonDividerColor} onChange={(e) => change('comparisonDividerColor', e.target.value)} /></label>
         </div>
 
         <div className="admin-repeater">

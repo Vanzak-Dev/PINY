@@ -307,6 +307,8 @@ export function normalizeProduct(input, current = {}) {
     comparisonTableColor: String(input.comparisonTableColor ?? current.comparisonTableColor ?? '#e8fce0').trim(),
     comparisonCellColor: String(input.comparisonCellColor ?? current.comparisonCellColor ?? '#1c8c44').trim(),
     comparisonCheckIcon: String(input.comparisonCheckIcon ?? current.comparisonCheckIcon ?? '').trim(),
+    comparisonXIcon: String(input.comparisonXIcon ?? current.comparisonXIcon ?? '').trim(),
+    comparisonDividerColor: String(input.comparisonDividerColor ?? current.comparisonDividerColor ?? '#1c8c44').trim(),
     comparisonRows: array(input.comparisonRows, current.comparisonRows ?? [])
       .map((row) => ({
         label: String(row?.label || '').trim(),

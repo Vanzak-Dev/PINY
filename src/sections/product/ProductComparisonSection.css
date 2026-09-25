@@ -213,7 +213,7 @@
   display: block;
   width: 100%;
   height: var(--divider-h);
-  background: #1c8c44;
+  background: var(--comparison-divider-color, #1c8c44);
 }
 
 .product-comparison__row-wrap {
