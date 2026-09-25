@@ -61,6 +61,9 @@ const emptyProduct = {
     { text: 'Use 1-2x ao dia, conforme a condição da sua pele' },
     { text: 'De dia, finalize com protetor solar — a fórmula tem ácidos.' },
   ],
+  beforeAfterEnabled: false, beforeAfterTitle: 'ANTES & DEPOIS', beforeAfterTitleAccent: 'Reais',
+  beforeAfterSubtitle: '', beforeAfterBeforeLabel: 'ANTES', beforeAfterAfterLabel: 'DEPOIS',
+  beforeAfterItems: [],
 };
 
 const comparisonValueOptions = [
@@ -404,6 +407,32 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
             <div className="admin-repeater__row admin-repeater__row--how-to-use" key={`how-to-use-${index}`}>
               <label>Texto do passo {index + 1}<textarea rows="2" value={step.text} onChange={(e) => changeCollectionItem('howToUseSteps', index, 'text', e.target.value)} placeholder="Ex.: Aplique uma camada generosa do produto" /></label>
               <button type="button" className="admin-repeater__remove" onClick={() => removeCollectionItem('howToUseSteps', index)} aria-label={`Remover passo ${index + 1}`}>×</button>
+            </div>
+          ))}
+        </div>
+      </section>
+      <section className="admin-form__section">
+        <div className="admin-form__section-heading">
+          <div><h3>Antes e Depois (before-after)</h3><small>Seção de depoimentos com slider de antes/depois exibida na página do produto.</small></div>
+        </div>
+        <label className="admin-check"><input type="checkbox" checked={values.beforeAfterEnabled} onChange={(e) => change('beforeAfterEnabled', e.target.checked)} /> Exibir esta seção na página do produto</label>
+        <div className="admin-grid admin-grid--2">
+          <label>Título<input value={values.beforeAfterTitle} onChange={(e) => change('beforeAfterTitle', e.target.value)} placeholder="ANTES & DEPOIS" /></label>
+          <label>Título destaque<input value={values.beforeAfterTitleAccent} onChange={(e) => change('beforeAfterTitleAccent', e.target.value)} placeholder="Reais" /></label>
+          <label>Label "antes"<input value={values.beforeAfterBeforeLabel} onChange={(e) => change('beforeAfterBeforeLabel', e.target.value)} placeholder="ANTES" /></label>
+          <label>Label "depois"<input value={values.beforeAfterAfterLabel} onChange={(e) => change('beforeAfterAfterLabel', e.target.value)} placeholder="DEPOIS" /></label>
+        </div>
+        <label>Subtítulo<input value={values.beforeAfterSubtitle} onChange={(e) => change('beforeAfterSubtitle', e.target.value)} placeholder="Mais de 44 mil peles transformadas…" /></label>
+        <div className="admin-repeater">
+          <div className="admin-repeater__heading"><strong>Itens (antes/depois)</strong><button type="button" className="admin-button" onClick={() => addCollectionItem('beforeAfterItems', { name: '', usage: '', beforeImage: '', afterImage: '' })}>Adicionar item</button></div>
+          {values.beforeAfterItems.length === 0 && <small>Nenhum item cadastrado.</small>}
+          {values.beforeAfterItems.map((item, index) => (
+            <div className="admin-repeater__row admin-repeater__row--before-after" key={`before-after-${index}`}>
+              <label>Nome<input value={item.name} onChange={(e) => changeCollectionItem('beforeAfterItems', index, 'name', e.target.value)} placeholder="Ex.: Ana Simas" /></label>
+              <label>Uso<input value={item.usage} onChange={(e) => changeCollectionItem('beforeAfterItems', index, 'usage', e.target.value)} placeholder="Ex.: 21 dias de uso" /></label>
+              <label>URL imagem "antes"<input type="text" value={item.beforeImage} onChange={(e) => changeCollectionItem('beforeAfterItems', index, 'beforeImage', e.target.value)} placeholder="https://… ou /catalog-assets/…" /></label>
+              <label>URL imagem "depois"<input type="text" value={item.afterImage} onChange={(e) => changeCollectionItem('beforeAfterItems', index, 'afterImage', e.target.value)} placeholder="https://… ou /catalog-assets/…" /></label>
+              <button type="button" className="admin-repeater__remove" onClick={() => removeCollectionItem('beforeAfterItems', index)} aria-label={`Remover item ${index + 1}`}>×</button>
             </div>
           ))}
         </div>
