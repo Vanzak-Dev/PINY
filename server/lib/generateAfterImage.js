@@ -84,6 +84,7 @@ export async function generateAfterImage({ selfie_url, top_problem, scores }, ap
       const err = new Error(`Endpoint externo retornou ${res.status}`);
       err.status = res.status;
       err.upstream = true;
+      err.notDeployed = res.status === 404;
       throw err;
     }
 

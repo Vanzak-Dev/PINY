@@ -591,6 +591,10 @@ app.post('/api/generate-after-image', async (request, response) => {
     const result = await generateAfterImage({ selfie_url, top_problem, scores }, apiKey);
     response.json(result);
   } catch (error) {
+    if (error.notDeployed) {
+      console.warn('generate-after-image: função externa ainda não deployada (404). Usando fallback.');
+      return response.status(502).json({ error: 'Geração de imagem ainda não configurada.' });
+    }
     console.error('generate-after-image error:', error.message);
 
     if (error.status === 504) {
