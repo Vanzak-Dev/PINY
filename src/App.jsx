@@ -10,6 +10,7 @@ import SearchResultsPage from "./pages/SearchResultsPage";
 import { CartProvider, useCart } from "./hooks/useCart";
 import SkinAnalysisTest from "./pages/skin-analysis/SkinAnalysisTest";
 import SkinAnalysisHome from "./pages/skin-analysis/SkinAnalysisHome";
+import MonteSuaTextura from "./pages/MonteSuaTextura";
 
 export default function App() {
   const [pathname, setPathname] = useState(window.location.pathname);
@@ -56,8 +57,10 @@ export default function App() {
   if (pathname.startsWith("/skin-analysis-test")) return <SkinAnalysisTest />;
   if (pathname.startsWith("/admin")) return <AdminPage />;
 
-  const page = pathname === "/skin-analysis"
+  const page = pathname === "/skin-analysis" || pathname === "/analise-sua-pele"
     ? <SkinAnalysisHome />
+    : pathname === "/monte-sua-textura"
+    ? <MonteSuaTextura />
     : pathname.startsWith("/produtos/")
     ? <ProductPage productIdentifier={decodeURIComponent(pathname.split("/produtos/")[1])} />
     : pathname.startsWith("/pesquisa")
