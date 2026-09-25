@@ -81,12 +81,12 @@ export default function Quiz() {
           />
         )}
         {step === 3 && <QuizStepResult result={analysisResult} onNext={() => setStep(4)} />}
-        {step === 4 && <QuizStepCauses onNext={() => setStep(5)} />}
-        {step === 5 && <QuizStepBenefits onNext={() => setStep(6)} />}
-        {step === 6 && <QuizStepActives onNext={() => setStep(7)} />}
-        {step === 7 && <QuizStepProductFit onNext={() => setStep(8)} />}
-        {step === 8 && <QuizStepSocialProof onNext={() => setStep(9)} />}
-        {step === 9 && <QuizStepBeforeAfter onNext={() => setStep(10)} />}
+        {step === 4 && <QuizStepCauses analysisResult={analysisResult} onNext={() => setStep(5)} />}
+        {step === 5 && <QuizStepBenefits analysisResult={analysisResult} onNext={() => setStep(6)} />}
+        {step === 6 && <QuizStepActives analysisResult={analysisResult} onNext={() => setStep(7)} />}
+        {step === 7 && <QuizStepProductFit analysisResult={analysisResult} onNext={() => setStep(8)} />}
+        {step === 8 && <QuizStepSocialProof analysisResult={analysisResult} onNext={() => setStep(9)} />}
+        {step === 9 && <QuizStepBeforeAfter analysisResult={analysisResult} onNext={() => setStep(10)} />}
         {step === 10 && <QuizStepOffer />}
       </div>
     </section>
