@@ -17,11 +17,15 @@ const TIMEOUT_MS = 60_000;
  * Keeps identity, lighting, framing and orientation. Natural, plausible.
  */
 function buildPrompt(top_problem, scores) {
-  const base =
-    'Transform this face photo to show realistic results after 21 days of consistent skincare treatment. ' +
-    'Keep the EXACT same person, face structure, lighting, orientation and framing. ' +
-    'Vertical portrait orientation, person facing forward. ' +
-    'Natural, plausible improvement — not exaggerated or artificial.';
+  const identity =
+    'CRITICAL IDENTITY PRESERVATION: You MUST preserve EXACTLY the same person. ' +
+    'Same facial identity, same facial structure, same hair, same eyes, same nose, same mouth, same pose, same framing, same lighting. ' +
+    'Do NOT replace the person. Do NOT change age, gender or ethnicity. ' +
+    'Do NOT generate a new face. Use the provided reference image as the base and ONLY modify visible skin conditions.';
+
+  const task =
+    'Apply subtle, realistic skincare improvements to this exact face to simulate 21 days of consistent treatment. ' +
+    'The improvements must look natural and plausible — not exaggerated or artificial.';
 
   const specifics = {
     acne: 'Reduce acne, pimples and blemishes. Calm inflammation and redness from active breakouts.',
@@ -46,7 +50,7 @@ function buildPrompt(top_problem, scores) {
 
   const emphasisText = emphasis.length > 0 ? ` ${emphasis.join(' ')}` : '';
 
-  return `${base} ${problemText}${emphasisText} Healthy, glowing but natural skin. No makeup, no filters, no unrealistic perfection.`;
+  return `${identity}\n\n${task} ${problemText}${emphasisText} Healthy, glowing but natural skin. No makeup, no filters, no unrealistic perfection.`;
 }
 
 /**

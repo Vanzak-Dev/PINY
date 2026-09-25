@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import BeforeAfterSlider from '../../components/product/BeforeAfterSlider';
 import resultBefore from '../../assets/images/skin-analysis-quiz/result-before.webp';
 import resultAfter from '../../assets/images/skin-analysis-quiz/result-after.webp';
@@ -39,35 +38,9 @@ function getImprovements(analysisResult) {
   return [all.slice(0, mid), all.slice(mid)];
 }
 
-export default function QuizStepBeforeAfter({ analysisResult, onNext }) {
+export default function QuizStepBeforeAfter({ analysisResult, afterImage, afterImageLoading, afterImageError, onNext }) {
   const [column1, column2] = getImprovements(analysisResult);
   const beforeImage = analysisResult?.selfie_url || resultBefore;
-  const [afterImage, setAfterImage] = useState(null);
-
-  useEffect(() => {
-    if (!analysisResult?.selfie_url) return;
-
-    let cancelled = false;
-
-    fetch('/api/generate-after-image', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        selfie_url: analysisResult.selfie_url,
-        top_problem: analysisResult.top_problem,
-        scores: analysisResult.scores,
-      }),
-    })
-      .then((res) => (res.ok ? res.json() : Promise.reject(new Error(`HTTP ${res.status}`))))
-      .then((data) => {
-        if (!cancelled && data.url) setAfterImage(data.url);
-      })
-      .catch((err) => console.error('[BeforeAfter] generate error:', err));
-
-    return () => {
-      cancelled = true;
-    };
-  }, [analysisResult?.selfie_url]);
 
   const displayAfterImage = afterImage || resultAfter;
 

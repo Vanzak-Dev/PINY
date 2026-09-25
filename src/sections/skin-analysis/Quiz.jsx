@@ -16,11 +16,50 @@ export default function Quiz() {
   const [step, setStep] = useState(1);
   const [analysisResult, setAnalysisResult] = useState(null);
   const [analysisError, setAnalysisError] = useState(null);
+  const [afterImage, setAfterImage] = useState(null);
+  const [afterImageLoading, setAfterImageLoading] = useState(false);
+  const [afterImageError, setAfterImageError] = useState(false);
   const sectionRef = useRef(null);
 
   useEffect(() => {
     sectionRef.current?.scrollIntoView({ block: 'start' });
   }, [step]);
+
+  // Start "after" image generation in background as soon as the
+  // skin analysis returns a selfie_url — well before the user
+  // reaches Step 9.  Runs exactly once per analysis.
+  useEffect(() => {
+    if (!analysisResult?.selfie_url) return;
+
+    let cancelled = false;
+    setAfterImageLoading(true);
+    setAfterImageError(false);
+
+    fetch('/api/generate-after-image', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        selfie_url: analysisResult.selfie_url,
+        top_problem: analysisResult.top_problem,
+        scores: analysisResult.scores,
+      }),
+    })
+      .then((res) => (res.ok ? res.json() : Promise.reject(new Error(`HTTP ${res.status}`))))
+      .then((data) => {
+        if (!cancelled && data.url) {
+          setAfterImage(data.url);
+          setAfterImageLoading(false);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setAfterImageError(true);
+          setAfterImageLoading(false);
+        }
+      });
+
+    return () => { cancelled = true; };
+  }, [analysisResult?.selfie_url]);
 
   const handlePhotoSelected = async (file) => {
     setAnalysisError(null);
@@ -86,7 +125,15 @@ export default function Quiz() {
         {step === 6 && <QuizStepActives analysisResult={analysisResult} onNext={() => setStep(7)} />}
         {step === 7 && <QuizStepProductFit analysisResult={analysisResult} onNext={() => setStep(8)} />}
         {step === 8 && <QuizStepSocialProof analysisResult={analysisResult} onNext={() => setStep(9)} />}
-        {step === 9 && <QuizStepBeforeAfter analysisResult={analysisResult} onNext={() => setStep(10)} />}
+        {step === 9 && (
+          <QuizStepBeforeAfter
+            analysisResult={analysisResult}
+            afterImage={afterImage}
+            afterImageLoading={afterImageLoading}
+            afterImageError={afterImageError}
+            onNext={() => setStep(10)}
+          />
+        )}
         {step === 10 && <QuizStepOffer />}
       </div>
     </section>
