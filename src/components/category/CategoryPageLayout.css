@@ -1,0 +1,233 @@
+.category-page {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 64px;
+  background: #fff;
+}
+
+.category-page__banner {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.category-page__heading {
+  width: 100%;
+  max-width: 1520px;
+  margin: 0;
+  padding: 24px 20px 0;
+  color: #1c8c44;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-weight: 800;
+  font-size: 24px;
+  text-transform: uppercase;
+}
+
+/* PriceTag badge (mesmo padrão do product-faq__badge) */
+
+.category-page__badge {
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+  width: 356px;
+  height: 174px;
+  margin-top: -87px;
+  overflow: hidden;
+}
+
+.category-page__badge-ellipse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  max-width: none;
+  transform: translate(-50%, -50%) rotate(-5deg);
+}
+
+.category-page__badge-ellipse--outer {
+  width: 341.733px;
+  height: 170.866px;
+}
+
+.category-page__badge-ellipse--inner {
+  width: 325.033px;
+  height: 157.224px;
+}
+
+.category-page__badge-text {
+  position: absolute;
+  top: 50%;
+  left: calc(50% - 0.43px);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  transform: translate(-50%, -50%) rotate(-5deg);
+  font-family: "Quiny", sans-serif;
+  font-weight: 400;
+  font-size: 96px;
+  line-height: 0.55;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.category-page__badge-pineapple {
+  position: absolute;
+  max-width: none;
+  width: 64.383px;
+  height: 70px;
+}
+
+.category-page__badge-pineapple--left {
+  left: 43.15px;
+  top: 52.06px;
+  transform: rotate(1.92deg);
+}
+
+.category-page__badge-pineapple--right {
+  left: 247.15px;
+  top: 34.06px;
+  transform: rotate(178.08deg) scaleY(-1);
+}
+
+/* Toolbar */
+
+.category-page__toolbar {
+  display: flex;
+  width: 100%;
+  max-width: 1520px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 20px;
+  margin-top: 16px;
+}
+
+.category-page__count {
+  color: #000b06;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.category-page__toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.category-page__sort-label {
+  color: #000b06;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.category-page__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 999px;
+  padding: 6px 14px;
+  background: #1c8c44;
+  color: #fff;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.category-page__pill::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-right: 1.5px solid #fff;
+  border-bottom: 1.5px solid #fff;
+  transform: rotate(45deg) translate(-1px, -1px);
+}
+
+/* Grid */
+
+.category-page__grid {
+  display: grid;
+  width: 100%;
+  max-width: 1520px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  padding: 20px;
+}
+
+.category-page__card {
+  --card-gap: 10px;
+  --title-font-size: 16px;
+  --current-price-font-size: 14px;
+  --old-price-font-size: 11px;
+  --information-height: 38px;
+  aspect-ratio: 356.3 / 494.861;
+}
+
+.category-page__card .product-card__prices {
+  width: auto;
+}
+
+.category-page__empty {
+  width: 100%;
+  max-width: 1520px;
+  padding: 64px 20px;
+  color: rgba(0, 11, 6, 0.6);
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-size: 16px;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .category-page {
+    padding-top: 88px;
+  }
+
+  .category-page__banner {
+    aspect-ratio: 1920 / 450;
+  }
+
+  .category-page__count,
+  .category-page__sort-label,
+  .category-page__pill {
+    font-size: 18px;
+  }
+
+  .category-page__pill {
+    padding: 6px 16px;
+  }
+
+  .category-page__heading {
+    padding: 32px clamp(24px, 10.416667vw, 200px) 0;
+    font-size: 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .category-page__toolbar {
+    padding: 0 clamp(24px, 10.416667vw, 200px);
+    margin-top: 64px;
+  }
+
+  .category-page__grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    padding: 32px clamp(24px, 10.416667vw, 200px) 64px;
+  }
+
+  .category-page__card {
+    --card-gap: 0.833333vw;
+    --title-font-size: clamp(16px, 1.666667vw, 32px);
+    --current-price-font-size: clamp(14px, 1.319792vw, 25.34px);
+    --old-price-font-size: clamp(11px, 0.989583vw, 19px);
+    --information-height: clamp(38px, 3.297396vw, 63.3px);
+  }
+}

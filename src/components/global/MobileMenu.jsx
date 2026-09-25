@@ -27,8 +27,8 @@ const menuSections = [
   {
     title: 'Produtos',
     items: [
-      { label: 'Piny Masks', image: pinymasksImg, href: '#' },
-      { label: 'Piny Stars', image: pinystarsImg, href: '#' },
+      { label: 'Piny Masks', image: pinymasksImg, href: '/piny-mask' },
+      { label: 'Piny Stars', image: pinystarsImg, href: '/piny-stars' },
     ],
   },
 ];

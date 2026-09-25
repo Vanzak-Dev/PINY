@@ -24,7 +24,7 @@ export default function MegaMenu() {
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
-          <a className="mega-menu__view-all" href="#">Ver todos os produtos</a>
+          <a className="mega-menu__view-all" href="/piny-mask">Ver todos os produtos</a>
         </div>
       </div>
     </div>

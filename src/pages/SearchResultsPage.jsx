@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
-import ProductCard from '../components/product/ProductCard';
+import CategoryPageLayout from '../components/category/CategoryPageLayout';
 import { featuredProducts } from '../data/products';
-import './SearchResultsPage.css';
+import { useCart } from '../hooks/useCart';
 
 function matchesQuery(product, query) {
   const haystack = [product.name, product.category, ...(product.badges?.map((badge) => badge.label) || [])]
@@ -11,6 +11,7 @@ function matchesQuery(product, query) {
 }
 
 export default function SearchResultsPage({ query = '' }) {
+  const { addItem } = useCart();
   const normalizedQuery = query.trim().toLowerCase();
   const results = useMemo(
     () => (normalizedQuery ? featuredProducts.filter((product) => matchesQuery(product, normalizedQuery)) : []),
@@ -18,17 +19,11 @@ export default function SearchResultsPage({ query = '' }) {
   );
 
   return (
-    <main className="search-results-page page-width">
-      <h1 className="search-results-page__title">Resultados para "{query}"</h1>
-      {results.length === 0 ? (
-        <p className="search-results-page__empty">Nenhum produto encontrado.</p>
-      ) : (
-        <div className="search-results-page__grid">
-          {results.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-      )}
-    </main>
+    <CategoryPageLayout
+      heading={`Resultados para "${query}"`}
+      products={results}
+      onAdd={addItem}
+      emptyMessage="Nenhum produto encontrado."
+    />
   );
 }
