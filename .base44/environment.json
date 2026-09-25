@@ -34,6 +34,11 @@
       "name": "SKIN_API_KEY",
       "description": "API Key do endpoint externo de Skin Analysis (app piny-routine-advisor-copy). Enviada como header X-API-Key no backend para https://piny-routine-advisor-copy-eb9d0002.base44.app/functions/analyzeSkin. Nunca deve ir para o frontend.",
       "requiredAtBoot": false
+    },
+    {
+      "name": "GENERATE_IMAGE_API_KEY",
+      "description": "API Key do endpoint externo de geração de imagem (app piny-routine-advisor-copy). Enviada como header X-API-Key no backend para https://piny-routine-advisor-copy-eb9d0002.base44.app/functions/generateAfterImage. Nunca deve ir para o frontend.",
+      "requiredAtBoot": false
     }
   ]
 }
