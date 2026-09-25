@@ -1,0 +1,35 @@
+.quiz-ring {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 160px;
+  height: 160px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  background: conic-gradient(from 90deg, #fff 0deg, #a3f585 180deg, #1c8c44 359deg, #fff 360deg);
+}
+
+.quiz-ring::before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border-radius: 999px;
+  background: #fff;
+}
+
+.quiz-ring > * {
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .quiz-ring {
+    width: 256px;
+    height: 256px;
+  }
+
+  .quiz-ring::before {
+    inset: 10px;
+  }
+}

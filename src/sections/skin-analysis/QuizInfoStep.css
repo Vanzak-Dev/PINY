@@ -1,0 +1,120 @@
+.quiz-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  width: 100%;
+}
+
+.quiz-info__heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.quiz-info__title {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  color: #1c8c44;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-weight: 800;
+  font-size: 26px;
+  line-height: 0.95;
+}
+
+.quiz-info__subtitle {
+  margin: 0;
+  color: #000b06;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.3;
+}
+
+.quiz-info__note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  border-radius: 20px;
+  background: #e8fce0;
+  padding: 20px 16px;
+  text-align: center;
+}
+
+.quiz-info__note--icon {
+  text-align: left;
+}
+
+.quiz-info__note-title {
+  margin: 0 0 6px;
+  color: #000b06;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.3;
+}
+
+.quiz-info__note-text {
+  margin: 0;
+  color: #000b06;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.3;
+}
+
+.quiz-info__footnote {
+  margin: 0;
+  color: #000b06;
+  font-family: "Neulis Neue", "neulis-neue", sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.quiz-info__btn {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .quiz-info {
+    gap: 64px;
+  }
+
+  .quiz-info__title {
+    font-size: 64px;
+  }
+
+  .quiz-info__subtitle {
+    font-size: 24px;
+  }
+
+  .quiz-info__note {
+    gap: 18px;
+    border-radius: 32px;
+    padding: 32px 16px;
+  }
+
+  .quiz-info__note-title {
+    margin-bottom: 8px;
+    font-size: 24px;
+  }
+
+  .quiz-info__note-text {
+    font-size: 24px;
+  }
+
+  .quiz-info__footnote {
+    font-size: 24px;
+  }
+
+  .quiz-info__btn {
+    width: auto;
+  }
+}

@@ -1,7 +1,16 @@
 import { formatPrice } from '../../lib/formatPrice';
 import './ProductQuantityOption.css';
 
-export default function ProductQuantityOption({ quantity, price, discountLabel, productImage, selected = false, onSelect }) {
+export default function ProductQuantityOption({
+  quantity,
+  price,
+  discountLabel,
+  extraLabel,
+  label,
+  productImage,
+  selected = false,
+  onSelect,
+}) {
   const visualQuantity = Math.min(Math.max(Number(quantity) || 1, 1), 3);
 
   return (
@@ -24,13 +33,18 @@ export default function ProductQuantityOption({ quantity, price, discountLabel, 
           ))}
         </span>
         <span className="quantity-option__label">
-          <strong>{quantity} und.</strong>
+          <strong>{label ?? `${quantity} und.`}</strong>
           <span>{formatPrice(price)}</span>
         </span>
       </button>
-      {discountLabel && (
-        <span className={`quantity-option__tag${selected ? ' quantity-option__tag--selected' : ''}`}>
-          {discountLabel}
+      {(discountLabel || extraLabel) && (
+        <span className={`quantity-option__tags${discountLabel && extraLabel ? ' quantity-option__tags--multi' : ''}`}>
+          {discountLabel && (
+            <span className={`quantity-option__tag${selected ? ' quantity-option__tag--selected' : ''}`}>
+              {discountLabel}
+            </span>
+          )}
+          {extraLabel && <span className="quantity-option__tag quantity-option__tag--extra">{extraLabel}</span>}
         </span>
       )}
     </div>
