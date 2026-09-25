@@ -46,7 +46,7 @@ const emptyProduct = {
     { title: 'Extrato de Abacaxi', lines: ['O símbolo da PINY'] },
     { title: 'Salicílico + Glicólico', lines: ['Motor antiacne', 'de fábrica'] },
   ],
-  benefitsEnabled: true, benefitsPatternImage: '',
+  benefitsEnabled: true, benefitsPatternImage: '', benefitsBackgroundColor: '#fef8dd',
   benefitsItems: [
     { icon: '', label: 'Trata marcas e manchas' },
     { icon: '', label: 'Absorve a\nOleosidade' },
@@ -352,7 +352,10 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
           <div><h3>Benefícios (product-benefits)</h3><small>Imagem de fundo, ícones e textos dos benefícios exibidos na página do produto.</small></div>
         </div>
         <label className="admin-check"><input type="checkbox" checked={values.benefitsEnabled} onChange={(e) => change('benefitsEnabled', e.target.checked)} /> Exibir esta seção na página do produto</label>
-        <label>Upload imagem de fundo (product-benefits__pattern)<input type="file" accept="image/*" onChange={(e) => setBenefitsPatternFile(e.target.files[0])} />{values.benefitsPatternImage && <small>Atual: {values.benefitsPatternImage}</small>}</label>
+        <div className="admin-grid admin-grid--2">
+          <label>Upload imagem de fundo (product-benefits__pattern)<input type="file" accept="image/*" onChange={(e) => setBenefitsPatternFile(e.target.files[0])} />{values.benefitsPatternImage && <small>Atual: {values.benefitsPatternImage}</small>}</label>
+          <label>Cor de fundo da seção<input type="color" value={values.benefitsBackgroundColor} onChange={(e) => change('benefitsBackgroundColor', e.target.value)} /></label>
+        </div>
         <div className="admin-repeater">
           <div className="admin-repeater__heading"><strong>Itens de benefício</strong><button type="button" className="admin-button" onClick={() => addCollectionItem('benefitsItems', { icon: '', label: '' })}>Adicionar benefício</button></div>
           {values.benefitsItems.length === 0 && <small>Nenhum benefício cadastrado.</small>}

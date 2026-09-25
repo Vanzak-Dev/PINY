@@ -32,7 +32,7 @@ export default function ProductBenefitsSection({ product }) {
   }));
 
   return (
-    <section className="product-benefits" aria-label="Benefícios do produto">
+    <section className="product-benefits" aria-label="Benefícios do produto" style={{ '--product-benefits-bg': product?.benefitsBackgroundColor || '#fef8dd' }}>
       <img className="product-benefits__pattern" src={patternImage} alt="" aria-hidden="true" />
       <div className="product-benefits__container">
         {benefits.map((benefit) => (

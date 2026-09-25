@@ -320,6 +320,7 @@ export function normalizeProduct(input, current = {}) {
     activesProductImage: String(input.activesProductImage ?? current.activesProductImage ?? '').trim(),
     benefitsEnabled: boolean(input.benefitsEnabled, current.benefitsEnabled ?? true),
     benefitsPatternImage: String(input.benefitsPatternImage ?? current.benefitsPatternImage ?? '').trim(),
+    benefitsBackgroundColor: String(input.benefitsBackgroundColor ?? current.benefitsBackgroundColor ?? '#fef8dd').trim(),
     benefitsItems: array(input.benefitsItems, current.benefitsItems ?? [])
       .map((item) => ({
         icon: String(item?.icon || '').trim(),
