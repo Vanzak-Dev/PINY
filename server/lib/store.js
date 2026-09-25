@@ -302,6 +302,11 @@ export function normalizeProduct(input, current = {}) {
     comparisonImage3: String(input.comparisonImage3 ?? current.comparisonImage3 ?? '').trim(),
     comparisonImage4: String(input.comparisonImage4 ?? current.comparisonImage4 ?? '').trim(),
     comparisonProductIcon: String(input.comparisonProductIcon ?? current.comparisonProductIcon ?? '').trim(),
+    comparisonHeaderLabelColor: String(input.comparisonHeaderLabelColor ?? current.comparisonHeaderLabelColor ?? '#1c8c44').trim(),
+    comparisonHighlightColor: String(input.comparisonHighlightColor ?? current.comparisonHighlightColor ?? '#85e86f').trim(),
+    comparisonTableColor: String(input.comparisonTableColor ?? current.comparisonTableColor ?? '#e8fce0').trim(),
+    comparisonCellColor: String(input.comparisonCellColor ?? current.comparisonCellColor ?? '#1c8c44').trim(),
+    comparisonCheckIcon: String(input.comparisonCheckIcon ?? current.comparisonCheckIcon ?? '').trim(),
     comparisonRows: array(input.comparisonRows, current.comparisonRows ?? [])
       .map((row) => ({
         label: String(row?.label || '').trim(),

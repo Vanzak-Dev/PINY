@@ -99,7 +99,7 @@
   width: 100%;
   padding-block: 12px;
   border-radius: var(--table-radius);
-  background: #e8fce0;
+  background: var(--comparison-table-color, #e8fce0);
 }
 
 .product-comparison__highlight {
@@ -109,7 +109,7 @@
   right: calc(var(--row-pad-inline) + var(--cell-w) + var(--cell-gap) - var(--highlight-pad));
   width: calc(var(--cell-w) + 2 * var(--highlight-pad));
   border-radius: var(--highlight-radius) var(--highlight-radius) 0 0;
-  background: #85e86f;
+  background: var(--comparison-highlight-color, #85e86f);
   box-shadow: 0 10px 20px rgba(28, 140, 68, 0.3), 0 2px 6px rgba(28, 140, 68, 0.2);
   z-index: 0;
 }
@@ -138,7 +138,7 @@
 
 .product-comparison__label--header {
   font-weight: 400;
-  color: #1c8c44;
+  color: var(--comparison-header-label-color, #1c8c44);
 }
 
 .product-comparison__label--other {
@@ -187,7 +187,7 @@
   font-family: "neulis-neue", sans-serif;
   font-weight: 700;
   font-size: var(--label-font);
-  color: #1c8c44;
+  color: var(--comparison-cell-color, #1c8c44);
   text-align: center;
 }
 
