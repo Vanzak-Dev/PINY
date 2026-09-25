@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Camera, Upload, RefreshCw, Check, ScanLine, X } from 'lucide-react';
-import { base44 } from '@/api/base44Client';
 import { ScanCorners } from '@/components/funnel/BeautyTech';
 
 export default function SelfieUpload({ onComplete }) {
@@ -71,13 +70,8 @@ export default function SelfieUpload({ onComplete }) {
   };
 
   const handleFile = async (file) => {
-    if (!file) {
-      console.log('[SKIN-DEBUG] handleFile called with NO file');
-      return;
-    }
-    console.log('[SKIN-DEBUG] 1. handleFile called, file:', file.name, file.type, file.size, 'bytes');
+    if (!file) return;
     const correctedFile = await fixImageOrientation(file);
-    console.log('[SKIN-DEBUG] 1a. Image orientation fixed, correctedFile:', correctedFile.name, correctedFile.size, 'bytes');
 
     const reader = new FileReader();
     reader.onload = (e) => setPreview(e.target.result);
@@ -86,21 +80,25 @@ export default function SelfieUpload({ onComplete }) {
     setScanning(true);
     setUploading(true);
     try {
-      console.log('[SKIN-DEBUG] 2. Calling base44.integrations.Core.UploadFile...');
-      const uploadResult = await base44.integrations.Core.UploadFile({ file: correctedFile });
-      console.log('[SKIN-DEBUG] 3. UploadFile returned:', JSON.stringify(uploadResult));
-      const { file_url } = uploadResult;
-      console.log('[SKIN-DEBUG] 3a. file_url extracted:', file_url);
-      if (!file_url) {
-        console.error('[SKIN-DEBUG] 3b. ERROR: file_url is missing/undefined in upload response!');
+      const formData = new FormData();
+      formData.append('selfie', correctedFile);
+
+      const res = await fetch('/api/skin-analysis', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.error || `Erro ${res.status}`);
       }
-      await new Promise((r) => setTimeout(r, 1600));
+
+      const json = await res.json();
       setScanning(false);
       setUploading(false);
-      console.log('[SKIN-DEBUG] 4. Calling onComplete(file_url)...');
-      onComplete(file_url);
+      onComplete(json);
     } catch (err) {
-      console.error('[SKIN-DEBUG] UPLOAD ERROR:', err?.message || err, '\nFull error:', err);
+      console.error('[SkinAnalysis] Erro na API:', err?.message || err);
       setScanning(false);
       setUploading(false);
     }

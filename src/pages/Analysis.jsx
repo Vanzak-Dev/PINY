@@ -4,7 +4,6 @@ import { ArrowLeft, AlertCircle, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { base44 } from '@/api/base44Client';
 import { ASSETS } from '@/components/config/assets';
 
 import SelfieUpload from '@/components/analysis/SelfieUpload';
@@ -19,297 +18,33 @@ export default function Analysis() {
   const [analysisStage, setAnalysisStage] = useState('analyzing');
   const { track } = useAnalytics('Analysis');
 
-  const handleSelfieComplete = async (url) => {
-    console.log('[SKIN-DEBUG] 5. handleSelfieComplete called with url:', url);
+  const handleSelfieComplete = async (jsonResult) => {
     track('analise_step', { step: 'foto_enviada' });
-    setSelfieUrl(url);
+    setSelfieUrl(jsonResult.selfie_url);
     setStep('analyzing');
-    console.log('[SKIN-DEBUG] 5a. Step set to "analyzing", calling handleAnalysis...');
-    await handleAnalysis(url);
-  };
-
-  const handleAnalysis = async (url) => {
-    const startTime = Date.now();
-    const minDisplayTime = 15000;
-    setError(null);
     setAnalysisStage('analyzing');
 
     try {
-      console.log('[SKIN-DEBUG] 6. handleAnalysis STARTED, url:', url);
-      setAnalysisStage('analyzing_image');
-      track('analise_step', { step: 'processando' });
-      const analysisPrompt = `Você é um dermatologista especialista em análise visual de pele. Analise esta selfie com precisão e detalhe.
-
-      ANÁLISE REQUERIDA:
-
-      1. SCORES (0-10 para cada):
-      - acne: quantidade e severidade de espinhas ativas (pápulas, pústulas, nódulos)
-      - manchas: hiperpigmentação, melasma, manchas pós-inflamatórias
-      - poros: visibilidade e dilatação dos poros
-      - oleosidade: brilho excessivo, textura oleosa na zona T ou rosto todo
-      - vermelhidao: eritema, rosácea, irritação visível
-      - textura: rugosidade, irregularidades, cicatrizes
-
-      2. CONDIÇÕES IDENTIFICADAS (lista as condições presentes):
-      Identifique claramente se há:
-      - Acne ativa (leve/moderada/severa)
-      - Acne interna (lesões sob a pele, nódulos)
-      - Manchas de melasma (hiperpigmentação em maçãs do rosto/testa)
-      - Manchas pós-acne (hiperpigmentação pós-inflamatória)
-      - Poros dilatados
-      - Oleosidade excessiva
-      - Vermelhidão/sensibilidade
-      - Dermatite (pele descamando, irritada)
-      - Foliculite (inflamação nos folículos, comum em áreas com pelos)
-      - Textura irregular ou cicatrizes
-
-      3. TIPO DE PELE:
-      Classifique como: oleosa, mista, seca, sensível, normal
-
-      4. GRAVIDADE GERAL:
-      Classifique como: leve, moderada, severa
-
-      Seja preciso e baseie-se apenas no que é visível na imagem.`;
-
-      const routinePrompt = (analysisData) => `Você é o motor de recomendação de rotina da marca Piny (especializada em pele oleosa e acneica).
-
-      ANÁLISE COMPLETA DA PELE:
-
-      SCORES:
-      - Acne: ${analysisData.scores.acne}/10
-      - Manchas: ${analysisData.scores.manchas}/10
-      - Poros: ${analysisData.scores.poros}/10
-      - Oleosidade: ${analysisData.scores.oleosidade}/10
-      - Vermelhidão: ${analysisData.scores.vermelhidao}/10
-      - Textura: ${analysisData.scores.textura}/10
-
-      CONDIÇÕES IDENTIFICADAS:
-      ${analysisData.condicoes_identificadas.join(', ')}
-
-      TIPO DE PELE: ${analysisData.tipo_pele}
-      GRAVIDADE: ${analysisData.gravidade_geral}
-      ${analysisData.observacoes ? `OBSERVAÇÕES: ${analysisData.observacoes}` : ''}
-
-PRODUTOS PINY DISPONÍVEIS:
-1. Gel de Limpeza Piny - limpeza suave, controle de oleosidade
-2. Tônico Piny - equilibra pH, prepara a pele
-3. Sérum Piny - tratamento concentrado para acne
-4. Hidratante Piny - hidratação oil-free
-5. Protetor Solar Piny - FPS 50, toque seco
-6. Máscara Piny - tratamento intensivo semanal (1-3x/semana)
-7. Booster Piny - potencializador para manchas
-8. Adesivos Secativos Piny - uso pontual em espinhas
-
-REGRAS:
-1. NÃO diagnosticar doenças ou usar termos médicos
-2. Falar como recomendação cosmética
-3. Se sensibilidade alta: rotina mais gradual
-4. Se acne muito alta: priorizar controle de oleosidade e consistência
-5. Linguagem confiante, moderna e simples
-6. Seja específico: dias da semana, quantidade, tempo de uso
-
-Gere a rotina completa seguindo o schema.`;
-
-      console.log('[SKIN-DEBUG] 7. Calling first InvokeLLM (skin analysis), file_urls:', [url]);
-      const scoresPromise = base44.integrations.Core.InvokeLLM({
-        prompt: analysisPrompt,
-        file_urls: [url],
-        response_json_schema: {
-          type: "object",
-          properties: {
-            scores: {
-              type: "object",
-              properties: {
-                acne: { type: "number" },
-                manchas: { type: "number" },
-                poros: { type: "number" },
-                oleosidade: { type: "number" },
-                vermelhidao: { type: "number" },
-                textura: { type: "number" }
-              }
-            },
-            condicoes_identificadas: {
-              type: "array",
-              items: { type: "string" }
-            },
-            tipo_pele: { type: "string" },
-            gravidade_geral: { type: "string" },
-            observacoes: { type: "string" }
-          },
-          required: ["scores", "condicoes_identificadas", "tipo_pele", "gravidade_geral"]
-        }
-      });
-
-      const analysisResult = await scoresPromise;
-      console.log('[SKIN-DEBUG] 8. First InvokeLLM returned:', JSON.stringify(analysisResult)?.substring(0, 500));
-      const scoresResult = analysisResult.scores;
-      console.log('[SKIN-DEBUG] 8a. scoresResult:', JSON.stringify(scoresResult));
-
-      setAnalysisStage('generating_routine');
-      console.log('[SKIN-DEBUG] 9. Calling second InvokeLLM (routine generation)...');
-
-      const routinePromise = base44.integrations.Core.InvokeLLM({
-        prompt: routinePrompt(analysisResult),
-        response_json_schema: {
-          type: "object",
-          properties: {
-            resumo: {
-              type: "object",
-              properties: {
-                titulo: { type: "string" },
-                descricao: { type: "string" },
-                principais_achados: { type: "array", items: { type: "string" } },
-                nivel_cuidado: { type: "string" }
-              }
-            },
-            rotina_manha: {
-              type: "array",
-              items: {
-                type: "object",
-                properties: {
-                  passo: { type: "number" },
-                  produto: { type: "string" },
-                  instrucao: { type: "string" },
-                  tempo: { type: "string" },
-                  dica: { type: "string" }
-                }
-              }
-            },
-            rotina_noite: {
-              type: "array",
-              items: {
-                type: "object",
-                properties: {
-                  passo: { type: "number" },
-                  produto: { type: "string" },
-                  instrucao: { type: "string" },
-                  tempo: { type: "string" },
-                  dica: { type: "string" }
-                }
-              }
-            },
-            frequencia_semanal: {
-              type: "object",
-              properties: {
-                mascara: {
-                  type: "object",
-                  properties: {
-                    vezes_semana: { type: "number" },
-                    dias_sugeridos: { type: "array", items: { type: "string" } },
-                    duracao: { type: "string" }
-                  }
-                },
-                booster: {
-                  type: "object",
-                  properties: {
-                    vezes_semana: { type: "number" },
-                    dias_sugeridos: { type: "array", items: { type: "string" } },
-                    como_usar: { type: "string" }
-                  }
-                },
-                adesivos: {
-                  type: "object",
-                  properties: {
-                    quando_usar: { type: "string" },
-                    instrucao: { type: "string" }
-                  }
-                }
-              }
-            },
-            plano_21_dias: {
-              type: "object",
-              properties: {
-                semana_1: {
-                  type: "object",
-                  properties: {
-                    foco: { type: "string" },
-                    meta: { type: "string" },
-                    dicas: { type: "array", items: { type: "string" } }
-                  }
-                },
-                semana_2: {
-                  type: "object",
-                  properties: {
-                    foco: { type: "string" },
-                    meta: { type: "string" },
-                    dicas: { type: "array", items: { type: "string" } }
-                  }
-                },
-                semana_3: {
-                  type: "object",
-                  properties: {
-                    foco: { type: "string" },
-                    meta: { type: "string" },
-                    dicas: { type: "array", items: { type: "string" } }
-                  }
-                },
-                checkpoints: { type: "array", items: { type: "string" } }
-              }
-            },
-            kits_sugeridos: {
-              type: "array",
-              items: {
-                type: "object",
-                properties: {
-                  nome: { type: "string" },
-                  produtos: { type: "array", items: { type: "string" } },
-                  ideal_para: { type: "string" },
-                  destaque: { type: "boolean" }
-                }
-              }
-            },
-            cta: { type: "string" }
-          }
-        }
-      });
-
-      const routineResult = await routinePromise;
-      console.log('[SKIN-DEBUG] 10. Second InvokeLLM returned:', JSON.stringify(routineResult)?.substring(0, 500));
-
       const analysisData = {
-        selfie_url: url,
-        scores: scoresResult,
-        condicoes_identificadas: analysisResult.condicoes_identificadas,
-        tipo_pele: analysisResult.tipo_pele,
-        gravidade_geral: analysisResult.gravidade_geral,
-        observacoes: analysisResult.observacoes || null,
+        selfie_url: jsonResult.selfie_url,
+        scores: jsonResult.scores,
+        condicoes_identificadas: jsonResult.condicoes_identificadas,
+        tipo_pele: jsonResult.tipo_pele,
+        gravidade_geral: jsonResult.gravidade_geral,
+        observacoes: jsonResult.observacoes || null,
+        top_problem: jsonResult.top_problem,
+        top_score: jsonResult.top_score,
         questionnaire: null,
-        routine_result: routineResult,
+        routine_result: jsonResult.rotina,
         timestamp: new Date().toISOString()
       };
       localStorage.setItem('piny_latest_analysis', JSON.stringify(analysisData));
-      console.log('[SKIN-DEBUG] 11. Analysis data saved to localStorage');
-
-      // Save skin analysis data internally for product research
-      const topProblems = Object.entries(scoresResult);
-      topProblems.sort((a, b) => b[1] - a[1]);
-      const [topKey, topValue] = topProblems[0];
-      console.log('[SKIN-DEBUG] 12. top_problem:', topKey, 'top_score:', topValue);
-
-      console.log('[SKIN-DEBUG] 13. Calling SkinAnalysisData.create...');
-      base44.entities.SkinAnalysisData.create({
-        selfie_url: url,
-        scores: scoresResult,
-        condicoes_identificadas: analysisResult.condicoes_identificadas,
-        tipo_pele: analysisResult.tipo_pele,
-        gravidade_geral: analysisResult.gravidade_geral,
-        observacoes: analysisResult.observacoes || null,
-        top_problem: topKey,
-        top_score: topValue,
-      }).catch(err => console.error('[SKIN-DEBUG] 13a. SkinAnalysisData.create ERROR:', err?.message || err, '\nFull:', err));
-
-      const elapsedTime = Date.now() - startTime;
-      const remainingTime = Math.max(0, minDisplayTime - elapsedTime);
 
       track('analise_step', { step: 'resultado_pronto' });
 
-      await new Promise(resolve => setTimeout(resolve, remainingTime));
-
-      console.log('[SKIN-DEBUG] 14. Navigating to Results...');
+      await new Promise(resolve => setTimeout(resolve, 2000));
       navigate(createPageUrl('Results'));
-      
     } catch (error) {
-      console.error('[SKIN-DEBUG] FATAL ERROR in handleAnalysis:', error?.message || error, '\nFull error:', error, '\nStack:', error?.stack);
       setError({
         title: 'Ops! Algo deu errado',
         message: 'Não conseguimos processar sua análise. Por favor, tente novamente.',
