@@ -24,7 +24,7 @@ const emptyProduct = {
   price: '', oldPrice: '', costPrice: '', stock: 0, trackStock: true, tags: '', image: '', backgroundImage: '', presentationBackgroundImage: '', presentationMobileBackgroundImage: '', presentationProductImage: '',
   backgroundColor: '#b8efad', badgeGradientColor1: '', badgeGradientColor2: '', badgeGradientAngle: '180', imageRestRotation: 0, imageActiveRotation: 15,
   featureEnabled: false, featureLabel: '', featurePrice: '', featureBackgroundCenter: '#F3FD5A', featureBackgroundEdge: '#FFD72F',
-  featureLeftImage: '', featureRightImage: '', featureProductImage: '', featureProductInfoMobileBackground: '', featureTextColor: '', featurePerks: [], weight: '',
+  featureLeftImage: '', featureRightImage: '', featureProductImage: '', featureProductInfoMobileBackground: '', featureTextColor: '', featureVariant: '', featurePerks: [], weight: '',
   dimensions: { length: '', width: '', height: '' }, seoTitle: '', seoDescription: '',
   comparisonEnabled: true, comparisonTitle: '', comparisonSubtitle: '', comparisonPinyLabel: '', comparisonOtherLabel: '',
   comparisonImage1: '', comparisonImage2: '', comparisonImage3: '', comparisonImage4: '', comparisonProductIcon: '',
@@ -282,6 +282,7 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
           <label>Preço do destaque (R$)<input type="number" min="0" step="0.01" value={values.featurePrice ?? ''} onChange={(e) => change('featurePrice', e.target.value)} /></label>
           <label>Cor central<input type="color" value={values.featureBackgroundCenter} onChange={(e) => change('featureBackgroundCenter', e.target.value)} /></label>
           <label>Cor das bordas<input type="color" value={values.featureBackgroundEdge} onChange={(e) => change('featureBackgroundEdge', e.target.value)} /></label>
+          <label>Variante (product-info)<input value={values.featureVariant} onChange={(e) => change('featureVariant', e.target.value)} placeholder="Original" /></label>
         </div>
         <div className="admin-grid admin-grid--3">
           <label>URL da imagem esquerda<input value={values.featureLeftImage} onChange={(e) => change('featureLeftImage', e.target.value)} /></label>

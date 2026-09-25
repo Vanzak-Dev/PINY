@@ -103,7 +103,7 @@ function PineappleFeaturePanel({ product, isIncoming, isEntered, panelRef }) {
         className="pineapple-feature__content"
         style={product.featureTextColor ? { '--feature-text-color': product.featureTextColor } : undefined}
       >
-        <PineappleProductInfo mobileBackgroundImage={product.featureProductInfoMobileBackground} />
+        <PineappleProductInfo mobileBackgroundImage={product.featureProductInfoMobileBackground} variant={product.featureVariant} />
         <PineapplePerks customPerks={product.featurePerks} />
         {product.featureLabel && <p className="pineapple-feature__label">{product.featureLabel}</p>}
         <div className="pineapple-feature__product-lockup">

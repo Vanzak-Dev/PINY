@@ -282,6 +282,7 @@ export function normalizeProduct(input, current = {}) {
     featureProductImage: String(input.featureProductImage ?? current.featureProductImage ?? '').trim(),
     featureProductInfoMobileBackground: String(input.featureProductInfoMobileBackground ?? current.featureProductInfoMobileBackground ?? '').trim(),
     featureTextColor: String(input.featureTextColor ?? current.featureTextColor ?? '').trim(),
+    featureVariant: String(input.featureVariant ?? current.featureVariant ?? '').trim(),
     featurePerks: array(input.featurePerks, current.featurePerks ?? [])
       .map((perk) => ({
         icon: String(perk?.icon || '').trim(),
