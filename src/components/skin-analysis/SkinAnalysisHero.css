@@ -77,28 +77,12 @@
   font-weight: 500;
 }
 
+/* Reuses .cart-drawer__checkout for the PINY green button identity.
+   Only overrides width/alignment for the hero context. */
 .skin-hero__btn {
-  background: #059669;
-  color: #fff;
-  border: none;
-  padding: 16px 36px;
-  font-size: 1.1rem;
-  font-weight: 700;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  transition: background 0.2s ease;
-  font-family: inherit;
+  width: auto;
   align-self: flex-start;
-}
-
-.skin-hero__btn:hover {
-  background: #047857;
-}
-
-.skin-hero__btn:active {
-  background: #03624a;
+  gap: 10px;
 }
 
 /* ---- Mobile (hidden on desktop) ---- */
@@ -174,7 +158,6 @@
   }
 
   .skin-hero__btn {
-    padding: 13px 28px;
-    font-size: 1rem;
+    width: auto;
   }
 }

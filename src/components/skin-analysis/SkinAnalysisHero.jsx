@@ -34,8 +34,8 @@ export default function SkinAnalysisHero() {
           <p className="skin-hero__subtitle">
             Analise Sua Pele Em Segundos E Receba Uma Rotina Completa De Skincare Focada Em Acne, Manchas E Oleosidade.
           </p>
-          <button className="skin-hero__btn" onClick={handleStart}>
-            <Camera size={20} strokeWidth={2.5} />
+          <button className="cart-drawer__checkout skin-hero__btn" onClick={handleStart}>
+            <Camera size={24} strokeWidth={2.5} />
             Começar Análise
           </button>
         </div>
@@ -53,7 +53,7 @@ export default function SkinAnalysisHero() {
             <p className="skin-hero__mobile-subtitle">
               Analise Sua Pele Em Segundos E Receba Uma Rotina Completa De Skincare Focada Em Acne, Manchas E Oleosidade.
             </p>
-            <button className="skin-hero__btn" onClick={handleStart}>
+            <button className="cart-drawer__checkout skin-hero__btn" onClick={handleStart}>
               <Camera size={20} strokeWidth={2.5} />
               Começar Análise
             </button>
