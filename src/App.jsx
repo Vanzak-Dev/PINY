@@ -9,6 +9,7 @@ import ProductPage from "./pages/ProductPage";
 import SearchResultsPage from "./pages/SearchResultsPage";
 import { CartProvider, useCart } from "./hooks/useCart";
 import SkinAnalysisTest from "./pages/skin-analysis/SkinAnalysisTest";
+import SkinAnalysisHome from "./pages/skin-analysis/SkinAnalysisHome";
 
 export default function App() {
   const [pathname, setPathname] = useState(window.location.pathname);
@@ -53,6 +54,7 @@ export default function App() {
   }, [pathname]);
 
   if (pathname.startsWith("/skin-analysis-test")) return <SkinAnalysisTest />;
+  if (pathname === "/skin-analysis") return <SkinAnalysisHome />;
   if (pathname.startsWith("/admin")) return <AdminPage />;
 
   const page = pathname.startsWith("/produtos/")
