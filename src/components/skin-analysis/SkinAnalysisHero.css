@@ -1,4 +1,3 @@
-/* ===== Skin Analysis Hero ===== */
 .skin-hero {
   position: relative;
   width: 100%;
@@ -20,77 +19,169 @@
   display: none;
 }
 
-/* ---- Desktop ---- */
 .skin-hero__desktop {
   position: relative;
   z-index: 1;
-  display: flex;
-  align-items: stretch;
-  min-height: 620px;
+  width: 100%;
+  min-height: clamp(560px, 44.3vw, 850px);
 }
 
 .skin-hero__models {
-  flex: 0 0 42%;
-  overflow: hidden;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 56%;
+  z-index: 1;
+  overflow: visible;
 }
 
 .skin-hero__models img {
-  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: auto;
   height: 100%;
-  object-fit: cover;
-  object-position: center top;
+  max-width: none;
   display: block;
+  object-fit: contain;
+  object-position: left bottom;
 }
 
 .skin-hero__text {
-  flex: 1;
+  position: absolute;
+  top: 0;
+  right: 2%;
+  width: 55%;
+  height: 100%;
+  z-index: 2;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
-  padding: 40px 64px 40px 44px;
+  box-sizing: border-box;
+  padding: clamp(35px, 2.86vw, 55px) clamp(15px, 1.3vw, 25px) clamp(30px, 2.34vw, 45px);
+  text-align: center;
 }
 
 .skin-hero__eyebrow {
-  font-size: 1rem;
+  width: 100%;
+  margin: 0 0 clamp(12px, 1.04vw, 20px);
+  font-family: "neulis-neue", sans-serif;
+  font-size: clamp(36px, 3.33vw, 64px);
   font-weight: 700;
-  letter-spacing: 0.18em;
+  line-height: 1;
+  text-align: center;
   text-transform: uppercase;
-  margin: 0 0 6px;
-  color: #1a1a1a;
+  color: #ffffff;
 }
 
 .skin-hero__title {
-  font-size: 4.5rem;
-  font-weight: 900;
-  line-height: 0.95;
+  width: 100%;
   margin: 0;
-  color: #1a1a1a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #ffffff;
+  text-align: center;
   text-transform: uppercase;
+  transform: rotate(-3.6deg);
+  transform-origin: center center;
+}
+
+.skin-hero__title-rotina {
+  display: block;
+  font-family: "Quiny", sans-serif;
+  font-size: clamp(145px, 12.92vw, 248px);
+  font-weight: 400;
+  line-height: 0.56;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.skin-hero__title-personalizada {
+  display: block;
+  font-family: "Quiny", sans-serif;
+  font-size: clamp(66px, 5.83vw, 112px);
+  font-weight: 400;
+  line-height: 0.56;
+  white-space: nowrap;
 }
 
 .skin-hero__subtitle {
-  font-size: 1.05rem;
-  line-height: 1.5;
-  margin: 24px 0 32px;
-  max-width: 420px;
-  color: #333;
-  font-weight: 500;
+  width: 100%;
+  max-width: clamp(390px, 32.3vw, 620px);
+  margin: clamp(22px, 1.67vw, 32px) 0 clamp(30px, 2.6vw, 50px);
+  font-size: clamp(18px, 1.67vw, 32px);
+  font-weight: 400;
+  line-height: 1;
+  text-align: center;
+  color: #ffffff;
 }
 
-/* Reuses .cart-drawer__checkout for the PINY green button identity.
-   Only overrides width/alignment for the hero context. */
-.skin-hero__btn {
+.skin-hero .btn-piny.skin-hero__btn {
   width: auto;
-  align-self: flex-start;
-  gap: 10px;
+  align-self: center;
+  font-size: clamp(16px, 1.46vw, 28px);
+  padding: clamp(11px, 0.94vw, 18px) clamp(20px, 1.77vw, 34px);
 }
 
-/* ---- Mobile (hidden on desktop) ---- */
+.skin-hero__btn .btn-piny__icon {
+  width: clamp(17px, 1.25vw, 24px);
+  height: clamp(17px, 1.25vw, 24px);
+}
+
 .skin-hero__mobile {
   display: none;
 }
 
-/* ===== Mobile breakpoint ===== */
+@media (max-width: 1100px) and (min-width: 750px) {
+  .skin-hero__desktop {
+    min-height: 520px;
+  }
+
+  .skin-hero__models {
+    width: 58%;
+  }
+
+  .skin-hero__text {
+    right: 1%;
+    width: 54%;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .skin-hero__eyebrow {
+    font-size: clamp(30px, 3.3vw, 36px);
+    margin-bottom: 12px;
+  }
+
+  .skin-hero__title-rotina {
+    font-size: clamp(118px, 13vw, 145px);
+  }
+
+  .skin-hero__title-personalizada {
+    font-size: clamp(54px, 6vw, 66px);
+  }
+
+  .skin-hero__subtitle {
+    max-width: 380px;
+    margin: 22px 0 28px;
+    font-size: clamp(16px, 1.8vw, 19px);
+    line-height: 1.05;
+  }
+
+  .skin-hero .btn-piny.skin-hero__btn {
+    font-size: clamp(15px, 1.6vw, 18px);
+    padding: clamp(10px, 1vw, 12px) clamp(18px, 2vw, 22px);
+  }
+
+  .skin-hero__btn .btn-piny__icon {
+    width: 17px;
+    height: 17px;
+  }
+}
+
 @media (max-width: 749px) {
   .skin-hero__bg--desktop {
     display: none;
@@ -105,26 +196,47 @@
   }
 
   .skin-hero__mobile {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative;
-    z-index: 1;
+    width: 100%;
   }
 
   .skin-hero__mobile-title {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 46px 14px 6px;
     text-align: center;
-    padding: 28px 20px 10px;
   }
 
-  .skin-hero__eyebrow {
-    font-size: 0.82rem;
-    margin-bottom: 2px;
+  .skin-hero__mobile-title .skin-hero__eyebrow {
+    width: 100%;
+    margin: 0 0 14px;
+    font-size: 24px;
+    line-height: 1;
+    text-align: center;
   }
 
-  .skin-hero__title {
-    font-size: 2rem;
-    line-height: 1.1;
+  .skin-hero__mobile-title .skin-hero__title {
+    width: 100%;
+    align-items: center;
+    transform: rotate(-3deg);
+    transform-origin: center;
+  }
+
+  .skin-hero__mobile-title .skin-hero__title-rotina {
+    font-size: 97px;
+    line-height: 0.56;
+  }
+
+  .skin-hero__mobile-title .skin-hero__title-personalizada {
+    font-size: 44px;
+    line-height: 0.56;
+    margin-top: 6px;
   }
 
   .skin-hero__mobile-image {
@@ -133,31 +245,42 @@
   }
 
   .skin-hero__mobile-image img {
-    width: 100%;
     display: block;
+    width: 100%;
+    height: auto;
   }
 
   .skin-hero__mobile-overlay {
     position: absolute;
-    bottom: 0;
     left: 0;
     right: 0;
-    padding: 0 20px 22px;
+    bottom: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-sizing: border-box;
+    padding: 0 20px 24px;
   }
 
   .skin-hero__mobile-subtitle {
-    text-align: center;
-    color: #fff;
-    font-size: 0.8rem;
-    line-height: 1.4;
+    max-width: 300px;
     margin: 0 0 14px;
-    font-weight: 500;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1;
+    text-align: center;
+    color: #ffffff;
   }
 
-  .skin-hero__btn {
+  .skin-hero .btn-piny.skin-hero__btn {
     width: auto;
+    align-self: center;
+    font-size: 16px;
+    padding: clamp(9px, 2.8vw, 11px) clamp(16px, 4.5vw, 20px);
+  }
+
+  .skin-hero__btn .btn-piny__icon {
+    width: 17px;
+    height: 17px;
   }
 }
