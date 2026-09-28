@@ -26,7 +26,11 @@ function usePageSize() {
 }
 
 export default function FeaturedCollectionSection({ products, onAdd }) {
-  const { collections } = useCollections();
+  const { collections: allCollections } = useCollections();
+  const collections = useMemo(
+    () => allCollections.filter((collection) => collection.featured !== false),
+    [allCollections],
+  );
   const pageSize = usePageSize();
   const [activeCollectionId, setActiveCollectionId] = useState(null);
   const [index, setIndex] = useState(1);

@@ -134,6 +134,7 @@ export function normalizeCollection(input, current = {}) {
     id: current.id || randomUUID(),
     name: String(input.name || current.name || '').trim(),
     active: boolean(input.active, current.active ?? true),
+    featured: boolean(input.featured, current.featured ?? true),
     productIds: [...new Set(array(input.productIds, current.productIds ?? []).map(String).filter(Boolean))],
     createdAt: current.createdAt || now,
     updatedAt: now,
