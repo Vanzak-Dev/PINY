@@ -11,6 +11,7 @@ import Journey21DaysSection from '../sections/product/Journey21DaysSection';
 import HowToUseSection from '../sections/product/HowToUseSection';
 import AiAnalysisSection from '../sections/global/AiAnalysisSection';
 import ProductReviewsSection from '../sections/product/ProductReviewsSection';
+import { pinyMaskFaq, pinyStarsFaq } from '../data/faq';
 import { catalogApi } from '../services/catalogApi';
 import { useCart } from '../hooks/useCart';
 
@@ -80,7 +81,7 @@ export default function ProductPage({ productIdentifier }) {
           <ProductBeforeAfterSection product={product} />
           <AiAnalysisSection product={product} />
           <ProductComparisonSection product={product} />
-          <ProductFaqSection product={product} />
+          <ProductFaqSection product={product} items={product.category === 'Piny Stars' ? pinyStarsFaq : pinyMaskFaq} />
           <ProductReviewsSection product={product} />
           <ProductFeaturedSection products={products} onAdd={handleAdd} />
         </>
