@@ -220,18 +220,21 @@
   .how-to-use__center {
     flex: 1;
     max-width: 520px;
-    gap: 32px;
+    gap: 0;
     justify-content: center;
   }
 
   .how-to-use__badge {
     width: 320px;
     margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    margin-bottom: -156px;
   }
 
   .how-to-use__card {
     border-radius: 32px;
-    padding: 48px 40px;
+    padding: 188px 40px 48px;
     flex: 1;
     justify-content: center;
   }
