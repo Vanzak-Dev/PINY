@@ -85,7 +85,11 @@ export default function ProductPage({ productIdentifier }) {
             ? <Journey21DaysSection cards={pinyStarsJourney} {...pinyStarsJourneyHeading} />
             : <Journey21DaysSection cards={pinyMaskJourney} />}
           {product.howToUseEnabled !== false && <HowToUseSection product={product} />}
-          <ProductBeforeAfterSection product={product} />
+          <ProductBeforeAfterSection
+            product={product?.beforeAfterItems?.length
+              ? product
+              : products.find((item) => item.id === 'argila-branca') || product}
+          />
           {product.aiAnalysisEnabled !== false && <AiAnalysisSection product={product} />}
           <ProductComparisonSection product={product} />
           <ProductFaqSection product={product} items={isPinyStars ? pinyStarsFaq : pinyMaskFaq} />
