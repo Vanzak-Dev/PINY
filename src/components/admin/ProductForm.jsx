@@ -39,7 +39,7 @@ const emptyProduct = {
     { label: 'Ácido salicílico + glicólico de fábrica', piny: 'check', other: 'Raro' },
     { label: 'Vegano e cruelty free', piny: 'check', other: 'Nem Sempre' },
   ],
-  activesEnabled: true, activesProductImage: '', activesTextureImage: '', activesBrushImage: '',
+  activesEnabled: true, activesProductImage: '', activesTextureImage: '', activesBrushImage: '', activesHideTextureBrush: false,
   activesCallouts: [
     { title: 'Caulim', lines: ['A argila mais suave,', 'absorve sem irritar'] },
     { title: 'Óxido de Zinco', lines: ['Ação secativa'] },
@@ -374,6 +374,7 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
           <label>Upload imagem da textura (product-actives__texture)<input type="file" accept="image/*" onChange={(e) => setActivesTextureFile(e.target.files[0])} />{values.activesTextureImage && <small>Atual: {values.activesTextureImage}</small>}</label>
           <label>Upload imagem do pincel (product-actives__brush)<input type="file" accept="image/*" onChange={(e) => setActivesBrushFile(e.target.files[0])} />{values.activesBrushImage && <small>Atual: {values.activesBrushImage}</small>}</label>
         </div>
+        <label className="admin-check"><input type="checkbox" checked={values.activesHideTextureBrush} onChange={(e) => change('activesHideTextureBrush', e.target.checked)} /> Ocultar textura e pincel (para produtos sem textura, ex.: adesivos)</label>
         <div className="admin-repeater">
           <div className="admin-repeater__heading"><strong>Textos dos ativos</strong><button type="button" className="admin-button" onClick={() => addCollectionItem('activesCallouts', { title: '', lines: [] })}>Adicionar ativo</button></div>
           {values.activesCallouts.length === 0 && <small>Nenhum ativo cadastrado.</small>}

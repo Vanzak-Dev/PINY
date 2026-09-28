@@ -53,6 +53,7 @@ export default function ProductActivesSection({ product }) {
   const textureImage = product?.activesTextureImage || clayTexture;
   const brushImage = product?.activesBrushImage || brushCrop;
   const brushMobileImage = product?.activesBrushImage || brushSource;
+  const hideTextureBrush = product?.activesHideTextureBrush || false;
 
   const rawCallouts = product?.activesCallouts?.length ? product.activesCallouts : defaultCallouts;
   const layoutPositions = rawCallouts.length === 3 ? arcPositions : positions;
@@ -81,13 +82,17 @@ export default function ProductActivesSection({ product }) {
         ))}
       </div>
 
-      <img className="product-actives__texture" src={textureImage} alt="Textura cremosa da máscara facial" />
-      <img className="product-actives__brush product-actives__brush--desktop" src={brushImage} alt="" aria-hidden="true" />
-      <div className="product-actives__brush-mobile" aria-hidden="true">
-        <div className="product-actives__brush-mobile-crop">
-          <img src={brushMobileImage} alt="" />
-        </div>
-      </div>
+      {!hideTextureBrush && (
+        <>
+          <img className="product-actives__texture" src={textureImage} alt="Textura cremosa da máscara facial" />
+          <img className="product-actives__brush product-actives__brush--desktop" src={brushImage} alt="" aria-hidden="true" />
+          <div className="product-actives__brush-mobile" aria-hidden="true">
+            <div className="product-actives__brush-mobile-crop">
+              <img src={brushMobileImage} alt="" />
+            </div>
+          </div>
+        </>
+      )}
     </section>
   );
 }
