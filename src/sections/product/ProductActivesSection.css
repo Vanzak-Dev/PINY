@@ -341,19 +341,19 @@
   }
 
   .product-actives__callout--arc-left {
-    top: 28vw;
+    top: 22vw;
     right: auto;
-    left: 54vw;
+    left: 37vw;
     flex-direction: row;
     text-align: left;
   }
 
   .product-actives__callout--arc-left > div {
-    width: 32vw;
+    width: 42vw;
     padding-top: 0;
     margin-left: 4.071247vw;
     bottom: -14px;
-    right: -35vw;
+    right: -47vw;
   }
 
   .product-actives__callout--arc-left .product-actives__dot {
@@ -393,9 +393,11 @@
   }
 
   .product-actives__callout--arc-right > div {
-    width: 52.926209vw;
+    width: 48.926209vw;
     padding-top: 0;
     margin-top: 4.071247vw;
+    bottom: -16px;
+    left: 10vw;
   }
 }
 
