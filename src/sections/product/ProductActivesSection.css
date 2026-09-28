@@ -167,9 +167,9 @@
 
 /* ── No texture/brush: product moves to center of arc ── */
 .product-actives--no-texture .product-actives__product {
-  top: 14vw;
-  width: 28vw;
-  height: 28vw;
+  top: 7vw;
+  width: 52vw;
+  height: 52vw;
   transform: translateX(-50%) rotate(0deg);
 }
 
