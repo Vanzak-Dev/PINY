@@ -133,7 +133,7 @@
 
 .product-actives__callout--arc-left > div {
   position: absolute;
-  width: 16vw;
+  width: 17vw;
   bottom: 34px;
   right: 2vw;
 }
@@ -150,7 +150,7 @@
 
 .product-actives__callout--arc-center > div {
   position: absolute;
-  top: -45px;
+  top: -72px;
   right: -5vw;
   width: 16vw;
   padding-top: 0;
