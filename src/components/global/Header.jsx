@@ -4,11 +4,14 @@ import MegaMenu from "./MegaMenu";
 import MobileMenu from "./MobileMenu";
 import SearchPanel from "./SearchPanel";
 import { useCart } from "../../hooks/useCart";
+import { useProducts } from "../../hooks/useProducts";
 import "./Header.css";
 
 export default function Header() {
   const { items, open, addItem } = useCart();
   const itemCount = items.reduce((sum, { quantity }) => sum + quantity, 0);
+  const { products } = useProducts();
+  const starsProducts = products.filter((product) => product.category === "Piny Stars");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const headerRef = useRef(null);
@@ -65,9 +68,23 @@ export default function Header() {
           <a className="site-header__nav-link" href="/monte-sua-textura">Monte sua Textura</a>
           <div className="site-header__nav-item--has-mega">
             <a className="site-header__nav-link" href="/piny-mask">Piny Mask</a>
-            <MegaMenu />
+            <MegaMenu
+              title="PINY MASKS"
+              description="Argilas de tratamento ideais para cada necessidade da sua pele, da acne até ao detox, em um produto prático para sua rotina."
+              products={products}
+              viewAllHref="/piny-mask"
+            />
           </div>
-          <a className="site-header__nav-link" href="/piny-stars">Piny Stars</a>
+          <div className="site-header__nav-item--has-mega">
+            <a className="site-header__nav-link" href="/piny-stars">Piny Stars</a>
+            <MegaMenu
+              title="PINY STARS"
+              description="Adesivos secativos ideais para tratar espinhas e absorver secreções de forma discreta, em um cuidado prático para a sua rotina."
+              products={starsProducts}
+              viewAllHref="/piny-stars"
+              emptyMessage="Em breve novos produtos Piny Stars por aqui."
+            />
+          </div>
         </nav>
         <div className="site-header__actions">
           <button type="button" className="site-header__action" aria-label="Buscar" onClick={() => setSearchOpen(true)}>

@@ -110,6 +110,13 @@
   gap: 16px;
 }
 
+.mega-menu__empty {
+  color: rgba(28, 140, 68, 0.7);
+  font-family: "neulis-neue", sans-serif;
+  font-size: 18px;
+  margin: 0;
+}
+
 .mega-menu__view-all {
   flex: 0 0 140px;
   color: #1C8C44;
