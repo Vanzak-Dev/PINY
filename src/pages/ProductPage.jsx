@@ -12,7 +12,7 @@ import HowToUseSection from '../sections/product/HowToUseSection';
 import AiAnalysisSection from '../sections/global/AiAnalysisSection';
 import ProductReviewsSection from '../sections/product/ProductReviewsSection';
 import { pinyMaskFaq, pinyStarsFaq } from '../data/faq';
-import { pinyMaskJourney, pinyStarsJourney } from '../data/journey';
+import { pinyMaskJourney, pinyStarsJourney, pinyStarsJourneyHeading } from '../data/journey';
 import { catalogApi } from '../services/catalogApi';
 import { useCart } from '../hooks/useCart';
 import { useCollections } from '../hooks/useCollections';
@@ -81,7 +81,9 @@ export default function ProductPage({ productIdentifier }) {
           {product.activesEnabled !== false && <ProductActivesSection product={product} />}
           {product.benefitsEnabled !== false && <ProductBenefitsSection product={product} />}
           {product.boosterEnabled !== false && <ProductBoosterSection onAdd={handleAdd} />}
-          <Journey21DaysSection cards={isPinyStars ? pinyStarsJourney : pinyMaskJourney} />
+          {isPinyStars
+            ? <Journey21DaysSection cards={pinyStarsJourney} {...pinyStarsJourneyHeading} />
+            : <Journey21DaysSection cards={pinyMaskJourney} />}
           {product.howToUseEnabled !== false && <HowToUseSection product={product} />}
           <ProductBeforeAfterSection product={product} />
           {product.aiAnalysisEnabled !== false && <AiAnalysisSection product={product} />}

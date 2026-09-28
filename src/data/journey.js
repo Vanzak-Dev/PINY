@@ -25,23 +25,23 @@ export const pinyMaskJourney = [
   },
 ];
 
+export const pinyStarsJourneyHeading = {
+  titleLine: 'PARA QUEM É AS',
+  titleAccent: 'Piny Stars',
+  subtitle: 'O socorro perfeito para quando:',
+};
+
 export const pinyStarsJourney = [
   {
-    badge: '4 HORAS',
-    title: 'Secando a espinha',
-    description: 'O hidrocolóide absorve a secreção e o ácido salicílico começa a agir desde a primeira aplicação.',
-    highlight: false,
+    title: 'Surgiu uma espinha interna ou dolorida?',
+    description: 'Ajuda a reduzir o inchaço e acelerar a cicatrização sem agredir.',
   },
   {
-    badge: 'NOITE 1',
-    title: 'Acalrou a inflamação',
-    description: 'Ao acordar, a vermelhidão diminui e a espinha está visivelmente murcha.',
-    highlight: false,
+    title: 'A espinha apareceu na hora errada?',
+    description: 'Esconde a lesão com discrição antes de um evento, festa ou reunião.',
   },
   {
-    badge: '3 NOITES',
-    title: 'Resultado garantido',
-    description: 'A espinha secou, a pele está protegida e sem marcas. Se não funcionar, seu dinheiro volta.',
-    highlight: true,
+    title: 'Você não consegue parar de tocar o rosto?',
+    description: 'Cria a barreira ideal para evitar infecções e cicatrizes causadas pelas mãos.',
   },
 ];
