@@ -201,10 +201,10 @@
   }
 
   .product-actives--no-texture .product-actives__product {
-    top: 28vw;
-    left: 50%;
-    width: 52vw;
-    height: 52vw;
+    top: 23vw;
+    left: 14%;
+    width: 88vw;
+    height: 88vw;
     transform: translateX(-50%) rotate(0deg);
   }
 
