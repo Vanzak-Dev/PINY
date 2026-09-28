@@ -61,7 +61,7 @@ const emptyProduct = {
     { text: 'Use 1-2x ao dia, conforme a condição da sua pele' },
     { text: 'De dia, finalize com protetor solar — a fórmula tem ácidos.' },
   ],
-  aiAnalysisBackgroundColor: '#fef8dd',
+  aiAnalysisEnabled: true, aiAnalysisBackgroundColor: '#fef8dd',
   faqBackgroundColor: '#fef8dd', faqPatternImage: '',
   boosterEnabled: true,
   beforeAfterEnabled: false, beforeAfterTitle: 'ANTES & DEPOIS', beforeAfterTitleAccent: 'Reais',
