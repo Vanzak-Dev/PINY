@@ -14,6 +14,8 @@ import ProductReviewsSection from '../sections/product/ProductReviewsSection';
 import { pinyMaskFaq, pinyStarsFaq } from '../data/faq';
 import { catalogApi } from '../services/catalogApi';
 import { useCart } from '../hooks/useCart';
+import { useCollections } from '../hooks/useCollections';
+import { isProductInCollection } from '../lib/collections';
 
 export default function ProductPage({ productIdentifier }) {
   const [product, setProduct] = useState(null);
@@ -21,6 +23,8 @@ export default function ProductPage({ productIdentifier }) {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
   const { addItem } = useCart();
+  const { collections } = useCollections();
+  const isPinyStars = isProductInCollection(product, collections, 'Piny Stars');
 
   const handleAdd = (addedItem) => {
     addItem(addedItem);
@@ -81,7 +85,7 @@ export default function ProductPage({ productIdentifier }) {
           <ProductBeforeAfterSection product={product} />
           <AiAnalysisSection product={product} />
           <ProductComparisonSection product={product} />
-          <ProductFaqSection product={product} items={product.category === 'Piny Stars' ? pinyStarsFaq : pinyMaskFaq} />
+          <ProductFaqSection product={product} items={isPinyStars ? pinyStarsFaq : pinyMaskFaq} />
           <ProductReviewsSection product={product} />
           <ProductFeaturedSection products={products} onAdd={handleAdd} />
         </>
