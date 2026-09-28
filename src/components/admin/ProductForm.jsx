@@ -63,6 +63,7 @@ const emptyProduct = {
   ],
   aiAnalysisBackgroundColor: '#fef8dd',
   faqBackgroundColor: '#fef8dd', faqPatternImage: '',
+  boosterEnabled: true,
   beforeAfterEnabled: false, beforeAfterTitle: 'ANTES & DEPOIS', beforeAfterTitleAccent: 'Reais',
   beforeAfterSubtitle: '', beforeAfterBeforeLabel: 'ANTES', beforeAfterAfterLabel: 'DEPOIS',
   beforeAfterItems: [],
@@ -449,6 +450,12 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
           <label>Cor de fundo da seção<input type="color" value={values.faqBackgroundColor} onChange={(e) => change('faqBackgroundColor', e.target.value)} /></label>
           <label>Upload imagem de fundo (product-faq__pattern)<input type="file" accept="image/*" onChange={(e) => setFaqPatternFile(e.target.files[0])} />{values.faqPatternImage && <small>Atual: {values.faqPatternImage}</small>}</label>
         </div>
+      </section>
+      <section className="admin-form__section">
+        <div className="admin-form__section-heading">
+          <div><h3>Booster (product-booster)</h3><small>Seção de adição do booster à rotina exibida na página do produto.</small></div>
+        </div>
+        <label className="admin-check"><input type="checkbox" checked={values.boosterEnabled} onChange={(e) => change('boosterEnabled', e.target.checked)} /> Exibir esta seção na página do produto</label>
       </section>
       <section className="admin-form__section">
         <div className="admin-form__section-heading">

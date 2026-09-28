@@ -80,7 +80,7 @@ export default function ProductPage({ productIdentifier }) {
           />
           {product.activesEnabled !== false && <ProductActivesSection product={product} />}
           {product.benefitsEnabled !== false && <ProductBenefitsSection product={product} />}
-          <ProductBoosterSection onAdd={handleAdd} />
+          {product.boosterEnabled !== false && <ProductBoosterSection onAdd={handleAdd} />}
           <Journey21DaysSection cards={isPinyStars ? pinyStarsJourney : pinyMaskJourney} />
           {product.howToUseEnabled !== false && <HowToUseSection product={product} />}
           <ProductBeforeAfterSection product={product} />
