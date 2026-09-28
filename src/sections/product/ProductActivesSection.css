@@ -118,7 +118,7 @@
 
 .product-actives__callout--right-bottom {
   top: 31.755781vw;
-  right: 12.0%;
+  right: 12.6%;
   flex-direction: row-reverse;
   text-align: right;
 }
@@ -136,7 +136,7 @@
 }
 
 .product-actives__callout--arc-center {
-  top: 10.4vw;
+  top: 9.4vw;
   left: 50%;
   right: auto;
   transform: translateX(-50%);
