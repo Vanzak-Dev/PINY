@@ -5,13 +5,16 @@ import MobileMenu from "./MobileMenu";
 import SearchPanel from "./SearchPanel";
 import { useCart } from "../../hooks/useCart";
 import { useProducts } from "../../hooks/useProducts";
+import { useCollections } from "../../hooks/useCollections";
+import { productsInCollection } from "../../lib/collections";
 import "./Header.css";
 
 export default function Header() {
   const { items, open, addItem } = useCart();
   const itemCount = items.reduce((sum, { quantity }) => sum + quantity, 0);
   const { products } = useProducts();
-  const starsProducts = products.filter((product) => product.category === "Piny Stars");
+  const { collections } = useCollections();
+  const starsProducts = productsInCollection(products, collections, "Piny Stars");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const headerRef = useRef(null);
