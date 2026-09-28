@@ -289,6 +289,7 @@ export function normalizeProduct(input, current = {}) {
         label: String(perk?.label || '').trim(),
       }))
       .filter((perk) => perk.label || perk.icon),
+    boosterEnabled: boolean(input.boosterEnabled, current.boosterEnabled ?? true),
     beforeAfterEnabled: boolean(input.beforeAfterEnabled, current.beforeAfterEnabled ?? false),
     beforeAfterTitle: String(input.beforeAfterTitle ?? current.beforeAfterTitle ?? '').trim(),
     beforeAfterTitleAccent: String(input.beforeAfterTitleAccent ?? current.beforeAfterTitleAccent ?? '').trim(),
