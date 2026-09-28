@@ -30,7 +30,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
   width: 100%;
 }
 
@@ -47,7 +46,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: 24px;
 }
 
 .how-to-use__step {
@@ -220,23 +219,20 @@
   .how-to-use__center {
     flex: 1;
     max-width: 520px;
-    gap: 0;
     justify-content: center;
   }
 
   .how-to-use__badge {
     width: 320px;
     margin: 0 auto;
-    position: relative;
-    z-index: 2;
-    margin-bottom: -156px;
   }
 
   .how-to-use__card {
     border-radius: 32px;
-    padding: 188px 40px 48px;
+    padding: 48px 40px;
     flex: 1;
     justify-content: center;
+    gap: 32px;
   }
 
   .how-to-use__step-text {
