@@ -6,7 +6,7 @@ import SearchPanel from "./SearchPanel";
 import { useCart } from "../../hooks/useCart";
 import { useProducts } from "../../hooks/useProducts";
 import { useCollections } from "../../hooks/useCollections";
-import { productsInCollection } from "../../lib/collections";
+import { productsInCollection, productsNotInCollection } from "../../lib/collections";
 import "./Header.css";
 
 export default function Header() {
@@ -15,6 +15,7 @@ export default function Header() {
   const { products } = useProducts();
   const { collections } = useCollections();
   const starsProducts = productsInCollection(products, collections, "Piny Stars");
+  const maskProducts = productsNotInCollection(products, collections, "Piny Stars");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const headerRef = useRef(null);
@@ -37,8 +38,10 @@ export default function Header() {
     const updateVisibility = () => {
       const currentScrollY = window.scrollY;
       const scrolledDown = currentScrollY > lastScrollY;
-      const pastHeader = currentScrollY > (headerRef.current?.offsetHeight || 0);
-      setHidden(scrolledDown && pastHeader);
+      const hero = document.querySelector("main")?.firstElementChild;
+      const heroBottom = hero ? hero.getBoundingClientRect().bottom + currentScrollY : 0;
+      const pastHero = currentScrollY > Math.max(heroBottom, headerRef.current?.offsetHeight || 0);
+      setHidden(scrolledDown && pastHero);
       lastScrollY = currentScrollY;
       ticking = false;
     };
@@ -74,7 +77,7 @@ export default function Header() {
             <MegaMenu
               title="PINY MASKS"
               description="Argilas de tratamento ideais para cada necessidade da sua pele, da acne até ao detox, em um produto prático para sua rotina."
-              products={products}
+              products={maskProducts}
               viewAllHref="/piny-mask"
             />
           </div>
