@@ -84,7 +84,7 @@ export default function ProductPage({ productIdentifier }) {
           <Journey21DaysSection cards={isPinyStars ? pinyStarsJourney : pinyMaskJourney} />
           {product.howToUseEnabled !== false && <HowToUseSection product={product} />}
           <ProductBeforeAfterSection product={product} />
-          <AiAnalysisSection product={product} />
+          {product.aiAnalysisEnabled !== false && <AiAnalysisSection product={product} />}
           <ProductComparisonSection product={product} />
           <ProductFaqSection product={product} items={isPinyStars ? pinyStarsFaq : pinyMaskFaq} />
           <ProductReviewsSection product={product} />

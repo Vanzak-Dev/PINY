@@ -440,6 +440,7 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
         <div className="admin-form__section-heading">
           <div><h3>Não sabe qual é a máscara ideal para você? (ai-analysis)</h3><small>Cor de fundo da seção de análise de pele por IA exibida na página do produto.</small></div>
         </div>
+        <label className="admin-check"><input type="checkbox" checked={values.aiAnalysisEnabled} onChange={(e) => change('aiAnalysisEnabled', e.target.checked)} /> Exibir esta seção na página do produto</label>
         <label>Cor de fundo da seção<input type="color" value={values.aiAnalysisBackgroundColor} onChange={(e) => change('aiAnalysisBackgroundColor', e.target.value)} /></label>
       </section>
       <section className="admin-form__section">
