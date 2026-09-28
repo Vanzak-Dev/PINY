@@ -352,6 +352,8 @@
     width: 32vw;
     padding-top: 0;
     margin-left: 4.071247vw;
+    bottom: -14px;
+    right: -35vw;
   }
 
   .product-actives__callout--arc-left .product-actives__dot {
@@ -359,9 +361,9 @@
   }
 
   .product-actives__callout--arc-center {
-    top: 78vw;
+    top: 66vw;
     right: auto;
-    left: 54vw;
+    left: 65vw;
     transform: none;
     flex-direction: row;
     align-items: flex-start;
