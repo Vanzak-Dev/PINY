@@ -132,7 +132,10 @@
 }
 
 .product-actives__callout--arc-left > div {
-  padding-top: 1.822917vw;
+  position: absolute;
+  width: 16vw;
+  bottom: 34px;
+  right: 2vw;
 }
 
 .product-actives__callout--arc-center {
@@ -147,8 +150,8 @@
 
 .product-actives__callout--arc-center > div {
   position: absolute;
-  top: 0;
-  right: 22vw;
+  top: -45px;
+  right: -5vw;
   width: 16vw;
   padding-top: 0;
   text-align: right;
@@ -162,7 +165,10 @@
 }
 
 .product-actives__callout--arc-right > div {
-  padding-top: 1.822917vw;
+  position: absolute;
+  width: 16vw;
+  bottom: 54px;
+  left: 1vw;
 }
 
 /* ── No texture/brush: product moves to center of arc ── */
