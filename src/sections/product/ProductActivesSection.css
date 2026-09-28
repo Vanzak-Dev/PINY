@@ -137,14 +137,21 @@
 
 .product-actives__callout--arc-center {
   top: 10.4vw;
-  right: 50vw;
-  flex-direction: row-reverse;
-  text-align: right;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  flex-direction: column;
+  align-items: center;
   z-index: 5;
 }
 
 .product-actives__callout--arc-center > div {
-  padding-top: 1.822917vw;
+  position: absolute;
+  top: 0;
+  right: 22vw;
+  width: 16vw;
+  padding-top: 0;
+  text-align: right;
 }
 
 .product-actives__callout--arc-right {
@@ -340,9 +347,13 @@
   }
 
   .product-actives__callout--arc-center > div {
+    position: static;
+    top: auto;
+    right: auto;
     width: 32vw;
     padding-top: 0;
     margin-left: 4.071247vw;
+    text-align: left;
   }
 
   .product-actives__callout--arc-center .product-actives__dot {
