@@ -12,6 +12,7 @@ import HowToUseSection from '../sections/product/HowToUseSection';
 import AiAnalysisSection from '../sections/global/AiAnalysisSection';
 import ProductReviewsSection from '../sections/product/ProductReviewsSection';
 import { pinyMaskFaq, pinyStarsFaq } from '../data/faq';
+import { pinyMaskJourney, pinyStarsJourney } from '../data/journey';
 import { catalogApi } from '../services/catalogApi';
 import { useCart } from '../hooks/useCart';
 import { useCollections } from '../hooks/useCollections';
@@ -80,7 +81,7 @@ export default function ProductPage({ productIdentifier }) {
           {product.activesEnabled !== false && <ProductActivesSection product={product} />}
           {product.benefitsEnabled !== false && <ProductBenefitsSection product={product} />}
           <ProductBoosterSection onAdd={handleAdd} />
-          <Journey21DaysSection />
+          <Journey21DaysSection cards={isPinyStars ? pinyStarsJourney : pinyMaskJourney} />
           {product.howToUseEnabled !== false && <HowToUseSection product={product} />}
           <ProductBeforeAfterSection product={product} />
           <AiAnalysisSection product={product} />
