@@ -40,9 +40,13 @@ const dotByPosition = {
   'right-top': dotRight,
   'left-bottom': dotLeftBottom,
   'right-bottom': dotRight,
+  'arc-left': dotRight,
+  'arc-center': dotRight,
+  'arc-right': dotRight,
 };
 
 const positions = ['left-top', 'right-top', 'left-bottom', 'right-bottom'];
+const arcPositions = ['arc-left', 'arc-center', 'arc-right'];
 
 export default function ProductActivesSection({ product }) {
   const productImage = product?.activesProductImage || figmaProductImage;
@@ -50,9 +54,12 @@ export default function ProductActivesSection({ product }) {
   const brushImage = product?.activesBrushImage || brushCrop;
   const brushMobileImage = product?.activesBrushImage || brushSource;
 
-  const callouts = (product?.activesCallouts?.length ? product.activesCallouts : defaultCallouts).map((callout, index) => ({
-    position: positions[index] || positions[index % 4],
-    dot: dotByPosition[positions[index] || positions[index % 4]] || dotRight,
+  const rawCallouts = product?.activesCallouts?.length ? product.activesCallouts : defaultCallouts;
+  const layoutPositions = rawCallouts.length === 3 ? arcPositions : positions;
+
+  const callouts = rawCallouts.map((callout, index) => ({
+    position: layoutPositions[index] || layoutPositions[index % layoutPositions.length],
+    dot: dotByPosition[layoutPositions[index] || layoutPositions[index % layoutPositions.length]] || dotRight,
     title: callout.title,
     lines: callout.lines || [],
   }));

@@ -123,6 +123,41 @@
   text-align: right;
 }
 
+/* ── 3-actives arc layout (semicircular arrangement) ── */
+.product-actives__callout--arc-left {
+  top: 22.3vw;
+  right: 77.7vw;
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.product-actives__callout--arc-left > div {
+  padding-top: 1.822917vw;
+}
+
+.product-actives__callout--arc-center {
+  top: 10.4vw;
+  right: 50vw;
+  flex-direction: row-reverse;
+  text-align: right;
+  z-index: 5;
+}
+
+.product-actives__callout--arc-center > div {
+  padding-top: 1.822917vw;
+}
+
+.product-actives__callout--arc-right {
+  top: 22.3vw;
+  left: 77.7vw;
+  flex-direction: row;
+  text-align: left;
+}
+
+.product-actives__callout--arc-right > div {
+  padding-top: 1.822917vw;
+}
+
 @media (max-width: 767px) {
   .product-actives {
     height: 147.328245vw;
@@ -271,6 +306,58 @@
   }
 
   .product-actives__callout--right-bottom > div {
+    width: 52.926209vw;
+    padding-top: 0;
+    margin-top: 4.071247vw;
+  }
+
+  .product-actives__callout--arc-left {
+    top: 28vw;
+    right: auto;
+    left: 54vw;
+    flex-direction: row;
+    text-align: left;
+  }
+
+  .product-actives__callout--arc-left > div {
+    width: 32vw;
+    padding-top: 0;
+    margin-left: 4.071247vw;
+  }
+
+  .product-actives__callout--arc-left .product-actives__dot {
+    margin-top: 6.10687vw;
+  }
+
+  .product-actives__callout--arc-center {
+    top: 78vw;
+    right: auto;
+    left: 54vw;
+    transform: none;
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .product-actives__callout--arc-center > div {
+    width: 32vw;
+    padding-top: 0;
+    margin-left: 4.071247vw;
+  }
+
+  .product-actives__callout--arc-center .product-actives__dot {
+    margin-top: 6.10687vw;
+  }
+
+  .product-actives__callout--arc-right {
+    top: 126vw;
+    right: auto;
+    left: 54vw;
+    flex-direction: row;
+    text-align: left;
+  }
+
+  .product-actives__callout--arc-right > div {
     width: 52.926209vw;
     padding-top: 0;
     margin-top: 4.071247vw;
