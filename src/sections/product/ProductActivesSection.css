@@ -187,9 +187,14 @@
   .product-actives__arc {
     top: 6.10687vw;
     left: -67.684478vw;
+    width: 134.860051vw;
+    height: 134.860051vw;
+    transform: none;
+  }
+
+  .product-actives--arc .product-actives__arc {
     width: 118.860051vw;
     height: 118.860051vw;
-    transform: none;
   }
 
   .product-actives__product {
@@ -201,6 +206,14 @@
   }
 
   .product-actives--no-texture .product-actives__product {
+    top: 28vw;
+    left: 50%;
+    width: 52vw;
+    height: 52vw;
+    transform: translateX(-50%) rotate(0deg);
+  }
+
+  .product-actives--arc.product-actives--no-texture .product-actives__product {
     top: 20vw;
     left: 14%;
     width: 80vw;

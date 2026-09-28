@@ -56,7 +56,8 @@ export default function ProductActivesSection({ product }) {
   const hideTextureBrush = product?.activesHideTextureBrush || false;
 
   const rawCallouts = product?.activesCallouts?.length ? product.activesCallouts : defaultCallouts;
-  const layoutPositions = rawCallouts.length === 3 ? arcPositions : positions;
+  const isArcLayout = rawCallouts.length === 3;
+  const layoutPositions = isArcLayout ? arcPositions : positions;
 
   const callouts = rawCallouts.map((callout, index) => ({
     position: layoutPositions[index] || layoutPositions[index % layoutPositions.length],
@@ -66,7 +67,7 @@ export default function ProductActivesSection({ product }) {
   }));
 
   return (
-    <section className={`product-actives${hideTextureBrush ? ' product-actives--no-texture' : ''}`} aria-label={`Ativos de ${product?.name || 'PINY MASK'}`}>
+    <section className={`product-actives${isArcLayout ? ' product-actives--arc' : ''}${hideTextureBrush ? ' product-actives--no-texture' : ''}`} aria-label={`Ativos de ${product?.name || 'PINY MASK'}`}>
       <img className="product-actives__arc" src={arc} alt="" aria-hidden="true" />
       <img className="product-actives__product" src={productImage} alt={product?.name || 'Máscara facial PINY'} />
 
