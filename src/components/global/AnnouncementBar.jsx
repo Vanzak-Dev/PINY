@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import separator from '../../assets/announcement-separator.svg';
 import { catalogApi } from '../../services/catalogApi';
+import { subscribeProductAnnouncement } from '../../lib/productAnnouncement';
 import './AnnouncementBar.css';
 
 const fallbackSettings = {
@@ -29,6 +30,8 @@ function AnnouncementItems({ messages }) {
 export default function AnnouncementBar({ settings: suppliedSettings }) {
   const [remoteSettings, setRemoteSettings] = useState(fallbackSettings);
 
+  const [productOverride, setProductOverride] = useState(null);
+
   useEffect(() => {
     if (suppliedSettings) return undefined;
     const load = () => catalogApi.getSettings().then(setRemoteSettings).catch(() => {});
@@ -42,7 +45,11 @@ export default function AnnouncementBar({ settings: suppliedSettings }) {
     };
   }, [suppliedSettings]);
 
-  const config = (suppliedSettings || remoteSettings).announcementBar || fallbackSettings.announcementBar;
+  useEffect(() => {
+    return subscribeProductAnnouncement(setProductOverride);
+  }, []);
+
+  const config = (suppliedSettings || productOverride || remoteSettings).announcementBar || fallbackSettings.announcementBar;
   const repeatedMessages = useMemo(
     () => Array.from({ length: 4 }, () => config.messages || []).flat(),
     [config.messages],

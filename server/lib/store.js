@@ -291,6 +291,11 @@ export function normalizeProduct(input, current = {}) {
       }))
       .filter((perk) => perk.label || perk.icon),
     boosterEnabled: boolean(input.boosterEnabled, current.boosterEnabled ?? true),
+    announcementBarEnabled: boolean(input.announcementBarEnabled, current.announcementBarEnabled ?? false),
+    announcementBarBackgroundColor: String(input.announcementBarBackgroundColor ?? current.announcementBarBackgroundColor ?? '#fff547').trim(),
+    announcementBarTextColor: String(input.announcementBarTextColor ?? current.announcementBarTextColor ?? '#1c8c44').trim(),
+    announcementBarMessages: array(input.announcementBarMessages, current.announcementBarMessages ?? []).map((m) => String(m || '').trim()).filter(Boolean),
+    announcementBarSpeed: Number(input.announcementBarSpeed ?? current.announcementBarSpeed ?? 24) || 24,
     beforeAfterEnabled: boolean(input.beforeAfterEnabled, current.beforeAfterEnabled ?? false),
     beforeAfterTitle: String(input.beforeAfterTitle ?? current.beforeAfterTitle ?? '').trim(),
     beforeAfterTitleAccent: String(input.beforeAfterTitleAccent ?? current.beforeAfterTitleAccent ?? '').trim(),

@@ -17,6 +17,7 @@ import { catalogApi } from '../services/catalogApi';
 import { useCart } from '../hooks/useCart';
 import { useCollections } from '../hooks/useCollections';
 import { isProductInCollection } from '../lib/collections';
+import { setProductAnnouncement } from '../lib/productAnnouncement';
 
 export default function ProductPage({ productIdentifier }) {
   const [product, setProduct] = useState(null);
@@ -66,6 +67,15 @@ export default function ProductPage({ productIdentifier }) {
   const crossSellProducts = configuredCrossSell.length
     ? configuredCrossSell
     : products.filter((item) => item.id !== product?.id).slice(0, 2);
+
+  const productAnnouncementSettings = product?.announcementBarEnabled
+    ? { announcementBar: { enabled: true, messages: product.announcementBarMessages?.length ? product.announcementBarMessages : ['Frete grátis acima de R$199'], backgroundColor: product.announcementBarBackgroundColor, textColor: product.announcementBarTextColor, speed: product.announcementBarSpeed } }
+    : null;
+
+  useEffect(() => {
+    setProductAnnouncement(productAnnouncementSettings);
+    return () => setProductAnnouncement(null);
+  }, [productAnnouncementSettings]);
 
   return (
     <main>
