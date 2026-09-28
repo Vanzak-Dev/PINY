@@ -178,3 +178,9 @@
     width: calc(25% - 18px);
   }
 }
+
+@media (min-width: 1024px) {
+  .journey-21__cards--compact .journey-21__card {
+    width: 364px;
+  }
+}
