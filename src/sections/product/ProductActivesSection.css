@@ -165,6 +165,14 @@
   padding-top: 1.822917vw;
 }
 
+/* ── No texture/brush: product moves to center of arc ── */
+.product-actives--no-texture .product-actives__product {
+  top: 14vw;
+  width: 28vw;
+  height: 28vw;
+  transform: translateX(-50%) rotate(0deg);
+}
+
 @media (max-width: 767px) {
   .product-actives {
     height: 147.328245vw;
@@ -184,6 +192,14 @@
     width: 58.846565vw;
     height: 58.846565vw;
     transform: rotate(15deg);
+  }
+
+  .product-actives--no-texture .product-actives__product {
+    top: 28vw;
+    left: 50%;
+    width: 52vw;
+    height: 52vw;
+    transform: translateX(-50%) rotate(0deg);
   }
 
   .product-actives__texture {

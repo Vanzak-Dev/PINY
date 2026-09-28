@@ -66,7 +66,7 @@ export default function ProductActivesSection({ product }) {
   }));
 
   return (
-    <section className="product-actives" aria-label={`Ativos de ${product?.name || 'PINY MASK'}`}>
+    <section className={`product-actives${hideTextureBrush ? ' product-actives--no-texture' : ''}`} aria-label={`Ativos de ${product?.name || 'PINY MASK'}`}>
       <img className="product-actives__arc" src={arc} alt="" aria-hidden="true" />
       <img className="product-actives__product" src={productImage} alt={product?.name || 'Máscara facial PINY'} />
 
