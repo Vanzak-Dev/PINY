@@ -49,7 +49,8 @@ export default function AnnouncementBar({ settings: suppliedSettings }) {
     return subscribeProductAnnouncement(setProductOverride);
   }, []);
 
-  const config = (suppliedSettings || productOverride || remoteSettings).announcementBar || fallbackSettings.announcementBar;
+  const globalConfig = (suppliedSettings || remoteSettings).announcementBar || fallbackSettings.announcementBar;
+  const config = { ...globalConfig, ...(productOverride?.announcementBar || {}) };
   const repeatedMessages = useMemo(
     () => Array.from({ length: 4 }, () => config.messages || []).flat(),
     [config.messages],

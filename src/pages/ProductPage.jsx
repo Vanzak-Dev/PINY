@@ -68,8 +68,11 @@ export default function ProductPage({ productIdentifier }) {
     ? configuredCrossSell
     : products.filter((item) => item.id !== product?.id).slice(0, 2);
 
-  const productAnnouncementSettings = product?.announcementBarEnabled
-    ? { announcementBar: { enabled: true, messages: product.announcementBarMessages?.length ? product.announcementBarMessages : ['Frete grátis acima de R$199'], backgroundColor: product.announcementBarBackgroundColor, textColor: product.announcementBarTextColor, speed: product.announcementBarSpeed } }
+  const productAnnouncementColors = {};
+  if (product?.announcementBarBackgroundColor) productAnnouncementColors.backgroundColor = product.announcementBarBackgroundColor;
+  if (product?.announcementBarTextColor) productAnnouncementColors.textColor = product.announcementBarTextColor;
+  const productAnnouncementSettings = Object.keys(productAnnouncementColors).length
+    ? { announcementBar: productAnnouncementColors }
     : null;
 
   useEffect(() => {

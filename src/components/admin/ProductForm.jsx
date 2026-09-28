@@ -64,7 +64,7 @@ const emptyProduct = {
   aiAnalysisEnabled: true, aiAnalysisBackgroundColor: '#fef8dd',
   faqBackgroundColor: '#fef8dd', faqPatternImage: '',
   boosterEnabled: true,
-  announcementBarEnabled: false, announcementBarBackgroundColor: '#fff547', announcementBarTextColor: '#1c8c44', announcementBarMessages: [], announcementBarSpeed: 24,
+  announcementBarBackgroundColor: '#fff547', announcementBarTextColor: '#1c8c44',
   beforeAfterEnabled: false, beforeAfterTitle: 'ANTES & DEPOIS', beforeAfterTitleAccent: 'Reais',
   beforeAfterSubtitle: '', beforeAfterBeforeLabel: 'ANTES', beforeAfterAfterLabel: 'DEPOIS',
   beforeAfterItems: [],
@@ -197,31 +197,22 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
       <ProductCardPreview values={values} products={products} imagePreview={imagePreview} backgroundPreview={backgroundPreview} />
       <section className="admin-form__section">
         <div className="admin-form__section-heading">
-          <div><h3>Banner de anúncios (PDP)</h3><small>Sobrescreve as cores e mensagens do banner de anúncios apenas nesta página de produto. Deixe desativado para usar o banner global.</small></div>
+          <div><h3>Banner de anúncios (PDP)</h3><small>Personalize apenas as cores do banner de anúncios nesta página de produto. As mensagens são sempre as mesmas do site inteiro.</small></div>
         </div>
-        <label className="admin-check"><input type="checkbox" checked={values.announcementBarEnabled} onChange={(e) => change('announcementBarEnabled', e.target.checked)} /> Ativar banner personalizado neste produto</label>
-        {values.announcementBarEnabled && (
-          <div className="admin-grid admin-grid--2">
-            <label>Cor do fundo
-              <span className="admin-announcement__color-field">
-                <input type="color" value={values.announcementBarBackgroundColor} onChange={(e) => change('announcementBarBackgroundColor', e.target.value)} />
-                <input value={values.announcementBarBackgroundColor} onChange={(e) => change('announcementBarBackgroundColor', e.target.value)} />
-              </span>
-            </label>
-            <label>Cor do texto
-              <span className="admin-announcement__color-field">
-                <input type="color" value={values.announcementBarTextColor} onChange={(e) => change('announcementBarTextColor', e.target.value)} />
-                <input value={values.announcementBarTextColor} onChange={(e) => change('announcementBarTextColor', e.target.value)} />
-              </span>
-            </label>
-            <label>Velocidade (seg.)
-              <input type="number" min="8" max="120" value={values.announcementBarSpeed} onChange={(e) => change('announcementBarSpeed', e.target.value)} />
-            </label>
-            <label className="admin-form__full">Mensagens <small>Uma por linha</small>
-              <textarea rows="3" value={(values.announcementBarMessages || []).join('\n')} onChange={(e) => change('announcementBarMessages', e.target.value.split(/\r?\n/).map((m) => m.trim()).filter(Boolean))} />
-            </label>
-          </div>
-        )}
+        <div className="admin-grid admin-grid--2">
+          <label>Cor do fundo
+            <span className="admin-announcement__color-field">
+              <input type="color" value={values.announcementBarBackgroundColor} onChange={(e) => change('announcementBarBackgroundColor', e.target.value)} />
+              <input value={values.announcementBarBackgroundColor} onChange={(e) => change('announcementBarBackgroundColor', e.target.value)} />
+            </span>
+          </label>
+          <label>Cor do texto
+            <span className="admin-announcement__color-field">
+              <input type="color" value={values.announcementBarTextColor} onChange={(e) => change('announcementBarTextColor', e.target.value)} />
+              <input value={values.announcementBarTextColor} onChange={(e) => change('announcementBarTextColor', e.target.value)} />
+            </span>
+          </label>
+        </div>
       </section>
       <section className="admin-form__section"><h3>Informações principais</h3><div className="admin-grid admin-grid--2">
         <label>Nome<input value={values.name} onChange={(e) => change('name', e.target.value)} required /></label>
