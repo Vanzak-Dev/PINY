@@ -328,6 +328,7 @@ export function normalizeProduct(input, current = {}) {
       }))
       .filter((row) => row.label),
     activesEnabled: boolean(input.activesEnabled, current.activesEnabled ?? true),
+    activesHideTextureBrush: boolean(input.activesHideTextureBrush, current.activesHideTextureBrush ?? false),
     activesProductImage: String(input.activesProductImage ?? current.activesProductImage ?? '').trim(),
     benefitsEnabled: boolean(input.benefitsEnabled, current.benefitsEnabled ?? true),
     benefitsPatternImage: String(input.benefitsPatternImage ?? current.benefitsPatternImage ?? '').trim(),
