@@ -9,6 +9,11 @@
   background: var(--announcement-background, #fff547);
   color: var(--announcement-color, #1c8c44);
   font-family: "Bricolage Grotesque", "neulis-neue", sans-serif;
+  transition: transform 0.3s ease;
+}
+
+.announcement-bar--hidden {
+  transform: translateY(-100%);
 }
 
 .announcement-bar__track {

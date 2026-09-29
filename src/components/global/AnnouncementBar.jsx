@@ -31,6 +31,7 @@ export default function AnnouncementBar({ settings: suppliedSettings }) {
   const [remoteSettings, setRemoteSettings] = useState(fallbackSettings);
 
   const [productOverride, setProductOverride] = useState(null);
+  const [hidden, setHidden] = useState(false);
   const barRef = useRef(null);
 
   useEffect(() => {
@@ -58,12 +59,34 @@ export default function AnnouncementBar({ settings: suppliedSettings }) {
   );
 
   useEffect(() => {
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setHidden(window.scrollY > 4);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
     const el = barRef.current;
     if (!el) {
       document.documentElement.style.setProperty('--announcement-bar-height', '0px');
       return undefined;
     }
-    const update = () => document.documentElement.style.setProperty('--announcement-bar-height', `${el.offsetHeight}px`);
+    const update = () => {
+      if (hidden) {
+        document.documentElement.style.setProperty('--announcement-bar-height', '0px');
+      } else {
+        document.documentElement.style.setProperty('--announcement-bar-height', `${el.offsetHeight}px`);
+      }
+    };
     update();
     const observer = new ResizeObserver(update);
     observer.observe(el);
@@ -75,7 +98,7 @@ export default function AnnouncementBar({ settings: suppliedSettings }) {
   return (
     <section
       ref={barRef}
-      className="announcement-bar"
+      className={`announcement-bar${hidden ? ' announcement-bar--hidden' : ''}`}
       aria-label="Anúncios da loja"
       style={{
         '--announcement-background': config.backgroundColor,
