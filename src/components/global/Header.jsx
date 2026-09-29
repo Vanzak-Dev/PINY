@@ -75,6 +75,7 @@ export default function Header() {
           <div className="site-header__nav-item--has-mega">
             <a className="site-header__nav-link" href="/piny-mask">Piny Mask</a>
             <MegaMenu
+              onAdd={addItem}
               title="PINY MASKS"
               description="Argilas de tratamento ideais para cada necessidade da sua pele, da acne até ao detox, em um produto prático para sua rotina."
               products={maskProducts}
@@ -84,6 +85,7 @@ export default function Header() {
           <div className="site-header__nav-item--has-mega">
             <a className="site-header__nav-link" href="/piny-stars">Piny Stars</a>
             <MegaMenu
+              onAdd={addItem}
               title="PINY STARS"
               description="Adesivos secativos ideais para tratar espinhas e absorver secreções de forma discreta, em um cuidado prático para a sua rotina."
               products={starsProducts}
