@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import ProductIconBadge from '../product/ProductIconBadge';
+import ProductIconBadge, { buildBadgeGradient } from '../product/ProductIconBadge';
 import AddToCartIcon from '../ui/AddToCartIcon';
 import { formatPrice } from '../../lib/formatPrice';
 import { featuredProducts } from '../../data/products';
@@ -17,7 +17,7 @@ function CartRecommendedItem({ product, onAdd }) {
   return (
     <article className="cart-drawer__promo-item">
       <div className="cart-drawer__promo-item-info">
-        <ProductIconBadge image={product.image} alt={product.name} size={68.122} radius={16} />
+        <ProductIconBadge image={product.image} alt={product.name} size={68.122} radius={16} gradient={buildBadgeGradient(product)} />
         <div className="cart-drawer__promo-item-text">
           <p className="cart-drawer__promo-item-name">{product.name}</p>
           <div className="cart-drawer__promo-item-prices">
@@ -52,7 +52,7 @@ function CartLineItem({ item, onRemove, onUpdateQuantity }) {
       >
         <img src={iconTrash} alt="" draggable="false" />
       </button>
-      <ProductIconBadge image={product.image} alt={product.name} size={98.12} radius={12} />
+      <ProductIconBadge image={product.image} alt={product.name} size={98.12} radius={12} gradient={buildBadgeGradient(product)} />
       <div className="cart-drawer__item-info">
         <p className="cart-drawer__item-name">{product.name}</p>
         <div className="cart-drawer__item-prices">

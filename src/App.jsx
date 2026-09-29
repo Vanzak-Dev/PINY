@@ -1,17 +1,19 @@
 import { useCallback, useEffect, useState } from "react";
 import AdminPage from "./pages/AdminPage";
+import AnaliseSuaPelePage from "./pages/AnaliseSuaPelePage";
 import AnnouncementBar from "./components/global/AnnouncementBar";
 import Header from "./components/global/Header";
 import CartDrawer from "./components/cart/CartDrawer";
 import Footer from "./sections/global/Footer";
 import Home from "./pages/Home";
+import MonteSuaTexturaPage from "./pages/MonteSuaTexturaPage";
+import PinyMaskPage from "./pages/PinyMaskPage";
+import PinyStarsPage from "./pages/PinyStarsPage";
 import ProductPage from "./pages/ProductPage";
 import SearchResultsPage from "./pages/SearchResultsPage";
 import { CartProvider, useCart } from "./hooks/useCart";
 import SkinAnalysisTest from "./pages/skin-analysis/SkinAnalysisTest";
 import SkinAnalysisHome from "./pages/skin-analysis/SkinAnalysisHome";
-import MonteSuaTexturaPage from "./pages/MonteSuaTexturaPage";
-import AnaliseSuaPelePage from "./pages/AnaliseSuaPelePage";
 
 export default function App() {
   const [pathname, setPathname] = useState(window.location.pathname);
@@ -68,6 +70,14 @@ export default function App() {
     ? <ProductPage productIdentifier={decodeURIComponent(pathname.split("/produtos/")[1])} />
     : pathname.startsWith("/pesquisa")
     ? <SearchResultsPage query={new URLSearchParams(window.location.search).get("q") || ""} />
+    : pathname.startsWith("/monte-sua-textura")
+    ? <MonteSuaTexturaPage />
+    : pathname.startsWith("/piny-mask")
+    ? <PinyMaskPage />
+    : pathname.startsWith("/piny-stars")
+    ? <PinyStarsPage />
+    : pathname.startsWith("/analise-sua-pele")
+    ? <AnaliseSuaPelePage />
     : <Home />;
 
   return (

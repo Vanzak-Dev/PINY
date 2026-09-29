@@ -1,0 +1,2051 @@
+[
+  {
+    "id": "argila-preta-1",
+    "name": "Argila Preta",
+    "slug": "argila-preta-1",
+    "sku": "PINYBOOSTEREC",
+    "status": "active",
+    "featured": true,
+    "category": "PINY MASK",
+    "shortDescription": "Máscara facial de argila antiacne",
+    "description": "Com carvão e chá verde: purifica a pele, remove impurezas e controla o brilho.",
+    "reviewCount": "",
+    "badges": [
+      {
+        "label": "DETOX",
+        "tone": "outline",
+        "color": "#1c8c44"
+      },
+      {
+        "label": "ANTI-OLEOSIDADE",
+        "tone": "solid",
+        "color": "#1c8c44"
+      }
+    ],
+    "quantityOptions": [
+      {
+        "quantity": 3,
+        "price": 99.9,
+        "discountLabel": "15% OFF",
+        "image": ""
+      },
+      {
+        "quantity": 2,
+        "price": 89,
+        "discountLabel": "10% OFF",
+        "image": ""
+      },
+      {
+        "quantity": 1,
+        "price": 100,
+        "discountLabel": "",
+        "image": ""
+      }
+    ],
+    "crossSellIds": [
+      "argila-rosa",
+      "argila-verde",
+      "argila-branca"
+    ],
+    "price": 89,
+    "oldPrice": 129,
+    "costPrice": null,
+    "stock": 20,
+    "trackStock": true,
+    "tags": [
+      "argila",
+      "skincare"
+    ],
+    "image": "/api/uploads/1790367226402-y9ogqn0y3t.webp",
+    "presentationBackgroundImage": "/api/uploads/1790366373548-iexms9xd09.webp",
+    "presentationMobileBackgroundImage": "/api/uploads/1790366373575-yvvv0ztf99q.webp",
+    "presentationProductImage": "/api/uploads/1790366373663-8ee9o7fbtev.webp",
+    "quantityOptionIcon": "/api/uploads/1790366373908-w9ubj0g0jvj.webp",
+    "backgroundImage": "/api/uploads/1790367226432-eox98pjbsh5.webp",
+    "backgroundColor": "#808583",
+    "badgeGradientColor1": "#454749",
+    "badgeGradientColor2": "#1f1f21",
+    "badgeGradientAngle": "180",
+    "featureEnabled": true,
+    "featureLabel": "DETOX",
+    "featurePrice": 89.9,
+    "featureBackgroundCenter": "#464444",
+    "featureBackgroundEdge": "#2e2e2e",
+    "featureLeftImage": "/api/uploads/1790367616361-2bztvxrr5o4.webp",
+    "featureRightImage": "/api/uploads/1790367616575-3l50n53rivv.webp",
+    "featureProductImage": "/api/uploads/1790367616673-tdy6szrgjg.webp",
+    "featureProductInfoMobileBackground": "",
+    "featureTextColor": "#ffffff",
+    "featureVariant": "ARGILA PRETA",
+    "featurePerks": [
+      {
+        "icon": "/api/uploads/1790367616691-gssfsc4qaf.svg",
+        "label": "Carvão Ativado"
+      },
+      {
+        "icon": "/api/uploads/1790367616692-r1iip0dihs.svg",
+        "label": "Chá Verde"
+      },
+      {
+        "icon": "/api/uploads/1790367616692-jc9flf2sdx.svg",
+        "label": "Ácido Glicólico"
+      },
+      {
+        "icon": "/api/uploads/1790367616692-ug20g6l4xgm.svg",
+        "label": "Ácido Salicílico"
+      }
+    ],
+    "boosterEnabled": true,
+    "announcementBarBackgroundColor": "#464444",
+    "announcementBarTextColor": "#FFF",
+    "announcementBarSeparatorImage": "/api/uploads/1790685927389-o0lkbaucsp.svg",
+    "beforeAfterEnabled": true,
+    "beforeAfterTitle": "ANTES & DEPOIS",
+    "beforeAfterTitleAccent": "Reais",
+    "beforeAfterSubtitle": "",
+    "beforeAfterBeforeLabel": "ANTES",
+    "beforeAfterAfterLabel": "DEPOIS",
+    "beforeAfterItems": [],
+    "comparisonEnabled": true,
+    "comparisonTitle": "Kit PINY vs. Máscara Comum",
+    "comparisonSubtitle": "Mais de 44 mil peles transformadas desde 2021, com uma selfie de cada vez.",
+    "comparisonPinyLabel": "Máscaras Faciais",
+    "comparisonOtherLabel": "Outras Marcas",
+    "comparisonImage1": "/api/uploads/1790368595384-lc1nhz2ukms.webp",
+    "comparisonImage2": "/api/uploads/1790368595551-g5ifhlk0btg.webp",
+    "comparisonImage3": "/api/uploads/1790368595579-yz0wdj5bpd.webp",
+    "comparisonImage4": "/api/uploads/1790368595598-8dx69kwvubu.webp",
+    "comparisonProductIcon": "/api/uploads/1790368595609-iz9zmcfvhp.webp",
+    "comparisonHeaderLabelColor": "#282828",
+    "comparisonHighlightColor": "#464444",
+    "comparisonTableColor": "#ededed",
+    "comparisonCellColor": "#282828",
+    "comparisonCheckIcon": "/api/uploads/1790370102551-2fzlt5l014e.webp",
+    "comparisonXIcon": "/api/uploads/1790370415398-pcupkdrnqb8.svg",
+    "comparisonDividerColor": "#282828",
+    "comparisonRows": [
+      {
+        "label": "12 combinações diferentes",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Booster concentrado 2 em 1",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Análise de pele por IA",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Garantia de 21 dias",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Ácido salicílico + glicólico de fábrica",
+        "piny": "check",
+        "other": "Raro"
+      },
+      {
+        "label": "Vegano e cruelty free",
+        "piny": "check",
+        "other": "Nem Sempre"
+      }
+    ],
+    "activesEnabled": true,
+    "activesHideTextureBrush": false,
+    "activesProductImage": "/api/uploads/1790369179371-lkwyv92gesn.webp",
+    "benefitsEnabled": true,
+    "benefitsPatternImage": "/api/uploads/1790369573946-ormjnn9oyt.webp",
+    "benefitsBackgroundColor": "#ededed",
+    "aiAnalysisEnabled": true,
+    "aiAnalysisBackgroundColor": "#ededed",
+    "faqBackgroundColor": "#ededed",
+    "faqPatternImage": "/api/uploads/1790370490542-b1wlhce17vf.webp",
+    "howToUseEnabled": true,
+    "howToUseBackgroundColor": "#ededed",
+    "howToUseBackgroundImage": "/api/uploads/1790369932160-130o9u57z87q.webp",
+    "howToUseImages": [
+      "/api/uploads/1790369932571-jwq43pxfmtb.webp",
+      "/api/uploads/1790369932689-x2372902bxp.webp",
+      "/api/uploads/1790369932699-e0oppverjnq.webp",
+      "/api/uploads/1790369932717-jiw018ucjmr.webp"
+    ],
+    "howToUseSteps": [
+      {
+        "text": "Aplique uma camada generosa do produto"
+      },
+      {
+        "text": "Deixe agir por 15-20min e enxágue"
+      },
+      {
+        "text": "Use 1-2x ao dia, conforme a condição da sua pele"
+      },
+      {
+        "text": "De dia, finalize com protetor solar — a fórmula tem ácidos."
+      }
+    ],
+    "benefitsItems": [
+      {
+        "icon": "",
+        "label": "Remove impurezas e toxinas da pele"
+      },
+      {
+        "icon": "",
+        "label": "Controla a \noleosidade"
+      },
+      {
+        "icon": "",
+        "label": "Desobstrui e \nminimiza os poros"
+      },
+      {
+        "icon": "",
+        "label": "Previne acne \ne cravos"
+      }
+    ],
+    "activesTextureImage": "/api/uploads/1790369179448-icgzycuisv.webp",
+    "activesBrushImage": "/api/uploads/1790369179699-ixbq8icf0d.webp",
+    "activesCallouts": [
+      {
+        "title": "Chá Verde",
+        "lines": [
+          "Controla a",
+          "oleosidade."
+        ]
+      },
+      {
+        "title": "Ácido Salicílico",
+        "lines": [
+          "Desobstrui o poro e",
+          "trata a espinha ativa."
+        ]
+      },
+      {
+        "title": "Carvão Ativado",
+        "lines": [
+          "Puxa o que",
+          "entope o poro."
+        ]
+      },
+      {
+        "title": "ácido Glicólico",
+        "lines": [
+          "Renovação Celular",
+          "com suavidade."
+        ]
+      }
+    ],
+    "imageRestRotation": 0,
+    "imageActiveRotation": 15,
+    "weight": 60,
+    "dimensions": {
+      "length": 8,
+      "width": 8,
+      "height": 6
+    },
+    "seoTitle": "Argila Preta PINY",
+    "seoDescription": "Máscara facial de argila PINY.",
+    "createdAt": "2026-09-09T00:00:00.000Z",
+    "updatedAt": "2026-09-29T12:45:27.393Z"
+  },
+  {
+    "id": "argila-rosa",
+    "name": "Argila Rosa",
+    "slug": "argila-rosa",
+    "sku": "POPCOMESPELHO",
+    "status": "active",
+    "featured": true,
+    "category": "PINY MASK",
+    "shortDescription": "Máscara facial de argila antiacne",
+    "description": "Conforto para peles sensíveis: hidrata, suaviza marcas e reduz o tom vermelho.",
+    "reviewCount": "",
+    "badges": [
+      {
+        "label": "CALMANTE",
+        "tone": "outline",
+        "color": "#1c8c44"
+      },
+      {
+        "label": "ANTI-MANCHAS",
+        "tone": "solid",
+        "color": "#1c8c44"
+      }
+    ],
+    "quantityOptions": [
+      {
+        "quantity": 3,
+        "price": 99.9,
+        "discountLabel": "15% OFF",
+        "image": ""
+      },
+      {
+        "quantity": 2,
+        "price": 89,
+        "discountLabel": "10% OFF",
+        "image": ""
+      },
+      {
+        "quantity": 1,
+        "price": 100,
+        "discountLabel": "",
+        "image": ""
+      }
+    ],
+    "crossSellIds": [
+      "argila-preta-1",
+      "argila-verde",
+      "argila-branca"
+    ],
+    "price": 89,
+    "oldPrice": 129,
+    "costPrice": null,
+    "stock": 20,
+    "trackStock": true,
+    "tags": [
+      "argila",
+      "skincare"
+    ],
+    "image": "/api/uploads/1790359859637-j84uhxrk1v.webp",
+    "presentationBackgroundImage": "/api/uploads/1790359535310-ash19nyc2r.webp",
+    "presentationMobileBackgroundImage": "/api/uploads/1790359535357-y9nyrrz1mdt.webp",
+    "presentationProductImage": "/api/uploads/1790359535381-l4vx1i9zoic.webp",
+    "quantityOptionIcon": "/api/uploads/1790362540404-aym4qxzwtep.webp",
+    "backgroundImage": "/api/uploads/1790359859662-a8ozsqivcwk.webp",
+    "backgroundColor": "#f6bece",
+    "badgeGradientColor1": "#fca9c0",
+    "badgeGradientColor2": "#f4b2c5",
+    "badgeGradientAngle": "180",
+    "featureEnabled": true,
+    "featureLabel": "CALMANTE",
+    "featurePrice": 89.9,
+    "featureBackgroundCenter": "#fdaac1",
+    "featureBackgroundEdge": "#f085a3",
+    "featureLeftImage": "/api/uploads/1790359859689-qx2qfax43jb.webp",
+    "featureRightImage": "/api/uploads/1790359859715-ubvb8pt3cgb.webp",
+    "featureProductImage": "/api/uploads/1790359859778-dfw1k4m2d88.webp",
+    "featureProductInfoMobileBackground": "",
+    "featureTextColor": "#ffffff",
+    "featureVariant": "ARGILA ROSA",
+    "featurePerks": [
+      {
+        "icon": "/api/uploads/1790360751335-1quj7tcy48r.svg",
+        "label": "Centella Asiática"
+      },
+      {
+        "icon": "/api/uploads/1790360751337-atr7p008jjw.svg",
+        "label": "Bisabolol"
+      },
+      {
+        "icon": "/api/uploads/1790360751360-loehpgtel8.svg",
+        "label": "Pantenol"
+      },
+      {
+        "icon": "/api/uploads/1790360751360-er0qr8j6u7s.svg",
+        "label": "Ácido Glicólico"
+      }
+    ],
+    "boosterEnabled": true,
+    "announcementBarBackgroundColor": "#ED7D9C",
+    "announcementBarTextColor": "#FFF",
+    "announcementBarSeparatorImage": "",
+    "beforeAfterEnabled": true,
+    "beforeAfterTitle": "ANTES & DEPOIS",
+    "beforeAfterTitleAccent": "Reais",
+    "beforeAfterSubtitle": "Mais de 44 mil peles transformadas desde 2021, com uma selfie de cada vez.",
+    "beforeAfterBeforeLabel": "ANTES",
+    "beforeAfterAfterLabel": "DEPOIS",
+    "beforeAfterItems": [],
+    "comparisonEnabled": true,
+    "comparisonTitle": "Kit PINY vs. Máscara Comum",
+    "comparisonSubtitle": "Mais de 44 mil peles transformadas desde 2021, com uma selfie de cada vez.",
+    "comparisonPinyLabel": "Máscaras Faciais",
+    "comparisonOtherLabel": "Outras Marcas",
+    "comparisonImage1": "/api/uploads/1790361780775-2v62l1tvqca.webp",
+    "comparisonImage2": "/api/uploads/1790361780802-ljed02oalad.webp",
+    "comparisonImage3": "/api/uploads/1790361780829-epeaewnmhl.webp",
+    "comparisonImage4": "/api/uploads/1790361780830-ny28km2cti9.webp",
+    "comparisonProductIcon": "/api/uploads/1790361780830-z0k8n7ybx2.webp",
+    "comparisonHeaderLabelColor": "#ed7d9c",
+    "comparisonHighlightColor": "#fca9c0",
+    "comparisonTableColor": "#fef2f6",
+    "comparisonCellColor": "#ed7d9c",
+    "comparisonCheckIcon": "/api/uploads/1790361780830-m0fgvlz17r.svg",
+    "comparisonXIcon": "/api/uploads/1790361780831-uu6ty13i2hh.svg",
+    "comparisonDividerColor": "#ed7d9c",
+    "comparisonRows": [
+      {
+        "label": "12 combinações diferentes",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Booster concentrado 2 em 1",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Análise de pele por IA",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Garantia de 21 dias",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Ácido salicílico + glicólico de fábrica",
+        "piny": "check",
+        "other": "Raro"
+      },
+      {
+        "label": "Vegano e cruelty free",
+        "piny": "check",
+        "other": "Nem Sempre"
+      }
+    ],
+    "activesEnabled": true,
+    "activesHideTextureBrush": false,
+    "activesProductImage": "/api/uploads/1790362458174-obz20otx8zm.webp",
+    "benefitsEnabled": true,
+    "benefitsPatternImage": "/api/uploads/1790362822630-ck5jtkkijv6.webp",
+    "benefitsBackgroundColor": "#fef2f6",
+    "aiAnalysisEnabled": true,
+    "aiAnalysisBackgroundColor": "#fef2f6",
+    "faqBackgroundColor": "#fef2f6",
+    "faqPatternImage": "/api/uploads/1790362773532-a4w179xw8jg.webp",
+    "howToUseEnabled": true,
+    "howToUseBackgroundColor": "#fef2f6",
+    "howToUseBackgroundImage": "/api/uploads/1790362773612-53ouj4ug8oi.webp",
+    "howToUseImages": [
+      "/api/uploads/1790362773638-u3wdifg3nyb.webp",
+      "/api/uploads/1790362773658-rqhhk3jq32k.webp",
+      "/api/uploads/1790362773667-ybf10wvu7uc.webp",
+      "/api/uploads/1790362773691-ttddr92jaua.webp"
+    ],
+    "howToUseSteps": [
+      {
+        "text": "Aplique uma camada generosa do produto"
+      },
+      {
+        "text": "Deixe agir por 15-20min e enxágue"
+      },
+      {
+        "text": "Use 1-2x ao dia, conforme a condição da sua pele"
+      },
+      {
+        "text": "De dia, finalize com protetor solar — a fórmula tem ácidos."
+      }
+    ],
+    "benefitsItems": [
+      {
+        "icon": "",
+        "label": "Trata marcas e manchas"
+      },
+      {
+        "icon": "",
+        "label": "Diminui a \nvermelhidão"
+      },
+      {
+        "icon": "",
+        "label": "Acalma e \nsuaviza a pele"
+      },
+      {
+        "icon": "",
+        "label": "Conforto para peles com rosácea"
+      }
+    ],
+    "activesTextureImage": "/api/uploads/1790362458291-rshq6slegis.webp",
+    "activesBrushImage": "/api/uploads/1790362458603-6afp8or4bcx.webp",
+    "activesCallouts": [
+      {
+        "title": "Centella Asiática",
+        "lines": [
+          "Conforto imediato."
+        ]
+      },
+      {
+        "title": "Pantenol",
+        "lines": [
+          "Hidrata e recupera",
+          "a barreira da pele"
+        ]
+      },
+      {
+        "title": "Bisabolol",
+        "lines": [
+          "Calmante derivado",
+          "da camomila."
+        ]
+      },
+      {
+        "title": "ácido Glicólico",
+        "lines": [
+          "Renovação Celular",
+          "com suavidade."
+        ]
+      }
+    ],
+    "imageRestRotation": 0,
+    "imageActiveRotation": 15,
+    "weight": 60,
+    "dimensions": {
+      "length": 8,
+      "width": 8,
+      "height": 6
+    },
+    "seoTitle": "Argila Rosa PINY",
+    "seoDescription": "Máscara facial de argila PINY.",
+    "createdAt": "2026-09-09T00:00:00.000Z",
+    "updatedAt": "2026-09-29T12:46:02.297Z"
+  },
+  {
+    "id": "argila-branca",
+    "name": "Argila Branca",
+    "slug": "argila-branca",
+    "sku": "PINYMAISBOOSTERMAISPOP",
+    "status": "active",
+    "featured": true,
+    "category": "Máscaras faciais",
+    "shortDescription": "Máscara facial de argila antiacne",
+    "description": "+200 mil vendidas! A clássica com ácido salicílico e glicólico que trata acne e clareia manchas.",
+    "reviewCount": "",
+    "badges": [],
+    "quantityOptions": [
+      {
+        "quantity": 3,
+        "price": 99.9,
+        "discountLabel": "15% OFF",
+        "image": ""
+      },
+      {
+        "quantity": 2,
+        "price": 89,
+        "discountLabel": "10% OFF",
+        "image": ""
+      },
+      {
+        "quantity": 1,
+        "price": 100,
+        "discountLabel": "",
+        "image": ""
+      }
+    ],
+    "crossSellIds": [],
+    "price": 89,
+    "oldPrice": 129,
+    "costPrice": null,
+    "stock": 20,
+    "trackStock": true,
+    "tags": [
+      "argila",
+      "skincare"
+    ],
+    "image": "/api/uploads/1790599505962-brnjok8db6s.webp",
+    "presentationBackgroundImage": "",
+    "presentationMobileBackgroundImage": "",
+    "presentationProductImage": "/api/uploads/1790599693729-k6bqgetxm69.webp",
+    "quantityOptionIcon": "",
+    "backgroundImage": "/catalog-assets/product-pineapple-background.webp",
+    "backgroundColor": "#fffaa3",
+    "badgeGradientColor1": "#ffe908",
+    "badgeGradientColor2": "#f0c111",
+    "badgeGradientAngle": "180",
+    "featureEnabled": true,
+    "featureLabel": "ANTIMANCHAS",
+    "featurePrice": 89.9,
+    "featureBackgroundCenter": "#F3FD5A",
+    "featureBackgroundEdge": "#FFD72F",
+    "featureLeftImage": "/catalog-assets/pineapple-scatter-left.webp",
+    "featureRightImage": "/catalog-assets/pineapple-scatter-right.webp",
+    "featureProductImage": "/catalog-assets/product-white-clay.webp",
+    "featureProductInfoMobileBackground": "",
+    "featureTextColor": "#1c8c44",
+    "featureVariant": "",
+    "featurePerks": [
+      {
+        "icon": "/api/uploads/1790600282590-wq8cp27l4bi.svg",
+        "label": "Trata acne e manchas"
+      },
+      {
+        "icon": "/api/uploads/1790600282590-r4tmzbcdwpf.svg",
+        "label": "Absorve a oleosidade"
+      },
+      {
+        "icon": "/api/uploads/1790600282590-lz2799cqu2k.svg",
+        "label": "Uniformiza o  tom da pele"
+      },
+      {
+        "icon": "/api/uploads/1790600282590-2qi0n5pij5s.svg",
+        "label": "Best-seller: +200mil Vendas"
+      }
+    ],
+    "boosterEnabled": true,
+    "announcementBarBackgroundColor": "#fff547",
+    "announcementBarTextColor": "#1c8c44",
+    "announcementBarSeparatorImage": "",
+    "beforeAfterEnabled": true,
+    "beforeAfterTitle": "ANTES & DEPOIS",
+    "beforeAfterTitleAccent": "Reais",
+    "beforeAfterSubtitle": "Mais de 44 mil peles transformadas desde 2021, com uma selfie de cada vez.",
+    "beforeAfterBeforeLabel": "ANTES",
+    "beforeAfterAfterLabel": "DEPOIS",
+    "beforeAfterItems": [
+      {
+        "name": "Ana Simas",
+        "usage": "21 dias de uso",
+        "beforeImage": "/catalog-assets/before-after/ana-antes.webp",
+        "afterImage": "/catalog-assets/before-after/ana-depois.webp"
+      },
+      {
+        "name": "Julia Vasconcelos",
+        "usage": "21 dias de uso",
+        "beforeImage": "/catalog-assets/before-after/julia-antes.webp",
+        "afterImage": "/catalog-assets/before-after/julia-depois.webp"
+      },
+      {
+        "name": "Yasmin Silva",
+        "usage": "21 dias de uso",
+        "beforeImage": "/catalog-assets/before-after/yasmin-antes.webp",
+        "afterImage": "/catalog-assets/before-after/yasmin-depois.webp"
+      }
+    ],
+    "comparisonEnabled": true,
+    "comparisonTitle": "Kit PINY vs. Máscara Comum",
+    "comparisonSubtitle": "Mais de 44 mil peles transformadas desde 2021, com uma selfie de cada vez.",
+    "comparisonPinyLabel": "Máscaras Faciais",
+    "comparisonOtherLabel": "Outras Marcas",
+    "comparisonImage1": "/catalog-assets/comparison-image-1.webp",
+    "comparisonImage2": "/catalog-assets/comparison-image-2.webp",
+    "comparisonImage3": "/catalog-assets/comparison-image-3.webp",
+    "comparisonImage4": "/catalog-assets/comparison-image-4.webp",
+    "comparisonProductIcon": "/catalog-assets/comparison-product-icon.png",
+    "comparisonHeaderLabelColor": "#1c8c44",
+    "comparisonHighlightColor": "#85e86f",
+    "comparisonTableColor": "#e8fce0",
+    "comparisonCellColor": "#1c8c44",
+    "comparisonCheckIcon": "",
+    "comparisonXIcon": "",
+    "comparisonDividerColor": "#1c8c44",
+    "comparisonRows": [
+      {
+        "label": "12 combinações diferentes",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Booster concentrado 2 em 1",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Análise de pele por IA",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Garantia de 21 dias",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Ácido salicílico + glicólico de fábrica",
+        "piny": "check",
+        "other": "Raro"
+      },
+      {
+        "label": "Vegano e cruelty free",
+        "piny": "check",
+        "other": "Nem Sempre"
+      }
+    ],
+    "activesEnabled": true,
+    "activesHideTextureBrush": false,
+    "activesProductImage": "",
+    "benefitsEnabled": true,
+    "benefitsPatternImage": "",
+    "benefitsBackgroundColor": "#fef8dd",
+    "aiAnalysisEnabled": true,
+    "aiAnalysisBackgroundColor": "#fef8dd",
+    "faqBackgroundColor": "#fef8dd",
+    "faqPatternImage": "",
+    "howToUseEnabled": true,
+    "howToUseBackgroundColor": "#fef8dd",
+    "howToUseBackgroundImage": "",
+    "howToUseImages": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "howToUseSteps": [
+      {
+        "text": "Aplique uma camada generosa do produto"
+      },
+      {
+        "text": "Deixe agir por 15-20min e enxágue"
+      },
+      {
+        "text": "Use 1-2x ao dia, conforme a condição da sua pele"
+      },
+      {
+        "text": "De dia, finalize com protetor solar — a fórmula tem ácidos."
+      }
+    ],
+    "benefitsItems": [
+      {
+        "icon": "",
+        "label": "Trata marcas e manchas"
+      },
+      {
+        "icon": "",
+        "label": "Absorve a\nOleosidade"
+      },
+      {
+        "icon": "",
+        "label": "Uniformiza o\ntom de pele"
+      },
+      {
+        "icon": "",
+        "label": "Best-Seller:\n+200mil Vendas"
+      }
+    ],
+    "activesTextureImage": "",
+    "activesBrushImage": "",
+    "activesCallouts": [
+      {
+        "title": "Caulim",
+        "lines": [
+          "A argila mais suave,",
+          "absorve sem irritar"
+        ]
+      },
+      {
+        "title": "Óxido de Zinco",
+        "lines": [
+          "Ação secativa"
+        ]
+      },
+      {
+        "title": "Extrato de Abacaxi",
+        "lines": [
+          "O símbolo da PINY"
+        ]
+      },
+      {
+        "title": "Salicílico + Glicólico",
+        "lines": [
+          "Motor antiacne",
+          "de fábrica"
+        ]
+      }
+    ],
+    "imageRestRotation": 0,
+    "imageActiveRotation": 15,
+    "weight": 60,
+    "dimensions": {
+      "length": 8,
+      "width": 8,
+      "height": 6
+    },
+    "seoTitle": "Argila Branca PINY",
+    "seoDescription": "Máscara facial de argila PINY.",
+    "createdAt": "2026-09-09T00:00:00.000Z",
+    "updatedAt": "2026-09-29T12:51:03.321Z"
+  },
+  {
+    "id": "argila-verde",
+    "name": "Argila Verde",
+    "slug": "argila-verde",
+    "sku": "FWS46W55TU",
+    "status": "active",
+    "featured": true,
+    "category": "PINY MASK",
+    "shortDescription": "Máscara facial de argila antiacne",
+    "description": "Trata espinhas ativas, reduz cravos e regula a oleosidade com salicílico.",
+    "reviewCount": "",
+    "badges": [
+      {
+        "label": "ANTIACNE",
+        "tone": "outline",
+        "color": "#1c8c44"
+      },
+      {
+        "label": "ANTI-OLEOSIDADE",
+        "tone": "solid",
+        "color": "#1c8c44"
+      }
+    ],
+    "quantityOptions": [
+      {
+        "quantity": 3,
+        "price": 99.9,
+        "discountLabel": "15% OFF",
+        "image": ""
+      },
+      {
+        "quantity": 2,
+        "price": 89,
+        "discountLabel": "10% OFF",
+        "image": ""
+      },
+      {
+        "quantity": 1,
+        "price": 100,
+        "discountLabel": "",
+        "image": ""
+      }
+    ],
+    "crossSellIds": [
+      "argila-preta-1",
+      "argila-branca",
+      "argila-rosa"
+    ],
+    "price": 89,
+    "oldPrice": 129,
+    "costPrice": null,
+    "stock": 20,
+    "trackStock": true,
+    "tags": [
+      "argila",
+      "skincare"
+    ],
+    "image": "/api/uploads/1790363910704-7cislqt8eml.webp",
+    "presentationBackgroundImage": "/api/uploads/1790363911490-8dgxhbty5we.webp",
+    "presentationMobileBackgroundImage": "/api/uploads/1790363911506-pb8di5iz9lh.webp",
+    "presentationProductImage": "/api/uploads/1790363911512-9a8hx4ysdj5.webp",
+    "quantityOptionIcon": "/api/uploads/1790363911642-1tqwi32oxcq.webp",
+    "backgroundImage": "/api/uploads/1790363910730-fvx6f0zx5vi.webp",
+    "backgroundColor": "#c2f4b7",
+    "badgeGradientColor1": "#bee0a7",
+    "badgeGradientColor2": "#93bb78",
+    "badgeGradientAngle": "180",
+    "featureEnabled": true,
+    "featureLabel": "ANTIACNE",
+    "featurePrice": 89.9,
+    "featureBackgroundCenter": "#4bb068",
+    "featureBackgroundEdge": "#289547",
+    "featureLeftImage": "/api/uploads/1790363910803-34qlnpgk509.webp",
+    "featureRightImage": "/api/uploads/1790363911292-y48oo5f8mu.webp",
+    "featureProductImage": "/api/uploads/1790363911455-afv7jvf40pf.webp",
+    "featureProductInfoMobileBackground": "",
+    "featureTextColor": "#ffffff",
+    "featureVariant": "ARGILA VERDE",
+    "featurePerks": [
+      {
+        "icon": "/api/uploads/1790363911484-kcyq860m8pp.svg",
+        "label": "Zinco PCA"
+      },
+      {
+        "icon": "/api/uploads/1790363911484-1w1n8dlm42j.svg",
+        "label": "Niacinamida"
+      },
+      {
+        "icon": "/api/uploads/1790363911490-12dnmcbcl4e.svg",
+        "label": "Ácido Glicólico"
+      },
+      {
+        "icon": "/api/uploads/1790363911490-6eweqsmits6.svg",
+        "label": "Ácido Salicílico"
+      }
+    ],
+    "boosterEnabled": true,
+    "announcementBarBackgroundColor": "#1C8C3C",
+    "announcementBarTextColor": "#FFFFFF",
+    "announcementBarSeparatorImage": "/api/uploads/1790686037772-eh3d64olch6.svg",
+    "beforeAfterEnabled": true,
+    "beforeAfterTitle": "ANTES & DEPOIS",
+    "beforeAfterTitleAccent": "Reais",
+    "beforeAfterSubtitle": "",
+    "beforeAfterBeforeLabel": "ANTES",
+    "beforeAfterAfterLabel": "DEPOIS",
+    "beforeAfterItems": [],
+    "comparisonEnabled": true,
+    "comparisonTitle": "Kit PINY vs. Máscara Comum",
+    "comparisonSubtitle": "Mais de 44 mil peles transformadas desde 2021, com uma selfie de cada vez.",
+    "comparisonPinyLabel": "Máscaras Faciais",
+    "comparisonOtherLabel": "Outras Marcas",
+    "comparisonImage1": "/api/uploads/1790364141611-9cgt16plfw.webp",
+    "comparisonImage2": "/api/uploads/1790364141638-ey9k0ykt677.webp",
+    "comparisonImage3": "/api/uploads/1790364141658-pdzq4pt9koo.webp",
+    "comparisonImage4": "/api/uploads/1790364141707-viv5iiaee0j.webp",
+    "comparisonProductIcon": "/api/uploads/1790364141713-xypx7ox79c.webp",
+    "comparisonHeaderLabelColor": "#1c8c44",
+    "comparisonHighlightColor": "#85e86f",
+    "comparisonTableColor": "#e8fce0",
+    "comparisonCellColor": "#1c8c44",
+    "comparisonCheckIcon": "",
+    "comparisonXIcon": "",
+    "comparisonDividerColor": "#1c8c44",
+    "comparisonRows": [
+      {
+        "label": "12 combinações diferentes",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Booster concentrado 2 em 1",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Análise de pele por IA",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Garantia de 21 dias",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Ácido salicílico + glicólico de fábrica",
+        "piny": "check",
+        "other": "Raro"
+      },
+      {
+        "label": "Vegano e cruelty free",
+        "piny": "check",
+        "other": "Nem Sempre"
+      }
+    ],
+    "activesEnabled": true,
+    "activesHideTextureBrush": false,
+    "activesProductImage": "/api/uploads/1790364375338-hlniba5xpcl.webp",
+    "benefitsEnabled": true,
+    "benefitsPatternImage": "/api/uploads/1790364375686-dbmt6qyt0kh.webp",
+    "benefitsBackgroundColor": "#e8fce0",
+    "aiAnalysisEnabled": true,
+    "aiAnalysisBackgroundColor": "#e8fce0",
+    "faqBackgroundColor": "#e8fce0",
+    "faqPatternImage": "/api/uploads/1790364650752-mynq043s4g.webp",
+    "howToUseEnabled": true,
+    "howToUseBackgroundColor": "#e8fce0",
+    "howToUseBackgroundImage": "/api/uploads/1790364651001-aikgb1rrui.webp",
+    "howToUseImages": [
+      "/api/uploads/1790364651061-8u824i43of.webp",
+      "/api/uploads/1790364651117-1a0nd35ri0h.webp",
+      "/api/uploads/1790364651135-n9shjd6ofmf.webp",
+      "/api/uploads/1790364651148-ffyeenywcuo.webp"
+    ],
+    "howToUseSteps": [
+      {
+        "text": "Aplique uma camada generosa do produto"
+      },
+      {
+        "text": "Deixe agir por 15-20min e enxágue"
+      },
+      {
+        "text": "Use 1-2x ao dia, conforme a condição da sua pele"
+      },
+      {
+        "text": "De dia, finalize com protetor solar — a fórmula tem ácidos."
+      }
+    ],
+    "benefitsItems": [
+      {
+        "icon": "",
+        "label": "Reduz acne \ne cravos"
+      },
+      {
+        "icon": "",
+        "label": "Controla a \noleosidade"
+      },
+      {
+        "icon": "",
+        "label": "Minimiza poros dilatados"
+      },
+      {
+        "icon": "",
+        "label": "Purifica\na pele"
+      }
+    ],
+    "activesTextureImage": "/api/uploads/1790364375440-l4lbee896rd.webp",
+    "activesBrushImage": "/api/uploads/1790364375674-qv2g2119mab.webp",
+    "activesCallouts": [
+      {
+        "title": "Niacinamida",
+        "lines": [
+          "Acalma a inflamação",
+          "e controla o brilho."
+        ]
+      },
+      {
+        "title": "Ácido Salicílico",
+        "lines": [
+          "Desobstrui o poro e",
+          "trata a espinha ativa."
+        ]
+      },
+      {
+        "title": "Zinco PCA",
+        "lines": [
+          "Regula a produção",
+          "de sebo."
+        ]
+      },
+      {
+        "title": "Ácido Glicólico",
+        "lines": [
+          "Renovação Celular",
+          "com suavidade."
+        ]
+      }
+    ],
+    "imageRestRotation": 0,
+    "imageActiveRotation": 15,
+    "weight": 60,
+    "dimensions": {
+      "length": 8,
+      "width": 8,
+      "height": 6
+    },
+    "seoTitle": "Argila Verde PINY",
+    "seoDescription": "Máscara facial de argila PINY.",
+    "createdAt": "2026-09-09T00:00:00.000Z",
+    "updatedAt": "2026-09-29T12:47:17.776Z"
+  },
+  {
+    "id": "a01d8fd5-a227-48cb-807c-9a18dfdad155",
+    "name": "Stars Amarela",
+    "slug": "piny-stars-amarela",
+    "sku": "PINYMAISBOOSTERMAISPOP-COPY",
+    "status": "active",
+    "featured": true,
+    "category": "PINY STARS",
+    "shortDescription": "Adesivos para pele",
+    "description": "Cole o adesivo, espere algumas horas e deixe o adesivo agir. Simples, rápido e sem agredir sua pele.",
+    "reviewCount": "",
+    "badges": [
+      {
+        "label": "Antimanchas",
+        "tone": "outline",
+        "color": "#1c8c44"
+      },
+      {
+        "label": "BEST-SELLER",
+        "tone": "solid",
+        "color": "#1c8c44"
+      }
+    ],
+    "quantityOptions": [
+      {
+        "quantity": 3,
+        "price": 99.9,
+        "discountLabel": "15% OFF",
+        "image": ""
+      },
+      {
+        "quantity": 2,
+        "price": 89,
+        "discountLabel": "10% OFF",
+        "image": ""
+      },
+      {
+        "quantity": 1,
+        "price": 100,
+        "discountLabel": "",
+        "image": ""
+      }
+    ],
+    "crossSellIds": [
+      "argila-preta-1",
+      "argila-branca",
+      "argila-rosa",
+      "argila-verde"
+    ],
+    "price": 89,
+    "oldPrice": 129,
+    "costPrice": null,
+    "stock": 20,
+    "trackStock": true,
+    "tags": [
+      "adesivos",
+      "skincare"
+    ],
+    "image": "/api/uploads/1790602955426-n2y5hx41pbr.webp",
+    "presentationBackgroundImage": "/api/uploads/1790602551036-ltbqqz31cvp.webp",
+    "presentationMobileBackgroundImage": "",
+    "presentationProductImage": "/api/uploads/1790602692440-7n91397ixw5.webp",
+    "quantityOptionIcon": "/api/uploads/1790602692536-y97ahbrhz2.webp",
+    "backgroundImage": "/api/uploads/1790602955458-ssmhduwzycc.webp",
+    "backgroundColor": "#fffaa3",
+    "badgeGradientColor1": "#ffe908",
+    "badgeGradientColor2": "#f0c111",
+    "badgeGradientAngle": "180",
+    "featureEnabled": false,
+    "featureLabel": "ANTIMANCHAS",
+    "featurePrice": 89.9,
+    "featureBackgroundCenter": "#F3FD5A",
+    "featureBackgroundEdge": "#FFD72F",
+    "featureLeftImage": "/catalog-assets/pineapple-scatter-left.webp",
+    "featureRightImage": "/catalog-assets/pineapple-scatter-right.webp",
+    "featureProductImage": "/catalog-assets/product-white-clay.webp",
+    "featureProductInfoMobileBackground": "",
+    "featureTextColor": "#1c8c44",
+    "featureVariant": "",
+    "featurePerks": [
+      {
+        "icon": "/api/uploads/1790600282590-wq8cp27l4bi.svg",
+        "label": "Trata acne e manchas"
+      },
+      {
+        "icon": "/api/uploads/1790600282590-r4tmzbcdwpf.svg",
+        "label": "Absorve a oleosidade"
+      },
+      {
+        "icon": "/api/uploads/1790600282590-lz2799cqu2k.svg",
+        "label": "Uniformiza o  tom da pele"
+      },
+      {
+        "icon": "/api/uploads/1790600282590-2qi0n5pij5s.svg",
+        "label": "Best-seller: +200mil Vendas"
+      }
+    ],
+    "boosterEnabled": false,
+    "beforeAfterEnabled": true,
+    "beforeAfterTitle": "ANTES & DEPOIS",
+    "beforeAfterTitleAccent": "Reais",
+    "beforeAfterSubtitle": "Mais de 44 mil peles transformadas desde 2021, com uma selfie de cada vez.",
+    "beforeAfterBeforeLabel": "ANTES",
+    "beforeAfterAfterLabel": "DEPOIS",
+    "beforeAfterItems": [
+      {
+        "name": "Ana Simas",
+        "usage": "21 dias de uso",
+        "beforeImage": "/catalog-assets/before-after/ana-antes.webp",
+        "afterImage": "/catalog-assets/before-after/ana-depois.webp"
+      },
+      {
+        "name": "Julia Vasconcelos",
+        "usage": "21 dias de uso",
+        "beforeImage": "/catalog-assets/before-after/julia-antes.webp",
+        "afterImage": "/catalog-assets/before-after/julia-depois.webp"
+      },
+      {
+        "name": "Yasmin Silva",
+        "usage": "21 dias de uso",
+        "beforeImage": "/catalog-assets/before-after/yasmin-antes.webp",
+        "afterImage": "/catalog-assets/before-after/yasmin-depois.webp"
+      }
+    ],
+    "comparisonEnabled": false,
+    "comparisonTitle": "Kit PINY vs. Máscara Comum",
+    "comparisonSubtitle": "Mais de 44 mil peles transformadas desde 2021, com uma selfie de cada vez.",
+    "comparisonPinyLabel": "Máscaras Faciais",
+    "comparisonOtherLabel": "Outras Marcas",
+    "comparisonImage1": "/catalog-assets/comparison-image-1.webp",
+    "comparisonImage2": "/catalog-assets/comparison-image-2.webp",
+    "comparisonImage3": "/catalog-assets/comparison-image-3.webp",
+    "comparisonImage4": "/catalog-assets/comparison-image-4.webp",
+    "comparisonProductIcon": "/catalog-assets/comparison-product-icon.png",
+    "comparisonHeaderLabelColor": "#1c8c44",
+    "comparisonHighlightColor": "#85e86f",
+    "comparisonTableColor": "#e8fce0",
+    "comparisonCellColor": "#1c8c44",
+    "comparisonCheckIcon": "",
+    "comparisonXIcon": "",
+    "comparisonDividerColor": "#1c8c44",
+    "comparisonRows": [
+      {
+        "label": "12 combinações diferentes",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Booster concentrado 2 em 1",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Análise de pele por IA",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Garantia de 21 dias",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Ácido salicílico + glicólico de fábrica",
+        "piny": "check",
+        "other": "Raro"
+      },
+      {
+        "label": "Vegano e cruelty free",
+        "piny": "check",
+        "other": "Nem Sempre"
+      }
+    ],
+    "activesEnabled": true,
+    "activesHideTextureBrush": true,
+    "activesProductImage": "/api/uploads/1790606504629-h0hclcpmg3f.webp",
+    "benefitsEnabled": true,
+    "benefitsPatternImage": "",
+    "benefitsBackgroundColor": "#fef8dd",
+    "aiAnalysisEnabled": false,
+    "aiAnalysisBackgroundColor": "#fef8dd",
+    "faqBackgroundColor": "#fef8dd",
+    "faqPatternImage": "",
+    "howToUseEnabled": true,
+    "howToUseBackgroundColor": "#fef8dd",
+    "howToUseBackgroundImage": "",
+    "howToUseImages": [
+      "/api/uploads/1790618840303-tpfvawlrd8.webp",
+      "/api/uploads/1790618840442-ywqtvjf6fzg.webp",
+      "/api/uploads/1790618840443-xzeg91uzzeg.webp",
+      "/api/uploads/1790618840470-hldxxivyly.webp"
+    ],
+    "howToUseSteps": [
+      {
+        "text": "Lave o rosto e seque bem a área"
+      },
+      {
+        "text": "Aplique sobre a área da \nespinha com cuidado"
+      },
+      {
+        "text": "Deixe agir por 4 a 8 horas"
+      },
+      {
+        "text": "Retire e veja a diferença"
+      }
+    ],
+    "benefitsItems": [
+      {
+        "icon": "",
+        "label": "Redução\nVisível"
+      },
+      {
+        "icon": "",
+        "label": "Secagem\nCompleta"
+      },
+      {
+        "icon": "",
+        "label": "Pele \nRecuperada"
+      }
+    ],
+    "activesTextureImage": "",
+    "activesBrushImage": "",
+    "activesCallouts": [
+      {
+        "title": "Ácido Salicílico",
+        "lines": [
+          "Desobstrui poros e previne",
+          "novas inflamações."
+        ]
+      },
+      {
+        "title": "Hidrocolóide",
+        "lines": [
+          "Absorve secreções e",
+          "cria barreira protetora."
+        ]
+      },
+      {
+        "title": "Óleo de Tea Tree",
+        "lines": [
+          "Purifica e acalma",
+          "a pele irritada."
+        ]
+      }
+    ],
+    "imageRestRotation": 0,
+    "imageActiveRotation": 15,
+    "weight": 60,
+    "dimensions": {
+      "length": 8,
+      "width": 8,
+      "height": 6
+    },
+    "seoTitle": "Argila Branca PINY",
+    "seoDescription": "Máscara facial de argila PINY.",
+    "createdAt": "2026-09-28T13:10:51.584Z",
+    "updatedAt": "2026-09-28T18:24:16.504Z"
+  },
+  {
+    "id": "f4644711-6a71-4481-ac65-cbea57d1cacd",
+    "name": "Stars Preta",
+    "slug": "piny-stars-preta",
+    "sku": "PINYBOOSTEREC-COPY",
+    "status": "active",
+    "featured": true,
+    "category": "PINY STARS",
+    "shortDescription": "Adesivos para pele",
+    "description": "Cole o adesivo, espere algumas horas e deixe o adesivo agir. Simples, rápido e sem agredir sua pele.",
+    "reviewCount": "",
+    "badges": [
+      {
+        "label": "ANTIACNE",
+        "tone": "outline",
+        "color": "#1c8c44"
+      },
+      {
+        "label": "BEST-SELLER",
+        "tone": "solid",
+        "color": "#1c8c44"
+      }
+    ],
+    "quantityOptions": [
+      {
+        "quantity": 3,
+        "price": 99.9,
+        "discountLabel": "15% OFF",
+        "image": ""
+      },
+      {
+        "quantity": 2,
+        "price": 89,
+        "discountLabel": "10% OFF",
+        "image": ""
+      },
+      {
+        "quantity": 1,
+        "price": 100,
+        "discountLabel": "",
+        "image": ""
+      }
+    ],
+    "crossSellIds": [
+      "argila-rosa",
+      "argila-verde",
+      "argila-branca",
+      "a01d8fd5-a227-48cb-807c-9a18dfdad155",
+      "argila-preta-1"
+    ],
+    "price": 89,
+    "oldPrice": 129,
+    "costPrice": null,
+    "stock": 20,
+    "trackStock": true,
+    "tags": [
+      "argila",
+      "skincare"
+    ],
+    "image": "/api/uploads/1790620149402-x8x42d9ioud.webp",
+    "presentationBackgroundImage": "/api/uploads/1790366373548-iexms9xd09.webp",
+    "presentationMobileBackgroundImage": "/api/uploads/1790366373575-yvvv0ztf99q.webp",
+    "presentationProductImage": "/api/uploads/1790620064584-ztt9zmg54le.webp",
+    "quantityOptionIcon": "/api/uploads/1790620064882-f0rstmlk9o.webp",
+    "backgroundImage": "/api/uploads/1790620149434-wntdlz4dtb.webp",
+    "backgroundColor": "#808583",
+    "badgeGradientColor1": "#454749",
+    "badgeGradientColor2": "#1f1f21",
+    "badgeGradientAngle": "180",
+    "featureEnabled": false,
+    "featureLabel": "DETOX",
+    "featurePrice": 89.9,
+    "featureBackgroundCenter": "#464444",
+    "featureBackgroundEdge": "#2e2e2e",
+    "featureLeftImage": "/api/uploads/1790367616361-2bztvxrr5o4.webp",
+    "featureRightImage": "/api/uploads/1790367616575-3l50n53rivv.webp",
+    "featureProductImage": "/api/uploads/1790367616673-tdy6szrgjg.webp",
+    "featureProductInfoMobileBackground": "",
+    "featureTextColor": "#ffffff",
+    "featureVariant": "ARGILA PRETA",
+    "featurePerks": [
+      {
+        "icon": "/api/uploads/1790367616691-gssfsc4qaf.svg",
+        "label": "Carvão Ativado"
+      },
+      {
+        "icon": "/api/uploads/1790367616692-r1iip0dihs.svg",
+        "label": "Chá Verde"
+      },
+      {
+        "icon": "/api/uploads/1790367616692-jc9flf2sdx.svg",
+        "label": "Ácido Glicólico"
+      },
+      {
+        "icon": "/api/uploads/1790367616692-ug20g6l4xgm.svg",
+        "label": "Ácido Salicílico"
+      }
+    ],
+    "boosterEnabled": false,
+    "announcementBarBackgroundColor": "#464444",
+    "announcementBarTextColor": "#FFFFFF",
+    "announcementBarSeparatorImage": "/api/uploads/1790686069129-ktmwfllxumh.svg",
+    "beforeAfterEnabled": true,
+    "beforeAfterTitle": "ANTES & DEPOIS",
+    "beforeAfterTitleAccent": "Reais",
+    "beforeAfterSubtitle": "",
+    "beforeAfterBeforeLabel": "ANTES",
+    "beforeAfterAfterLabel": "DEPOIS",
+    "beforeAfterItems": [],
+    "comparisonEnabled": false,
+    "comparisonTitle": "Kit PINY vs. Máscara Comum",
+    "comparisonSubtitle": "Mais de 44 mil peles transformadas desde 2021, com uma selfie de cada vez.",
+    "comparisonPinyLabel": "Máscaras Faciais",
+    "comparisonOtherLabel": "Outras Marcas",
+    "comparisonImage1": "/api/uploads/1790368595384-lc1nhz2ukms.webp",
+    "comparisonImage2": "/api/uploads/1790368595551-g5ifhlk0btg.webp",
+    "comparisonImage3": "/api/uploads/1790368595579-yz0wdj5bpd.webp",
+    "comparisonImage4": "/api/uploads/1790368595598-8dx69kwvubu.webp",
+    "comparisonProductIcon": "/api/uploads/1790368595609-iz9zmcfvhp.webp",
+    "comparisonHeaderLabelColor": "#282828",
+    "comparisonHighlightColor": "#464444",
+    "comparisonTableColor": "#ededed",
+    "comparisonCellColor": "#282828",
+    "comparisonCheckIcon": "/api/uploads/1790370102551-2fzlt5l014e.webp",
+    "comparisonXIcon": "/api/uploads/1790370415398-pcupkdrnqb8.svg",
+    "comparisonDividerColor": "#282828",
+    "comparisonRows": [
+      {
+        "label": "12 combinações diferentes",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Booster concentrado 2 em 1",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Análise de pele por IA",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Garantia de 21 dias",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Ácido salicílico + glicólico de fábrica",
+        "piny": "check",
+        "other": "Raro"
+      },
+      {
+        "label": "Vegano e cruelty free",
+        "piny": "check",
+        "other": "Nem Sempre"
+      }
+    ],
+    "activesEnabled": true,
+    "activesHideTextureBrush": true,
+    "activesProductImage": "/api/uploads/1790620812438-5iglq2285wj.webp",
+    "benefitsEnabled": true,
+    "benefitsPatternImage": "/api/uploads/1790369573946-ormjnn9oyt.webp",
+    "benefitsBackgroundColor": "#ededed",
+    "aiAnalysisEnabled": false,
+    "aiAnalysisBackgroundColor": "#ededed",
+    "faqBackgroundColor": "#ededed",
+    "faqPatternImage": "/api/uploads/1790370490542-b1wlhce17vf.webp",
+    "howToUseEnabled": true,
+    "howToUseBackgroundColor": "#ededed",
+    "howToUseBackgroundImage": "/api/uploads/1790369932160-130o9u57z87q.webp",
+    "howToUseImages": [
+      "/api/uploads/1790621309114-101f1b535yc.webp",
+      "/api/uploads/1790621309167-gvj1b70kdy7.webp",
+      "/api/uploads/1790621309168-o5isrrzjqn.webp",
+      "/api/uploads/1790621309249-h3wk7usuaft.webp"
+    ],
+    "howToUseSteps": [
+      {
+        "text": "Lave o rosto e seque bem a área"
+      },
+      {
+        "text": "Aplique sobre a área da \nespinha com cuidado"
+      },
+      {
+        "text": "Deixe agir por 4 a 8 horas"
+      },
+      {
+        "text": "Retire e veja a diferença"
+      }
+    ],
+    "benefitsItems": [
+      {
+        "icon": "",
+        "label": "Remove impurezas e toxinas da pele"
+      },
+      {
+        "icon": "",
+        "label": "Controla a \noleosidade"
+      },
+      {
+        "icon": "",
+        "label": "Desobstrui e \nminimiza os poros"
+      },
+      {
+        "icon": "",
+        "label": "Previne acne \ne cravos"
+      }
+    ],
+    "activesTextureImage": "/api/uploads/1790369179448-icgzycuisv.webp",
+    "activesBrushImage": "/api/uploads/1790369179699-ixbq8icf0d.webp",
+    "activesCallouts": [
+      {
+        "title": "Ácido Salicílico",
+        "lines": [
+          "Desobstrui poros e previne",
+          "novas inflamações."
+        ]
+      },
+      {
+        "title": "Hidrocolóide",
+        "lines": [
+          "Absorve secreções e",
+          "cria barreira protetora."
+        ]
+      },
+      {
+        "title": "Óleo de Tea Tree",
+        "lines": [
+          "Purifica e acalma",
+          "a pele irritada."
+        ]
+      }
+    ],
+    "imageRestRotation": 0,
+    "imageActiveRotation": 15,
+    "weight": 60,
+    "dimensions": {
+      "length": 8,
+      "width": 8,
+      "height": 6
+    },
+    "seoTitle": "Argila Preta PINY",
+    "seoDescription": "Máscara facial de argila PINY.",
+    "createdAt": "2026-09-28T18:23:16.097Z",
+    "updatedAt": "2026-09-29T12:47:49.141Z"
+  },
+  {
+    "id": "bd1adadf-5a53-44c4-9c34-5718e42a7e44",
+    "name": "Stars Dourada",
+    "slug": "piny-stars-dourada",
+    "sku": "PINYMAISBOOSTERMAISPOP-COPY-COPY",
+    "status": "active",
+    "featured": true,
+    "category": "PINY STARS",
+    "shortDescription": "Adesivos para pele",
+    "description": "Cole o adesivo, espere algumas horas e deixe o adesivo agir. Simples, rápido e sem agredir sua pele.",
+    "reviewCount": "",
+    "badges": [
+      {
+        "label": "Antiacne",
+        "tone": "outline",
+        "color": "#1c8c44"
+      },
+      {
+        "label": "BEST-SELLER",
+        "tone": "solid",
+        "color": "#1c8c44"
+      }
+    ],
+    "quantityOptions": [
+      {
+        "quantity": 3,
+        "price": 99.9,
+        "discountLabel": "15% OFF",
+        "image": ""
+      },
+      {
+        "quantity": 2,
+        "price": 89,
+        "discountLabel": "10% OFF",
+        "image": ""
+      },
+      {
+        "quantity": 1,
+        "price": 100,
+        "discountLabel": "",
+        "image": ""
+      }
+    ],
+    "crossSellIds": [
+      "argila-preta-1",
+      "argila-branca",
+      "argila-rosa",
+      "argila-verde",
+      "a01d8fd5-a227-48cb-807c-9a18dfdad155",
+      "f4644711-6a71-4481-ac65-cbea57d1cacd"
+    ],
+    "price": 89,
+    "oldPrice": 129,
+    "costPrice": null,
+    "stock": 20,
+    "trackStock": true,
+    "tags": [
+      "adesivos",
+      "skincare"
+    ],
+    "image": "/api/uploads/1790622780434-gdmhef9n53.webp",
+    "presentationBackgroundImage": "/api/uploads/1790623046056-kgy3bcpan6.webp",
+    "presentationMobileBackgroundImage": "/api/uploads/1790623046342-ql55tllmkg.webp",
+    "presentationProductImage": "/api/uploads/1790623113686-g3pi8ztldyc.webp",
+    "quantityOptionIcon": "/api/uploads/1790622780466-m7764t14gsc.webp",
+    "backgroundImage": "/api/uploads/1790622780461-g63vdrp3s9r.webp",
+    "backgroundColor": "#f1e4ba",
+    "badgeGradientColor1": "#e2c873",
+    "badgeGradientColor2": "#ab9243",
+    "badgeGradientAngle": "180",
+    "featureEnabled": false,
+    "featureLabel": "ANTIMANCHAS",
+    "featurePrice": 89.9,
+    "featureBackgroundCenter": "#F3FD5A",
+    "featureBackgroundEdge": "#FFD72F",
+    "featureLeftImage": "/catalog-assets/pineapple-scatter-left.webp",
+    "featureRightImage": "/catalog-assets/pineapple-scatter-right.webp",
+    "featureProductImage": "/catalog-assets/product-white-clay.webp",
+    "featureProductInfoMobileBackground": "",
+    "featureTextColor": "#1c8c44",
+    "featureVariant": "",
+    "featurePerks": [
+      {
+        "icon": "/api/uploads/1790600282590-wq8cp27l4bi.svg",
+        "label": "Trata acne e manchas"
+      },
+      {
+        "icon": "/api/uploads/1790600282590-r4tmzbcdwpf.svg",
+        "label": "Absorve a oleosidade"
+      },
+      {
+        "icon": "/api/uploads/1790600282590-lz2799cqu2k.svg",
+        "label": "Uniformiza o  tom da pele"
+      },
+      {
+        "icon": "/api/uploads/1790600282590-2qi0n5pij5s.svg",
+        "label": "Best-seller: +200mil Vendas"
+      }
+    ],
+    "boosterEnabled": false,
+    "announcementBarBackgroundColor": "#e3c974",
+    "announcementBarTextColor": "#FFF",
+    "announcementBarSeparatorImage": "/api/uploads/1790685880155-khtn584gzyf.svg",
+    "beforeAfterEnabled": true,
+    "beforeAfterTitle": "ANTES & DEPOIS",
+    "beforeAfterTitleAccent": "Reais",
+    "beforeAfterSubtitle": "Mais de 44 mil peles transformadas desde 2021, com uma selfie de cada vez.",
+    "beforeAfterBeforeLabel": "ANTES",
+    "beforeAfterAfterLabel": "DEPOIS",
+    "beforeAfterItems": [
+      {
+        "name": "Ana Simas",
+        "usage": "21 dias de uso",
+        "beforeImage": "/catalog-assets/before-after/ana-antes.webp",
+        "afterImage": "/catalog-assets/before-after/ana-depois.webp"
+      },
+      {
+        "name": "Julia Vasconcelos",
+        "usage": "21 dias de uso",
+        "beforeImage": "/catalog-assets/before-after/julia-antes.webp",
+        "afterImage": "/catalog-assets/before-after/julia-depois.webp"
+      },
+      {
+        "name": "Yasmin Silva",
+        "usage": "21 dias de uso",
+        "beforeImage": "/catalog-assets/before-after/yasmin-antes.webp",
+        "afterImage": "/catalog-assets/before-after/yasmin-depois.webp"
+      }
+    ],
+    "comparisonEnabled": false,
+    "comparisonTitle": "Kit PINY vs. Máscara Comum",
+    "comparisonSubtitle": "Mais de 44 mil peles transformadas desde 2021, com uma selfie de cada vez.",
+    "comparisonPinyLabel": "Máscaras Faciais",
+    "comparisonOtherLabel": "Outras Marcas",
+    "comparisonImage1": "/catalog-assets/comparison-image-1.webp",
+    "comparisonImage2": "/catalog-assets/comparison-image-2.webp",
+    "comparisonImage3": "/catalog-assets/comparison-image-3.webp",
+    "comparisonImage4": "/catalog-assets/comparison-image-4.webp",
+    "comparisonProductIcon": "/catalog-assets/comparison-product-icon.png",
+    "comparisonHeaderLabelColor": "#1c8c44",
+    "comparisonHighlightColor": "#85e86f",
+    "comparisonTableColor": "#e8fce0",
+    "comparisonCellColor": "#1c8c44",
+    "comparisonCheckIcon": "",
+    "comparisonXIcon": "",
+    "comparisonDividerColor": "#1c8c44",
+    "comparisonRows": [
+      {
+        "label": "12 combinações diferentes",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Booster concentrado 2 em 1",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Análise de pele por IA",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Garantia de 21 dias",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Ácido salicílico + glicólico de fábrica",
+        "piny": "check",
+        "other": "Raro"
+      },
+      {
+        "label": "Vegano e cruelty free",
+        "piny": "check",
+        "other": "Nem Sempre"
+      }
+    ],
+    "activesEnabled": true,
+    "activesHideTextureBrush": true,
+    "activesProductImage": "/api/uploads/1790623341685-33xte7s0zco.webp",
+    "benefitsEnabled": true,
+    "benefitsPatternImage": "/api/uploads/1790623929267-d04vcxags89.webp",
+    "benefitsBackgroundColor": "#fdfaf2",
+    "aiAnalysisEnabled": false,
+    "aiAnalysisBackgroundColor": "#fef8dd",
+    "faqBackgroundColor": "#fdfaf2",
+    "faqPatternImage": "/api/uploads/1790623881293-psxy5npanhf.webp",
+    "howToUseEnabled": true,
+    "howToUseBackgroundColor": "#fdfaf2",
+    "howToUseBackgroundImage": "/api/uploads/1790623773631-8ik9elay8nm.webp",
+    "howToUseImages": [
+      "/api/uploads/1790623774507-1wuovv305wc.webp",
+      "/api/uploads/1790623774645-8s6ddkgwl6h.webp",
+      "/api/uploads/1790623774661-h42665k3f2c.webp",
+      "/api/uploads/1790623774682-ptjobyqs5r.webp"
+    ],
+    "howToUseSteps": [
+      {
+        "text": "Lave o rosto e seque bem a área"
+      },
+      {
+        "text": "Aplique sobre a área da \nespinha com cuidado"
+      },
+      {
+        "text": "Deixe agir por 4 a 8 horas"
+      },
+      {
+        "text": "Retire e veja a diferença"
+      }
+    ],
+    "benefitsItems": [
+      {
+        "icon": "",
+        "label": "Remove impurezas e toxinas da pele"
+      },
+      {
+        "icon": "",
+        "label": "Controla a \noleosidade"
+      },
+      {
+        "icon": "",
+        "label": "Desobstrui e \nminimiza os poros"
+      },
+      {
+        "icon": "/api/uploads/1790623536178-0u037w97jir.png",
+        "label": "Previne acne \ne cravos"
+      }
+    ],
+    "activesTextureImage": "",
+    "activesBrushImage": "",
+    "activesCallouts": [
+      {
+        "title": "Ácido Salicílico",
+        "lines": [
+          "Desobstrui poros e previne",
+          "novas inflamações."
+        ]
+      },
+      {
+        "title": "Hidrocolóide",
+        "lines": [
+          "Absorve secreções e",
+          "cria barreira protetora."
+        ]
+      },
+      {
+        "title": "Óleo de Tea Tree",
+        "lines": [
+          "Purifica e acalma",
+          "a pele irritada."
+        ]
+      }
+    ],
+    "imageRestRotation": 0,
+    "imageActiveRotation": 15,
+    "weight": 60,
+    "dimensions": {
+      "length": 8,
+      "width": 8,
+      "height": 6
+    },
+    "seoTitle": "Argila Branca PINY",
+    "seoDescription": "Máscara facial de argila PINY.",
+    "createdAt": "2026-09-28T19:10:09.710Z",
+    "updatedAt": "2026-09-29T12:44:40.163Z"
+  },
+  {
+    "id": "b9fcc370-0be1-4672-8d3f-3ef7df5e5f01",
+    "name": "Stars Branca",
+    "slug": "piny-stars-branca",
+    "sku": "PINYMAISBOOSTERMAISPOP-COPY-COPY-COPY",
+    "status": "active",
+    "featured": true,
+    "category": "PINY STARS",
+    "shortDescription": "Adesivos para pele",
+    "description": "Cole o adesivo, espere algumas horas e deixe o adesivo agir. Simples, rápido e sem agredir sua pele.",
+    "reviewCount": "",
+    "badges": [
+      {
+        "label": "Antiacne",
+        "tone": "outline",
+        "color": "#1c8c44"
+      },
+      {
+        "label": "BEST-SELLER",
+        "tone": "solid",
+        "color": "#1c8c44"
+      }
+    ],
+    "quantityOptions": [
+      {
+        "quantity": 3,
+        "price": 99.9,
+        "discountLabel": "15% OFF",
+        "image": ""
+      },
+      {
+        "quantity": 2,
+        "price": 89,
+        "discountLabel": "10% OFF",
+        "image": ""
+      },
+      {
+        "quantity": 1,
+        "price": 100,
+        "discountLabel": "",
+        "image": ""
+      }
+    ],
+    "crossSellIds": [
+      "argila-preta-1",
+      "argila-branca",
+      "argila-rosa",
+      "argila-verde",
+      "a01d8fd5-a227-48cb-807c-9a18dfdad155",
+      "f4644711-6a71-4481-ac65-cbea57d1cacd",
+      "bd1adadf-5a53-44c4-9c34-5718e42a7e44"
+    ],
+    "price": 89,
+    "oldPrice": 129,
+    "costPrice": null,
+    "stock": 20,
+    "trackStock": true,
+    "tags": [
+      "adesivos",
+      "skincare"
+    ],
+    "image": "/api/uploads/1790626057499-szzn6xevu3l.webp",
+    "presentationBackgroundImage": "/api/uploads/1790625600615-qrdpgu2mc.webp",
+    "presentationMobileBackgroundImage": "/api/uploads/1790625600711-os4uitdtf4k.webp",
+    "presentationProductImage": "/api/uploads/1790625600737-ytflrvroomg.webp",
+    "quantityOptionIcon": "/api/uploads/1790625775042-ymnd01gxn6j.webp",
+    "backgroundImage": "/api/uploads/1790626057522-1k0oq3e5e7jh.webp",
+    "backgroundColor": "#bdecf8",
+    "badgeGradientColor1": "#7bd8f1",
+    "badgeGradientColor2": "#40b1cf",
+    "badgeGradientAngle": "180",
+    "featureEnabled": false,
+    "featureLabel": "ANTIMANCHAS",
+    "featurePrice": 89.9,
+    "featureBackgroundCenter": "#F3FD5A",
+    "featureBackgroundEdge": "#FFD72F",
+    "featureLeftImage": "/catalog-assets/pineapple-scatter-left.webp",
+    "featureRightImage": "/catalog-assets/pineapple-scatter-right.webp",
+    "featureProductImage": "/catalog-assets/product-white-clay.webp",
+    "featureProductInfoMobileBackground": "",
+    "featureTextColor": "#1c8c44",
+    "featureVariant": "",
+    "featurePerks": [
+      {
+        "icon": "/api/uploads/1790600282590-wq8cp27l4bi.svg",
+        "label": "Trata acne e manchas"
+      },
+      {
+        "icon": "/api/uploads/1790600282590-r4tmzbcdwpf.svg",
+        "label": "Absorve a oleosidade"
+      },
+      {
+        "icon": "/api/uploads/1790600282590-lz2799cqu2k.svg",
+        "label": "Uniformiza o  tom da pele"
+      },
+      {
+        "icon": "/api/uploads/1790600282590-2qi0n5pij5s.svg",
+        "label": "Best-seller: +200mil Vendas"
+      }
+    ],
+    "boosterEnabled": false,
+    "announcementBarBackgroundColor": "#7BD8F1",
+    "announcementBarTextColor": "#FFFFFF",
+    "announcementBarSeparatorImage": "/api/uploads/1790686090454-inkh564ya4s.svg",
+    "beforeAfterEnabled": true,
+    "beforeAfterTitle": "ANTES & DEPOIS",
+    "beforeAfterTitleAccent": "Reais",
+    "beforeAfterSubtitle": "Mais de 44 mil peles transformadas desde 2021, com uma selfie de cada vez.",
+    "beforeAfterBeforeLabel": "ANTES",
+    "beforeAfterAfterLabel": "DEPOIS",
+    "beforeAfterItems": [
+      {
+        "name": "Ana Simas",
+        "usage": "21 dias de uso",
+        "beforeImage": "/catalog-assets/before-after/ana-antes.webp",
+        "afterImage": "/catalog-assets/before-after/ana-depois.webp"
+      },
+      {
+        "name": "Julia Vasconcelos",
+        "usage": "21 dias de uso",
+        "beforeImage": "/catalog-assets/before-after/julia-antes.webp",
+        "afterImage": "/catalog-assets/before-after/julia-depois.webp"
+      },
+      {
+        "name": "Yasmin Silva",
+        "usage": "21 dias de uso",
+        "beforeImage": "/catalog-assets/before-after/yasmin-antes.webp",
+        "afterImage": "/catalog-assets/before-after/yasmin-depois.webp"
+      }
+    ],
+    "comparisonEnabled": false,
+    "comparisonTitle": "Kit PINY vs. Máscara Comum",
+    "comparisonSubtitle": "Mais de 44 mil peles transformadas desde 2021, com uma selfie de cada vez.",
+    "comparisonPinyLabel": "Máscaras Faciais",
+    "comparisonOtherLabel": "Outras Marcas",
+    "comparisonImage1": "/catalog-assets/comparison-image-1.webp",
+    "comparisonImage2": "/catalog-assets/comparison-image-2.webp",
+    "comparisonImage3": "/catalog-assets/comparison-image-3.webp",
+    "comparisonImage4": "/catalog-assets/comparison-image-4.webp",
+    "comparisonProductIcon": "/catalog-assets/comparison-product-icon.png",
+    "comparisonHeaderLabelColor": "#1c8c44",
+    "comparisonHighlightColor": "#85e86f",
+    "comparisonTableColor": "#e8fce0",
+    "comparisonCellColor": "#1c8c44",
+    "comparisonCheckIcon": "",
+    "comparisonXIcon": "",
+    "comparisonDividerColor": "#1c8c44",
+    "comparisonRows": [
+      {
+        "label": "12 combinações diferentes",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Booster concentrado 2 em 1",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Análise de pele por IA",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Garantia de 21 dias",
+        "piny": "check",
+        "other": "x"
+      },
+      {
+        "label": "Ácido salicílico + glicólico de fábrica",
+        "piny": "check",
+        "other": "Raro"
+      },
+      {
+        "label": "Vegano e cruelty free",
+        "piny": "check",
+        "other": "Nem Sempre"
+      }
+    ],
+    "activesEnabled": true,
+    "activesHideTextureBrush": true,
+    "activesProductImage": "/api/uploads/1790626362998-em53lpzdy6k.webp",
+    "benefitsEnabled": true,
+    "benefitsPatternImage": "/api/uploads/1790626473634-00w8slc8kl37.webp",
+    "benefitsBackgroundColor": "#f2fbfe",
+    "aiAnalysisEnabled": false,
+    "aiAnalysisBackgroundColor": "#fef8dd",
+    "faqBackgroundColor": "#f2fbfe",
+    "faqPatternImage": "/api/uploads/1790626587926-mscqot57b2h.webp",
+    "howToUseEnabled": true,
+    "howToUseBackgroundColor": "#f2fbfe",
+    "howToUseBackgroundImage": "/api/uploads/1790626588470-n8wiqbnd9e8.webp",
+    "howToUseImages": [
+      "/api/uploads/1790626588794-ty4khsdarf.webp",
+      "/api/uploads/1790626588886-2d2vu8t8avq.webp",
+      "/api/uploads/1790623774661-h42665k3f2c.webp",
+      "/api/uploads/1790626588931-zud40acad7e.webp"
+    ],
+    "howToUseSteps": [
+      {
+        "text": "Lave o rosto e seque bem a área"
+      },
+      {
+        "text": "Aplique sobre a área da \nespinha com cuidado"
+      },
+      {
+        "text": "Deixe agir por 4 a 8 horas"
+      },
+      {
+        "text": "Retire e veja a diferença"
+      }
+    ],
+    "benefitsItems": [
+      {
+        "icon": "",
+        "label": "Remove impurezas e toxinas da pele"
+      },
+      {
+        "icon": "",
+        "label": "Controla a \noleosidade"
+      },
+      {
+        "icon": "",
+        "label": "Desobstrui e \nminimiza os poros"
+      },
+      {
+        "icon": "/api/uploads/1790623536178-0u037w97jir.png",
+        "label": "Previne acne \ne cravos"
+      }
+    ],
+    "activesTextureImage": "",
+    "activesBrushImage": "",
+    "activesCallouts": [
+      {
+        "title": "Ácido Salicílico",
+        "lines": [
+          "Desobstrui poros e previne",
+          "novas inflamações."
+        ]
+      },
+      {
+        "title": "Hidrocolóide",
+        "lines": [
+          "Absorve secreções e",
+          "cria barreira protetora."
+        ]
+      },
+      {
+        "title": "Óleo de Tea Tree",
+        "lines": [
+          "Purifica e acalma",
+          "a pele irritada."
+        ]
+      }
+    ],
+    "imageRestRotation": 0,
+    "imageActiveRotation": 15,
+    "weight": 60,
+    "dimensions": {
+      "length": 8,
+      "width": 8,
+      "height": 6
+    },
+    "seoTitle": "Argila Branca PINY",
+    "seoDescription": "Máscara facial de argila PINY.",
+    "createdAt": "2026-09-28T19:55:50.098Z",
+    "updatedAt": "2026-09-29T12:48:10.457Z"
+  }
+]

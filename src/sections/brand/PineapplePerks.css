@@ -37,14 +37,12 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: #1c8c44;
 }
 
 .pineapple-perks__icon-wrap::before {
   content: "";
   position: absolute;
   inset: .338542vw;
-  border: .15625vw solid #fff;
   border-radius: 50%;
   pointer-events: none;
 }
@@ -55,10 +53,14 @@
   height: 100%;
 }
 
+.pineapple-perks__icon--image {
+  object-fit: contain;
+}
+
 .pineapple-perks__label {
   align-self: stretch;
   margin: 0;
-  color: #1c8c44;
+  color: var(--feature-text-color, #1c8c44);
   font-family: "Neulis Neue", "neulis-neue", sans-serif;
   font-size: .833333vw;
   font-style: normal;
@@ -119,6 +121,10 @@
 
   .pineapple-perks__label {
     font-size: 2.544529vw;
+  }
+
+  .pineapple-perks__icon--image {
+    padding: 1.526718vw;
   }
 }
 

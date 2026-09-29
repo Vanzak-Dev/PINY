@@ -4,11 +4,18 @@ import MegaMenu from "./MegaMenu";
 import MobileMenu from "./MobileMenu";
 import SearchPanel from "./SearchPanel";
 import { useCart } from "../../hooks/useCart";
+import { useProducts } from "../../hooks/useProducts";
+import { useCollections } from "../../hooks/useCollections";
+import { productsInCollection, productsNotInCollection } from "../../lib/collections";
 import "./Header.css";
 
 export default function Header() {
   const { items, open, addItem } = useCart();
   const itemCount = items.reduce((sum, { quantity }) => sum + quantity, 0);
+  const { products } = useProducts();
+  const { collections } = useCollections();
+  const starsProducts = productsInCollection(products, collections, "Piny Stars");
+  const maskProducts = productsNotInCollection(products, collections, "Piny Stars");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const headerRef = useRef(null);
@@ -18,7 +25,7 @@ export default function Header() {
   useEffect(() => {
     const headerEl = headerRef.current;
     if (!headerEl) return undefined;
-    const updateHeight = () => setHeaderHeight(headerEl.offsetHeight);
+    const updateHeight = () => setHeaderHeight(headerEl.offsetTop + headerEl.offsetHeight);
     updateHeight();
     const observer = new ResizeObserver(updateHeight);
     observer.observe(headerEl);
@@ -31,8 +38,10 @@ export default function Header() {
     const updateVisibility = () => {
       const currentScrollY = window.scrollY;
       const scrolledDown = currentScrollY > lastScrollY;
-      const pastHeader = currentScrollY > (headerRef.current?.offsetHeight || 0);
-      setHidden(scrolledDown && pastHeader);
+      const hero = document.querySelector("main")?.firstElementChild;
+      const heroBottom = hero ? hero.getBoundingClientRect().bottom + currentScrollY : 0;
+      const pastHero = currentScrollY > Math.max(heroBottom, headerRef.current?.offsetHeight || 0);
+      setHidden(scrolledDown && pastHero);
       lastScrollY = currentScrollY;
       ticking = false;
     };
@@ -64,10 +73,26 @@ export default function Header() {
           <a className="site-header__nav-link" href="/analise-sua-pele">Analise sua Pele</a>
           <a className="site-header__nav-link" href="/monte-sua-textura">Monte sua Textura</a>
           <div className="site-header__nav-item--has-mega">
-            <a className="site-header__nav-link" href="#">Piny Mask</a>
-            <MegaMenu />
+            <a className="site-header__nav-link" href="/piny-mask">Piny Mask</a>
+            <MegaMenu
+              onAdd={addItem}
+              title="PINY MASKS"
+              description="Argilas de tratamento ideais para cada necessidade da sua pele, da acne até ao detox, em um produto prático para sua rotina."
+              products={maskProducts}
+              viewAllHref="/piny-mask"
+            />
           </div>
-          <a className="site-header__nav-link" href="#">Piny Stars</a>
+          <div className="site-header__nav-item--has-mega">
+            <a className="site-header__nav-link" href="/piny-stars">Piny Stars</a>
+            <MegaMenu
+              onAdd={addItem}
+              title="PINY STARS"
+              description="Adesivos secativos ideais para tratar espinhas e absorver secreções de forma discreta, em um cuidado prático para a sua rotina."
+              products={starsProducts}
+              viewAllHref="/piny-stars"
+              emptyMessage="Em breve novos produtos Piny Stars por aqui."
+            />
+          </div>
         </nav>
         <div className="site-header__actions">
           <button type="button" className="site-header__action" aria-label="Buscar" onClick={() => setSearchOpen(true)}>
@@ -87,7 +112,7 @@ export default function Header() {
       </div>
     </header>
     <MobileMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
-    <SearchPanel isOpen={searchOpen} onClose={() => setSearchOpen(false)} offsetTop={headerHeight} onAdd={addItem} />
+    <SearchPanel isOpen={searchOpen} onClose={() => setSearchOpen(false)} offsetTop={headerHeight} onAdd={(product) => { addItem(product); setSearchOpen(false); }} />
     </>
   );
 }

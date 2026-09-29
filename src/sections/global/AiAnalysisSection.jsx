@@ -694,7 +694,7 @@ export default function AiAnalysisSection({ product }) {
     <section
       className="ai-analysis"
       aria-labelledby="ai-analysis-title"
-      style={{ '--ai-analysis-accent': accentColor }}
+      style={{ '--ai-analysis-accent': accentColor, '--ai-analysis-bg': product?.aiAnalysisBackgroundColor || '#fef8dd' }}
     >
       <AiAnalysisDecor variant="desktop" />
 

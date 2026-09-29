@@ -78,9 +78,49 @@ function bodyWithUploads(request, current = {}) {
     comparisonImage3: files.comparisonImage3File?.[0] ? `/api/uploads/${files.comparisonImage3File[0].filename}` : request.body.comparisonImage3 || current.comparisonImage3,
     comparisonImage4: files.comparisonImage4File?.[0] ? `/api/uploads/${files.comparisonImage4File[0].filename}` : request.body.comparisonImage4 || current.comparisonImage4,
     comparisonProductIcon: files.comparisonProductIconFile?.[0] ? `/api/uploads/${files.comparisonProductIconFile[0].filename}` : request.body.comparisonProductIcon || current.comparisonProductIcon,
+    comparisonCheckIcon: files.comparisonCheckIconFile?.[0] ? `/api/uploads/${files.comparisonCheckIconFile[0].filename}` : request.body.comparisonCheckIcon || current.comparisonCheckIcon,
+    comparisonXIcon: files.comparisonXIconFile?.[0] ? `/api/uploads/${files.comparisonXIconFile[0].filename}` : request.body.comparisonXIcon || current.comparisonXIcon,
     presentationBackgroundImage: files.presentationBackgroundFile?.[0] ? `/api/uploads/${files.presentationBackgroundFile[0].filename}` : request.body.presentationBackgroundImage || current.presentationBackgroundImage,
     presentationMobileBackgroundImage: files.presentationMobileBackgroundFile?.[0] ? `/api/uploads/${files.presentationMobileBackgroundFile[0].filename}` : request.body.presentationMobileBackgroundImage || current.presentationMobileBackgroundImage,
     presentationProductImage: files.presentationProductFile?.[0] ? `/api/uploads/${files.presentationProductFile[0].filename}` : request.body.presentationProductImage || current.presentationProductImage,
+    quantityOptionIcon: files.quantityOptionIconFile?.[0] ? `/api/uploads/${files.quantityOptionIconFile[0].filename}` : request.body.quantityOptionIcon || current.quantityOptionIcon || '',
+    activesProductImage: files.activesProductFile?.[0] ? `/api/uploads/${files.activesProductFile[0].filename}` : request.body.activesProductImage || current.activesProductImage,
+    activesTextureImage: files.activesTextureFile?.[0] ? `/api/uploads/${files.activesTextureFile[0].filename}` : request.body.activesTextureImage || current.activesTextureImage,
+    activesBrushImage: files.activesBrushFile?.[0] ? `/api/uploads/${files.activesBrushFile[0].filename}` : request.body.activesBrushImage || current.activesBrushImage,
+    benefitsPatternImage: files.benefitsPatternFile?.[0] ? `/api/uploads/${files.benefitsPatternFile[0].filename}` : request.body.benefitsPatternImage || current.benefitsPatternImage,
+    benefitsItems: (() => {
+      try {
+        const items = JSON.parse(request.body.benefitsItems || '[]');
+        for (let i = 0; i < 8; i++) {
+          const file = files[`benefitIconFile_${i}`]?.[0];
+          if (file && items[i]) items[i].icon = `/api/uploads/${file.filename}`;
+        }
+        return JSON.stringify(items);
+      } catch { return request.body.benefitsItems || '[]'; }
+    })(),
+    faqPatternImage: files.faqPatternFile?.[0] ? `/api/uploads/${files.faqPatternFile[0].filename}` : request.body.faqPatternImage || current.faqPatternImage,
+    announcementBarSeparatorImage: files.announcementBarSeparatorFile?.[0] ? `/api/uploads/${files.announcementBarSeparatorFile[0].filename}` : request.body.announcementBarSeparatorImage || current.announcementBarSeparatorImage || '',
+    featurePerks: (() => {
+      try {
+        const perks = JSON.parse(request.body.featurePerks || '[]');
+        for (let i = 0; i < 8; i++) {
+          const file = files[`featurePerkIconFile_${i}`]?.[0];
+          if (file && perks[i]) perks[i].icon = `/api/uploads/${file.filename}`;
+        }
+        return JSON.stringify(perks);
+      } catch { return request.body.featurePerks || '[]'; }
+    })(),
+    howToUseBackgroundImage: files.howToUseBackgroundFile?.[0] ? `/api/uploads/${files.howToUseBackgroundFile[0].filename}` : request.body.howToUseBackgroundImage || current.howToUseBackgroundImage,
+    howToUseImages: (() => {
+      try {
+        const imgs = JSON.parse(request.body.howToUseImages || '[]');
+        for (let i = 0; i < 4; i++) {
+          const file = files[`howToUseImage${i + 1}File`]?.[0];
+          if (file) imgs[i] = `/api/uploads/${file.filename}`;
+        }
+        return JSON.stringify(imgs);
+      } catch { return request.body.howToUseImages || '[]'; }
+    })(),
   };
 }
 
@@ -277,9 +317,39 @@ const productUpload = upload.fields([
   { name: 'comparisonImage3File', maxCount: 1 },
   { name: 'comparisonImage4File', maxCount: 1 },
   { name: 'comparisonProductIconFile', maxCount: 1 },
+  { name: 'comparisonCheckIconFile', maxCount: 1 },
+  { name: 'comparisonXIconFile', maxCount: 1 },
   { name: 'presentationBackgroundFile', maxCount: 1 },
   { name: 'presentationMobileBackgroundFile', maxCount: 1 },
   { name: 'presentationProductFile', maxCount: 1 },
+  { name: 'quantityOptionIconFile', maxCount: 1 },
+  { name: 'activesProductFile', maxCount: 1 },
+  { name: 'activesTextureFile', maxCount: 1 },
+  { name: 'activesBrushFile', maxCount: 1 },
+  { name: 'benefitsPatternFile', maxCount: 1 },
+  { name: 'benefitIconFile_0', maxCount: 1 },
+  { name: 'benefitIconFile_1', maxCount: 1 },
+  { name: 'benefitIconFile_2', maxCount: 1 },
+  { name: 'benefitIconFile_3', maxCount: 1 },
+  { name: 'benefitIconFile_4', maxCount: 1 },
+  { name: 'benefitIconFile_5', maxCount: 1 },
+  { name: 'benefitIconFile_6', maxCount: 1 },
+  { name: 'benefitIconFile_7', maxCount: 1 },
+  { name: 'faqPatternFile', maxCount: 1 },
+  { name: 'featurePerkIconFile_0', maxCount: 1 },
+  { name: 'featurePerkIconFile_1', maxCount: 1 },
+  { name: 'featurePerkIconFile_2', maxCount: 1 },
+  { name: 'featurePerkIconFile_3', maxCount: 1 },
+  { name: 'featurePerkIconFile_4', maxCount: 1 },
+  { name: 'featurePerkIconFile_5', maxCount: 1 },
+  { name: 'featurePerkIconFile_6', maxCount: 1 },
+  { name: 'featurePerkIconFile_7', maxCount: 1 },
+  { name: 'howToUseBackgroundFile', maxCount: 1 },
+  { name: 'howToUseImage1File', maxCount: 1 },
+  { name: 'howToUseImage2File', maxCount: 1 },
+  { name: 'howToUseImage3File', maxCount: 1 },
+  { name: 'howToUseImage4File', maxCount: 1 },
+  { name: 'announcementBarSeparatorFile', maxCount: 1 },
 ]);
 app.post('/api/admin/products', productUpload, async (request, response) => {
   const products = await readProducts();

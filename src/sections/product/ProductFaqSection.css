@@ -8,7 +8,7 @@
   width: 100%;
   overflow: hidden;
   padding: 64px clamp(32px, 8vw, 200px);
-  background: #fef8dd;
+  background: var(--product-faq-bg, #fef8dd);
 }
 
 .product-faq__pattern {
