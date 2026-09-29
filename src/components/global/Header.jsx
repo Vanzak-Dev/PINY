@@ -112,7 +112,7 @@ export default function Header() {
       </div>
     </header>
     <MobileMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
-    <SearchPanel isOpen={searchOpen} onClose={() => setSearchOpen(false)} offsetTop={headerHeight} onAdd={addItem} />
+    <SearchPanel isOpen={searchOpen} onClose={() => setSearchOpen(false)} offsetTop={headerHeight} onAdd={(product) => { addItem(product); setSearchOpen(false); }} />
     </>
   );
 }
