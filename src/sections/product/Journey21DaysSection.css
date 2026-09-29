@@ -179,8 +179,25 @@
   }
 }
 
+/* ── Compact: 3 cards in a single row (Piny Stars) ── */
+.journey-21--compact .journey-21__cards {
+  max-width: 1200px;
+}
+
 @media (min-width: 1024px) {
-  .journey-21__cards--compact .journey-21__card {
-    width: 364px;
+  .journey-21--compact .journey-21__card {
+    width: calc(33.333% - 16px);
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1535px) {
+  .journey-21--compact .journey-21__card {
+    width: calc(33.333% - 16px);
+  }
+}
+
+@media (min-width: 1536px) {
+  .journey-21--compact .journey-21__card {
+    width: calc(33.333% - 16px);
   }
 }

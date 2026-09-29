@@ -45,7 +45,7 @@ function PinyWordmark() {
   );
 }
 
-export default function PineappleProductInfo({ mobileBackgroundImage }) {
+export default function PineappleProductInfo({ mobileBackgroundImage, variant }) {
   return (
     <div
       className="pineapple-product-info"
@@ -56,7 +56,7 @@ export default function PineappleProductInfo({ mobileBackgroundImage }) {
         Uma argila, para cada pele.
       </p>
       <PinyWordmark />
-      <p className="pineapple-product-info__variant">Original</p>
+      <p className="pineapple-product-info__variant">{variant || 'Original'}</p>
       <div className="pineapple-product-info__divider" aria-hidden="true" />
       <p className="pineapple-product-info__description">
         +200 mil vendidas! A clássica com ácido salicílico e glicólico que trata acne e clareia manchas.

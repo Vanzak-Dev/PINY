@@ -1,0 +1,43 @@
+{
+  "name": "SkinAnalysis",
+  "type": "object",
+  "properties": {
+    "selfie_url": {
+      "type": "string",
+      "description": "URL da selfie enviada"
+    },
+    "scores": {
+      "type": "object",
+      "description": "Scores da análise de pele",
+      "properties": {
+        "acne": { "type": "number" },
+        "manchas": { "type": "number" },
+        "poros": { "type": "number" },
+        "oleosidade": { "type": "number" },
+        "sensibilidade": { "type": "number" }
+      }
+    },
+    "questionnaire": {
+      "type": "object",
+      "description": "Respostas do questionário",
+      "properties": {
+        "rotina_atual": { "type": "string" },
+        "produtos_usados": { "type": "array", "items": { "type": "string" } },
+        "sensibilidade_historico": { "type": "string" },
+        "frequencia_acne": { "type": "string" },
+        "objetivo_principal": { "type": "string" },
+        "tempo_disponivel": { "type": "string" }
+      }
+    },
+    "routine_result": {
+      "type": "object",
+      "description": "Rotina gerada"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "analyzing", "completed"],
+      "default": "pending"
+    }
+  },
+  "required": ["selfie_url"]
+}

@@ -26,7 +26,11 @@ function usePageSize() {
 }
 
 export default function FeaturedCollectionSection({ products, onAdd }) {
-  const { collections } = useCollections();
+  const { collections: allCollections } = useCollections();
+  const collections = useMemo(
+    () => allCollections.filter((collection) => collection.featured !== false),
+    [allCollections],
+  );
   const pageSize = usePageSize();
   const [activeCollectionId, setActiveCollectionId] = useState(null);
   const [index, setIndex] = useState(1);
@@ -154,7 +158,7 @@ export default function FeaturedCollectionSection({ products, onAdd }) {
         <div
           className="featured-collection__track"
           style={{
-            transform: `translateX(-${index * 100}%)`,
+            transform: `translateX(-${hasCarousel ? index * 100 : 0}%)`,
             transition: noTransition ? 'none' : 'transform 500ms ease',
           }}
           onTransitionEnd={handleTransitionEnd}

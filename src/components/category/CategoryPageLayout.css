@@ -3,7 +3,7 @@
   width: 100%;
   flex-direction: column;
   align-items: center;
-  padding-top: 64px;
+  padding-top: calc(64px + var(--announcement-bar-height, 0px));
   background: #fff;
 }
 
@@ -188,7 +188,7 @@
 
 @media (min-width: 768px) {
   .category-page {
-    padding-top: 88px;
+    padding-top: calc(88px + var(--announcement-bar-height, 0px));
   }
 
   .category-page__banner {

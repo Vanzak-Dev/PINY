@@ -1,6 +1,6 @@
 .product-presentation {
   width: 100%;
-  margin-top: 65px;
+  margin-top: calc(65px + var(--announcement-bar-height, 0px));
   padding-block: 48px;
   background-color: #fff;
   background-image: var(--presentation-bg, url('../../assets/product/product-hero-background.svg'));

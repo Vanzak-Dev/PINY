@@ -1,7 +1,7 @@
 .texture-hero {
   position: relative;
   width: 100%;
-  margin-top: 34px;
+  margin-top: calc(34px + var(--announcement-bar-height, 0px));
   aspect-ratio: 392 / 600;
   overflow: hidden;
   background: #fff;
@@ -76,7 +76,7 @@
 
 @media (min-width: 768px) {
   .texture-hero {
-    margin-top: 65px;
+    margin-top: calc(65px + var(--announcement-bar-height, 0px));
     aspect-ratio: 1920 / 965;
   }
 

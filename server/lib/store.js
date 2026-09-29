@@ -9,6 +9,7 @@ const productReviewsPath = path.join(dataDirectory, 'product-reviews.json');
 const settingsPath = path.join(dataDirectory, 'site-settings.json');
 const collectionsPath = path.join(dataDirectory, 'collections.json');
 const seedPath = path.resolve('seeds/products.json');
+const collectionsSeedPath = path.resolve('seeds/collections.json');
 
 const defaultSiteSettings = {
   announcementBar: {
@@ -101,7 +102,8 @@ export async function ensureCollections() {
   try {
     await readFile(collectionsPath, 'utf8');
   } catch {
-    await writeJson(collectionsPath, []);
+    const seed = JSON.parse(await readFile(collectionsSeedPath, 'utf8'));
+    await writeJson(collectionsPath, seed);
   }
 }
 
@@ -132,6 +134,7 @@ export function normalizeCollection(input, current = {}) {
     id: current.id || randomUUID(),
     name: String(input.name || current.name || '').trim(),
     active: boolean(input.active, current.active ?? true),
+    featured: boolean(input.featured, current.featured ?? true),
     productIds: [...new Set(array(input.productIds, current.productIds ?? []).map(String).filter(Boolean))],
     createdAt: current.createdAt || now,
     updatedAt: now,
@@ -250,6 +253,7 @@ export function normalizeProduct(input, current = {}) {
         quantity: Math.max(1, Math.round(number(option?.quantity, 1))),
         price: Math.max(0, number(option?.price, 0)),
         discountLabel: String(option?.discountLabel || '').trim(),
+        image: String(option?.image ?? '').trim(),
       }))
       .filter((option) => option.price > 0),
     crossSellIds: [...new Set(array(input.crossSellIds, current.crossSellIds ?? []).map(String).filter(Boolean))],
@@ -263,8 +267,12 @@ export function normalizeProduct(input, current = {}) {
     presentationBackgroundImage: String(input.presentationBackgroundImage ?? current.presentationBackgroundImage ?? '').trim(),
     presentationMobileBackgroundImage: String(input.presentationMobileBackgroundImage ?? current.presentationMobileBackgroundImage ?? '').trim(),
     presentationProductImage: String(input.presentationProductImage ?? current.presentationProductImage ?? '').trim(),
+    quantityOptionIcon: String(input.quantityOptionIcon ?? current.quantityOptionIcon ?? '').trim(),
     backgroundImage: String(input.backgroundImage ?? current.backgroundImage ?? '').trim(),
     backgroundColor: String(input.backgroundColor ?? current.backgroundColor ?? '#b8efad').trim(),
+    badgeGradientColor1: String(input.badgeGradientColor1 ?? current.badgeGradientColor1 ?? '').trim(),
+    badgeGradientColor2: String(input.badgeGradientColor2 ?? current.badgeGradientColor2 ?? '').trim(),
+    badgeGradientAngle: String(input.badgeGradientAngle ?? current.badgeGradientAngle ?? '180').trim(),
     featureEnabled: boolean(input.featureEnabled, current.featureEnabled ?? false),
     featureLabel: String(input.featureLabel ?? current.featureLabel ?? '').trim(),
     featurePrice: input.featurePrice === '' ? null : number(input.featurePrice, current.featurePrice ?? 0) || null,
@@ -274,6 +282,18 @@ export function normalizeProduct(input, current = {}) {
     featureRightImage: String(input.featureRightImage ?? current.featureRightImage ?? '').trim(),
     featureProductImage: String(input.featureProductImage ?? current.featureProductImage ?? '').trim(),
     featureProductInfoMobileBackground: String(input.featureProductInfoMobileBackground ?? current.featureProductInfoMobileBackground ?? '').trim(),
+    featureTextColor: String(input.featureTextColor ?? current.featureTextColor ?? '').trim(),
+    featureVariant: String(input.featureVariant ?? current.featureVariant ?? '').trim(),
+    featurePerks: array(input.featurePerks, current.featurePerks ?? [])
+      .map((perk) => ({
+        icon: String(perk?.icon || '').trim(),
+        label: String(perk?.label || '').trim(),
+      }))
+      .filter((perk) => perk.label || perk.icon),
+    boosterEnabled: boolean(input.boosterEnabled, current.boosterEnabled ?? true),
+    announcementBarBackgroundColor: String(input.announcementBarBackgroundColor ?? current.announcementBarBackgroundColor ?? '#fff547').trim(),
+    announcementBarTextColor: String(input.announcementBarTextColor ?? current.announcementBarTextColor ?? '#1c8c44').trim(),
+    announcementBarSeparatorImage: String(input.announcementBarSeparatorImage ?? current.announcementBarSeparatorImage ?? '').trim(),
     beforeAfterEnabled: boolean(input.beforeAfterEnabled, current.beforeAfterEnabled ?? false),
     beforeAfterTitle: String(input.beforeAfterTitle ?? current.beforeAfterTitle ?? '').trim(),
     beforeAfterTitleAccent: String(input.beforeAfterTitleAccent ?? current.beforeAfterTitleAccent ?? '').trim(),
@@ -298,6 +318,13 @@ export function normalizeProduct(input, current = {}) {
     comparisonImage3: String(input.comparisonImage3 ?? current.comparisonImage3 ?? '').trim(),
     comparisonImage4: String(input.comparisonImage4 ?? current.comparisonImage4 ?? '').trim(),
     comparisonProductIcon: String(input.comparisonProductIcon ?? current.comparisonProductIcon ?? '').trim(),
+    comparisonHeaderLabelColor: String(input.comparisonHeaderLabelColor ?? current.comparisonHeaderLabelColor ?? '#1c8c44').trim(),
+    comparisonHighlightColor: String(input.comparisonHighlightColor ?? current.comparisonHighlightColor ?? '#85e86f').trim(),
+    comparisonTableColor: String(input.comparisonTableColor ?? current.comparisonTableColor ?? '#e8fce0').trim(),
+    comparisonCellColor: String(input.comparisonCellColor ?? current.comparisonCellColor ?? '#1c8c44').trim(),
+    comparisonCheckIcon: String(input.comparisonCheckIcon ?? current.comparisonCheckIcon ?? '').trim(),
+    comparisonXIcon: String(input.comparisonXIcon ?? current.comparisonXIcon ?? '').trim(),
+    comparisonDividerColor: String(input.comparisonDividerColor ?? current.comparisonDividerColor ?? '#1c8c44').trim(),
     comparisonRows: array(input.comparisonRows, current.comparisonRows ?? [])
       .map((row) => ({
         label: String(row?.label || '').trim(),
@@ -305,6 +332,37 @@ export function normalizeProduct(input, current = {}) {
         other: String(row?.other ?? 'x').trim() || 'x',
       }))
       .filter((row) => row.label),
+    activesEnabled: boolean(input.activesEnabled, current.activesEnabled ?? true),
+    activesHideTextureBrush: boolean(input.activesHideTextureBrush, current.activesHideTextureBrush ?? false),
+    activesProductImage: String(input.activesProductImage ?? current.activesProductImage ?? '').trim(),
+    benefitsEnabled: boolean(input.benefitsEnabled, current.benefitsEnabled ?? true),
+    benefitsPatternImage: String(input.benefitsPatternImage ?? current.benefitsPatternImage ?? '').trim(),
+    benefitsBackgroundColor: String(input.benefitsBackgroundColor ?? current.benefitsBackgroundColor ?? '#fef8dd').trim(),
+    aiAnalysisEnabled: boolean(input.aiAnalysisEnabled, current.aiAnalysisEnabled ?? true),
+    aiAnalysisBackgroundColor: String(input.aiAnalysisBackgroundColor ?? current.aiAnalysisBackgroundColor ?? '#fef8dd').trim(),
+    faqBackgroundColor: String(input.faqBackgroundColor ?? current.faqBackgroundColor ?? '#fef8dd').trim(),
+    faqPatternImage: String(input.faqPatternImage ?? current.faqPatternImage ?? '').trim(),
+    howToUseEnabled: boolean(input.howToUseEnabled, current.howToUseEnabled ?? true),
+    howToUseBackgroundColor: String(input.howToUseBackgroundColor ?? current.howToUseBackgroundColor ?? '#fef8dd').trim(),
+    howToUseBackgroundImage: String(input.howToUseBackgroundImage ?? current.howToUseBackgroundImage ?? '').trim(),
+    howToUseImages: array(input.howToUseImages, current.howToUseImages ?? []).map((img) => String(img || '').trim()),
+    howToUseSteps: array(input.howToUseSteps, current.howToUseSteps ?? [])
+      .map((step) => ({ text: String(step?.text || '').trim() }))
+      .filter((step) => step.text),
+    benefitsItems: array(input.benefitsItems, current.benefitsItems ?? [])
+      .map((item) => ({
+        icon: String(item?.icon || '').trim(),
+        label: String(item?.label || '').trim(),
+      }))
+      .filter((item) => item.label),
+    activesTextureImage: String(input.activesTextureImage ?? current.activesTextureImage ?? '').trim(),
+    activesBrushImage: String(input.activesBrushImage ?? current.activesBrushImage ?? '').trim(),
+    activesCallouts: array(input.activesCallouts, current.activesCallouts ?? [])
+      .map((callout) => ({
+        title: String(callout?.title || '').trim(),
+        lines: array(callout?.lines, []).map((line) => String(line || '').trim()).filter(Boolean),
+      }))
+      .filter((callout) => callout.title),
     imageRestRotation: number(input.imageRestRotation, current.imageRestRotation ?? 0),
     imageActiveRotation: number(input.imageActiveRotation, current.imageActiveRotation ?? 15),
     weight: number(input.weight, current.weight ?? 0),
