@@ -12,11 +12,12 @@ import HowToUseSection from '../sections/product/HowToUseSection';
 import AiAnalysisSection from '../sections/global/AiAnalysisSection';
 import ProductReviewsSection from '../sections/product/ProductReviewsSection';
 import { pinyMaskFaq, pinyStarsFaq } from '../data/faq';
-import { pinyMaskJourney, pinyStarsJourney } from '../data/journey';
+import { pinyMaskJourney, pinyStarsJourney, pinyStarsJourneyHeading } from '../data/journey';
 import { catalogApi } from '../services/catalogApi';
 import { useCart } from '../hooks/useCart';
 import { useCollections } from '../hooks/useCollections';
 import { isProductInCollection } from '../lib/collections';
+import { setProductAnnouncement } from '../lib/productAnnouncement';
 
 export default function ProductPage({ productIdentifier }) {
   const [product, setProduct] = useState(null);
@@ -67,6 +68,19 @@ export default function ProductPage({ productIdentifier }) {
     ? configuredCrossSell
     : products.filter((item) => item.id !== product?.id).slice(0, 2);
 
+  const productAnnouncementColors = {};
+  if (product?.announcementBarBackgroundColor) productAnnouncementColors.backgroundColor = product.announcementBarBackgroundColor;
+  if (product?.announcementBarTextColor) productAnnouncementColors.textColor = product.announcementBarTextColor;
+  if (product?.announcementBarSeparatorImage) productAnnouncementColors.separatorImage = product.announcementBarSeparatorImage;
+  const productAnnouncementSettings = Object.keys(productAnnouncementColors).length
+    ? { announcementBar: productAnnouncementColors }
+    : null;
+
+  useEffect(() => {
+    setProductAnnouncement(productAnnouncementSettings);
+    return () => setProductAnnouncement(null);
+  }, [productAnnouncementSettings]);
+
   return (
     <main>
       {loading && <p className="page-width" role="status">Carregando produto…</p>}
@@ -78,15 +92,21 @@ export default function ProductPage({ productIdentifier }) {
             crossSellProducts={crossSellProducts}
             onAdd={handleAdd}
           />
-          <ProductActivesSection product={product} />
-          <ProductBenefitsSection />
-          <ProductBoosterSection onAdd={handleAdd} />
-          <Journey21DaysSection content={isPinyStars ? pinyStarsJourney : pinyMaskJourney} />
-          <HowToUseSection />
-          <ProductBeforeAfterSection product={product} />
-          <AiAnalysisSection product={product} />
+          {product.activesEnabled !== false && <ProductActivesSection product={product} />}
+          {product.benefitsEnabled !== false && <ProductBenefitsSection product={product} />}
+          {product.boosterEnabled !== false && <ProductBoosterSection onAdd={handleAdd} />}
+          {isPinyStars
+            ? <Journey21DaysSection cards={pinyStarsJourney} {...pinyStarsJourneyHeading} />
+            : <Journey21DaysSection cards={pinyMaskJourney} />}
+          {product.howToUseEnabled !== false && <HowToUseSection product={product} />}
+          <ProductBeforeAfterSection
+            product={product?.beforeAfterItems?.length
+              ? product
+              : products.find((item) => item.id === 'argila-branca') || product}
+          />
+          {product.aiAnalysisEnabled !== false && <AiAnalysisSection product={product} />}
           <ProductComparisonSection product={product} />
-          <ProductFaqSection items={isPinyStars ? pinyStarsFaq : pinyMaskFaq} />
+          <ProductFaqSection product={product} items={isPinyStars ? pinyStarsFaq : pinyMaskFaq} />
           <ProductReviewsSection product={product} />
           <ProductFeaturedSection products={products} onAdd={handleAdd} />
         </>

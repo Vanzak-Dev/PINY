@@ -1,12 +1,19 @@
 .announcement-bar {
-  position: relative;
-  z-index: 20;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 101;
   width: 100%;
   overflow: hidden;
   padding-block: 8px;
   background: var(--announcement-background, #fff547);
   color: var(--announcement-color, #1c8c44);
   font-family: "Bricolage Grotesque", "neulis-neue", sans-serif;
+  transition: transform 0.3s ease;
+}
+
+.announcement-bar--hidden {
+  transform: translateY(-100%);
 }
 
 .announcement-bar__track {
@@ -37,8 +44,8 @@
 
 .announcement-bar__item img {
   display: block;
-  width: 8.5px;
-  height: 8.1px;
+  width: 17px;
+  height: 16px;
   flex: 0 0 auto;
 }
 
@@ -62,7 +69,7 @@
 
 @media (min-width: 768px) {
   .announcement-bar__item {
-    font-size: 13px;
+    font-size: 24px;
   }
 }
 

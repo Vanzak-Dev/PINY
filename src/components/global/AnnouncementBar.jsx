@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useState } from 'react';
-import separator from '../../assets/announcement-separator.svg';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import defaultSeparator from '../../assets/announcement-separator.svg';
 import { catalogApi } from '../../services/catalogApi';
+import { subscribeProductAnnouncement } from '../../lib/productAnnouncement';
 import './AnnouncementBar.css';
 
 const fallbackSettings = {
@@ -13,7 +14,7 @@ const fallbackSettings = {
   },
 };
 
-function AnnouncementItems({ messages }) {
+function AnnouncementItems({ messages, separator }) {
   return (
     <div className="announcement-bar__group">
       {messages.map((message, index) => (
@@ -29,6 +30,10 @@ function AnnouncementItems({ messages }) {
 export default function AnnouncementBar({ settings: suppliedSettings }) {
   const [remoteSettings, setRemoteSettings] = useState(fallbackSettings);
 
+  const [productOverride, setProductOverride] = useState(null);
+  const [hidden, setHidden] = useState(false);
+  const barRef = useRef(null);
+
   useEffect(() => {
     if (suppliedSettings) return undefined;
     const load = () => catalogApi.getSettings().then(setRemoteSettings).catch(() => {});
@@ -42,17 +47,59 @@ export default function AnnouncementBar({ settings: suppliedSettings }) {
     };
   }, [suppliedSettings]);
 
-  const config = (suppliedSettings || remoteSettings).announcementBar || fallbackSettings.announcementBar;
+  useEffect(() => {
+    return subscribeProductAnnouncement(setProductOverride);
+  }, []);
+
+  const globalConfig = (suppliedSettings || remoteSettings).announcementBar || fallbackSettings.announcementBar;
+  const config = { ...globalConfig, ...(productOverride?.announcementBar || {}) };
+  const separator = config.separatorImage || defaultSeparator;
   const repeatedMessages = useMemo(
     () => Array.from({ length: 4 }, () => config.messages || []).flat(),
     [config.messages],
   );
 
+  useEffect(() => {
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setHidden(window.scrollY > 4);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    const el = barRef.current;
+    if (!el) {
+      document.documentElement.style.setProperty('--announcement-bar-height', '0px');
+      return undefined;
+    }
+    const update = () => {
+      if (hidden) {
+        document.documentElement.style.setProperty('--announcement-bar-height', '0px');
+      } else {
+        document.documentElement.style.setProperty('--announcement-bar-height', `${el.offsetHeight}px`);
+      }
+    };
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(el);
+    return () => observer.disconnect();
+  });
+
   if (!config.enabled || repeatedMessages.length === 0) return null;
 
   return (
     <section
-      className="announcement-bar"
+      ref={barRef}
+      className={`announcement-bar${hidden ? ' announcement-bar--hidden' : ''}`}
       aria-label="Anúncios da loja"
       style={{
         '--announcement-background': config.backgroundColor,
@@ -62,8 +109,8 @@ export default function AnnouncementBar({ settings: suppliedSettings }) {
     >
       <span className="announcement-bar__accessible">{config.messages.join('. ')}</span>
       <div className="announcement-bar__track" aria-hidden="true">
-        <AnnouncementItems messages={repeatedMessages} />
-        <AnnouncementItems messages={repeatedMessages} />
+        <AnnouncementItems messages={repeatedMessages} separator={separator} />
+        <AnnouncementItems messages={repeatedMessages} separator={separator} />
       </div>
     </section>
   );

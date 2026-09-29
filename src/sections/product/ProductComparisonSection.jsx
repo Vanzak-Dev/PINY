@@ -16,18 +16,18 @@ const defaultRows = [
   { label: 'Vegano e cruelty free', piny: 'check', other: 'Nem Sempre' },
 ];
 
-function ComparisonValue({ value }) {
+function ComparisonValue({ value, checkIcon, xIcon }) {
   if (value === 'check') {
     return (
       <span className="product-comparison__cell product-comparison__cell--check">
-        <img src={iconCheck} alt="Sim" />
+        <img src={checkIcon || iconCheck} alt="Sim" />
       </span>
     );
   }
   if (value === 'x') {
     return (
       <span className="product-comparison__cell product-comparison__cell--x">
-        <img src={iconX} alt="Não" />
+        <img src={xIcon || iconX} alt="Não" />
       </span>
     );
   }
@@ -53,9 +53,18 @@ export default function ProductComparisonSection({ product }) {
   // Precisa ser uma foto reta/frontal: o card principal do produto costuma vir
   // rotacionado por estilo, e isso deixa o ícone circular pequeno com cara de "torto".
   const productIconImage = product?.comparisonProductIcon || defaultProductIcon;
+  const comparisonCheckIcon = product?.comparisonCheckIcon || '';
+  const comparisonXIcon = product?.comparisonXIcon || '';
+  const comparisonStyle = {
+    '--comparison-header-label-color': product?.comparisonHeaderLabelColor || '#1c8c44',
+    '--comparison-highlight-color': product?.comparisonHighlightColor || '#85e86f',
+    '--comparison-table-color': product?.comparisonTableColor || '#e8fce0',
+    '--comparison-cell-color': product?.comparisonCellColor || '#1c8c44',
+    '--comparison-divider-color': product?.comparisonDividerColor || '#1c8c44',
+  };
 
   return (
-    <section className="product-comparison" aria-label={title}>
+    <section className="product-comparison" aria-label={title} style={comparisonStyle}>
       <div className="product-comparison__inner">
         <div className="product-comparison__gallery" aria-hidden="true">
           <div className="product-comparison__column">
@@ -93,8 +102,8 @@ export default function ProductComparisonSection({ product }) {
                 <div className="product-comparison__row">
                   <p className="product-comparison__label">{row.label}</p>
                   <div className="product-comparison__values">
-                    <ComparisonValue value={row.piny} />
-                    <ComparisonValue value={row.other} />
+                    <ComparisonValue value={row.piny} checkIcon={comparisonCheckIcon} xIcon={comparisonXIcon} />
+                    <ComparisonValue value={row.other} checkIcon={comparisonCheckIcon} xIcon={comparisonXIcon} />
                   </div>
                 </div>
                 {index < rows.length - 1 && <span className="product-comparison__divider" aria-hidden="true" />}

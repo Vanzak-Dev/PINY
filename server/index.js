@@ -4,6 +4,8 @@ import path from 'node:path';
 import { mkdir } from 'node:fs/promises';
 import { changePassword, createSession, parseCookies, readSession, verifyCredentials } from './lib/auth.js';
 import { ensureCatalog, ensureCollections, ensureSiteSettings, normalizeCollection, normalizeProduct, normalizeProductReview, normalizeReview, readCollections, readProductReviews, readProducts, readReviews, readSiteSettings, saveCollections, saveProductReviews, saveProducts, saveReviews, saveSiteSettings } from './lib/store.js';
+import { getYampiConfig, findSkuByCode, createPaymentLink, findCustomersByCpf, listOrdersByCustomer, getOrderDetails, extractLocalizedString } from './lib/yampi.js';
+import { readOrders, upsertOrder, findOrderByYampiId } from './lib/orders.js';
 
 const port = Number(process.env.PORT || 8000);
 const uploadDirectory = process.env.UPLOAD_DIR || path.resolve('uploads');
@@ -68,9 +70,49 @@ function bodyWithUploads(request, current = {}) {
     comparisonImage3: files.comparisonImage3File?.[0] ? `/api/uploads/${files.comparisonImage3File[0].filename}` : request.body.comparisonImage3 || current.comparisonImage3,
     comparisonImage4: files.comparisonImage4File?.[0] ? `/api/uploads/${files.comparisonImage4File[0].filename}` : request.body.comparisonImage4 || current.comparisonImage4,
     comparisonProductIcon: files.comparisonProductIconFile?.[0] ? `/api/uploads/${files.comparisonProductIconFile[0].filename}` : request.body.comparisonProductIcon || current.comparisonProductIcon,
+    comparisonCheckIcon: files.comparisonCheckIconFile?.[0] ? `/api/uploads/${files.comparisonCheckIconFile[0].filename}` : request.body.comparisonCheckIcon || current.comparisonCheckIcon,
+    comparisonXIcon: files.comparisonXIconFile?.[0] ? `/api/uploads/${files.comparisonXIconFile[0].filename}` : request.body.comparisonXIcon || current.comparisonXIcon,
     presentationBackgroundImage: files.presentationBackgroundFile?.[0] ? `/api/uploads/${files.presentationBackgroundFile[0].filename}` : request.body.presentationBackgroundImage || current.presentationBackgroundImage,
     presentationMobileBackgroundImage: files.presentationMobileBackgroundFile?.[0] ? `/api/uploads/${files.presentationMobileBackgroundFile[0].filename}` : request.body.presentationMobileBackgroundImage || current.presentationMobileBackgroundImage,
     presentationProductImage: files.presentationProductFile?.[0] ? `/api/uploads/${files.presentationProductFile[0].filename}` : request.body.presentationProductImage || current.presentationProductImage,
+    quantityOptionIcon: files.quantityOptionIconFile?.[0] ? `/api/uploads/${files.quantityOptionIconFile[0].filename}` : request.body.quantityOptionIcon || current.quantityOptionIcon || '',
+    activesProductImage: files.activesProductFile?.[0] ? `/api/uploads/${files.activesProductFile[0].filename}` : request.body.activesProductImage || current.activesProductImage,
+    activesTextureImage: files.activesTextureFile?.[0] ? `/api/uploads/${files.activesTextureFile[0].filename}` : request.body.activesTextureImage || current.activesTextureImage,
+    activesBrushImage: files.activesBrushFile?.[0] ? `/api/uploads/${files.activesBrushFile[0].filename}` : request.body.activesBrushImage || current.activesBrushImage,
+    benefitsPatternImage: files.benefitsPatternFile?.[0] ? `/api/uploads/${files.benefitsPatternFile[0].filename}` : request.body.benefitsPatternImage || current.benefitsPatternImage,
+    benefitsItems: (() => {
+      try {
+        const items = JSON.parse(request.body.benefitsItems || '[]');
+        for (let i = 0; i < 8; i++) {
+          const file = files[`benefitIconFile_${i}`]?.[0];
+          if (file && items[i]) items[i].icon = `/api/uploads/${file.filename}`;
+        }
+        return JSON.stringify(items);
+      } catch { return request.body.benefitsItems || '[]'; }
+    })(),
+    faqPatternImage: files.faqPatternFile?.[0] ? `/api/uploads/${files.faqPatternFile[0].filename}` : request.body.faqPatternImage || current.faqPatternImage,
+    announcementBarSeparatorImage: files.announcementBarSeparatorFile?.[0] ? `/api/uploads/${files.announcementBarSeparatorFile[0].filename}` : request.body.announcementBarSeparatorImage || current.announcementBarSeparatorImage || '',
+    featurePerks: (() => {
+      try {
+        const perks = JSON.parse(request.body.featurePerks || '[]');
+        for (let i = 0; i < 8; i++) {
+          const file = files[`featurePerkIconFile_${i}`]?.[0];
+          if (file && perks[i]) perks[i].icon = `/api/uploads/${file.filename}`;
+        }
+        return JSON.stringify(perks);
+      } catch { return request.body.featurePerks || '[]'; }
+    })(),
+    howToUseBackgroundImage: files.howToUseBackgroundFile?.[0] ? `/api/uploads/${files.howToUseBackgroundFile[0].filename}` : request.body.howToUseBackgroundImage || current.howToUseBackgroundImage,
+    howToUseImages: (() => {
+      try {
+        const imgs = JSON.parse(request.body.howToUseImages || '[]');
+        for (let i = 0; i < 4; i++) {
+          const file = files[`howToUseImage${i + 1}File`]?.[0];
+          if (file) imgs[i] = `/api/uploads/${file.filename}`;
+        }
+        return JSON.stringify(imgs);
+      } catch { return request.body.howToUseImages || '[]'; }
+    })(),
   };
 }
 
@@ -267,9 +309,39 @@ const productUpload = upload.fields([
   { name: 'comparisonImage3File', maxCount: 1 },
   { name: 'comparisonImage4File', maxCount: 1 },
   { name: 'comparisonProductIconFile', maxCount: 1 },
+  { name: 'comparisonCheckIconFile', maxCount: 1 },
+  { name: 'comparisonXIconFile', maxCount: 1 },
   { name: 'presentationBackgroundFile', maxCount: 1 },
   { name: 'presentationMobileBackgroundFile', maxCount: 1 },
   { name: 'presentationProductFile', maxCount: 1 },
+  { name: 'quantityOptionIconFile', maxCount: 1 },
+  { name: 'activesProductFile', maxCount: 1 },
+  { name: 'activesTextureFile', maxCount: 1 },
+  { name: 'activesBrushFile', maxCount: 1 },
+  { name: 'benefitsPatternFile', maxCount: 1 },
+  { name: 'benefitIconFile_0', maxCount: 1 },
+  { name: 'benefitIconFile_1', maxCount: 1 },
+  { name: 'benefitIconFile_2', maxCount: 1 },
+  { name: 'benefitIconFile_3', maxCount: 1 },
+  { name: 'benefitIconFile_4', maxCount: 1 },
+  { name: 'benefitIconFile_5', maxCount: 1 },
+  { name: 'benefitIconFile_6', maxCount: 1 },
+  { name: 'benefitIconFile_7', maxCount: 1 },
+  { name: 'faqPatternFile', maxCount: 1 },
+  { name: 'featurePerkIconFile_0', maxCount: 1 },
+  { name: 'featurePerkIconFile_1', maxCount: 1 },
+  { name: 'featurePerkIconFile_2', maxCount: 1 },
+  { name: 'featurePerkIconFile_3', maxCount: 1 },
+  { name: 'featurePerkIconFile_4', maxCount: 1 },
+  { name: 'featurePerkIconFile_5', maxCount: 1 },
+  { name: 'featurePerkIconFile_6', maxCount: 1 },
+  { name: 'featurePerkIconFile_7', maxCount: 1 },
+  { name: 'howToUseBackgroundFile', maxCount: 1 },
+  { name: 'howToUseImage1File', maxCount: 1 },
+  { name: 'howToUseImage2File', maxCount: 1 },
+  { name: 'howToUseImage3File', maxCount: 1 },
+  { name: 'howToUseImage4File', maxCount: 1 },
+  { name: 'announcementBarSeparatorFile', maxCount: 1 },
 ]);
 app.post('/api/admin/products', productUpload, async (request, response) => {
   const products = await readProducts();
@@ -321,6 +393,224 @@ app.delete('/api/admin/products/:id', async (request, response) => {
   await saveProducts(nextProducts);
   response.status(204).end();
 });
+
+// ─── Yampi integration ────────────────────────────────────────────
+
+/**
+ * POST /api/yampi/lookup
+ * Body: { cpf }
+ * Searches Yampi customers by CPF, fetches their orders,
+ * normalises fields and upserts local Order records.
+ */
+app.post('/api/yampi/lookup', async (request, response) => {
+  try {
+    const config = getYampiConfig();
+    const { cpf } = request.body;
+
+    if (!cpf) {
+      return response.status(400).json({ error: 'Informe o CPF para busca.' });
+    }
+
+    // 1. Find customers matching the CPF
+    const customers = await findCustomersByCpf(cpf, config);
+    if (customers.length === 0) {
+      return response.json({ orders: [], synced: 0 });
+    }
+
+    const syncedOrders = [];
+
+    // 2. For each customer, fetch all orders
+    for (const customer of customers) {
+      const orders = await listOrdersByCustomer(customer.id, config);
+
+      for (const order of orders) {
+        // 3. Get order details (items + tracking)
+        const details = await getOrderDetails(order.id || order.order_id, config);
+        const items = details?.items || order?.items || [];
+        const productName = items.map((item) => extractLocalizedString(item.name || item.product?.name)).filter(Boolean).join(', ');
+        const tracking = details?.tracking || order?.tracking || {};
+
+        const normalized = {
+          customer_name: customer.name || '',
+          customer_email: customer.email || '',
+          customer_phone: customer.phone || '',
+          customer_cpf: customer.document || '',
+          shipping_address: details?.shipping_address || order?.shipping_address || {},
+          product_name: productName,
+          quantity: items.reduce((sum, item) => sum + Number(item.quantity || 0), 0),
+          total_price: Number(details?.total || order?.total || 0),
+          yampi_order_id: String(order.id || order.order_id),
+          yampi_checkout_url: details?.checkout_url || order?.checkout_url || '',
+          status: mapYampiStatus(details?.status || order?.status),
+          payment_method: details?.payment_method || order?.payment_method || '',
+          tracking_code: tracking.code || tracking.tracking_code || '',
+          tracking_url: tracking.url || tracking.tracking_url || '',
+          estimated_delivery_date: details?.estimated_delivery_date || order?.estimated_delivery_date || '',
+          shipped_at: details?.shipped_at || order?.shipped_at || '',
+        };
+
+        const upserted = await upsertOrder(normalized);
+        syncedOrders.push(upserted);
+      }
+    }
+
+    response.json({ orders: syncedOrders, synced: syncedOrders.length });
+  } catch (error) {
+    console.error('lookupYampiOrders error:', error.message);
+    response.status(500).json({ error: error.message });
+  }
+});
+
+/**
+ * POST /api/yampi/webhook
+ * Public endpoint registered in the Yampi panel.
+ * Receives events: order.paid, order.cancelled, order.shipped,
+ * order.tracking_added, order.delivered.
+ */
+app.post('/api/yampi/webhook', async (request, response) => {
+  try {
+    const { event, data } = request.body;
+
+    if (!event || !data) {
+      return response.status(400).json({ error: 'Payload inválido. Esperado { event, data }.' });
+    }
+
+    const yampiOrderId = String(data.id || data.order_id || '');
+    if (!yampiOrderId) {
+      return response.status(400).json({ error: 'ID do pedido não encontrado no payload.' });
+    }
+
+    const localOrder = await findOrderByYampiId(yampiOrderId);
+    if (!localOrder) {
+      // Acknowledge webhook even if we don't have a local order yet
+      return response.json({ success: true, message: 'Pedido local não encontrado. Webhook ignorado.' });
+    }
+
+    const now = new Date().toISOString();
+    const updates = { tracking_history: localOrder.tracking_history || [] };
+
+    switch (event) {
+      case 'order.paid':
+        updates.status = 'paid';
+        updates.payment_method = data.payment_method || localOrder.payment_method;
+        break;
+      case 'order.cancelled':
+        updates.status = 'cancelled';
+        break;
+      case 'order.shipped':
+        updates.status = 'shipped';
+        updates.shipped_at = data.shipped_at || now;
+        if (data.tracking_code) updates.tracking_code = data.tracking_code;
+        if (data.tracking_url) updates.tracking_url = data.tracking_url;
+        if (data.estimated_delivery_date) updates.estimated_delivery_date = data.estimated_delivery_date;
+        break;
+      case 'order.tracking_added':
+        if (data.tracking_code) updates.tracking_code = data.tracking_code;
+        if (data.tracking_url) updates.tracking_url = data.tracking_url;
+        if (data.estimated_delivery_date) updates.estimated_delivery_date = data.estimated_delivery_date;
+        break;
+      case 'order.delivered':
+        updates.status = 'delivered';
+        break;
+      default:
+        // Unknown event — acknowledge but don't modify
+        return response.json({ success: true, message: `Evento ${event} não processado.` });
+    }
+
+    // Append to tracking history
+    updates.tracking_history = [
+      ...updates.tracking_history,
+      {
+        event,
+        status: updates.status || localOrder.status,
+        tracking_code: updates.tracking_code || localOrder.tracking_code || '',
+        tracking_url: updates.tracking_url || localOrder.tracking_url || '',
+        timestamp: now,
+      },
+    ];
+
+    await upsertOrder({ ...updates, yampi_order_id: yampiOrderId });
+
+    response.json({ success: true, event, yampi_order_id: yampiOrderId });
+  } catch (error) {
+    console.error('yampiWebhook error:', error.message);
+    response.status(500).json({ error: error.message });
+  }
+});
+
+/**
+ * POST /api/yampi/checkout
+ * Body: { items: [{ sku, quantity, name }] }
+ * Resolves each cart item's SKU in Yampi, creates a Payment Link (checkout)
+ * and returns the link_url. Yampi handles customer data, payment and order
+ * creation on their hosted checkout page — we just redirect the user there.
+ */
+app.post('/api/yampi/checkout', async (request, response) => {
+  try {
+    const config = getYampiConfig();
+    const { items } = request.body;
+
+    if (!Array.isArray(items) || items.length === 0) {
+      return response.status(400).json({ error: 'Carrinho vazio. Adicione produtos antes de finalizar.' });
+    }
+
+    // 1. Resolve all SKUs to get their Yampi IDs
+    const skus = [];
+    for (const item of items) {
+      const sku = await findSkuByCode(item.sku, config);
+      if (!sku) {
+        return response.status(404).json({ error: `SKU "${item.sku}" não encontrado na Yampi.` });
+      }
+      skus.push({
+        id: sku.id || sku.sku_id,
+        quantity: Math.max(1, Number(item.quantity || 1)),
+      });
+    }
+
+    // 2. Create a payment link — Yampi handles the rest (customer, payment, order)
+    const paymentLink = await createPaymentLink({
+      name: `Checkout PINY ${Date.now()}`,
+      active: true,
+      skus,
+    }, config);
+
+    const checkoutUrl = paymentLink?.link_url || '';
+
+    if (!checkoutUrl) {
+      return response.status(500).json({ error: 'Yampi não retornou uma URL de checkout.' });
+    }
+
+    response.json({ success: true, checkout_url: checkoutUrl });
+  } catch (error) {
+    console.error('yampiCheckout error:', error.message);
+    response.status(500).json({ success: false, error: error.message });
+  }
+});
+
+/**
+ * GET /api/yampi/orders
+ * Returns all local orders (for admin/debugging).
+ */
+app.get('/api/yampi/orders', async (_request, response) => {
+  response.json(await readOrders());
+});
+
+/**
+ * Maps Yampi order statuses to local Order statuses.
+ */
+function mapYampiStatus(yampiStatus) {
+  const map = {
+    waiting_payment: 'pending',
+    pending: 'pending',
+    paid: 'paid',
+    approved: 'paid',
+    cancelled: 'cancelled',
+    canceled: 'cancelled',
+    shipped: 'shipped',
+    delivered: 'delivered',
+  };
+  return map[yampiStatus] || 'pending';
+}
 
 app.use((error, _request, response, _next) => {
   if (error instanceof multer.MulterError) return response.status(400).json({ error: 'A imagem deve ter no máximo 8 MB.' });

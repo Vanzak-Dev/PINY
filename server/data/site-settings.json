@@ -1,0 +1,12 @@
+{
+  "announcementBar": {
+    "enabled": true,
+    "messages": [
+      "Frete grátis acima de R$199",
+      "Aproveite 10% OFF na sua primeira compra"
+    ],
+    "backgroundColor": "#fff547",
+    "textColor": "#1c8c44",
+    "speed": 24
+  }
+}

@@ -44,6 +44,8 @@ export default function ProductCarouselSection({ products, initialIndex = 0, onA
     return () => window.clearTimeout(timer);
   }, [activePosition, isMoving, productCount]);
 
+  const touchStartX = useRef(null);
+
   if (!productCount) return null;
 
   const activeIndex = normalizeIndex(activePosition, productCount);
@@ -58,8 +60,6 @@ export default function ProductCarouselSection({ products, initialIndex = 0, onA
     if (event.key === 'ArrowLeft') move(-1);
     if (event.key === 'ArrowRight') move(1);
   };
-
-  const touchStartX = useRef(null);
 
   const handleTouchStart = (event) => {
     touchStartX.current = event.touches[0].clientX;

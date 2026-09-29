@@ -7,7 +7,7 @@
   justify-content: center;
   overflow: hidden;
   border-radius: var(--badge-radius, 12px);
-  background: linear-gradient(180deg, #ffe908 50%, #efbe11 100%);
+  background: var(--badge-gradient, linear-gradient(180deg, #ffe908 50%, #efbe11 100%));
 }
 
 .product-icon-badge img {

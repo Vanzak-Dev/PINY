@@ -3,7 +3,7 @@
   width: 100%;
   overflow: hidden;
   border-radius: 32px 32px 0 0;
-  background: #fef8dd;
+  background: var(--product-benefits-bg, #fef8dd);
 }
 
 .product-benefits__pattern {

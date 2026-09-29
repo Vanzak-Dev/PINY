@@ -1,16 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { featuredProducts } from '../../data/products';
-import AddToCartIcon from '../ui/AddToCartIcon';
-import { formatPrice } from '../../lib/formatPrice';
+import ProductCard from '../product/ProductCard';
+import { useProducts } from '../../hooks/useProducts';
 import './SearchPanel.css';
 
 const suggestedSearches = ['ACNE', 'ANTIMANCHAS', 'DETOX', 'OLEOSIDADE', 'CALMANTE', 'MÁSCARA', 'ADESIVO', 'ESTRELAS'];
 const defaultPanelProducts = ['Argila Branca', 'Argila Verde', 'Argila Rosa', 'Argila Preta', 'Argila Branca'];
-const panelColors = ['#fff547', '#a4f484', '#ed7d9c', '#747b78', '#fff547'];
-
-function findProduct(name) {
-  return featuredProducts.find((product) => product.name === name) || featuredProducts[0];
-}
 
 function matchesQuery(product, query) {
   const haystack = [product.name, product.category, ...(product.badges?.map((badge) => badge.label) || [])]
@@ -22,6 +17,9 @@ function matchesQuery(product, query) {
 export default function SearchPanel({ isOpen, onClose, offsetTop, onAdd }) {
   const inputRef = useRef(null);
   const [query, setQuery] = useState('');
+  const { products: catalogProducts } = useProducts({ featuredOnly: false });
+  const catalog = catalogProducts.length > 0 ? catalogProducts : featuredProducts;
+  const findProduct = (name) => catalog.find((product) => product.name === name) || catalog[0];
 
   useEffect(() => {
     if (!isOpen) return undefined;
@@ -42,15 +40,16 @@ export default function SearchPanel({ isOpen, onClose, offsetTop, onAdd }) {
   };
 
   const normalizedQuery = query.trim().toLowerCase();
-  const filteredSuggestions = suggestedSearches.filter((suggestion) => suggestion.toLowerCase().includes(normalizedQuery));
+  const matchedSuggestions = suggestedSearches.filter((suggestion) => suggestion.toLowerCase().includes(normalizedQuery));
+  const filteredSuggestions = matchedSuggestions.length > 0 ? matchedSuggestions : suggestedSearches;
 
   const searchResults = normalizedQuery
-    ? featuredProducts.filter((product) => matchesQuery(product, normalizedQuery)).slice(0, 5)
+    ? catalog.filter((product) => matchesQuery(product, normalizedQuery)).slice(0, 5)
     : null;
 
   const displayProducts = searchResults && searchResults.length > 0
-    ? searchResults.map((product, index) => ({ product, color: panelColors[index % panelColors.length] }))
-    : defaultPanelProducts.map((name, index) => ({ product: findProduct(name), color: panelColors[index] }));
+    ? searchResults
+    : defaultPanelProducts.map(findProduct);
 
   const hasNoResults = normalizedQuery && searchResults && searchResults.length === 0;
 
@@ -87,23 +86,11 @@ export default function SearchPanel({ isOpen, onClose, offsetTop, onAdd }) {
               <p className="search-panel__no-results">Nenhum produto encontrado.</p>
             ) : (
               <div className="search-panel__product-list">
-                {displayProducts.map(({ product, color }, index) => {
-                  const productUrl = `/produtos/${product.slug || product.id}`;
-                  return (
-                    <article className="search-panel__product" key={`${product.id}-${index}`}>
-                      <div className="search-panel__product-visual" style={{ backgroundColor: color }}>
-                        <a href={productUrl} aria-label={`Ver detalhes de ${product.name}`} onClick={onClose}>
-                          <img src={product.image} alt={product.name} />
-                        </a>
-                        <button type="button" aria-label={`Adicionar ${product.name} ao carrinho`} onClick={() => onAdd?.(product)}><AddToCartIcon /></button>
-                      </div>
-                      <a className="search-panel__product-info" href={productUrl} onClick={onClose}>
-                        <strong>{product.name.split(' ')[0]}<br />{product.name.split(' ').slice(1).join(' ')}</strong>
-                        <span><del>{formatPrice(product.oldPrice)}</del>{formatPrice(product.price)}</span>
-                      </a>
-                    </article>
-                  );
-                })}
+                {displayProducts.map((product, index) => (
+                  <div className="search-panel__product" key={`${product.id}-${index}`}>
+                    <ProductCard product={product} onAdd={onAdd} />
+                  </div>
+                ))}
               </div>
             )}
           </section>
