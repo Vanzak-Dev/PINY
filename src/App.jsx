@@ -14,8 +14,6 @@ import SearchResultsPage from "./pages/SearchResultsPage";
 import { CartProvider, useCart } from "./hooks/useCart";
 import SkinAnalysisTest from "./pages/skin-analysis/SkinAnalysisTest";
 import SkinAnalysisHome from "./pages/skin-analysis/SkinAnalysisHome";
-import MonteSuaTexturaPage from "./pages/MonteSuaTexturaPage";
-import AnaliseSuaPelePage from "./pages/AnaliseSuaPelePage";
 
 export default function App() {
   const [pathname, setPathname] = useState(window.location.pathname);
