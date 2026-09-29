@@ -1,12 +1,12 @@
 import AddToCartIcon from '../ui/AddToCartIcon';
-import ProductIconBadge from './ProductIconBadge';
+import ProductIconBadge, { buildBadgeGradient } from './ProductIconBadge';
 import { formatPrice } from '../../lib/formatPrice';
 import './FrequentlyBoughtItem.css';
 
 export default function FrequentlyBoughtItem({ product, onAdd }) {
   return (
     <article className="fbt-item">
-      <ProductIconBadge image={product.image} alt={product.name} size={96} />
+      <ProductIconBadge image={product.image} alt={product.name} size={96} gradient={buildBadgeGradient(product)} />
       <div className="fbt-item__info">
         <p className="fbt-item__name">{product.name}</p>
         <div className="fbt-item__prices">

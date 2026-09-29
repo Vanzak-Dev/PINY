@@ -44,11 +44,11 @@
 
 .product-actives__brush {
   position: absolute;
-  top: 16vw;
-  left: 35.833333%;
+  top: 24vw;
+  left: 34.833333%;
   z-index: 2;
   width: 31.655503vw;
-  height: 32.130094vw;
+  height: 21.130094vw;
   max-width: none;
   object-fit: contain;
 }
@@ -118,9 +118,65 @@
 
 .product-actives__callout--right-bottom {
   top: 31.755781vw;
-  right: 12.0%;
+  right: 12.6%;
   flex-direction: row-reverse;
   text-align: right;
+}
+
+/* ── 3-actives arc layout (semicircular arrangement) ── */
+.product-actives__callout--arc-left {
+  top: 22.3vw;
+  right: 77.7vw;
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.product-actives__callout--arc-left > div {
+  position: absolute;
+  width: 17vw;
+  bottom: 34px;
+  right: 2vw;
+}
+
+.product-actives__callout--arc-center {
+  top: 9.4vw;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  flex-direction: column;
+  align-items: center;
+  z-index: 5;
+}
+
+.product-actives__callout--arc-center > div {
+  position: absolute;
+  top: -72px;
+  right: -5vw;
+  width: 16vw;
+  padding-top: 0;
+  text-align: right;
+}
+
+.product-actives__callout--arc-right {
+  top: 22.3vw;
+  left: 77.7vw;
+  flex-direction: row;
+  text-align: left;
+}
+
+.product-actives__callout--arc-right > div {
+  position: absolute;
+  width: 16vw;
+  bottom: 54px;
+  left: 1vw;
+}
+
+/* ── No texture/brush: product moves to center of arc ── */
+.product-actives--no-texture .product-actives__product {
+  top: 7vw;
+  width: 52vw;
+  height: 52vw;
+  transform: translateX(-50%) rotate(0deg);
 }
 
 @media (max-width: 767px) {
@@ -136,12 +192,33 @@
     transform: none;
   }
 
+  .product-actives--arc .product-actives__arc {
+    width: 118.860051vw;
+    height: 118.860051vw;
+  }
+
   .product-actives__product {
     top: 44.02vw;
     left: 43.51vw;
     width: 58.846565vw;
     height: 58.846565vw;
     transform: rotate(15deg);
+  }
+
+  .product-actives--no-texture .product-actives__product {
+    top: 28vw;
+    left: 50%;
+    width: 52vw;
+    height: 52vw;
+    transform: translateX(-50%) rotate(0deg);
+  }
+
+  .product-actives--arc.product-actives--no-texture .product-actives__product {
+    top: 20vw;
+    left: 14%;
+    width: 80vw;
+    height: 80vw;
+    transform: translateX(-50%) rotate(0deg);
   }
 
   .product-actives__texture {
@@ -274,6 +351,66 @@
     width: 52.926209vw;
     padding-top: 0;
     margin-top: 4.071247vw;
+  }
+
+  .product-actives__callout--arc-left {
+    top: 22vw;
+    right: auto;
+    left: 37vw;
+    flex-direction: row;
+    text-align: left;
+  }
+
+  .product-actives__callout--arc-left > div {
+    width: 42vw;
+    padding-top: 0;
+    margin-left: 4.071247vw;
+    bottom: -14px;
+    right: -47vw;
+  }
+
+  .product-actives__callout--arc-left .product-actives__dot {
+    margin-top: 6.10687vw;
+  }
+
+  .product-actives__callout--arc-center {
+    top: 62vw;
+    right: auto;
+    left: 49vw;
+    transform: none;
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .product-actives__callout--arc-center > div {
+    position: static;
+    top: auto;
+    right: auto;
+    width: 32vw;
+    padding-top: 0;
+    margin-left: 4.071247vw;
+    text-align: left;
+  }
+
+  .product-actives__callout--arc-center .product-actives__dot {
+    margin-top: 6.10687vw;
+  }
+
+  .product-actives__callout--arc-right {
+    top: 103vw;
+    right: auto;
+    left: 34vw;
+    flex-direction: row;
+    text-align: left;
+  }
+
+  .product-actives__callout--arc-right > div {
+    width: 48.926209vw;
+    padding-top: 0;
+    margin-top: 4.071247vw;
+    bottom: -16px;
+    left: 10vw;
   }
 }
 

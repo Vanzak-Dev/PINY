@@ -1,0 +1,131 @@
+/* ===== Quiz Flow — shared layout ===== */
+
+.quiz-flow {
+  min-height: 100vh;
+  background-color: #fffbe6;
+  background-image: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 14px,
+      rgba(152, 228, 144, 0.1) 14px,
+      rgba(152, 228, 144, 0.1) 15px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 14px,
+      rgba(152, 228, 144, 0.1) 14px,
+      rgba(152, 228, 144, 0.1) 15px
+    );
+  padding: 48px 20px;
+  display: flex;
+  justify-content: center;
+  font-family: "neulis-neue", sans-serif;
+}
+
+.quiz-flow__container {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ---- Progress indicator ---- */
+
+.quiz-progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 36px;
+}
+
+.quiz-progress__circle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "neulis-neue", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  border: 2px solid #a5d6a7;
+  background: transparent;
+  color: #999;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.quiz-progress__circle.is-active {
+  background: #98e490;
+  border-color: #98e490;
+  color: #1a5d35;
+}
+
+.quiz-progress__circle.is-completed {
+  background: #98e490;
+  border-color: #98e490;
+  color: #1a5d35;
+}
+
+.quiz-progress__check {
+  width: 20px;
+  height: 20px;
+  stroke-width: 3;
+}
+
+.quiz-progress__line {
+  width: 52px;
+  height: 2px;
+  background: #a5d6a7;
+  opacity: 0.45;
+  flex-shrink: 0;
+}
+
+.quiz-progress__line.is-completed {
+  opacity: 1;
+  background: #98e490;
+}
+
+/* ---- White card ---- */
+
+.quiz-card {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  padding: 40px 36px;
+}
+
+/* ---- Mobile ---- */
+
+@media (max-width: 749px) {
+  .quiz-flow {
+    padding: 28px 16px;
+  }
+
+  .quiz-card {
+    padding: 28px 20px;
+    border-radius: 12px;
+  }
+
+  .quiz-progress {
+    margin-bottom: 28px;
+  }
+
+  .quiz-progress__circle {
+    width: 34px;
+    height: 34px;
+    font-size: 14px;
+  }
+
+  .quiz-progress__check {
+    width: 16px;
+    height: 16px;
+  }
+
+  .quiz-progress__line {
+    width: 36px;
+  }
+}

@@ -1,7 +1,7 @@
 import ProductCard from '../product/ProductCard';
 import './MegaMenu.css';
 
-export default function MegaMenu({ title, description, products, viewAllHref, emptyMessage }) {
+export default function MegaMenu({ title, description, products, viewAllHref, emptyMessage, onAdd }) {
   const items = products.slice(0, 4);
 
   return (
@@ -18,7 +18,7 @@ export default function MegaMenu({ title, description, products, viewAllHref, em
           <div className="mega-menu__cards-row">
             <div className="mega-menu__cards">
               {items.map((product) => (
-                <ProductCard key={product.id} product={product} />
+                <ProductCard key={product.id} product={product} onAdd={onAdd} />
               ))}
             </div>
             <a className="mega-menu__view-all" href={viewAllHref}>Ver todos os produtos</a>

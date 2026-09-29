@@ -11,6 +11,7 @@ export default function ProductCardPreview({ values, products = [], imagePreview
     price: Number(values.price) || 0,
     oldPrice: values.oldPrice === '' || values.oldPrice == null ? null : Number(values.oldPrice),
     image: imagePreview || values.image || '/catalog-assets/product-white-clay.webp',
+    quantityOptionIcon: values.quantityOptionIcon || '',
     backgroundImage: backgroundPreview || values.backgroundImage || '',
     backgroundColor: values.backgroundColor || '#b8efad',
     imageRestRotation: Number(values.imageRestRotation) || 0,
@@ -23,6 +24,7 @@ export default function ProductCardPreview({ values, products = [], imagePreview
       ...option,
       quantity: Number(option.quantity) || 1,
       price: Number(option.price) || Number(values.price) || 0,
+      image: option.image || '',
     })),
   };
   const crossSellProducts = (values.crossSellIds || [])

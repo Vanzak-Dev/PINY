@@ -1,6 +1,5 @@
 node_modules/
 dist/
-server/data/
-server/uploads/
 .DS_Store
 .api-dev.log
+server/data/auth.json

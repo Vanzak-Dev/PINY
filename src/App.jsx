@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import AdminPage from "./pages/AdminPage";
 import AnaliseSuaPelePage from "./pages/AnaliseSuaPelePage";
 import AnnouncementBar from "./components/global/AnnouncementBar";
@@ -12,6 +12,8 @@ import PinyStarsPage from "./pages/PinyStarsPage";
 import ProductPage from "./pages/ProductPage";
 import SearchResultsPage from "./pages/SearchResultsPage";
 import { CartProvider, useCart } from "./hooks/useCart";
+import SkinAnalysisTest from "./pages/skin-analysis/SkinAnalysisTest";
+import SkinAnalysisHome from "./pages/skin-analysis/SkinAnalysisHome";
 
 export default function App() {
   const [pathname, setPathname] = useState(window.location.pathname);
@@ -55,9 +57,16 @@ export default function App() {
     );
   }, [pathname]);
 
+  if (pathname.startsWith("/skin-analysis-test")) return <SkinAnalysisTest />;
   if (pathname.startsWith("/admin")) return <AdminPage />;
 
-  const page = pathname.startsWith("/produtos/")
+  const page = pathname === "/skin-analysis"
+    ? <SkinAnalysisHome />
+    : pathname === "/analise-sua-pele"
+    ? <AnaliseSuaPelePage />
+    : pathname === "/monte-sua-textura"
+    ? <MonteSuaTexturaPage />
+    : pathname.startsWith("/produtos/")
     ? <ProductPage productIdentifier={decodeURIComponent(pathname.split("/produtos/")[1])} />
     : pathname.startsWith("/pesquisa")
     ? <SearchResultsPage query={new URLSearchParams(window.location.search).get("q") || ""} />
@@ -80,6 +89,35 @@ export default function App() {
 
 function AppContent({ page }) {
   const cart = useCart();
+  const [isCheckingOut, setCheckingOut] = useState(false);
+
+  const handleCheckout = useCallback(async () => {
+    if (cart.items.length === 0 || isCheckingOut) return;
+    setCheckingOut(true);
+    try {
+      const items = cart.items.map(({ product, quantity }) => ({
+        sku: product.sku,
+        quantity,
+        name: product.name,
+        price: product.price,
+      }));
+      const res = await fetch("/api/yampi/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ items }),
+      });
+      const data = await res.json();
+      if (data.success && data.checkout_url) {
+        window.location.href = data.checkout_url;
+      } else {
+        alert(data.error || "Erro ao criar checkout na Yampi.");
+      }
+    } catch {
+      alert("Erro de conexão ao finalizar compra.");
+    } finally {
+      setCheckingOut(false);
+    }
+  }, [cart.items, isCheckingOut]);
 
   return (
     <>
@@ -101,6 +139,8 @@ function AppContent({ page }) {
         total={cart.total}
         remainingForGift={cart.remainingForGift}
         giftProgress={cart.giftProgress}
+        onCheckout={handleCheckout}
+        isCheckingOut={isCheckingOut}
       />
       <Footer />
     </>

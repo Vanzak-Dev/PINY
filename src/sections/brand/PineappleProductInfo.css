@@ -4,7 +4,7 @@
   left: 16.319444vw;
   width: 18.229167vw;
   height: 18.75vw;
-  color: #1c8c44;
+  color: var(--feature-text-color, #1c8c44);
 }
 
 .pineapple-product-info p {
@@ -26,7 +26,7 @@
   flex: 0 0 auto;
   width: 1.25vw;
   height: .104167vw;
-  background: #1c8c44;
+  background: var(--feature-text-color, #1c8c44);
 }
 
 .pineapple-product-info__wordmark {
@@ -35,7 +35,7 @@
   margin-top: 1.25vw;
   align-items: center;
   gap: .213438vw;
-  color: #1c8c44;
+  color: var(--feature-text-color, #1c8c44);
 }
 
 .pineapple-product-info__glyph {
@@ -62,7 +62,6 @@
 
 .pineapple-product-info__variant {
   margin-top: 1.25vw !important;
-  font-family: "Neulis Cursive", cursive;
   font-size: 3.333333vw;
   font-style: normal;
   font-weight: 700;
@@ -75,7 +74,7 @@
   height: .104167vw;
   margin-top: 1.666667vw;
   margin-bottom: 1.25vw;
-  background: #1c8c44;
+  background: var(--feature-text-color, #1c8c44);
 }
 
 .pineapple-product-info__description {
@@ -149,7 +148,7 @@
 
   .pineapple-product-info__variant {
     margin-top: 3.053435vw !important;
-    font-family: "Neulis Neue", "neulis-neue", sans-serif;
+    font-family: "Neulis Cursive", cursive;
     font-size: 8.142494vw;
     text-align: center;
   }

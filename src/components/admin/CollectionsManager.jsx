@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { catalogApi } from '../../services/catalogApi';
 import './CollectionsManager.css';
 
-const emptyForm = { name: '', active: true, productIds: [] };
+const emptyForm = { name: '', active: true, featured: true, productIds: [] };
 
 export default function CollectionsManager({ products }) {
   const [collections, setCollections] = useState([]);
@@ -25,7 +25,7 @@ export default function CollectionsManager({ products }) {
 
   const startEdit = (collection) => {
     setEditing(collection);
-    setForm({ name: collection.name, active: collection.active, productIds: collection.productIds || [] });
+    setForm({ name: collection.name, active: collection.active, featured: collection.featured ?? true, productIds: collection.productIds || [] });
     setMessage('');
   };
 
@@ -89,7 +89,7 @@ export default function CollectionsManager({ products }) {
             <article className={`admin-collections__row${editing?.id === collection.id ? ' is-selected' : ''}`} key={collection.id}>
               <button type="button" className="admin-collections__row-main" onClick={() => startEdit(collection)}>
                 <strong>{collection.name}</strong>
-                <small>{(collection.productIds || []).length} produto(s) · {collection.active ? 'Ativo' : 'Oculto'}</small>
+                <small>{(collection.productIds || []).length} produto(s) · {collection.active ? 'Ativo' : 'Oculto'}{collection.featured ? ' · Home' : ''}</small>
               </button>
               <button type="button" className="admin-product-row__delete" onClick={() => remove(collection)} aria-label={`Excluir ${collection.name}`}>×</button>
             </article>
@@ -100,6 +100,7 @@ export default function CollectionsManager({ products }) {
           <h3>{editing ? 'Editar coleção' : 'Cadastrar coleção'}</h3>
           <label>Nome da coleção<input value={form.name} onChange={(event) => setForm({ ...form, name: event.target.value })} placeholder="Ex.: Linha Antiacne" /></label>
           <label className="admin-check"><input type="checkbox" checked={form.active} onChange={(event) => setForm({ ...form, active: event.target.checked })} /> Exibir na loja</label>
+          <label className="admin-check"><input type="checkbox" checked={form.featured} onChange={(event) => setForm({ ...form, featured: event.target.checked })} /> Exibir na home (seção de destaque)</label>
           <fieldset className="admin-collections__products">
             <legend>Produtos da coleção</legend>
             {products.map((product) => (

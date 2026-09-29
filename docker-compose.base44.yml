@@ -11,6 +11,9 @@ services:
       - __VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS
       - CHOKIDAR_USEPOLLING=true
       - API_PROXY_TARGET=http://api:8000
+    env_file:
+      - ./.env.base44-defaults
+      - /run/base44/app.env
     command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
     depends_on:
       api:
@@ -22,12 +25,14 @@ services:
     volumes:
       - .:/app
       - piny_api_node_modules:/app/server/node_modules
-      - piny_catalog_data:/app/server/data
-      - piny_product_uploads:/app/server/uploads
+      - ./server/data:/app/server/data
+      - ./server/uploads:/app/server/uploads
     environment:
       - PORT=8000
       - DATA_DIR=/app/server/data
       - UPLOAD_DIR=/app/server/uploads
+    env_file:
+      - /run/base44/app.env
     command: sh -c "npm install && npm run dev"
     healthcheck:
       test: ["CMD", "node", "-e", "fetch('http://localhost:8000/api/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
@@ -38,5 +43,3 @@ services:
 volumes:
   piny_node_modules:
   piny_api_node_modules:
-  piny_catalog_data:
-  piny_product_uploads:
