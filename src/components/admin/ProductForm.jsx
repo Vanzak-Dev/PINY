@@ -64,7 +64,7 @@ const emptyProduct = {
   aiAnalysisEnabled: true, aiAnalysisBackgroundColor: '#fef8dd',
   faqBackgroundColor: '#fef8dd', faqPatternImage: '',
   boosterEnabled: true,
-  announcementBarBackgroundColor: '#fff547', announcementBarTextColor: '#1c8c44',
+  announcementBarBackgroundColor: '#fff547', announcementBarTextColor: '#1c8c44', announcementBarSeparatorImage: '',
   beforeAfterEnabled: false, beforeAfterTitle: 'ANTES & DEPOIS', beforeAfterTitleAccent: 'Reais',
   beforeAfterSubtitle: '', beforeAfterBeforeLabel: 'ANTES', beforeAfterAfterLabel: 'DEPOIS',
   beforeAfterItems: [],
@@ -103,6 +103,7 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
   const [benefitsPatternFile, setBenefitsPatternFile] = useState(null);
   const [benefitIconFiles, setBenefitIconFiles] = useState({});
   const [faqPatternFile, setFaqPatternFile] = useState(null);
+  const [announcementBarSeparatorFile, setAnnouncementBarSeparatorFile] = useState(null);
   const [howToUseBackgroundFile, setHowToUseBackgroundFile] = useState(null);
   const [howToUseImageFiles, setHowToUseImageFiles] = useState([null, null, null, null]);
   const [saving, setSaving] = useState(false);
@@ -130,6 +131,7 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
     setActivesProductFile(null); setActivesTextureFile(null); setActivesBrushFile(null);
     setBenefitsPatternFile(null); setBenefitIconFiles({});
     setFaqPatternFile(null);
+    setAnnouncementBarSeparatorFile(null);
     setHowToUseBackgroundFile(null); setHowToUseImageFiles([null, null, null, null]);
     setError('');
   }, [product]);
@@ -184,6 +186,7 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
     if (benefitsPatternFile) data.append('benefitsPatternFile', benefitsPatternFile);
     Object.entries(benefitIconFiles).forEach(([index, file]) => { if (file) data.append(`benefitIconFile_${index}`, file); });
     if (faqPatternFile) data.append('faqPatternFile', faqPatternFile);
+    if (announcementBarSeparatorFile) data.append('announcementBarSeparatorFile', announcementBarSeparatorFile);
     if (howToUseBackgroundFile) data.append('howToUseBackgroundFile', howToUseBackgroundFile);
     howToUseImageFiles.forEach((file, index) => { if (file) data.append(`howToUseImage${index + 1}File`, file); });
     try { await onSave(data); }
@@ -213,6 +216,7 @@ export default function ProductForm({ product, products = [], onSave, onCancel }
             </span>
           </label>
         </div>
+        <label>SVG da estrela separadora<input type="file" accept="image/svg+xml" onChange={(e) => setAnnouncementBarSeparatorFile(e.target.files[0])} />{values.announcementBarSeparatorImage && !announcementBarSeparatorFile && <small>Atual: {values.announcementBarSeparatorImage}</small>}<small>Ícone exibido entre as mensagens do banner. Se vazio, usa a estrela padrão do site.</small></label>
       </section>
       <section className="admin-form__section"><h3>Informações principais</h3><div className="admin-grid admin-grid--2">
         <label>Nome<input value={values.name} onChange={(e) => change('name', e.target.value)} required /></label>

@@ -293,6 +293,7 @@ export function normalizeProduct(input, current = {}) {
     boosterEnabled: boolean(input.boosterEnabled, current.boosterEnabled ?? true),
     announcementBarBackgroundColor: String(input.announcementBarBackgroundColor ?? current.announcementBarBackgroundColor ?? '#fff547').trim(),
     announcementBarTextColor: String(input.announcementBarTextColor ?? current.announcementBarTextColor ?? '#1c8c44').trim(),
+    announcementBarSeparatorImage: String(input.announcementBarSeparatorImage ?? current.announcementBarSeparatorImage ?? '').trim(),
     beforeAfterEnabled: boolean(input.beforeAfterEnabled, current.beforeAfterEnabled ?? false),
     beforeAfterTitle: String(input.beforeAfterTitle ?? current.beforeAfterTitle ?? '').trim(),
     beforeAfterTitleAccent: String(input.beforeAfterTitleAccent ?? current.beforeAfterTitleAccent ?? '').trim(),

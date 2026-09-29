@@ -44,8 +44,8 @@
 
 .announcement-bar__item img {
   display: block;
-  width: 8.5px;
-  height: 8.1px;
+  width: 17px;
+  height: 16px;
   flex: 0 0 auto;
 }
 
@@ -69,7 +69,7 @@
 
 @media (min-width: 768px) {
   .announcement-bar__item {
-    font-size: 13px;
+    font-size: 24px;
   }
 }
 

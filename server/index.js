@@ -91,6 +91,7 @@ function bodyWithUploads(request, current = {}) {
       } catch { return request.body.benefitsItems || '[]'; }
     })(),
     faqPatternImage: files.faqPatternFile?.[0] ? `/api/uploads/${files.faqPatternFile[0].filename}` : request.body.faqPatternImage || current.faqPatternImage,
+    announcementBarSeparatorImage: files.announcementBarSeparatorFile?.[0] ? `/api/uploads/${files.announcementBarSeparatorFile[0].filename}` : request.body.announcementBarSeparatorImage || current.announcementBarSeparatorImage || '',
     featurePerks: (() => {
       try {
         const perks = JSON.parse(request.body.featurePerks || '[]');
@@ -340,6 +341,7 @@ const productUpload = upload.fields([
   { name: 'howToUseImage2File', maxCount: 1 },
   { name: 'howToUseImage3File', maxCount: 1 },
   { name: 'howToUseImage4File', maxCount: 1 },
+  { name: 'announcementBarSeparatorFile', maxCount: 1 },
 ]);
 app.post('/api/admin/products', productUpload, async (request, response) => {
   const products = await readProducts();

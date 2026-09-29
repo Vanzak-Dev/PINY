@@ -71,6 +71,7 @@ export default function ProductPage({ productIdentifier }) {
   const productAnnouncementColors = {};
   if (product?.announcementBarBackgroundColor) productAnnouncementColors.backgroundColor = product.announcementBarBackgroundColor;
   if (product?.announcementBarTextColor) productAnnouncementColors.textColor = product.announcementBarTextColor;
+  if (product?.announcementBarSeparatorImage) productAnnouncementColors.separatorImage = product.announcementBarSeparatorImage;
   const productAnnouncementSettings = Object.keys(productAnnouncementColors).length
     ? { announcementBar: productAnnouncementColors }
     : null;

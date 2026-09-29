@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import separator from '../../assets/announcement-separator.svg';
+import defaultSeparator from '../../assets/announcement-separator.svg';
 import { catalogApi } from '../../services/catalogApi';
 import { subscribeProductAnnouncement } from '../../lib/productAnnouncement';
 import './AnnouncementBar.css';
@@ -14,7 +14,7 @@ const fallbackSettings = {
   },
 };
 
-function AnnouncementItems({ messages }) {
+function AnnouncementItems({ messages, separator }) {
   return (
     <div className="announcement-bar__group">
       {messages.map((message, index) => (
@@ -53,6 +53,7 @@ export default function AnnouncementBar({ settings: suppliedSettings }) {
 
   const globalConfig = (suppliedSettings || remoteSettings).announcementBar || fallbackSettings.announcementBar;
   const config = { ...globalConfig, ...(productOverride?.announcementBar || {}) };
+  const separator = config.separatorImage || defaultSeparator;
   const repeatedMessages = useMemo(
     () => Array.from({ length: 4 }, () => config.messages || []).flat(),
     [config.messages],
@@ -108,8 +109,8 @@ export default function AnnouncementBar({ settings: suppliedSettings }) {
     >
       <span className="announcement-bar__accessible">{config.messages.join('. ')}</span>
       <div className="announcement-bar__track" aria-hidden="true">
-        <AnnouncementItems messages={repeatedMessages} />
-        <AnnouncementItems messages={repeatedMessages} />
+        <AnnouncementItems messages={repeatedMessages} separator={separator} />
+        <AnnouncementItems messages={repeatedMessages} separator={separator} />
       </div>
     </section>
   );
