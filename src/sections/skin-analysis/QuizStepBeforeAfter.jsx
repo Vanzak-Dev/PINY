@@ -5,13 +5,48 @@ import QuizCheckIcon from './QuizCheckIcon';
 import QuizTimeline from './QuizTimeline';
 import './QuizStepBeforeAfter.css';
 
-const COLUMN_1 = ['Poros menos visíveis', 'Textura mais uniforme'];
-const COLUMN_2 = ['Pele equilibrada', 'Pele sem brilho'];
+const DEFAULT_COLUMN_1 = ['Poros menos visíveis', 'Textura mais uniforme'];
+const DEFAULT_COLUMN_2 = ['Pele equilibrada', 'Pele sem brilho'];
 
-const toItems = (labels) =>
-  labels.map((text) => ({ key: text, text, variant: 'done', markerContent: <QuizCheckIcon /> }));
+function getImprovements(analysisResult) {
+  if (!analysisResult?.scores) {
+    return [DEFAULT_COLUMN_1, DEFAULT_COLUMN_2];
+  }
 
-export default function QuizStepBeforeAfter({ onNext }) {
+  const { scores } = analysisResult;
+  const problems = [
+    { key: 'acne', score: scores.acne || 0, text: 'Acne reduzida' },
+    { key: 'manchas', score: scores.manchas || 0, text: 'Manchas atenuadas' },
+    { key: 'poros', score: scores.poros || 0, text: 'Poros menos visíveis' },
+    { key: 'oleosidade', score: scores.oleosidade || 0, text: 'Menos oleosidade' },
+  ];
+
+  const improvements = [];
+  const topProblems = problems
+    .filter((p) => p.score >= 3)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 2)
+    .map((p) => p.text);
+
+  topProblems.forEach((p) => improvements.push(p));
+  if (improvements.length < 2) improvements.push('Pele equilibrada');
+  improvements.push('Textura mais uniforme');
+  improvements.push('Pele sem brilho');
+
+  const all = improvements.slice(0, 4);
+  const mid = Math.ceil(all.length / 2);
+  return [all.slice(0, mid), all.slice(mid)];
+}
+
+export default function QuizStepBeforeAfter({ analysisResult, afterImage, afterImageLoading, afterImageError, onNext }) {
+  const [column1, column2] = getImprovements(analysisResult);
+  const beforeImage = analysisResult?.selfie_url || resultBefore;
+
+  const displayAfterImage = afterImage || resultAfter;
+
+  const toItems = (labels) =>
+    labels.map((text) => ({ key: text, text, variant: 'done', markerContent: <QuizCheckIcon /> }));
+
   return (
     <div className="quiz-before-after">
       <div className="quiz-before-after__heading">
@@ -24,8 +59,8 @@ export default function QuizStepBeforeAfter({ onNext }) {
 
       <BeforeAfterSlider
         className="quiz-before-after__slider"
-        beforeImage={resultBefore}
-        afterImage={resultAfter}
+        beforeImage={beforeImage}
+        afterImage={displayAfterImage}
         beforeAlt="Pele antes do tratamento, com acne visível"
         afterAlt="Pele depois do tratamento, limpa e uniforme"
         beforeLabel="ANTES"
@@ -33,8 +68,8 @@ export default function QuizStepBeforeAfter({ onNext }) {
       />
 
       <div className="quiz-before-after__columns">
-        <QuizTimeline items={toItems(COLUMN_1)} />
-        <QuizTimeline items={toItems(COLUMN_2)} />
+        <QuizTimeline items={toItems(column1)} />
+        <QuizTimeline items={toItems(column2)} />
       </div>
 
       <div className="quiz-before-after__note">

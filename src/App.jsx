@@ -12,6 +12,10 @@ import PinyStarsPage from "./pages/PinyStarsPage";
 import ProductPage from "./pages/ProductPage";
 import SearchResultsPage from "./pages/SearchResultsPage";
 import { CartProvider, useCart } from "./hooks/useCart";
+import SkinAnalysisTest from "./pages/skin-analysis/SkinAnalysisTest";
+import SkinAnalysisHome from "./pages/skin-analysis/SkinAnalysisHome";
+import MonteSuaTexturaPage from "./pages/MonteSuaTexturaPage";
+import AnaliseSuaPelePage from "./pages/AnaliseSuaPelePage";
 
 export default function App() {
   const [pathname, setPathname] = useState(window.location.pathname);
@@ -55,9 +59,16 @@ export default function App() {
     );
   }, [pathname]);
 
+  if (pathname.startsWith("/skin-analysis-test")) return <SkinAnalysisTest />;
   if (pathname.startsWith("/admin")) return <AdminPage />;
 
-  const page = pathname.startsWith("/produtos/")
+  const page = pathname === "/skin-analysis"
+    ? <SkinAnalysisHome />
+    : pathname === "/analise-sua-pele"
+    ? <AnaliseSuaPelePage />
+    : pathname === "/monte-sua-textura"
+    ? <MonteSuaTexturaPage />
+    : pathname.startsWith("/produtos/")
     ? <ProductPage productIdentifier={decodeURIComponent(pathname.split("/produtos/")[1])} />
     : pathname.startsWith("/pesquisa")
     ? <SearchResultsPage query={new URLSearchParams(window.location.search).get("q") || ""} />

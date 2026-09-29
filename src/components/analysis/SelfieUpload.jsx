@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Camera, Upload, RefreshCw, Check, ScanLine, X } from 'lucide-react';
-import { base44 } from '@/api/base44Client';
 import { ScanCorners } from '@/components/funnel/BeautyTech';
 
 export default function SelfieUpload({ onComplete }) {
@@ -81,13 +80,25 @@ export default function SelfieUpload({ onComplete }) {
     setScanning(true);
     setUploading(true);
     try {
-      const { file_url } = await base44.integrations.Core.UploadFile({ file: correctedFile });
-      await new Promise((r) => setTimeout(r, 1600));
+      const formData = new FormData();
+      formData.append('selfie', correctedFile);
+
+      const res = await fetch('/api/skin-analysis', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.error || `Erro ${res.status}`);
+      }
+
+      const json = await res.json();
       setScanning(false);
       setUploading(false);
-      onComplete(file_url);
+      onComplete(json);
     } catch (err) {
-      console.error(err);
+      console.error('[SkinAnalysis] Erro na API:', err?.message || err);
       setScanning(false);
       setUploading(false);
     }

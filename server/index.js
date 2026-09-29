@@ -6,6 +6,8 @@ import { changePassword, createSession, parseCookies, readSession, verifyCredent
 import { ensureCatalog, ensureCollections, ensureSiteSettings, normalizeCollection, normalizeProduct, normalizeProductReview, normalizeReview, readCollections, readProductReviews, readProducts, readReviews, readSiteSettings, saveCollections, saveProductReviews, saveProducts, saveReviews, saveSiteSettings } from './lib/store.js';
 import { getYampiConfig, findSkuByCode, createPaymentLink, findCustomersByCpf, listOrdersByCustomer, getOrderDetails, extractLocalizedString } from './lib/yampi.js';
 import { readOrders, upsertOrder, findOrderByYampiId } from './lib/orders.js';
+import { analyzeSkin } from './lib/skinAnalysis.js';
+import { generateAfterImage } from './lib/generateAfterImage.js';
 
 const port = Number(process.env.PORT || 8000);
 const uploadDirectory = process.env.UPLOAD_DIR || path.resolve('uploads');
@@ -25,6 +27,12 @@ const mediaStorage = multer.diskStorage({
 const upload = multer({
   storage: mediaStorage,
   limits: { fileSize: 8 * 1024 * 1024 },
+  fileFilter: (_request, file, callback) => callback(null, file.mimetype.startsWith('image/')),
+});
+
+const selfieUpload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 10 * 1024 * 1024 },
   fileFilter: (_request, file, callback) => callback(null, file.mimetype.startsWith('image/')),
 });
 
@@ -584,6 +592,92 @@ app.post('/api/yampi/checkout', async (request, response) => {
   } catch (error) {
     console.error('yampiCheckout error:', error.message);
     response.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// ─── Skin Analysis (external endpoint proxy) ──────────────────────
+
+/**
+ * POST /api/skin-analysis
+ * Multipart/form-data with field "selfie" (image).
+ * Forwards the image to the external Skin Analysis endpoint with the
+ * server-side SKIN_API_KEY and returns the JSON unchanged.
+ */
+app.post('/api/skin-analysis', selfieUpload.single('selfie'), async (request, response) => {
+  try {
+    if (!request.file) {
+      return response.status(400).json({ error: 'Nenhuma imagem enviada. Use o campo "selfie".' });
+    }
+
+    const apiKey = process.env.SKIN_API_KEY;
+    if (!apiKey) {
+      console.error('skin-analysis: SKIN_API_KEY não configurada no servidor.');
+      return response.status(500).json({ error: 'Servidor não configurado para análise de pele.' });
+    }
+
+    const result = await analyzeSkin(request.file, apiKey);
+    response.json(result);
+  } catch (error) {
+    console.error('skin-analysis error:', error.message);
+
+    if (error.status === 504) {
+      return response.status(504).json({ error: 'Timeout ao processar a análise. Tente novamente.' });
+    }
+    if (error.status === 401) {
+      return response.status(502).json({ error: 'Falha de autenticação com o serviço de análise.' });
+    }
+    if (error.upstream && error.status >= 400 && error.status < 500) {
+      return response.status(502).json({ error: `Erro do serviço de análise (${error.status}).` });
+    }
+    if (error.upstream) {
+      return response.status(502).json({ error: 'Serviço de análise indisponível. Tente novamente.' });
+    }
+    response.status(500).json({ error: error.message || 'Erro ao processar a análise de pele.' });
+  }
+});
+
+// ─── Generate After Image (external endpoint proxy) ────────────────
+
+/**
+ * POST /api/generate-after-image
+ * Body: { selfie_url, top_problem, scores }
+ * Calls the external Base44 function to generate the "after" image
+ * via GenerateImage and returns { url }.
+ */
+app.post('/api/generate-after-image', async (request, response) => {
+  try {
+    const { selfie_url, top_problem, scores } = request.body;
+
+    if (!selfie_url) {
+      return response.status(400).json({ error: 'selfie_url é obrigatório.' });
+    }
+
+    const apiKey = process.env.GENERATE_IMAGE_API_KEY;
+    if (!apiKey) {
+      console.error('generate-after-image: GENERATE_IMAGE_API_KEY não configurada no servidor.');
+      return response.status(500).json({ error: 'Servidor não configurado para geração de imagem.' });
+    }
+
+    const result = await generateAfterImage({ selfie_url, top_problem, scores }, apiKey);
+    response.json(result);
+  } catch (error) {
+    if (error.notDeployed) {
+      console.warn('generate-after-image: função externa ainda não deployada (404). Usando fallback.');
+      return response.status(502).json({ error: 'Geração de imagem ainda não configurada.' });
+    }
+    if (error.upstream) {
+      console.warn('generate-after-image: serviço externo indisponível (' + error.message + '). Frontend usará fallback.');
+    } else {
+      console.error('generate-after-image error:', error.message);
+    }
+
+    if (error.status === 504) {
+      return response.status(504).json({ error: 'Timeout ao gerar imagem. Tente novamente.' });
+    }
+    if (error.upstream) {
+      return response.status(502).json({ error: 'Serviço de geração de imagem indisponível.' });
+    }
+    response.status(500).json({ error: error.message || 'Erro ao gerar imagem.' });
   }
 });
 
