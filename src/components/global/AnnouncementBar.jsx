@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import separator from '../../assets/announcement-separator.svg';
 import { catalogApi } from '../../services/catalogApi';
 import { subscribeProductAnnouncement } from '../../lib/productAnnouncement';
@@ -31,6 +31,7 @@ export default function AnnouncementBar({ settings: suppliedSettings }) {
   const [remoteSettings, setRemoteSettings] = useState(fallbackSettings);
 
   const [productOverride, setProductOverride] = useState(null);
+  const barRef = useRef(null);
 
   useEffect(() => {
     if (suppliedSettings) return undefined;
@@ -56,10 +57,24 @@ export default function AnnouncementBar({ settings: suppliedSettings }) {
     [config.messages],
   );
 
+  useEffect(() => {
+    const el = barRef.current;
+    if (!el) {
+      document.documentElement.style.setProperty('--announcement-bar-height', '0px');
+      return undefined;
+    }
+    const update = () => document.documentElement.style.setProperty('--announcement-bar-height', `${el.offsetHeight}px`);
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(el);
+    return () => observer.disconnect();
+  });
+
   if (!config.enabled || repeatedMessages.length === 0) return null;
 
   return (
     <section
+      ref={barRef}
       className="announcement-bar"
       aria-label="Anúncios da loja"
       style={{

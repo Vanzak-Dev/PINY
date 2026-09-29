@@ -25,7 +25,7 @@ export default function Header() {
   useEffect(() => {
     const headerEl = headerRef.current;
     if (!headerEl) return undefined;
-    const updateHeight = () => setHeaderHeight(headerEl.offsetHeight);
+    const updateHeight = () => setHeaderHeight(headerEl.offsetTop + headerEl.offsetHeight);
     updateHeight();
     const observer = new ResizeObserver(updateHeight);
     observer.observe(headerEl);
