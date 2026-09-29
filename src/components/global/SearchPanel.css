@@ -41,3 +41,6 @@
   .search-panel__tags button { padding: 4px 9px; font-size: 12px; }
   .search-panel__products { display: none; }
 }
+
+.search-panel .search-panel__product .product-card__name { margin: 0; color: #000b06; font-size: 15.183px; font-weight: 500; line-height: 100%; text-transform: none; letter-spacing: -0.02em; }
+.search-panel .search-panel__product .product-card__name strong { font-weight: 500; }
