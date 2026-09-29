@@ -1,0 +1,38 @@
+[
+  {
+    "id": "a792748f-5bf9-4649-a952-ad37eeee4539",
+    "productId": "argila-verde",
+    "stars": 5,
+    "userName": "Jessica Moreira",
+    "title": "Muito Bom",
+    "body": "Testado e aprovado uhul!",
+    "photo": "/api/uploads/1790364770444-5mtg1g8jidu.webp",
+    "active": true,
+    "createdAt": "2026-09-25T19:32:50.884Z",
+    "updatedAt": "2026-09-25T19:32:50.884Z"
+  },
+  {
+    "id": "3ecb5f8e-cf58-424d-8d1e-86bc50d42b94",
+    "productId": "argila-preta-1",
+    "stars": 4,
+    "userName": "Aline Cruz",
+    "title": "Ficou otimo!",
+    "body": "Amei a textura e os resultados!",
+    "photo": "/api/uploads/1790370597808-219naeld9f5.webp",
+    "active": true,
+    "createdAt": "2026-09-25T21:09:57.835Z",
+    "updatedAt": "2026-09-25T21:09:57.835Z"
+  },
+  {
+    "id": "57c4ca7d-6401-422f-9fa4-2a010fda8354",
+    "productId": "a01d8fd5-a227-48cb-807c-9a18dfdad155",
+    "stars": 5,
+    "userName": "Carol",
+    "title": "Curti demais",
+    "body": "Uma experiencia bem positiva eu diria",
+    "photo": "/api/uploads/1790619700140-cnclauin0fj.webp",
+    "active": true,
+    "createdAt": "2026-09-28T18:21:40.146Z",
+    "updatedAt": "2026-09-28T18:21:40.146Z"
+  }
+]

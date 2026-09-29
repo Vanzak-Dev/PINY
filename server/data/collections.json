@@ -1,0 +1,72 @@
+[
+  {
+    "id": "antiacne",
+    "name": "Antiacne",
+    "active": true,
+    "productIds": [
+      "argila-preta-1",
+      "argila-rosa",
+      "argila-branca",
+      "argila-verde",
+      "argila-preta-2"
+    ],
+    "createdAt": "2026-09-09T00:00:00.000Z",
+    "updatedAt": "2026-09-09T00:00:00.000Z"
+  },
+  {
+    "id": "antioleosidade",
+    "name": "Antioleosidade",
+    "active": true,
+    "productIds": [
+      "argila-preta-1",
+      "argila-rosa",
+      "argila-branca",
+      "argila-verde",
+      "argila-preta-2"
+    ],
+    "createdAt": "2026-09-09T00:00:00.000Z",
+    "updatedAt": "2026-09-09T00:00:00.000Z"
+  },
+  {
+    "id": "calmante-detox",
+    "name": "Calmante & Detox",
+    "active": true,
+    "productIds": [
+      "argila-preta-1",
+      "argila-rosa",
+      "argila-branca",
+      "argila-verde",
+      "argila-preta-2"
+    ],
+    "createdAt": "2026-09-09T00:00:00.000Z",
+    "updatedAt": "2026-09-09T00:00:00.000Z"
+  },
+  {
+    "id": "cuidado-diario",
+    "name": "Cuidado Diário",
+    "active": true,
+    "productIds": [
+      "argila-preta-1",
+      "argila-rosa",
+      "argila-branca",
+      "argila-verde",
+      "argila-preta-2"
+    ],
+    "createdAt": "2026-09-09T00:00:00.000Z",
+    "updatedAt": "2026-09-09T00:00:00.000Z"
+  },
+  {
+    "id": "b81de155-ada4-4384-9783-d1b27d52e754",
+    "name": "Piny Stars",
+    "active": true,
+    "featured": false,
+    "productIds": [
+      "a01d8fd5-a227-48cb-807c-9a18dfdad155",
+      "f4644711-6a71-4481-ac65-cbea57d1cacd",
+      "bd1adadf-5a53-44c4-9c34-5718e42a7e44",
+      "b9fcc370-0be1-4672-8d3f-3ef7df5e5f01"
+    ],
+    "createdAt": "2026-09-28T13:28:46.612Z",
+    "updatedAt": "2026-09-28T20:27:18.366Z"
+  }
+]
